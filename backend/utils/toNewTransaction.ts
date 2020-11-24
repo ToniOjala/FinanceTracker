@@ -2,14 +2,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { NewTransaction, TransactionType } from "../types";
+import { ITransaction, TransactionType } from "../models/transaction";
+import {  isString, isTransactionType } from "./validation";
 
 
-const toNewTransaction = (object: any): NewTransaction => {
-  const newTransaction: NewTransaction = {
+const toNewTransaction = (object: any): ITransaction => {
+  const newTransaction: ITransaction = {
     type: parseType(object.type),
     amount: parseAmount(object.amount),
     date: parseDate(object.date),
+    category: parseCategoryId(object.category)
   };
 
   return newTransaction;
@@ -31,20 +33,18 @@ const parseAmount = (amount: any): number => {
 
 const parseDate = (date: any): string => {
   if (!date || !isString(date)) {
-    console.log(date);
-    console.log(isString(date));
     throw new Error('Incorrect or missing date: ' + date);
   }
 
   return date;
 };
 
-const isTransactionType = (type: any): type is TransactionType => {
-  return Object.values(TransactionType).includes(type);
-};
+const parseCategoryId = (id: any): string => {
+  if (!id || !isString(id)) {
+    throw new Error('Incorrect or missing categoryId: ' + id);
+  }
 
-const isString = (text: any): text is string => {
-  return typeof text === 'string' || text instanceof String;
+  return id;
 };
 
 export default toNewTransaction;

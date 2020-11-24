@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import transactionRouter from './routes/transactions';
+import categoryRouter from './routes/categories';
 
 const app = express();
 app.use(express.json());
@@ -32,6 +33,7 @@ app.get('/ping', (_request, response) => {
 });
 
 app.use('/api/transactions', transactionRouter);
+app.use('/api/categories', categoryRouter);
 
 const PORT = 3001;
 app.listen(PORT, () => {
