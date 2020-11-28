@@ -1,25 +1,34 @@
+import { CssBaseline } from '@material-ui/core';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { CategoryList } from './features/CategoryList';
+import { useGetCategories } from './hooks/useCategories';
 
-function App() {
+// const theme = createMuiTheme({
+//   palette: {
+//     type: 'dark',
+//     primary: {
+//       light: '#CBD0C9',
+//       main: '69927B',
+//       dark: ''
+//     },
+//     background: {
+//       paper: '424242',
+//       default: '#303030'
+//     }
+//   }
+// })
+
+const App = (): JSX.Element | null => {
+  const categories = useGetCategories();
+  console.log('categories: ', categories);
+
+  if (categories.length === 0) return null;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <CssBaseline />
+      <CategoryList categories={categories} />
+    </>
   );
 }
 
