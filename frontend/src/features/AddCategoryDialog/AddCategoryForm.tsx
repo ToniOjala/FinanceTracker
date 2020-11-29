@@ -2,12 +2,16 @@ import { Button, MenuItem, Select, TextField } from '@material-ui/core';
 import { useFormik } from 'formik';
 import React from 'react';
 import { NewCategory, TransactionType } from '../../types';
-import { TypeOption } from './FormFields';
 import * as yup from 'yup';
 
 interface Props {
   onSubmit: (values: NewCategory) => void;
   onCancel: () => void;
+}
+
+interface TypeOption {
+  value: TransactionType,
+  label: string
 }
 
 const typeOptions: TypeOption[] = [
