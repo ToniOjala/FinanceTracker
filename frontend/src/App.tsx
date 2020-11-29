@@ -1,9 +1,9 @@
 import { Button, createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddCategoryDialog from './features/AddCategoryDialog';
 import { CategoryList } from './features/CategoryList';
-import { useGetCategories } from './hooks/useCategories';
+import { getCategories } from './services/categoryService';
 import { Category, NewCategory, TransactionType } from './types';
 
 const theme = createMuiTheme({
@@ -21,20 +21,31 @@ const theme = createMuiTheme({
 })
 
 const App = (): JSX.Element | null => {
-  const categories = useGetCategories();
-  const incomeCategories = categories.filter(c => c.type === TransactionType.Income);
-  const expenseCategories = categories.filter(c => c.type === TransactionType.Expense)
+  const [incomeCategories, setIncomeCategories] = useState<Category[]>([]);
+  const [expenseCategories, setExpenseCategories] = useState<Category[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [error, setError] = useState('');
+
+  const populateCategories = async () => {
+    const categories = await getCategories();
+    setIncomeCategories(categories.filter(cat => cat.type === TransactionType.Income));
+    setExpenseCategories(categories.filter(cat => cat.type === TransactionType.Expense));
+  }
+
+  useEffect(() => {
+    populateCategories();
+  }, [])
 
   const addCategory = () => {
     setIsDialogOpen(true);
   }
 
   const submitNewCategory = async (values: NewCategory) => {
+    console.log('here')
     try {
-      const { data: newCategory } = await axios.post<Category>('http://localhost:3001/categories', values);
-      categories.push(newCategory);
+      const { data: newCategory } = await axios.post<Category>('http://localhost:3001/api/categories', values);
+      if (newCategory.type === TransactionType.Expense) setExpenseCategories(expenseCategories.concat(newCategory));
+      else setIncomeCategories(incomeCategories.concat(newCategory));
       closeDialog();
     } catch (e) {
       console.error(e.response.data);
@@ -47,7 +58,7 @@ const App = (): JSX.Element | null => {
     setError('');
   }
 
-  if (categories.length === 0) return null;
+  if (incomeCategories.length === 0 && expenseCategories.length === 0) return null;
 
   return (
     <>

@@ -61,7 +61,7 @@ const AddCategoryForm = ({ onSubmit, onCancel }: Props): JSX.Element => {
         ))}
       </Select>
       <Button variant="contained" color="secondary" onClick={onCancel}>Cancel</Button>
-      <Button variant="contained" color="primary">Create</Button>
+      <Button variant="contained" color="primary" type="submit">Add</Button>
     </form>
   )
 };

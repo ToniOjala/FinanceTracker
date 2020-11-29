@@ -6,8 +6,7 @@ export const useGetCategories = (): Category[] => {
   const [categories, setCategories] = useState<Category[]>([]);
 
   const getCategories = async () => {
-    const fetchedCategories = await get<Category[]>('http://localhost:3001/api/categories')
-    console.log(fetchedCategories);
+    const fetchedCategories = await get<Category[]>('http://localhost:3001/api/categories');
     setCategories(fetchedCategories);
   }
 
