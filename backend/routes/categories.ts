@@ -17,9 +17,9 @@ router.get('/:id', async (request, response) => {
   response.status(404);
 });
 
-router.post('/', (request, response) => {
+router.post('/', async (request, response) => {
   const newCategory = toNewCategory(request.body);
-  const createdCategory = Category.create(newCategory);
+  const createdCategory = await Category.create(newCategory);
   response.json(createdCategory);
 });
 
