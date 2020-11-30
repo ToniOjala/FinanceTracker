@@ -1,8 +1,10 @@
 import { Button, createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import AddCategoryDialog from './features/AddCategoryDialog';
 import { CategoryList } from './features/CategoryList';
+import TransactionsList from './features/TransactionsList';
 import { getCategories } from './services/categoryService';
 import { Category, NewCategory, TransactionType } from './types';
 
@@ -41,7 +43,6 @@ const App = (): JSX.Element | null => {
   }
 
   const submitNewCategory = async (values: NewCategory) => {
-    console.log('here')
     try {
       const { data: newCategory } = await axios.post<Category>('http://localhost:3001/api/categories', values);
       if (newCategory.type === TransactionType.Expense) setExpenseCategories(expenseCategories.concat(newCategory));
@@ -64,17 +65,26 @@ const App = (): JSX.Element | null => {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <h2>Incomes</h2>
-        <CategoryList categories={incomeCategories} />
-        <h2>Expenses</h2>
-        <CategoryList categories={expenseCategories} />
-        <Button onClick={addCategory}>Add Category</Button>
-        <AddCategoryDialog 
-          dialogOpen={isDialogOpen}
-          onSubmit={submitNewCategory}
-          onClose={closeDialog}
-          error={error}
-        />
+        <Router>
+          <Switch>
+            <Route path="/categories/:id">
+              {/* <TransactionsList /> */}
+            </Route>
+            <Route path="/">
+              <h2>Incomes</h2>
+              <CategoryList categories={incomeCategories} />
+              <h2>Expenses</h2>
+              <CategoryList categories={expenseCategories} />
+              <Button onClick={addCategory}>Add Category</Button>
+              <AddCategoryDialog 
+                dialogOpen={isDialogOpen}
+                onSubmit={submitNewCategory}
+                onClose={closeDialog}
+                error={error}
+              />
+            </Route>
+          </Switch>
+        </Router>
       </ThemeProvider>
     </>
   )
