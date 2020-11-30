@@ -7,8 +7,6 @@ const TransactionsList = (): JSX.Element | null => {
   const { category } = useParams<{ category: string}>();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  console.log(category);
-
   const populateTransactions = async () => {
     const trans = await getTransactionsByCategory(category);
     setTransactions(trans);
