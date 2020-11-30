@@ -5,12 +5,12 @@ import { toNewTransaction } from '../utils';
 const router = express.Router();
 
 router.get('/', async (_request, response) => {
-  const transactions = await Transaction.find({}).populate('category', { name: 1 });
+  const transactions = await Transaction.find({});
   response.json(transactions);
 });
 
-router.get('/:id', async (request, response) => {
-  const transaction = await Transaction.findById(request.params.id).populate('category', { name: 1 });
+router.get('/:category', async (request, response) => {
+  const transaction = await Transaction.find({ category: request.params.category });
   if (transaction) response.send(transaction);
   response.status(404);
 });

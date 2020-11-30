@@ -1,4 +1,4 @@
-import { model, Schema, Document, Types } from 'mongoose';
+import { model, Schema, Document } from 'mongoose';
 
 enum TransactionType {
   Expense = 'expense',
@@ -19,7 +19,7 @@ const TransactionSchemaFields: Record<keyof ITransaction, any> = {
   type: { type: TransactionType, required: true },
   amount: { type: Number, required: true },
   date: { type: Date, required: true },
-  category: { type: Types.ObjectId, required: true, ref: 'Category' }
+  category: { type: String, required: true }
 };
 
 const TransactionSchema = new Schema(TransactionSchemaFields);

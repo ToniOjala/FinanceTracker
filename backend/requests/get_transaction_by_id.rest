@@ -1,1 +1,0 @@
-GET http://localhost:3001/api/transactions/5fbd63c8dfb02c3cc015f8ea
