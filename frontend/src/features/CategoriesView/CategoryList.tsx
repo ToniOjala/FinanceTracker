@@ -1,6 +1,6 @@
 import { List, ListItem, ListItemText } from '@material-ui/core'
 import React from 'react'
-import { Category } from '../types'
+import { Category } from '../../types'
 
 interface CategoryListProps {
   categories: Category[]
