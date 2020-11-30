@@ -67,8 +67,8 @@ const App = (): JSX.Element | null => {
         <CssBaseline />
         <Router>
           <Switch>
-            <Route path="/categories/:id">
-              {/* <TransactionsList /> */}
+            <Route path="/categories/:category">
+              <TransactionsList />
             </Route>
             <Route path="/">
               <h2>Incomes</h2>
