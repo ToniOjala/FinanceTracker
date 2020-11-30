@@ -8,4 +8,5 @@
 | 24.11. | 3    | Backend: kategorioiden lisäys, refaktorointi |
 | 28.11. | 2    | Opiskelua: Axios & Typescript, Frontend: ensimmäinen axios-kutsu ja simppelin komponentin lisäys |
 | 29.11. | 3    | Opiskelua: Formikin käyttö Material UI:n kanssa, Frontend: kategorioiden lisäys dialogilla, Backend: refaktorointia
-| yht   | 14   | | 
+| 30.11. | 1.5  | Frontend: Transaktionäkymän lisäys, React routerin käyttönotto
+| yht   | 15.5   | | 
