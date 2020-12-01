@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 })
 
 interface CategoriesCardProps {
-  selectCategory: (category: string) => void
+  selectCategory: (category: Category) => void
 }
 
 const CategoriesCard = ({ selectCategory }: CategoriesCardProps): JSX.Element => {
@@ -27,10 +27,6 @@ const CategoriesCard = ({ selectCategory }: CategoriesCardProps): JSX.Element =>
     setIncomeCategories(categories.filter(cat => cat.type === TransactionType.Income));
     setExpenseCategories(categories.filter(cat => cat.type === TransactionType.Expense));
   }
-
-  useEffect(() => {
-    populateCategories();
-  }, [])
 
   const addCategory = () => {
     setIsDialogOpen(true);
@@ -52,6 +48,10 @@ const CategoriesCard = ({ selectCategory }: CategoriesCardProps): JSX.Element =>
     setIsDialogOpen(false);
     setError('');
   }
+
+  useEffect(() => {
+    populateCategories();
+  }, [])
 
   const classes = useStyles();
 

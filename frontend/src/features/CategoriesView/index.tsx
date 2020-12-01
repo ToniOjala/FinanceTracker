@@ -1,5 +1,6 @@
 import { Box, makeStyles } from '@material-ui/core'
 import React, { useState } from 'react'
+import { Category } from '../../types';
 import CategoriesCard from './CategoriesCard';
 import TransactionsCard from './TransactionsCard'
 
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
 
 const CategoriesView = (): JSX.Element | null => {
   const classes = useStyles();
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<Category>();
 
   return (
     <Box display="flex">
@@ -24,7 +25,7 @@ const CategoriesView = (): JSX.Element | null => {
         <CategoriesCard selectCategory={setSelectedCategory} />
       </Box>
       <Box className={classes.transactions}>
-        <TransactionsCard category={selectedCategory} />
+        {selectedCategory && <TransactionsCard category={selectedCategory} />}
       </Box>
     </Box>
   )

@@ -18,3 +18,5 @@ export interface Transaction {
   date: string,
   category: string
 }
+
+export type NewTransaction = Omit<Transaction, 'id'>;

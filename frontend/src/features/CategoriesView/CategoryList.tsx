@@ -5,7 +5,7 @@ import { Category } from '../../types'
 interface CategoryListProps {
   title: string,
   categories: Category[],
-  selectCategory: (category: string) => void
+  selectCategory: (category: Category) => void
 }
 
 export const CategoryList = ({ title, categories, selectCategory }: CategoryListProps): JSX.Element | null => {
@@ -15,7 +15,7 @@ export const CategoryList = ({ title, categories, selectCategory }: CategoryList
       <List>
         {categories.map(category => (
           <ListItem key={category.name}>
-              <ListItemText primary={category.name} onClick={() => selectCategory(category.name)} />
+              <ListItemText primary={category.name} onClick={() => selectCategory(category)} />
           </ListItem>
         ))}
       </List>
