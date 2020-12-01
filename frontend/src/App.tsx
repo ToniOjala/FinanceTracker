@@ -18,21 +18,17 @@ const theme = createMuiTheme({
 })
 
 const App = (): JSX.Element | null => {
-
-
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router>
-          <Switch>
-            <Route path="/">
-              <CategoriesView />
-            </Route>
-          </Switch>
-        </Router>
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Switch>
+          <Route path="/">
+            <CategoriesView />
+          </Route>
+        </Switch>
+      </Router>
+    </ThemeProvider>
   )
 }
 

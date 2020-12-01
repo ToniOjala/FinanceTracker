@@ -20,9 +20,7 @@ const typeOptions: TypeOption[] = [
 ];
 
 const validationSchema = yup.object({
-  name: yup
-    .string()
-    .required('Name is required'),
+  name: yup.string().required('Name is required'),
 });
 
 const AddCategoryForm = ({ onSubmit, onCancel }: Props): JSX.Element => {
