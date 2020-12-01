@@ -2,7 +2,6 @@ import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import CategoriesView from './features/CategoriesView';
-import TransactionsList from './features/TransactionsList';
 
 const theme = createMuiTheme({
   palette: {
@@ -27,9 +26,6 @@ const App = (): JSX.Element | null => {
         <CssBaseline />
         <Router>
           <Switch>
-            <Route path="/categories/:category">
-              <TransactionsList />
-            </Route>
             <Route path="/">
               <CategoriesView />
             </Route>

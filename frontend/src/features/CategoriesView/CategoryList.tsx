@@ -1,32 +1,24 @@
-import { List, ListItem, ListItemText, makeStyles } from '@material-ui/core'
+import { List, ListItem, ListItemText, Typography } from '@material-ui/core'
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { Category } from '../../types'
 
-const useStyles = makeStyles(theme => ({
-  link: {
-    textDecoration: 'none',
-    color: theme.palette.primary.light,
-    fontWeight: 'bold'
-  }
-}));
-
 interface CategoryListProps {
-  categories: Category[]
+  title: string,
+  categories: Category[],
+  selectCategory: (category: string) => void
 }
 
-export const CategoryList = ({ categories }: CategoryListProps): JSX.Element | null => {
-  const classes = useStyles();
-
+export const CategoryList = ({ title, categories, selectCategory }: CategoryListProps): JSX.Element | null => {
   return (
-    <List>
-      {categories.map(category => (
-        <ListItem key={category.name}>
-          <Link className={classes.link} to={`/categories/${category.name}`}>
-            <ListItemText primary={category.name} />
-          </Link>
-        </ListItem>
-      ))}
-    </List>
+    <>
+      <Typography variant="h5">{title}</Typography>
+      <List>
+        {categories.map(category => (
+          <ListItem key={category.name}>
+              <ListItemText primary={category.name} onClick={() => selectCategory(category.name)} />
+          </ListItem>
+        ))}
+      </List>
+    </>
   )
 }
