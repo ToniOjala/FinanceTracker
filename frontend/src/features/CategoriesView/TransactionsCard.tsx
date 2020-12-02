@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { getTransactionsByCategory } from '../../services/transactionService';
 import { Category, NewTransaction, Transaction } from '../../types';
-import AddTransactionDialog from '../AddTransactionDialog';
+import AddTransactionDialog, { PartialNewTransaction } from '../AddTransactionDialog';
 
 const useStyles = makeStyles({
   root: {
@@ -18,7 +18,6 @@ interface TransactionsCardProps {
 const TransactionsCard = ({ category }: TransactionsCardProps): JSX.Element | null => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [error, setError] = useState('');
 
   const populateTransactions = async () => {
     const trans = await getTransactionsByCategory(category.name);
@@ -29,20 +28,25 @@ const TransactionsCard = ({ category }: TransactionsCardProps): JSX.Element | nu
     setIsDialogOpen(true);
   }
 
-  const submitNewTransaction = async (values: NewTransaction) => {
+  const addNewTransaction = async (values: PartialNewTransaction) => {
+    const newTransaction: NewTransaction = {
+      date: values.date,
+      amount: Number.parseFloat(values.amount),
+      type: category.type,
+      category: category.name
+    }
+
     try {
-      const { data: newTransaction } = await axios.post<Transaction>('http://localhost:3001/api/transactions', values);
-      setTransactions(transactions.concat(newTransaction));
+      const { data: addedTransaction } = await axios.post<Transaction>('http://localhost:3001/api/transactions', newTransaction);
+      setTransactions(transactions.concat(addedTransaction));
       closeDialog();
     } catch (e) {
       console.error(e.response.data);
-      setError(e.response.data.error);
     }
   }
 
   const closeDialog = () => {
     setIsDialogOpen(false);
-    setError('');
   }
 
   useEffect(() => {
@@ -63,12 +67,9 @@ const TransactionsCard = ({ category }: TransactionsCardProps): JSX.Element | nu
       </ul>
       <Button onClick={addTransaction}>Add transaction</Button>
       <AddTransactionDialog
-        categoryName={category.name}
-        type={category.type}
-        dialogOpen={isDialogOpen}
-        onSubmit={submitNewTransaction}
-        onClose={closeDialog}
-        error={error}
+        isOpen={isDialogOpen}
+        handleClose={closeDialog}
+        handleAddTransaction={addNewTransaction}
       />
     </Card>
   )
