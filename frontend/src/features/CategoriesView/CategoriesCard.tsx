@@ -20,7 +20,6 @@ const CategoriesCard = ({ selectCategory }: CategoriesCardProps): JSX.Element =>
   const [incomeCategories, setIncomeCategories] = useState<Category[]>([]);
   const [expenseCategories, setExpenseCategories] = useState<Category[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [error, setError] = useState('');
 
   const populateCategories = async () => {
     const categories = await getCategories();
@@ -32,7 +31,7 @@ const CategoriesCard = ({ selectCategory }: CategoriesCardProps): JSX.Element =>
     setIsDialogOpen(true);
   }
 
-  const submitNewCategory = async (values: NewCategory) => {
+  const addNewCategory = async (values: NewCategory) => {
     try {
       const { data: newCategory } = await axios.post<Category>('http://localhost:3001/api/categories', values);
       if (newCategory.type === TransactionType.Expense) setExpenseCategories(expenseCategories.concat(newCategory));
@@ -40,13 +39,11 @@ const CategoriesCard = ({ selectCategory }: CategoriesCardProps): JSX.Element =>
       closeDialog();
     } catch (e) {
       console.error(e.response.data);
-      setError(e.response.data.error);
     }
   }
 
   const closeDialog = () => {
     setIsDialogOpen(false);
-    setError('');
   }
 
   useEffect(() => {
@@ -69,10 +66,9 @@ const CategoriesCard = ({ selectCategory }: CategoriesCardProps): JSX.Element =>
       />
       <Button onClick={addCategory}>Add Category</Button>
       <AddCategoryDialog 
-        dialogOpen={isDialogOpen}
-        onSubmit={submitNewCategory}
-        onClose={closeDialog}
-        error={error}
+        isOpen={isDialogOpen}
+        handleAddCategory={addNewCategory}
+        handleClose={closeDialog}
       />
     </Card>
   )
