@@ -15,9 +15,9 @@ router.get('/:category', async (request, response) => {
   response.status(404);
 });
 
-router.post('/', (request, response) => {
+router.post('/', async (request, response) => {
   const newTransaction = toNewTransaction(request.body);
-  const createdTransaction = Transaction.create(newTransaction);
+  const createdTransaction = await Transaction.create(newTransaction);
   response.json(createdTransaction);
 });
 
