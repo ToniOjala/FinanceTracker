@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core'
 import { Controller, useForm } from 'react-hook-form';
+import DatePickerField from '../components/DatePickerField';
 
 interface AddTransactionProps {
   isOpen: boolean;
@@ -23,7 +24,7 @@ const AddTransactionDialog = ({ isOpen, handleClose, handleAddTransaction }: Add
         <DialogTitle>Add transaction</DialogTitle>
         <DialogContent>
             <Controller
-              as={<TextField />}
+              as={<DatePickerField />}
               control={control}
               rules={{required: 'Date is required'}}
               defaultValue=""
@@ -35,6 +36,9 @@ const AddTransactionDialog = ({ isOpen, handleClose, handleAddTransaction }: Add
               fullWidth
               required
               autoFocus
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
             />
             <Controller 
               as={<TextField />}
