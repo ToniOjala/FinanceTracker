@@ -11,4 +11,5 @@
 | 30.11.20 | 2  | Frontend: Transaktionäkymän lisäys, React routerin käyttönotto
 | 01.12.20 | 2  | Frontend: Käyttöliittymän parantelu ja dialogin lisäys transaktioiden luomiseen
 | 02.12.20 | 2  | Frontend: Formik-packagen vaihto react-hook-formiin, transaktioiden luomisen korjaus
+| 03.12.20 | 2  | Frontend: Transaktioiden lisäyksen ja esityksen UI:n parantelua
 | yht   | 20   | | 
