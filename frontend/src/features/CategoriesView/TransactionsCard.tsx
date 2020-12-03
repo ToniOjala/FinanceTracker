@@ -9,6 +9,10 @@ import { formatDate } from './utils';
 const useStyles = makeStyles({
   root: {
     padding: '20px'
+  },
+  table: {
+    marginTop: '25px',
+    marginBottom: '25px'
   }
 })
 
@@ -61,7 +65,7 @@ const TransactionsCard = ({ category }: TransactionsCardProps): JSX.Element | nu
   return (
     <Card className={classes.root}>
       <Typography variant="h6">{category.name}</Typography>
-      <TableContainer>
+      <TableContainer className={classes.table}>
         <Table>
           <TableHead>
             <TableRow>
@@ -74,7 +78,6 @@ const TransactionsCard = ({ category }: TransactionsCardProps): JSX.Element | nu
               <TableRow key={transaction.date}>
                 <TableCell component="th" scope="row">
                   {formatDate(transaction.date)}
-                  {/* {transaction.date} */}
                 </TableCell>
                 <TableCell>{transaction.amount}</TableCell>
               </TableRow>
