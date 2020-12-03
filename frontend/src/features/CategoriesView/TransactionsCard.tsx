@@ -1,9 +1,10 @@
-import { Button, Card, makeStyles, Typography } from '@material-ui/core';
+import { Button, Card, makeStyles, Paper, Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Typography } from '@material-ui/core';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { getTransactionsByCategory } from '../../services/transactionService';
 import { Category, NewTransaction, Transaction } from '../../types';
 import AddTransactionDialog, { PartialNewTransaction } from '../AddTransactionDialog';
+import { formatDate } from './utils';
 
 const useStyles = makeStyles({
   root: {
@@ -60,11 +61,27 @@ const TransactionsCard = ({ category }: TransactionsCardProps): JSX.Element | nu
   return (
     <Card className={classes.root}>
       <Typography variant="h6">{category.name}</Typography>
-      <ul>
-        {transactions.map(transaction => (
-          <li key={transaction.date}>{transaction.date} - {transaction.amount}</li>
-        ))}
-      </ul>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Date</TableCell>
+              <TableCell>Amount</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {transactions.map(transaction => (
+              <TableRow key={transaction.date}>
+                <TableCell component="th" scope="row">
+                  {formatDate(transaction.date)}
+                  {/* {transaction.date} */}
+                </TableCell>
+                <TableCell>{transaction.amount}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
       <Button onClick={addTransaction}>Add transaction</Button>
       <AddTransactionDialog
         isOpen={isDialogOpen}
