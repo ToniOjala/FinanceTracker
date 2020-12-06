@@ -1,7 +1,8 @@
 import { Button, Card, makeStyles, Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Typography } from '@material-ui/core';
+import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { getTransactionsByCategory } from '../../services/transactionService';
+import { getTransactionsByDateAndCategory } from '../../services/transactionService';
 import { Category, NewTransaction, Transaction } from '../../types';
 import AddTransactionDialog, { PartialNewTransaction } from '../AddTransactionDialog';
 import { formatDate } from './utils';
@@ -16,16 +17,18 @@ const useStyles = makeStyles({
   }
 })
 
-interface TransactionsCardProps {
-  category: Category
+interface Props {
+  category: Category,
+  date: ParsableDate
 }
 
-const TransactionsCard = ({ category }: TransactionsCardProps): JSX.Element | null => {
+const TransactionsCard = ({ category, date }: Props): JSX.Element | null => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const populateTransactions = async () => {
-    const trans = await getTransactionsByCategory(category.name);
+    // const trans = await getTransactionsByCategory(category.name);
+    const trans = await getTransactionsByDateAndCategory(date, category.name);
     setTransactions(trans);
   }
 

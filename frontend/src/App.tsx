@@ -33,7 +33,9 @@ const App = (): JSX.Element | null => {
       <Router>
         <Switch>
           <Route path="/">
-            <CategoriesView />
+            <CategoriesView
+              date={selectedDate}
+            />
           </Route>
         </Switch>
       </Router>
