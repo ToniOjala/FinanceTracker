@@ -1,4 +1,4 @@
-import { Button, Card, makeStyles, Paper, Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Typography } from '@material-ui/core';
+import { Button, Card, makeStyles, Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Typography } from '@material-ui/core';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { getTransactionsByCategory } from '../../services/transactionService';
