@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import MomentUtils from '@date-io/moment';
 import { makeStyles } from '@material-ui/core';
-import moment from 'moment';
 
 const useStyles = makeStyles({
   root: {
@@ -15,9 +14,12 @@ const useStyles = makeStyles({
   }
 })
 
-const YearMonthSelector = (): JSX.Element => {
-  const [selectedDate, setSelectedDate] = useState<ParsableDate>(moment().format());
+interface YearMonthProps {
+  selectedDate: ParsableDate,
+  setSelectedDate: (date: ParsableDate) => void
+}
 
+const YearMonthSelector = ({ selectedDate, setSelectedDate }: YearMonthProps): JSX.Element => {
   const classes = useStyles();
 
   return (
