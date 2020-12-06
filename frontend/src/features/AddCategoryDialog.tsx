@@ -40,7 +40,7 @@ const AddCategoryDialog = ({ isOpen, handleClose, handleAddCategory }: AddCatego
             helperText={errors.name?.message}
             fullWidth
             required
-            autofocus
+            autoFocus
           />
           <Controller
             as={<TextField />}
@@ -48,6 +48,7 @@ const AddCategoryDialog = ({ isOpen, handleClose, handleAddCategory }: AddCatego
             margin="normal"
             name="type"
             label="Type"
+            defaultValue="expense"
             fullWidth
             select
           >
