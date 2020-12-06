@@ -10,9 +10,18 @@ router.get('/', async (_request, response) => {
 });
 
 router.get('/:category', async (request, response) => {
-  const transaction = await Transaction.find({ category: request.params.category });
-  if (transaction) response.send(transaction);
-  response.status(404);
+  const transactions = await Transaction.find({ category: request.params.category });
+  if (transactions) response.status(404);
+  response.send(transactions);
+});
+
+router.get('/date/:date/:category', (request, response) => {
+  const date = request.params.date;
+  console.log(date);
+
+  // const transactions = await Transaction.find({ category: request.params.category });
+  // if (!transactions) response.status(404);
+  response.send("yahoo");
 });
 
 router.post('/', async (request, response) => {
