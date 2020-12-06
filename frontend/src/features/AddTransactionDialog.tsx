@@ -1,7 +1,10 @@
 import React from 'react'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core'
 import { Controller, useForm } from 'react-hook-form';
-import DatePickerField from '../components/DatePickerField';
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
+import MomentUtils from '@date-io/moment';
+import moment from 'moment';
 
 interface AddTransactionProps {
   isOpen: boolean;
@@ -15,7 +18,7 @@ export interface PartialNewTransaction {
 }
 
 const AddTransactionDialog = ({ isOpen, handleClose, handleAddTransaction }: AddTransactionProps): JSX.Element => {
-  const { errors, control, handleSubmit, formState } = useForm({ mode: 'onChange' });
+  const { errors, control, handleSubmit, formState, setValue } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
 
   return (
@@ -23,36 +26,41 @@ const AddTransactionDialog = ({ isOpen, handleClose, handleAddTransaction }: Add
       <form onSubmit={handleSubmit(handleAddTransaction)}>
         <DialogTitle>Add transaction</DialogTitle>
         <DialogContent>
+          <MuiPickersUtilsProvider utils={MomentUtils}>
             <Controller
-              as={<DatePickerField />}
+              as={
+                <KeyboardDatePicker 
+                  value=''
+                  onChange={(date: ParsableDate) => setValue('date', date)}
+                  format="DD.MM.yyyy"
+                />
+              }
               control={control}
               rules={{required: 'Date is required'}}
-              defaultValue=""
               margin="normal"
               name="date"
               label="Date"
+              defaultValue={moment().format()}
               error={errors.date && true}
               helperText={errors.date?.message}
               fullWidth
               required
-              autoFocus
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
+              autoOk
             />
-            <Controller 
-              as={<TextField />}
-              control={control}
-              rules={{required: 'Amount is required'}}
-              defaultValue=""
-              margin="normal"
-              name="amount"
-              label="Amount"
-              error={errors.amount && true}
-              helperText={errors.amount?.message}
-              fullWidth
-              required
-            />
+          </MuiPickersUtilsProvider>
+          <Controller 
+            as={<TextField />}
+            control={control}
+            rules={{required: 'Amount is required'}}
+            defaultValue=""
+            margin="normal"
+            name="amount"
+            label="Amount"
+            error={errors.amount && true}
+            helperText={errors.amount?.message}
+            fullWidth
+            required
+          />
         </DialogContent>
         <DialogActions>
           <Button
