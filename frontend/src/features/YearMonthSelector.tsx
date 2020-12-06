@@ -7,8 +7,11 @@ import moment from 'moment';
 
 const useStyles = makeStyles({
   root: {
-    marginLeft: "60%",
-    display: "flex"
+    marginTop: '10px',
+    marginLeft: "70%"
+  },
+  item: {
+    marginLeft: '20px'
   }
 })
 
@@ -27,14 +30,16 @@ const YearMonthSelector = (): JSX.Element => {
           format="MMMM"
           value={selectedDate}
           onChange={setSelectedDate}
+          autoOk
         />
         <DatePicker
-          className={classes.root}
+          className={classes.item}
           variant="inline"
           views={["year"]}
           label="Year"
           value={selectedDate}
           onChange={setSelectedDate}
+          autoOk
         />
       </div>
     </MuiPickersUtilsProvider>
