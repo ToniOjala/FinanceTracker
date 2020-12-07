@@ -40,20 +40,20 @@ const App = (): JSX.Element | null => {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
-        <SideNav />
-        <main className={classes.content}>
-          <YearMonthSelector setYearMonth={setYearMonth} />
-          <Router>
-            <Switch>
-              <Route path="/year">
-                <YearView yearMonth={yearMonth} />
-              </Route>
-              <Route path="/">
-                <MonthView yearMonth={yearMonth} />
-              </Route>
-            </Switch>
-          </Router>
-        </main>
+        <Router>
+          <SideNav />
+          <main className={classes.content}>
+            <YearMonthSelector setYearMonth={setYearMonth} />
+              <Switch>
+                <Route path="/year">
+                  <YearView yearMonth={yearMonth} />
+                </Route>
+                <Route path="/">
+                  <MonthView yearMonth={yearMonth} />
+                </Route>
+              </Switch>
+          </main>
+        </Router>
       </div>
     </ThemeProvider>
   )

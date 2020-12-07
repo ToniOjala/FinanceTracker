@@ -1,5 +1,6 @@
 import { Button, Drawer, makeStyles } from '@material-ui/core'
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -21,8 +22,8 @@ const SideNav = (): JSX.Element => {
       classes={{ paper: classes.drawerPaper}}
       anchor="left"
     >
-      <Button>Month</Button>
-      <Button>Year</Button>
+      <Link to="/"><Button>Month</Button></Link>
+      <Link to="year"><Button>Year</Button></Link>
     </Drawer>
   )
 }
