@@ -44,14 +44,14 @@ const App = (): JSX.Element | null => {
           <SideNav />
           <main className={classes.content}>
             <YearMonthSelector setYearMonth={setYearMonth} />
-              <Switch>
-                <Route path="/year">
-                  <YearView yearMonth={yearMonth} />
-                </Route>
-                <Route path="/">
-                  <MonthView yearMonth={yearMonth} />
-                </Route>
-              </Switch>
+            <Switch>
+              <Route path="/year">
+                <YearView yearMonth={yearMonth} />
+              </Route>
+              <Route path="/">
+                <MonthView yearMonth={yearMonth} />
+              </Route>
+            </Switch>
           </main>
         </Router>
       </div>
