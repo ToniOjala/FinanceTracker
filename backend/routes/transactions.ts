@@ -4,9 +4,22 @@ import { toNewTransaction } from '../utils';
 
 const router = express.Router();
 
-router.get('/', async (_request, response) => {
-  const transactions = await Transaction.find({});
-  response.json(transactions);
+router.get('/', async (request, response) => {
+  const year = Number(request.query.year);
+  const month =  Number(request.query.month);
+  let transactions;
+
+  const startDate = new Date(year, month - 1, 1);
+  const endDate = new Date(year, month, 1);
+
+  if (year && month) {
+    transactions = await Transaction.find({ 
+      date: { $gt: startDate, $lte: endDate},
+    });
+  }
+  else transactions = await Transaction.find({});
+  
+  response.send(transactions);
 });
 
 router.get('/:category', async (request, response) => {
@@ -34,7 +47,7 @@ router.get('/:category', async (request, response) => {
 router.post('/', async (request, response) => {
   const newTransaction = toNewTransaction(request.body);
   const createdTransaction = await Transaction.create(newTransaction);
-  response.json(createdTransaction);
+  response.send(createdTransaction);
 });
 
 export default router;
