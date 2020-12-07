@@ -1,10 +1,10 @@
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
-import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import moment from 'moment';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import CategoriesView from './features/CategoriesView';
 import YearMonthSelector from './features/YearMonthSelector';
+import { YearMonth } from './types';
 
 const theme = createMuiTheme({
   palette: {
@@ -21,20 +21,19 @@ const theme = createMuiTheme({
 })
 
 const App = (): JSX.Element | null => {
-  const [selectedDate, setSelectedDate] = useState<ParsableDate>(moment().format());
+  const [yearMonth, setYearMonth] = useState<YearMonth>({ year: moment().year(), month: moment().month() + 1 });
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <YearMonthSelector 
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
+        setYearMonth={setYearMonth}
       />
       <Router>
         <Switch>
           <Route path="/">
             <CategoriesView
-              date={selectedDate}
+              yearMonth={yearMonth}
             />
           </Route>
         </Switch>

@@ -1,7 +1,6 @@
 import { Box, makeStyles } from '@material-ui/core'
-import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import React, { useState } from 'react'
-import { Category } from '../../types';
+import { Category, YearMonth } from '../../types';
 import CategoriesCard from './CategoriesCard';
 import TransactionsCard from './TransactionsCard'
 
@@ -17,10 +16,10 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-  date: ParsableDate
+  yearMonth: YearMonth
 }
 
-const CategoriesView = ({ date }: Props): JSX.Element | null => {
+const CategoriesView = ({ yearMonth }: Props): JSX.Element | null => {
   const classes = useStyles();
   const [selectedCategory, setSelectedCategory] = useState<Category>();
 
@@ -30,7 +29,7 @@ const CategoriesView = ({ date }: Props): JSX.Element | null => {
         <CategoriesCard selectCategory={setSelectedCategory} />
       </Box>
       <Box className={classes.transactions}>
-        {selectedCategory && <TransactionsCard category={selectedCategory} date={date} />}
+        {selectedCategory && <TransactionsCard category={selectedCategory} yearMonth={yearMonth} />}
       </Box>
     </Box>
   )

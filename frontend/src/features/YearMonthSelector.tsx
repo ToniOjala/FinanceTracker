@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import MomentUtils from '@date-io/moment';
 import { makeStyles } from '@material-ui/core';
+import moment from 'moment';
+import { YearMonth } from '../types';
 
 const useStyles = makeStyles({
   root: {
@@ -15,12 +17,23 @@ const useStyles = makeStyles({
 })
 
 interface YearMonthProps {
-  selectedDate: ParsableDate,
-  setSelectedDate: (date: ParsableDate) => void
+  setYearMonth: (yearMonth: YearMonth) => void
 }
 
-const YearMonthSelector = ({ selectedDate, setSelectedDate }: YearMonthProps): JSX.Element => {
+const YearMonthSelector = ({ setYearMonth }: YearMonthProps): JSX.Element => {
+  const [selectedDate, setSelectedDate] = useState<ParsableDate>(moment().format());
+
   const classes = useStyles();
+
+  const handleChange = (date: ParsableDate) => {
+    setSelectedDate(date);
+    const dateString = date?.toLocaleString();
+    if (dateString) {
+      const parsedDate = new Date(dateString);
+      const yearMonth = { year: parsedDate.getFullYear(), month: parsedDate.getMonth() + 1 }
+      setYearMonth(yearMonth);
+    }  
+  }
 
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
@@ -31,7 +44,7 @@ const YearMonthSelector = ({ selectedDate, setSelectedDate }: YearMonthProps): J
           label="Month"
           format="MMMM"
           value={selectedDate}
-          onChange={setSelectedDate}
+          onChange={handleChange}
           autoOk
         />
         <DatePicker
@@ -40,7 +53,7 @@ const YearMonthSelector = ({ selectedDate, setSelectedDate }: YearMonthProps): J
           views={["year"]}
           label="Year"
           value={selectedDate}
-          onChange={setSelectedDate}
+          onChange={handleChange}
           autoOk
         />
       </div>
