@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   }
 })
 
-const SideNav = () => {
+const SideNav = (): JSX.Element => {
   const classes = useStyles();
   
   return (
