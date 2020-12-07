@@ -31,15 +31,6 @@ router.get('/:category', async (request, response) => {
   else response.send(transactions);
 });
 
-router.get('/date/:date/:category', (request, response) => {
-  const date = request.params.date;
-  console.log(date);
-
-  // const transactions = await Transaction.find({ category: request.params.category });
-  // if (!transactions) response.status(404);
-  response.send("yahoo");
-});
-
 router.post('/', async (request, response) => {
   const newTransaction = toNewTransaction(request.body);
   const createdTransaction = await Transaction.create(newTransaction);
