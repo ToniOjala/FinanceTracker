@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { getCategories } from '../../services/categoryService'
 import { Category, NewCategory, TransactionType } from '../../types'
 import AddCategoryDialog from '../AddCategoryDialog'
-import { CategoryList } from './CategoryList'
+import CategoryTable from './CategoryTable'
 
 const useStyles = makeStyles({
   root: {
@@ -54,12 +54,12 @@ const CategoriesCard = ({ selectCategory }: CategoriesCardProps): JSX.Element =>
 
   return (
     <Card className={classes.root}>
-      <CategoryList
+      <CategoryTable
         title="Incomes"
         categories={incomeCategories}
         selectCategory={selectCategory}
       />
-      <CategoryList
+      <CategoryTable
         title="Expenses"
         categories={expenseCategories}
         selectCategory={selectCategory}
