@@ -3,6 +3,12 @@ import { get } from "./apiService";
 
 const url = 'http://localhost:3001/api/transactions';
 
+export const getTransactionsByDate = (yearMonth: YearMonth): Promise<Transaction[]> => {
+  const year = yearMonth.year;
+  const month = yearMonth.month;
+  return get<Transaction[]>(`${url}/?year=${year}&month=${month}`);
+}
+
 export const getTransactionsByCategory = (category: string): Promise<Transaction[]> => {
   return get<Transaction[]>(`${url}/${category}`);
 }

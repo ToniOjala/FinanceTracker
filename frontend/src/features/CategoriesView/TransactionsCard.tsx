@@ -1,8 +1,7 @@
 import { Button, Card, makeStyles, Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Typography } from '@material-ui/core';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { getTransactionsByDateAndCategory } from '../../services/transactionService';
-import { Category, NewTransaction, Transaction, YearMonth } from '../../types';
+import React, { useState } from 'react';
+import { Category, NewTransaction, Transaction } from '../../types';
 import AddTransactionDialog, { PartialNewTransaction } from '../AddTransactionDialog';
 import { formatDate } from './utils';
 
@@ -17,24 +16,19 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-  category: Category,
-  yearMonth: YearMonth
+  category: Category;
+  transactions: Transaction[];
+  addNewTransaction: (transaction: Transaction) => void;
 }
 
-const TransactionsCard = ({ category, yearMonth }: Props): JSX.Element | null => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+const TransactionsCard = ({ category, transactions, addNewTransaction }: Props): JSX.Element | null => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  const populateTransactions = async () => {
-    const trans = await getTransactionsByDateAndCategory(yearMonth, category.name);
-    setTransactions(trans);
-  }
-
+  
   const addTransaction = () => {
     setIsDialogOpen(true);
   }
 
-  const addNewTransaction = async (values: PartialNewTransaction) => {
+  const handleNewTransaction = async (values: PartialNewTransaction) => {
     const newTransaction: NewTransaction = {
       date: values.date,
       amount: Number.parseFloat(values.amount),
@@ -44,7 +38,7 @@ const TransactionsCard = ({ category, yearMonth }: Props): JSX.Element | null =>
 
     try {
       const { data: addedTransaction } = await axios.post<Transaction>('http://localhost:3001/api/transactions', newTransaction);
-      setTransactions(transactions.concat(addedTransaction));
+      addNewTransaction(addedTransaction);
       closeDialog();
     } catch (e) {
       console.error(e.response.data);
@@ -54,10 +48,6 @@ const TransactionsCard = ({ category, yearMonth }: Props): JSX.Element | null =>
   const closeDialog = () => {
     setIsDialogOpen(false);
   }
-
-  useEffect(() => {
-    if (category) populateTransactions();
-  }, [category, yearMonth])
 
   const classes = useStyles();
 
@@ -90,7 +80,7 @@ const TransactionsCard = ({ category, yearMonth }: Props): JSX.Element | null =>
       <AddTransactionDialog
         isOpen={isDialogOpen}
         handleClose={closeDialog}
-        handleAddTransaction={addNewTransaction}
+        handleAddTransaction={handleNewTransaction}
       />
     </Card>
   )
