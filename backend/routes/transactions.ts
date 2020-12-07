@@ -10,7 +10,6 @@ router.get('/', async (_request, response) => {
 });
 
 router.get('/:category', async (request, response) => {
-
   const year = Number(request.query.year);
   const month =  Number(request.query.month);
   let transactions;
