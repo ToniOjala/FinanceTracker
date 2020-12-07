@@ -10,9 +10,26 @@ router.get('/', async (_request, response) => {
 });
 
 router.get('/:category', async (request, response) => {
-  const transactions = await Transaction.find({ category: request.params.category });
-  if (transactions) response.status(404);
-  response.send(transactions);
+
+  const year = Number(request.query.year);
+  const month =  Number(request.query.month);
+  let transactions;
+
+  const startDate = new Date(year, month - 1, 1);
+  const endDate = new Date(year, month, 1);
+
+  if (year && month) {
+    transactions = await Transaction.find({ 
+      category: request.params.category, 
+      date: { $gt: startDate, $lte: endDate},
+    });
+  }
+  else {
+    transactions = await Transaction.find({ category: request.params.category });
+  }
+  
+  if (!transactions) response.status(404);
+  else response.send(transactions);
 });
 
 router.get('/date/:date/:category', (request, response) => {

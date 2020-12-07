@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { ITransaction, TransactionType } from "../models/transaction";
-import {  isString, isTransactionType } from "./validation";
+import { isString, isTransactionType } from "./validation";
 
 
 const toNewTransaction = (object: any): ITransaction => {
@@ -31,12 +31,15 @@ const parseAmount = (amount: any): number => {
   return amount;
 };
 
-const parseDate = (date: any): string => {
-  if (!date || !isString(date)) {
+const parseDate = (date: any): Date => {
+  try {
+    if (!date || !isString(date)) 
+      throw new Error('Incorrect or missing date: ' + date);
+    const parsedDate = new Date(date);
+    return parsedDate;
+  } catch {
     throw new Error('Incorrect or missing date: ' + date);
   }
-
-  return date;
 };
 
 const parseCategoryId = (id: any): string => {

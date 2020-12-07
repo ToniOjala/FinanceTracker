@@ -8,7 +8,7 @@ enum TransactionType {
 interface ITransaction {
   type: TransactionType;
   amount: number;
-  date: string;
+  date: Date;
   category: string;
 }
 
