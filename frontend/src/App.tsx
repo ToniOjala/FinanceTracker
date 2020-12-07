@@ -2,8 +2,9 @@ import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import moment from 'moment';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import CategoriesView from './features/CategoriesView';
+import MonthView from './features/MonthView';
 import YearMonthSelector from './features/YearMonthSelector';
+import YearView from './features/YearView';
 import { YearMonth } from './types';
 
 const theme = createMuiTheme({
@@ -32,7 +33,7 @@ const App = (): JSX.Element | null => {
       <Router>
         <Switch>
           <Route path="/">
-            <CategoriesView
+            <MonthView
               yearMonth={yearMonth}
             />
           </Route>

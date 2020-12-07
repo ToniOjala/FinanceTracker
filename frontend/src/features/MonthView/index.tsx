@@ -21,7 +21,7 @@ interface Props {
   yearMonth: YearMonth
 }
 
-const CategoriesView = ({ yearMonth }: Props): JSX.Element | null => {
+const MonthView = ({ yearMonth }: Props): JSX.Element | null => {
   const classes = useStyles();
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<Category>();
@@ -72,4 +72,4 @@ const CategoriesView = ({ yearMonth }: Props): JSX.Element | null => {
   )
 }
 
-export default CategoriesView
+export default MonthView
