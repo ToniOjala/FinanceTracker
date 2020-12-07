@@ -1,16 +1,19 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import React from 'react'
-import { Category } from '../../types'
+import { Category, Transaction } from '../../types'
+import { sumOfCategoryTransactions } from './utils'
 
 interface CategoryListProps {
+  className: string,
   title: string,
   categories: Category[],
+  transactions: Transaction[],
   selectCategory: (category: Category) => void
 }
 
-const CategoryTable = ({ title, categories, selectCategory }: CategoryListProps): JSX.Element | null => {
+const CategoryTable = ({ className, title, categories, transactions, selectCategory }: CategoryListProps): JSX.Element | null => {
   return (
-    <>
+    <div className={className}>
       <Typography variant="h5">{title}</Typography>
       <TableContainer>
         <Table>
@@ -24,13 +27,13 @@ const CategoryTable = ({ title, categories, selectCategory }: CategoryListProps)
             {categories.map(category => (
               <TableRow key={category.name} onClick={() => selectCategory(category)}>
                 <TableCell>{category.name}</TableCell>
-                <TableCell>0.00</TableCell>
+                <TableCell>{sumOfCategoryTransactions(category, transactions)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </div>
   )
 }
 

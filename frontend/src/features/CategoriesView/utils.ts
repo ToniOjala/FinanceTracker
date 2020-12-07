@@ -1,3 +1,5 @@
+import { Category, Transaction } from "../../types";
+
 export const formatDate = (date: string): string => {
   const splitDate = date.split('-');
   const year = splitDate[0];
@@ -5,4 +7,15 @@ export const formatDate = (date: string): string => {
   const day = splitDate[2].substr(0, 2);
 
   return `${day}.${month}.${year}`;
+}
+
+export const sumOfCategoryTransactions = (category: Category, transactions: Transaction[]): number => {
+  const transOfCategory = transactions.filter(tr => tr.category === category.name);
+  let sum = 0;
+
+  transOfCategory.forEach(tr => {
+    sum += tr.amount;
+  });
+
+  return sum;
 }
