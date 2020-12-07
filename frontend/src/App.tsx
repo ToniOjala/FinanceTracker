@@ -27,15 +27,14 @@ const App = (): JSX.Element | null => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <YearMonthSelector 
-        setYearMonth={setYearMonth}
-      />
+      <YearMonthSelector setYearMonth={setYearMonth} />
       <Router>
         <Switch>
+          <Route path="/year">
+            <YearView yearMonth={yearMonth} />
+          </Route>
           <Route path="/">
-            <MonthView
-              yearMonth={yearMonth}
-            />
+            <MonthView yearMonth={yearMonth} />
           </Route>
         </Switch>
       </Router>
