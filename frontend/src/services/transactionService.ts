@@ -1,5 +1,5 @@
 import { Transaction, YearMonth } from "../types";
-import { get } from "./apiService";
+import { get, post } from "./apiService";
 
 const url = 'http://localhost:3001/api/transactions';
 
@@ -17,4 +17,8 @@ export const getTransactionsByDateAndCategory = (yearMonth: YearMonth, category:
   const year = yearMonth.year;
   const month = yearMonth.month;
   return get<Transaction[]>(`${url}/${category}?year=${year}&month=${month}`);
+}
+
+export const saveTransactions = (transaction: Transaction): Promise<Transaction> => {
+  return post<Transaction>(url, transaction);
 }
