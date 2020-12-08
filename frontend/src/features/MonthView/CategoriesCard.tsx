@@ -1,7 +1,6 @@
 import { Button, Card, makeStyles } from '@material-ui/core'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { getCategories } from '../../services/categoryService'
 import { Category, NewCategory, Transaction, TransactionType } from '../../types'
 import AddCategoryDialog from '../AddCategoryDialog'
 import CategoryTable from './CategoryTable'
