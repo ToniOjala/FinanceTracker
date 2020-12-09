@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AppThunk } from '../store';
 import { getCategories, saveCategory } from "../services/categoryService";
 import { Category } from "../types";
 
@@ -7,18 +8,29 @@ const categorySlice = createSlice({
   name: 'category',
   initialState: [] as Category[],
   reducers: {
-    initialize: (state) => {
-      getCategories().then(categories => {
-        state = categories;
-      })
+    setCategories: (state, { payload }) => {
+      state = payload;
     },
-    add: (state, { payload }) => {
-      saveCategory(payload).then(category => {
-        state.push(category);
-      });
+    addCategory: (state, { payload }) => {
+      saveCategory(payload)
+        .then(category => {
+          state.push(category);
+        })
+        .catch(error => {
+          console.log(error.message);
+        });
     }
   }
 })
 
-export const { initialize, add } = categorySlice.actions;
+export const { setCategories, addCategory } = categorySlice.actions;
 export default categorySlice.reducer;
+
+export const fetchCategories = (): AppThunk => async dispatch => {
+  try {
+    const categories = await getCategories();
+    dispatch(setCategories(categories));
+  } catch (error) {
+    console.log('Error while fetcing categories: ', error);
+  }
+}
