@@ -1,10 +1,12 @@
 import { Box, makeStyles } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
-import { getCategories } from '../../services/categoryService';
+import { useDispatch, useSelector } from 'react-redux';
 import { getTransactionsByDate } from '../../services/transactionService';
+import { RootState } from '../../rootReducer';
 import { Category, Transaction, YearMonth } from '../../types';
 import CategoriesCard from './CategoriesCard';
 import TransactionsCard from './TransactionsCard'
+import { fetchCategories } from '../../slices/categories';
 
 const useStyles = makeStyles({
   categories: {
@@ -22,11 +24,24 @@ interface Props {
 }
 
 const MonthView = ({ yearMonth }: Props): JSX.Element | null => {
-  const classes = useStyles();
-  const [categories, setCategories] = useState<Category[]>([]);
+  // const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<Category>();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [transactionsOfCategory, setTransactionsOfCategory] = useState<Transaction[]>([]);
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const categories = useSelector((state: RootState) => state.categories);
+
+  const fetchEverything = async () => {
+    try {
+      await Promise.all([
+        populateTransactions(),
+        populateCategories()
+      ])
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const populateTransactions = async () => {
     const trans = await getTransactionsByDate(yearMonth);
@@ -34,8 +49,7 @@ const MonthView = ({ yearMonth }: Props): JSX.Element | null => {
   }
 
   const populateCategories = async () => {
-    const cats = await getCategories();
-    setCategories(cats);
+    dispatch(fetchCategories);
   }
 
   const addNewTransaction = (transaction: Transaction) => {
@@ -43,9 +57,8 @@ const MonthView = ({ yearMonth }: Props): JSX.Element | null => {
   }
 
   useEffect(() => {
-    populateTransactions();
-    populateCategories();
-  }, [yearMonth])
+    fetchEverything();
+  }, [yearMonth, dispatch])
 
   useEffect(() => {
     setTransactionsOfCategory(transactions.filter(tr => tr.category === selectedCategory?.name));
