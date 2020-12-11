@@ -9,12 +9,17 @@ router.get('/', async (request, response) => {
   const month =  Number(request.query.month);
   let transactions;
 
-  const startDate = new Date(year, month - 1, 1);
-  const endDate = new Date(year, month, 1);
-
   if (year && month) {
+    const startDate = new Date(year, month - 1, 1);
+    const endDate = new Date(year, month, 1);
     transactions = await Transaction.find({ 
       date: { $gt: startDate, $lte: endDate},
+    });
+  } else if (year) {
+    const startDate = new Date(year, 0, 1);
+    const endDate = new Date(year, 11, 31);
+    transactions = await Transaction.find({
+      date: { $gt: startDate, $lte: endDate },
     });
   }
   else transactions = await Transaction.find({});
