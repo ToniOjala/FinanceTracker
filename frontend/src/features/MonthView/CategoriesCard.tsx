@@ -1,6 +1,7 @@
 import { Button, Card, makeStyles } from '@material-ui/core'
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addCategory } from '../../slices/categories'
 import { Category, NewCategory, Transaction, TransactionType } from '../../types'
 import AddCategoryDialog from '../AddCategoryDialog'
 import CategoryTable from './CategoryTable'
@@ -25,28 +26,24 @@ const CategoriesCard = ({ categories, selectCategory, transactions }: Categories
   const [expenseCategories, setExpenseCategories] = useState<Category[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const dispatch = useDispatch();
+
   const populateCategories = async () => {
     setIncomeCategories(categories.filter(cat => cat.type === TransactionType.Income));
     setExpenseCategories(categories.filter(cat => cat.type === TransactionType.Expense));
   }
 
-  const addCategory = () => {
+  const openDialog = () => {
     setIsDialogOpen(true);
-  }
-
-  const addNewCategory = async (values: NewCategory) => {
-    try {
-      const { data: newCategory } = await axios.post<Category>('http://localhost:3001/api/categories', values);
-      if (newCategory.type === TransactionType.Expense) setExpenseCategories(expenseCategories.concat(newCategory));
-      else setIncomeCategories(incomeCategories.concat(newCategory));
-      closeDialog();
-    } catch (e) {
-      console.error(e.response.data);
-    }
   }
 
   const closeDialog = () => {
     setIsDialogOpen(false);
+  }
+
+  const addNewCategory = (newCategory: NewCategory) => {
+      dispatch(addCategory(newCategory));
+      closeDialog();
   }
 
   useEffect(() => {
@@ -71,7 +68,7 @@ const CategoriesCard = ({ categories, selectCategory, transactions }: Categories
         transactions={transactions}
         selectCategory={selectCategory}
       />
-      <Button onClick={addCategory}>Add Category</Button>
+      <Button onClick={openDialog}>Add Category</Button>
       <AddCategoryDialog 
         isOpen={isDialogOpen}
         handleAddCategory={addNewCategory}
