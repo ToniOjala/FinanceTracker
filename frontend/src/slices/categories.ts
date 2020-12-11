@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { AppThunk } from '../store';
 import { getCategories, saveCategory } from "../services/categoryService";
 import { Category } from "../types";
@@ -8,11 +8,11 @@ const categorySlice = createSlice({
   name: 'category',
   initialState: [] as Category[],
   reducers: {
-    setCategories: (state, { payload }) => {
-      state = payload;
+    setCategories: (state, action) => {
+      return action.payload;
     },
-    addCategory: (state, { payload }) => {
-      saveCategory(payload)
+    addCategory: (state, action) => {
+      saveCategory(action.payload)
         .then(category => {
           state.push(category);
         })

@@ -19,6 +19,6 @@ export const getTransactionsByDateAndCategory = (yearMonth: YearMonth, category:
   return get<Transaction[]>(`${url}/${category}?year=${year}&month=${month}`);
 }
 
-export const saveTransactions = (transaction: Transaction): Promise<Transaction> => {
+export const saveTransaction = (transaction: Transaction): Promise<Transaction> => {
   return post<Transaction>(url, transaction);
 }
