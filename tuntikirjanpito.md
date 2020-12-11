@@ -16,4 +16,5 @@
 | 07.12.20 | 7  | Frontend: Uusien komponenttien luontia sekä olemassa olevien parantelua ja Redux-varaston luonnin aloitus<br> Backend: Transaktioiden hakeminen päivämäärän ja kategorian avulla viimeistelty<br>Opiskelua: Redux toolkit
 | 08.12.20 | 1  | Opiskelua: Redux toolkit<br>Frontend: Redux-varaston luomista Redux toolkitiä käyttäen
 | 09.12.20 | 2  | Frontend: Redux varaston korjausta ja parantelua sekä yritys käyttää sitä kategorioiden kanssa
-| yht   | 35   | | 
+| 11.12.20 | 3  | Frontend: Redux varaston parantelua ja käyttöönottoa
+| yht   | 38   | | 
