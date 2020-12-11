@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
 import { getCategories, saveCategory } from "../services/categoryService";
-import { Category } from "../types";
+import { Category, TransactionType } from "../types";
 
 const categorySlice = createSlice({
   name: 'category',
@@ -34,3 +35,9 @@ export const fetchCategories = (): AppThunk => async dispatch => {
     console.log('Error while fetcing categories: ', error);
   }
 }
+
+export const selectIncomeCategories = (state: RootState): Category[] => 
+  state.categories.filter(cat => cat.type === TransactionType.Income);
+
+export const selectExpenseCategories = (state: RootState): Category[] => 
+  state.categories.filter(cat => cat.type === TransactionType.Expense);
