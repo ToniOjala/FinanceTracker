@@ -1,3 +1,5 @@
+import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
+
 export enum TransactionType {
   Expense = 'expense',
   Income = 'income'
@@ -21,7 +23,12 @@ export interface Transaction {
 
 export type NewTransaction = Omit<Transaction, 'id'>;
 
-export type YearMonth = {
-  year: number,
-  month: number
+export interface YearMonth {
+  year: number;
+  month: number;
+}
+
+export interface DateSelection {
+  selectedDate: ParsableDate,
+  yearMonth: YearMonth
 }

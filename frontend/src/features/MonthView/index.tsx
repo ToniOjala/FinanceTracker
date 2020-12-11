@@ -2,7 +2,7 @@ import { Box, makeStyles } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../rootReducer';
-import { Category, Transaction, YearMonth } from '../../types';
+import { Category, Transaction } from '../../types';
 import CategoriesCard from './CategoriesCard';
 import TransactionsCard from './TransactionsCard'
 import { fetchCategories } from '../../slices/categories';
@@ -19,11 +19,7 @@ const useStyles = makeStyles({
   }
 })
 
-interface Props {
-  yearMonth: YearMonth
-}
-
-const MonthView = ({ yearMonth }: Props): JSX.Element | null => {
+const MonthView = (): JSX.Element | null => {
   // const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<Category>();
   const [transactionsOfCategory, setTransactionsOfCategory] = useState<Transaction[]>([]);
@@ -31,6 +27,7 @@ const MonthView = ({ yearMonth }: Props): JSX.Element | null => {
   const dispatch = useDispatch();
   const categories = useSelector((state: RootState) => state.categories);
   const transactions = useSelector((state: RootState) => state.transactions);
+  const yearMonth = useSelector((state: RootState) => state.dateSelection.yearMonth)
 
   const addNewTransaction = (transaction: Transaction) => {
     dispatch(addTransaction(transaction));

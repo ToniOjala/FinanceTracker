@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import MomentUtils from '@date-io/moment';
 import { makeStyles } from '@material-ui/core';
-import moment from 'moment';
-import { YearMonth } from '../types';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDateSelection } from '../slices/dateSelection';
+import { RootState } from '../rootReducer';
 
 const useStyles = makeStyles({
   root: {
@@ -16,22 +17,22 @@ const useStyles = makeStyles({
   }
 })
 
-interface YearMonthProps {
-  setYearMonth: (yearMonth: YearMonth) => void
-}
-
-const YearMonthSelector = ({ setYearMonth }: YearMonthProps): JSX.Element => {
-  const [selectedDate, setSelectedDate] = useState<ParsableDate>(moment().format());
-
+const YearMonthSelector = (): JSX.Element => {
+  const selectedDate = useSelector((state: RootState) => state.dateSelection.selectedDate);
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   const handleChange = (date: ParsableDate) => {
-    setSelectedDate(date);
     const dateString = date?.toLocaleString();
     if (dateString) {
       const parsedDate = new Date(dateString);
-      const yearMonth = { year: parsedDate.getFullYear(), month: parsedDate.getMonth() + 1 }
-      setYearMonth(yearMonth);
+      dispatch(setDateSelection({
+        selectedDate,
+        yearMonth: { 
+          year: parsedDate.getFullYear(),
+          month: parsedDate.getMonth() + 1
+        }
+      }));
     }  
   }
 
@@ -61,4 +62,4 @@ const YearMonthSelector = ({ setYearMonth }: YearMonthProps): JSX.Element => {
   )
 }
 
-export default YearMonthSelector
+export default YearMonthSelector;

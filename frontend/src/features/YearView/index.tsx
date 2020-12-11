@@ -1,12 +1,7 @@
 import React from 'react'
-import { YearMonth } from '../../types'
 import CategoryTable from './CategoryTable'
 
-interface Props {
-  yearMonth: YearMonth
-}
-
-const YearView = ({ yearMonth }: Props) => {
+const YearView = (): JSX.Element => {
   return (
     <>
       <CategoryTable title="Income" />

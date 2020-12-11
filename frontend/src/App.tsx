@@ -1,12 +1,10 @@
 import { createMuiTheme, CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
-import moment from 'moment';
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SideNav from './components/SideNav';
 import MonthView from './features/MonthView';
 import YearMonthSelector from './features/YearMonthSelector';
 import YearView from './features/YearView';
-import { YearMonth } from './types';
 
 const theme = createMuiTheme({
   palette: {
@@ -32,8 +30,6 @@ const useStyles = makeStyles({
 })
 
 const App = (): JSX.Element | null => {
-  const [yearMonth, setYearMonth] = useState<YearMonth>({ year: moment().year(), month: moment().month() + 1 });
-
   const classes = useStyles();
 
   return (
@@ -43,13 +39,13 @@ const App = (): JSX.Element | null => {
         <Router>
           <SideNav />
           <main className={classes.content}>
-            <YearMonthSelector setYearMonth={setYearMonth} />
+            <YearMonthSelector />
             <Switch>
               <Route path="/year">
-                <YearView yearMonth={yearMonth} />
+                <YearView />
               </Route>
               <Route path="/">
-                <MonthView yearMonth={yearMonth} />
+                <MonthView />
               </Route>
             </Switch>
           </main>
