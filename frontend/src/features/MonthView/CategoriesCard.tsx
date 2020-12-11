@@ -1,8 +1,8 @@
 import { Button, Card, makeStyles } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { addCategory } from '../../slices/categories'
-import { Category, NewCategory, Transaction, TransactionType } from '../../types'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { addCategory, selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
+import { Category, NewCategory, Transaction } from '../../types'
 import AddCategoryDialog from '../AddCategoryDialog'
 import CategoryTable from './CategoryTable'
 
@@ -16,41 +16,25 @@ const useStyles = makeStyles({
 })
 
 interface CategoriesCardProps {
-  categories: Category[],
   selectCategory: (category: Category) => void,
   transactions: Transaction[]
 }
 
-const CategoriesCard = ({ categories, selectCategory, transactions }: CategoriesCardProps): JSX.Element => {
-  const [incomeCategories, setIncomeCategories] = useState<Category[]>([]);
-  const [expenseCategories, setExpenseCategories] = useState<Category[]>([]);
+const CategoriesCard = ({ selectCategory, transactions }: CategoriesCardProps): JSX.Element => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+  
+  const incomeCategories = useSelector(selectIncomeCategories);
+  const expenseCategories = useSelector(selectExpenseCategories);
   const dispatch = useDispatch();
+  const classes = useStyles();
 
-  const populateCategories = async () => {
-    setIncomeCategories(categories.filter(cat => cat.type === TransactionType.Income));
-    setExpenseCategories(categories.filter(cat => cat.type === TransactionType.Expense));
-  }
-
-  const openDialog = () => {
-    setIsDialogOpen(true);
-  }
-
-  const closeDialog = () => {
-    setIsDialogOpen(false);
-  }
+  const openDialog = () => setIsDialogOpen(true);
+  const closeDialog = () => setIsDialogOpen(false);
 
   const addNewCategory = (newCategory: NewCategory) => {
-      dispatch(addCategory(newCategory));
-      closeDialog();
+    dispatch(addCategory(newCategory));
+    closeDialog();
   }
-
-  useEffect(() => {
-    populateCategories();
-  }, [categories])
-
-  const classes = useStyles();
 
   return (
     <Card className={classes.root}>

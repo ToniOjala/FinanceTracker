@@ -20,12 +20,10 @@ const useStyles = makeStyles({
 })
 
 const MonthView = (): JSX.Element | null => {
-  // const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<Category>();
   const [transactionsOfCategory, setTransactionsOfCategory] = useState<Transaction[]>([]);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const categories = useSelector((state: RootState) => state.categories);
   const transactions = useSelector((state: RootState) => state.transactions);
   const yearMonth = useSelector((state: RootState) => state.dateSelection.yearMonth)
 
@@ -49,7 +47,6 @@ const MonthView = (): JSX.Element | null => {
     <Box display="flex">
       <Box className={classes.categories}>
         <CategoriesCard
-          categories={categories}
           selectCategory={setSelectedCategory}
           transactions={transactions}
         />
