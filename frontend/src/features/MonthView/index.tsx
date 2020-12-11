@@ -6,7 +6,7 @@ import { Category, Transaction } from '../../types';
 import CategoriesCard from './CategoriesCard';
 import TransactionsCard from './TransactionsCard'
 import { fetchCategories } from '../../slices/categories';
-import { addTransaction, fetchTransactionsByDate } from '../../slices/transactions';
+import { addTransaction, fetchTransactionsOfMonth } from '../../slices/transactions';
 
 const useStyles = makeStyles({
   categories: {
@@ -34,7 +34,7 @@ const MonthView = (): JSX.Element | null => {
   }
 
   useEffect(() => {
-    dispatch(fetchTransactionsByDate(yearMonth));
+    dispatch(fetchTransactionsOfMonth(yearMonth));
   }, [yearMonth])
 
   useEffect(() => {
