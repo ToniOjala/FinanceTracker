@@ -23,6 +23,8 @@ export interface Transaction {
 
 export type NewTransaction = Omit<Transaction, 'id'>;
 
+export type SumsByCategory = Map<string, number>;
+
 export interface YearMonth {
   year: number;
   month: number;
