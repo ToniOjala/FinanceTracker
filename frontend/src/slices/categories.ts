@@ -32,9 +32,11 @@ export const fetchCategories = (): AppThunk => async dispatch => {
     const categories = await getCategories();
     dispatch(setCategories(categories));
   } catch (error) {
-    console.log('Error while fetcing categories: ', error);
+    console.error('Error while fetcing categories: ', error);
   }
 }
+
+export const selectCategories = (state: RootState): Category[] => state.categories;
 
 export const selectIncomeCategories = (state: RootState): Category[] => 
   state.categories.filter(cat => cat.type === TransactionType.Income);

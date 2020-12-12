@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
-import { DateSelection } from "../types";
+import { DateSelection, YearMonth } from "../types";
 import moment from 'moment';
+import { RootState } from "../rootReducer";
+import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
 
 const initialState: DateSelection = {
   selectedDate: moment().format(),
@@ -21,3 +23,7 @@ const dateSelectionSlice = createSlice({
 
 export const { setDateSelection } = dateSelectionSlice.actions;
 export default dateSelectionSlice.reducer;
+
+export const selectDate = (state: RootState): ParsableDate => state.dateSelection.selectedDate;
+export const selectYearMonth = (state: RootState): YearMonth => state.dateSelection.yearMonth;
+export const selectYear = (state: RootState): number => state.dateSelection.yearMonth.year;

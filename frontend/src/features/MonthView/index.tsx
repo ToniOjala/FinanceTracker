@@ -1,12 +1,12 @@
 import { Box, makeStyles } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../rootReducer';
 import { Category, Transaction } from '../../types';
 import CategoriesCard from './CategoriesCard';
 import TransactionsCard from './TransactionsCard'
 import { fetchCategories } from '../../slices/categories';
-import { addTransaction, fetchTransactionsOfMonth } from '../../slices/transactions';
+import { addTransaction, fetchTransactionsOfMonth, selectTransactions } from '../../slices/transactions';
+import { selectYearMonth } from '../../slices/dateSelection';
 
 const useStyles = makeStyles({
   categories: {
@@ -24,8 +24,8 @@ const MonthView = (): JSX.Element | null => {
   const [transactionsOfCategory, setTransactionsOfCategory] = useState<Transaction[]>([]);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const transactions = useSelector((state: RootState) => state.transactions);
-  const yearMonth = useSelector((state: RootState) => state.dateSelection.yearMonth)
+  const transactions = useSelector(selectTransactions);
+  const yearMonth = useSelector(selectYearMonth);
 
   const addNewTransaction = (transaction: Transaction) => {
     dispatch(addTransaction(transaction));
