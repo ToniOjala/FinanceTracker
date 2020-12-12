@@ -1,1 +1,1 @@
-GET http://localhost:3001/api/transactions/Groceries?year=2020&month=12
+GET http://localhost:3001/api/transactions/?year=2020&month=12&category=Groceries
