@@ -22,16 +22,16 @@ const CategoryTable = ({ title, categories }: Props): JSX.Element | null => {
           <TableRow>
             <TableCell>{title}</TableCell>
             {months.map(month => 
-              <TableCell key={month}>{month}</TableCell>
+              <TableCell key={`${title}${month}`}>{month}</TableCell>
             )}
           </TableRow>
         </TableHead>
         <TableBody>
           {categories.map(category => (
-            <TableRow key={category.id}>
+            <TableRow key={category.name}>
               <TableCell>{category.name}</TableCell>
-              {yearlyData[category.name]?.map(monthlyValues => 
-                <TableCell key={monthlyValues}>{monthlyValues}</TableCell>
+              {yearlyData[category.name]?.map((monthlyValues, index) => 
+                <TableCell key={`${category.name}_${index}`}>{monthlyValues}</TableCell>
               )}
             </TableRow>
           ))}
