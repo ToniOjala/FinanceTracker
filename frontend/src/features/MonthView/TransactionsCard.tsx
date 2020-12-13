@@ -31,7 +31,7 @@ const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null
 
   const handleNewTransaction = async (values: PartialNewTransaction) => {
     const newTransaction: Transaction = {
-      id: '',
+      _id: '',
       date: values.date,
       amount: Number.parseFloat(values.amount),
       type: category.type,
@@ -59,7 +59,7 @@ const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null
           </TableHead>
           <TableBody>
             {transactions.map(transaction => (
-              <TableRow key={transaction.date}>
+              <TableRow key={transaction._id}>
                 <TableCell component="th" scope="row">
                   {formatDate(transaction.date)}
                 </TableCell>

@@ -6,13 +6,13 @@ export enum TransactionType {
 }
 
 export interface Category {
-  id: string;
+  _id: string;
   name: string;
   type: TransactionType;
 }
 
 export interface Transaction {
-  id: string;
+  _id: string;
   type: TransactionType,
   amount: number,
   date: string,
