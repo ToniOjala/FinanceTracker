@@ -6,7 +6,6 @@ import { ICategory } from "../models/category";
 import { TransactionType } from "../models/transaction";
 import { isString, isTransactionType } from "./validation";
 
-
 const toNewCategory = (object: any): ICategory => {
   const newCategory: ICategory = {
     name: parseName(object.name),

@@ -5,13 +5,12 @@
 import { ITransaction, TransactionType } from "../models/transaction";
 import { isString, isTransactionType } from "./validation";
 
-
 const toNewTransaction = (object: any): ITransaction => {
   const newTransaction: ITransaction = {
     type: parseType(object.type),
     amount: parseAmount(object.amount),
     date: parseDate(object.date),
-    category: parseCategoryId(object.category)
+    category: parseCategory(object.category)
   };
 
   return newTransaction;
@@ -42,12 +41,12 @@ const parseDate = (date: any): Date => {
   }
 };
 
-const parseCategoryId = (id: any): string => {
-  if (!id || !isString(id)) {
-    throw new Error('Incorrect or missing categoryId: ' + id);
+const parseCategory = (category: any): string => {
+  if (!category || !isString(category)) {
+    throw new Error('Incorrect or missing category: ' + category);
   }
 
-  return id;
+  return category;
 };
 
 export default toNewTransaction;
