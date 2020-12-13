@@ -18,4 +18,5 @@
 | 09.12.20 | 2  | Frontend: Redux varaston korjausta ja parantelua sekä yritys käyttää sitä kategorioiden kanssa
 | 11.12.20 | 3  | Frontend: Redux varaston parantelua ja käyttöönottoa
 | 12.12.20 | 3  | Frontend & Backend: Pieniä parannuksia siellä täällä ja yritys saada vuosinäkymälle dataa.<br>Edelleen epävarma siitä pitäisikö ongelma ratkaista frontendissä vai backendissä ja miten.
-| yht   | 41   | | 
+| 13.12.20 | 3  | Frontend & Backend: Vuosinäkymän data ratkaistu, lukuisia bugikorjauksia
+| yht   | 44   | | 
