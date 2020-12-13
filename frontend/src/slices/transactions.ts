@@ -21,13 +21,7 @@ const transactionSlice = createSlice({
       state.yearlyData = action.payload;
     },
     addTransaction: (state, action) => {
-      saveTransaction(action.payload)
-        .then(transaction => {
-          state.transactions.push(transaction);
-        })
-        .catch(error => {
-          console.log(error.message);
-        });
+      state.transactions.push(action.payload);
     }
   }
 })
@@ -57,10 +51,18 @@ export const fetchYearlyData = (year: number): AppThunk => async dispatch => {
   try {
     const data = await getYearlyData(year);
     const yearlyData = parseYearlyData(data);
-
     dispatch(setYearlyData(yearlyData));
   } catch (error) {
     console.error('Error while fetching sums by categories: ', error);
+  }
+}
+
+export const postTransaction = (transaction: Transaction): AppThunk => async dispatch => {
+  try {
+    const savedTransaction = await saveTransaction(transaction);
+    dispatch(addTransaction(savedTransaction));
+  } catch (error) {
+    console.error('Error while posting transaction', error);
   }
 }
 
@@ -70,7 +72,6 @@ const parseYearlyData = (data: any[]): YearlyData => {
   data.forEach(element => {
     const category = element[0];
     const values = element[1];
-
     yearlyData[category] = values;
   });
 

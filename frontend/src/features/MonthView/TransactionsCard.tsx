@@ -1,8 +1,8 @@
 import { Button, Card, makeStyles, Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addTransaction } from '../../slices/transactions';
-import { Category, NewTransaction, Transaction } from '../../types';
+import { postTransaction } from '../../slices/transactions';
+import { Category, Transaction } from '../../types';
 import AddTransactionDialog, { PartialNewTransaction } from '../AddTransactionDialog';
 import { formatDate } from './utils';
 
@@ -30,14 +30,15 @@ const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null
   const closeDialog = () => setIsDialogOpen(false);
 
   const handleNewTransaction = async (values: PartialNewTransaction) => {
-    const newTransaction: NewTransaction = {
+    const newTransaction: Transaction = {
+      id: '',
       date: values.date,
       amount: Number.parseFloat(values.amount),
       type: category.type,
       category: category.name
     }
 
-    dispatch(addTransaction(newTransaction));
+    dispatch(postTransaction(newTransaction));
     closeDialog();
   }
 
