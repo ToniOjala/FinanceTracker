@@ -7,6 +7,7 @@ dotenv.config();
 
 import transactionRouter from './routes/transactions';
 import categoryRouter from './routes/categories';
+import budgetRouter from './routes/budgets';
 
 const app = express();
 
@@ -28,5 +29,6 @@ app.use(express.json());
 
 app.use('/api/transactions', transactionRouter);
 app.use('/api/categories', categoryRouter);
+app.use('/api/budgets', budgetRouter);
 
 export default app;
