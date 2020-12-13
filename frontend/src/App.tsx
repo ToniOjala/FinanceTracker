@@ -1,24 +1,11 @@
-import { createMuiTheme, CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
+import { CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SideNav from './components/SideNav';
 import MonthView from './features/MonthView';
 import YearMonthSelector from './features/YearMonthSelector';
 import YearView from './features/YearView';
-
-const theme = createMuiTheme({
-  palette: {
-    type: 'dark',
-    primary: {
-      light: '#CBD0C9',
-      main: '#69927B',
-    },
-    background: {
-      paper: '#424242',
-      default: '#303030'
-    }
-  }
-})
+import { theme } from './theme';
 
 const useStyles = makeStyles({
   root: {
