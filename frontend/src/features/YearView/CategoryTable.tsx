@@ -3,6 +3,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { selectYearlyData } from '../../slices/transactions';
 import { Category } from '../../types';
+import { roundToDecimals } from '../../utils/round';
 import { months } from './constants'
 
 const useStyles = makeStyles({
@@ -41,7 +42,7 @@ const CategoryTable = ({ title, categories }: Props): JSX.Element | null => {
             <TableRow key={category.name} hover>
               <TableCell>{category.name}</TableCell>
               {yearlyData[category.name]?.map((monthlyValues, index) => 
-                <TableCell key={`${category.name}_${index}`}>{monthlyValues}</TableCell>
+                <TableCell key={`${category.name}_${index}`}>{roundToDecimals(monthlyValues, 2)}</TableCell>
               )}
             </TableRow>
           ))}

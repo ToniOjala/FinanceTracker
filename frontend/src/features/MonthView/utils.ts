@@ -1,4 +1,5 @@
 import { Category, Transaction } from "../../types";
+import { roundToDecimals } from "../../utils/round";
 
 export const formatDate = (date: string): string => {
   const splitDate = date.split('-');
@@ -17,5 +18,5 @@ export const sumOfCategoryTransactions = (category: Category, transactions: Tran
     sum += tr.amount;
   });
 
-  return sum;
+  return roundToDecimals(sum, 2);
 }
