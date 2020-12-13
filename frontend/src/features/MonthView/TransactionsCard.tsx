@@ -1,6 +1,7 @@
 import { Button, Card, makeStyles, Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Typography } from '@material-ui/core';
-import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addTransaction } from '../../slices/transactions';
 import { Category, NewTransaction, Transaction } from '../../types';
 import AddTransactionDialog, { PartialNewTransaction } from '../AddTransactionDialog';
 import { formatDate } from './utils';
@@ -18,15 +19,15 @@ const useStyles = makeStyles({
 interface Props {
   category: Category;
   transactions: Transaction[];
-  addNewTransaction: (transaction: Transaction) => void;
 }
 
-const TransactionsCard = ({ category, transactions, addNewTransaction }: Props): JSX.Element | null => {
+const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   
-  const addTransaction = () => {
-    setIsDialogOpen(true);
-  }
+  const dispatch = useDispatch();
+
+  const openDialog = () => setIsDialogOpen(true);
+  const closeDialog = () => setIsDialogOpen(false);
 
   const handleNewTransaction = async (values: PartialNewTransaction) => {
     const newTransaction: NewTransaction = {
@@ -36,17 +37,8 @@ const TransactionsCard = ({ category, transactions, addNewTransaction }: Props):
       category: category.name
     }
 
-    try {
-      const { data: addedTransaction } = await axios.post<Transaction>('http://localhost:3001/api/transactions', newTransaction);
-      addNewTransaction(addedTransaction);
-      closeDialog();
-    } catch (e) {
-      console.error(e.response.data);
-    }
-  }
-
-  const closeDialog = () => {
-    setIsDialogOpen(false);
+    dispatch(addTransaction(newTransaction));
+    closeDialog();
   }
 
   const classes = useStyles();
@@ -76,7 +68,7 @@ const TransactionsCard = ({ category, transactions, addNewTransaction }: Props):
           </TableBody>
         </Table>
       </TableContainer>
-      <Button onClick={addTransaction}>Add transaction</Button>
+      <Button onClick={openDialog}>Add transaction</Button>
       <AddTransactionDialog
         isOpen={isDialogOpen}
         handleClose={closeDialog}
