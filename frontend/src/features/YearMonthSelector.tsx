@@ -4,8 +4,7 @@ import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import MomentUtils from '@date-io/moment';
 import { makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDateSelection } from '../slices/dateSelection';
-import { RootState } from '../rootReducer';
+import { selectDate, setDateSelection } from '../slices/dateSelection';
 
 const useStyles = makeStyles({
   root: {
@@ -18,7 +17,7 @@ const useStyles = makeStyles({
 })
 
 const YearMonthSelector = (): JSX.Element => {
-  const selectedDate = useSelector((state: RootState) => state.dateSelection.selectedDate);
+  const selectedDate = useSelector(selectDate);
   const dispatch = useDispatch();
   const classes = useStyles();
 
