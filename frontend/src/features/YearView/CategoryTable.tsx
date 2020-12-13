@@ -1,9 +1,18 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
+import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { selectYearlyData } from '../../slices/transactions';
 import { Category } from '../../types';
 import { months } from './constants'
+
+const useStyles = makeStyles({
+  categoryCell: {
+    width: '10%',
+  },
+  monthCell: {
+    width: '7.5%',
+  }
+})
 
 interface Props {
   title: string,
@@ -12,6 +21,7 @@ interface Props {
 
 const CategoryTable = ({ title, categories }: Props): JSX.Element | null => {
   const yearlyData = useSelector(selectYearlyData);
+  const classes = useStyles();
 
   if (!yearlyData || !categories) return null;
 
@@ -20,9 +30,9 @@ const CategoryTable = ({ title, categories }: Props): JSX.Element | null => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>{title}</TableCell>
+            <TableCell className={classes.categoryCell}>{title}</TableCell>
             {months.map(month => 
-              <TableCell key={`${title}${month}`}>{month}</TableCell>
+              <TableCell key={`${title}${month}`} className={classes.monthCell}>{month}</TableCell>
             )}
           </TableRow>
         </TableHead>
