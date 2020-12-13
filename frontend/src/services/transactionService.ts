@@ -1,9 +1,9 @@
-import { Transaction, YearMonth } from "../types";
+import { Transaction } from "../types";
 import { get, post } from "./apiService";
 
 const url = 'http://localhost:3001/api/transactions';
 
-export const getTransactionsOfMonth = ({year, month}: YearMonth): Promise<Transaction[]> => {
+export const getTransactionsOfMonth = (year: number, month: number): Promise<Transaction[]> => {
   return get<Transaction[]>(`${url}/?year=${year}&month=${month}`);
 }
 

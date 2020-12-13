@@ -6,7 +6,7 @@ import CategoriesCard from './CategoriesCard';
 import TransactionsCard from './TransactionsCard'
 import { fetchCategories } from '../../slices/categories';
 import { fetchTransactionsOfMonth, selectTransactions } from '../../slices/transactions';
-import { selectYearMonth } from '../../slices/dateSelection';
+import { selectYearAndMonth } from '../../slices/dateSelection';
 
 const useStyles = makeStyles({
   categories: {
@@ -25,11 +25,11 @@ const MonthView = (): JSX.Element | null => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const transactions = useSelector(selectTransactions);
-  const yearMonth = useSelector(selectYearMonth);
+  const [year, month] = useSelector(selectYearAndMonth);
 
   useEffect(() => {
-    dispatch(fetchTransactionsOfMonth(yearMonth));
-  }, [yearMonth])
+    dispatch(fetchTransactionsOfMonth(year, month));
+  }, [year, month])
 
   useEffect(() => {
     dispatch(fetchCategories());

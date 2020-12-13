@@ -26,13 +26,8 @@ export type NewTransaction = Omit<Transaction, 'id'>;
 export interface YearlyData {
   [key: string]: number[]
 }
-
-export interface YearMonth {
-  year: number;
-  month: number;
-}
-
 export interface DateSelection {
   selectedDate: ParsableDate,
-  yearMonth: YearMonth
+  year: number,
+  month: number
 }

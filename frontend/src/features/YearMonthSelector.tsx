@@ -24,14 +24,12 @@ const YearMonthSelector = (): JSX.Element => {
   const handleChange = (date: ParsableDate) => {
     const dateString = date?.toLocaleString();
     if (dateString) {
-      const parsedDate = new Date(dateString);
-      dispatch(setDateSelection({
-        selectedDate,
-        yearMonth: { 
-          year: parsedDate.getFullYear(),
-          month: parsedDate.getMonth() + 1
-        }
-      }));
+      const parsedDate: Date = new Date(dateString);
+      const dateSelection = {
+        year: parsedDate.getFullYear(),
+        month: parsedDate.getMonth() + 1
+      }
+      dispatch(setDateSelection(dateSelection));
     }  
   }
 

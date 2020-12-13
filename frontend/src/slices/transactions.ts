@@ -2,7 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppThunk } from '../store';
 import { getYearlyData, getTransactionsOfMonth, getTransactionsOfYear, saveTransaction } from "../services/transactionService";
-import { Transaction, YearMonth, YearlyData } from "../types";
+import { Transaction, YearlyData } from "../types";
 import { RootState } from "../rootReducer";
 
 const initialState = {
@@ -35,9 +35,9 @@ const transactionSlice = createSlice({
 export const { setTransactions, setYearlyData, addTransaction } = transactionSlice.actions;
 export default transactionSlice.reducer;
 
-export const fetchTransactionsOfMonth = (yearMonth: YearMonth): AppThunk => async dispatch => {
+export const fetchTransactionsOfMonth = (year: number, month: number): AppThunk => async dispatch => {
   try {
-    const transactions = await getTransactionsOfMonth(yearMonth);
+    const transactions = await getTransactionsOfMonth(year, month);
     dispatch(setTransactions(transactions));
   } catch (error) {
     console.error('Error while fetching transactions: ', error);
