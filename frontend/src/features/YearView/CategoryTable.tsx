@@ -1,15 +1,19 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { selectSumsByCategory } from '../../slices/transactions';
+import { selectYearlyData } from '../../slices/transactions';
+import { Category } from '../../types';
 import { months } from './constants'
 
 interface Props {
   title: string,
+  categories: Category[]
 }
 
-const CategoryTable = ({ title }: Props): JSX.Element => {
-  const sumsByCategory = useSelector(selectSumsByCategory);
+const CategoryTable = ({ title, categories }: Props): JSX.Element | null => {
+  const yearlyData = useSelector(selectYearlyData);
+
+  if (!yearlyData || !categories) return null;
 
   return (
     <TableContainer>
@@ -23,6 +27,14 @@ const CategoryTable = ({ title }: Props): JSX.Element => {
           </TableRow>
         </TableHead>
         <TableBody>
+          {categories.map(category => (
+            <TableRow key={category.id}>
+              <TableCell>{category.name}</TableCell>
+              {yearlyData[category.name].map(monthlyValues => 
+                <TableCell key={monthlyValues}>{monthlyValues}</TableCell>
+              )}
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>

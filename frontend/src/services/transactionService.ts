@@ -19,8 +19,8 @@ export const getTransactionsOfMonthByCategory = ({year, month}: YearMonth, categ
   return get<Transaction[]>(`${url}/${category}?year=${year}&month=${month}`);
 }
 
-export const getSumsByCategory = (year: number): Promise<[]> => {
-  return get<[]>(`${url}/sum?year=${year}`);
+export const getYearlyData = (year: number): Promise<[]> => {
+  return get<[]>(`${url}/yearly-data?year=${year}`);
 }
 
 export const saveTransaction = (transaction: Transaction): Promise<Transaction> => {
