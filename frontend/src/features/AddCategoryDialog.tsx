@@ -1,12 +1,12 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, TextField } from '@material-ui/core';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { NewCategory, TransactionType } from '../types';
+import { Category, TransactionType } from '../types';
 
 interface AddCategoryProps {
   isOpen: boolean;
   handleClose: () => void;
-  handleAddCategory: (newCategory: NewCategory) => void;
+  handleAddCategory: (newCategory: Category) => void;
 }
 
 interface TypeOption {

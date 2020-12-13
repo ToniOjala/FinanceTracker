@@ -1,8 +1,8 @@
 import { Button, Card, makeStyles } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addCategory, selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
-import { Category, NewCategory, Transaction } from '../../types'
+import { postCategory, selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
+import { Category, Transaction } from '../../types'
 import AddCategoryDialog from '../AddCategoryDialog'
 import CategoryTable from './CategoryTable'
 
@@ -31,8 +31,8 @@ const CategoriesCard = ({ selectCategory, transactions }: CategoriesCardProps): 
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
 
-  const addNewCategory = (newCategory: NewCategory) => {
-    dispatch(addCategory(newCategory));
+  const addNewCategory = (newCategory: Category) => {
+    dispatch(postCategory(newCategory));
     closeDialog();
   }
 

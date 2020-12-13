@@ -13,13 +13,7 @@ const categorySlice = createSlice({
       return action.payload;
     },
     addCategory: (state, action) => {
-      saveCategory(action.payload)
-        .then(category => {
-          state.push(category);
-        })
-        .catch(error => {
-          console.log(error.message);
-        });
+      state.push(action.payload);
     }
   }
 })
@@ -33,6 +27,15 @@ export const fetchCategories = (): AppThunk => async dispatch => {
     dispatch(setCategories(categories));
   } catch (error) {
     console.error('Error while fetcing categories: ', error);
+  }
+}
+
+export const postCategory = (category: Category): AppThunk => async dispatch => {
+  try {
+    const savedCategory = await saveCategory(category);
+    dispatch(addCategory(savedCategory));
+  } catch (error) {
+    console.error('Error while posting category: ', error);
   }
 }
 
