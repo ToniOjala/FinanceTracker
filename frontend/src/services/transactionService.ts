@@ -11,14 +11,6 @@ export const getTransactionsOfYear = (year: number): Promise<Transaction[]> => {
   return get<Transaction[]>(`${url}/?year=${year}`);
 }
 
-export const getTransactionsByCategory = (category: string): Promise<Transaction[]> => {
-  return get<Transaction[]>(`${url}/${category}`);
-}
-
-export const getTransactionsOfMonthByCategory = ({year, month}: YearMonth, category: string): Promise<Transaction[]> => {
-  return get<Transaction[]>(`${url}/${category}?year=${year}&month=${month}`);
-}
-
 export const getYearlyData = (year: number): Promise<[]> => {
   return get<[]>(`${url}/yearly-data?year=${year}`);
 }
