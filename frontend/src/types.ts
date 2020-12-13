@@ -11,8 +11,6 @@ export interface Category {
   type: TransactionType;
 }
 
-export type NewCategory = Omit<Category, 'id'>;
-
 export interface Transaction {
   id: string;
   type: TransactionType,
@@ -20,8 +18,6 @@ export interface Transaction {
   date: string,
   category: string
 }
-
-export type NewTransaction = Omit<Transaction, 'id'>;
 
 export interface YearlyData {
   [key: string]: number[]
