@@ -1,0 +1,8 @@
+POST http://localhost:3001/api/budgets
+Content-Type: application/json
+
+{
+  "amount": 300,
+  "category": "Groceries",
+  "startDate": "2020-11-01"
+}
