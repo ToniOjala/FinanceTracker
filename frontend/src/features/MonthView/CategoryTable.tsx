@@ -1,7 +1,16 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
+import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import React from 'react'
 import { Category, Transaction } from '../../types'
 import { sumOfCategoryTransactions } from './utils'
+
+const useStyles = makeStyles({
+  headerCell: {
+    width: '30%',
+  },
+  valueCell: {
+    width: '70%',
+  }
+})
 
 interface CategoryListProps {
   className: string,
@@ -13,6 +22,8 @@ interface CategoryListProps {
 }
 
 const CategoryTable = ({ className, title, categories, selectedCategory, transactions, selectCategory }: CategoryListProps): JSX.Element | null => {
+  const classes = useStyles();  
+
   return (
     <div className={className}>
       <Typography variant="h5">{title}</Typography>
@@ -20,17 +31,18 @@ const CategoryTable = ({ className, title, categories, selectedCategory, transac
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Category</TableCell>
-              <TableCell>Real</TableCell>
+              <TableCell className={classes.headerCell}>Category</TableCell>
+              <TableCell className={classes.valueCell}>Real</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {categories.map(category => (
               <TableRow
-                key={category.name}
-                hover 
-                selected={selectedCategory === category}
-                onClick={() => selectCategory(category)}>
+                  key={category.name}
+                  hover 
+                  selected={selectedCategory === category}
+                  onClick={() => selectCategory(category)}
+                >
                 <TableCell>{category.name}</TableCell>
                 <TableCell>{sumOfCategoryTransactions(category, transactions)}</TableCell>
               </TableRow>
