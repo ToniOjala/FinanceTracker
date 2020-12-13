@@ -30,7 +30,7 @@ const CategoryTable = ({ title, categories }: Props): JSX.Element | null => {
           {categories.map(category => (
             <TableRow key={category.id}>
               <TableCell>{category.name}</TableCell>
-              {yearlyData[category.name].map(monthlyValues => 
+              {yearlyData[category.name]?.map(monthlyValues => 
                 <TableCell key={monthlyValues}>{monthlyValues}</TableCell>
               )}
             </TableRow>
