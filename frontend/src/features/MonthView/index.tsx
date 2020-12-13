@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 })
 
 const MonthView = (): JSX.Element | null => {
-  const [selectedCategory, setSelectedCategory] = useState<Category>();
+  const [selectedCategory, setSelectedCategory] = useState<Category>({} as Category);
   const [transactionsOfCategory, setTransactionsOfCategory] = useState<Transaction[]>([]);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -44,6 +44,7 @@ const MonthView = (): JSX.Element | null => {
       <Box className={classes.categories}>
         <CategoriesCard
           selectCategory={setSelectedCategory}
+          selectedCategory={selectedCategory}
           transactions={transactions}
         />
       </Box>

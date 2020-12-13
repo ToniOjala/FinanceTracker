@@ -28,7 +28,7 @@ const CategoryTable = ({ title, categories }: Props): JSX.Element | null => {
         </TableHead>
         <TableBody>
           {categories.map(category => (
-            <TableRow key={category.name}>
+            <TableRow key={category.name} hover>
               <TableCell>{category.name}</TableCell>
               {yearlyData[category.name]?.map((monthlyValues, index) => 
                 <TableCell key={`${category.name}_${index}`}>{monthlyValues}</TableCell>

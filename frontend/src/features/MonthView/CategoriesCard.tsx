@@ -17,10 +17,11 @@ const useStyles = makeStyles({
 
 interface CategoriesCardProps {
   selectCategory: (category: Category) => void,
+  selectedCategory: Category,
   transactions: Transaction[]
 }
 
-const CategoriesCard = ({ selectCategory, transactions }: CategoriesCardProps): JSX.Element => {
+const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: CategoriesCardProps): JSX.Element => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   
   const incomeCategories = useSelector(selectIncomeCategories);
@@ -42,6 +43,7 @@ const CategoriesCard = ({ selectCategory, transactions }: CategoriesCardProps): 
         className={classes.table}
         title="Incomes"
         categories={incomeCategories}
+        selectedCategory={selectedCategory}
         transactions={transactions}
         selectCategory={selectCategory}
       />
@@ -49,6 +51,7 @@ const CategoriesCard = ({ selectCategory, transactions }: CategoriesCardProps): 
         className={classes.table}
         title="Expenses"
         categories={expenseCategories}
+        selectedCategory={selectedCategory}
         transactions={transactions}
         selectCategory={selectCategory}
       />

@@ -7,11 +7,12 @@ interface CategoryListProps {
   className: string,
   title: string,
   categories: Category[],
+  selectedCategory: Category,
   transactions: Transaction[],
   selectCategory: (category: Category) => void
 }
 
-const CategoryTable = ({ className, title, categories, transactions, selectCategory }: CategoryListProps): JSX.Element | null => {
+const CategoryTable = ({ className, title, categories, selectedCategory, transactions, selectCategory }: CategoryListProps): JSX.Element | null => {
   return (
     <div className={className}>
       <Typography variant="h5">{title}</Typography>
@@ -25,7 +26,11 @@ const CategoryTable = ({ className, title, categories, transactions, selectCateg
           </TableHead>
           <TableBody>
             {categories.map(category => (
-              <TableRow key={category.name} onClick={() => selectCategory(category)}>
+              <TableRow
+                key={category.name}
+                hover 
+                selected={selectedCategory === category}
+                onClick={() => selectCategory(category)}>
                 <TableCell>{category.name}</TableCell>
                 <TableCell>{sumOfCategoryTransactions(category, transactions)}</TableCell>
               </TableRow>
