@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { postCategory, selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
 import { Category, Transaction } from '../../types'
 import AddCategoryDialog from '../AddCategoryDialog'
+import SetBudgetsDialog from '../SetBudgetsDialog'
 import CategoryTable from './CategoryTable'
 
 const useStyles = makeStyles({
@@ -22,19 +23,27 @@ interface CategoriesCardProps {
 }
 
 const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: CategoriesCardProps): JSX.Element => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
+  const [isBudgetDialogOpen, setIsBudgetDialogOpen] = useState(false);
   
   const incomeCategories = useSelector(selectIncomeCategories);
   const expenseCategories = useSelector(selectExpenseCategories);
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const openDialog = () => setIsDialogOpen(true);
-  const closeDialog = () => setIsDialogOpen(false);
+  const openCategoryDialog = () => setIsCategoryDialogOpen(true);
+  const closeCategoryDialog = () => setIsCategoryDialogOpen(false);
+
+  const openBudgetDialog = () => setIsBudgetDialogOpen(true);
+  const closeBudgetDialog = () => setIsBudgetDialogOpen(false);
 
   const addNewCategory = (newCategory: Category) => {
     dispatch(postCategory(newCategory));
-    closeDialog();
+    closeCategoryDialog();
+  }
+
+  const setBudgets = () => {
+    console.log('setting budgets');
   }
 
   return (
@@ -55,11 +64,17 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
         transactions={transactions}
         selectCategory={selectCategory}
       />
-      <Button onClick={openDialog}>Add Category</Button>
+      <Button onClick={openCategoryDialog}>Add Category</Button>
+      <Button onClick={openBudgetDialog}>Set Budgets</Button>
       <AddCategoryDialog 
-        isOpen={isDialogOpen}
+        isOpen={isCategoryDialogOpen}
         handleAddCategory={addNewCategory}
-        handleClose={closeDialog}
+        handleClose={closeCategoryDialog}
+      />
+      <SetBudgetsDialog
+        isOpen={isBudgetDialogOpen}
+        handleClose={closeBudgetDialog}
+        handleSetBudgets={setBudgets}
       />
     </Card>
   )
