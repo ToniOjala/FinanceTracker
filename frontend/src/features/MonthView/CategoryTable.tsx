@@ -3,8 +3,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { selectBudgets } from '../../slices/budgets'
 import { Category, Transaction } from '../../types'
-import { roundToDecimals } from '../../utils/round'
-import { sumOfCategoryTransactions } from './utils'
+import { getBudgetOfCategory, sumOfCategoryTransactions } from './utils'
 
 const useStyles = makeStyles({
   headerCell: {
@@ -31,12 +30,6 @@ const CategoryTable = ({ className, title, categories, selectedCategory, transac
   const classes = useStyles();  
   const budgets = useSelector(selectBudgets);
 
-  const getBudgetOfCategory = (category: string): string => {
-    const amount = budgets.find(b => b.category === category)?.amount;
-    if (amount) return roundToDecimals(amount, 2);
-    return '0.00';
-  }
-
   return (
     <div className={className}>
       <Typography variant="h5">{title}</Typography>
@@ -58,7 +51,7 @@ const CategoryTable = ({ className, title, categories, selectedCategory, transac
                   onClick={() => selectCategory(category)}
                 >
                 <TableCell>{category.name}</TableCell>
-                <TableCell>{getBudgetOfCategory(category.name)}</TableCell>
+                <TableCell>{getBudgetOfCategory(category.name, budgets)}</TableCell>
                 <TableCell>{sumOfCategoryTransactions(category, transactions)}</TableCell>
               </TableRow>
             ))}
