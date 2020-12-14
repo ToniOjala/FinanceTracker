@@ -6,7 +6,7 @@ import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import MomentUtils from '@date-io/moment';
 import moment from 'moment';
 
-interface AddTransactionProps {
+interface Props {
   isOpen: boolean;
   handleClose: () => void;
   handleAddTransaction: (newTransaction: PartialNewTransaction) => void;
@@ -17,7 +17,7 @@ export interface PartialNewTransaction {
   amount: string;
 }
 
-const AddTransactionDialog = ({ isOpen, handleClose, handleAddTransaction }: AddTransactionProps): JSX.Element => {
+const AddTransactionDialog = ({ isOpen, handleClose, handleAddTransaction }: Props): JSX.Element => {
   const { errors, control, handleSubmit, formState, setValue } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
 

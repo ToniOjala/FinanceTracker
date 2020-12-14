@@ -4,7 +4,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { selectBudgets } from '../slices/budgets';
 import { selectCategories } from '../slices/categories';
-import { Category } from '../types';
 import { getBudgetOfCategory } from './MonthView/utils';
 
 interface Props {
