@@ -19,4 +19,5 @@
 | 11.12.20 | 3  | Frontend: Redux varaston parantelua ja käyttöönottoa
 | 12.12.20 | 3  | Frontend & Backend: Pieniä parannuksia siellä täällä ja yritys saada vuosinäkymälle dataa.<br>Edelleen epävarma siitä pitäisikö ongelma ratkaista frontendissä vai backendissä ja miten.
 | 13.12.20 | 5  | Frontend: Vuosinäkymän data näkyviin, lukuisia bugikorjauksia, UI:n tyylien kohentelua<br>Backend: Data vuosinäkymälle ratkaistu, budjettien malli sekä perusreitit lisätty
-| yht   | 46   | | 
+| 14.12.20 | 1  | Frontend: Budjettien lisäys käyttäjärajapintaan
+| yht   | 47   | | 
