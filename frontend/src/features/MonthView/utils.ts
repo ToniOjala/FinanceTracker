@@ -10,7 +10,7 @@ export const formatDate = (date: string): string => {
   return `${day}.${month}.${year}`;
 }
 
-export const sumOfCategoryTransactions = (category: Category, transactions: Transaction[]): number => {
+export const sumOfCategoryTransactions = (category: Category, transactions: Transaction[]): string => {
   const transOfCategory = transactions.filter(tr => tr.category === category.name);
   let sum = 0;
 

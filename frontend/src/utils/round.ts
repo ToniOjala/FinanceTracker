@@ -1,3 +1,3 @@
-export const roundToDecimals = (value: number, decimals: number): number => {
-  return Number(value.toFixed(decimals));
+export const roundToDecimals = (value: number, decimals: number): string => {
+  return value.toFixed(decimals);
 }
