@@ -13,10 +13,17 @@ export interface Category {
 
 export interface Transaction {
   _id: string;
-  type: TransactionType,
-  amount: number,
-  date: string,
-  category: string
+  type: TransactionType;
+  amount: number;
+  date: string;
+  category: string;
+}
+
+export interface Budget {
+  _id: string;
+  amount: number;
+  category: string;
+  startDate: Date;
 }
 
 export interface YearlyData {
