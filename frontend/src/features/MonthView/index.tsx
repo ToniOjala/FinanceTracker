@@ -7,6 +7,7 @@ import TransactionsCard from './TransactionsCard'
 import { fetchCategories } from '../../slices/categories';
 import { fetchTransactionsOfMonth, selectTransactions } from '../../slices/transactions';
 import { selectYearAndMonth } from '../../slices/dateSelection';
+import { fetchBudgets } from '../../slices/budgets';
 
 const useStyles = makeStyles({
   categories: {
@@ -33,6 +34,7 @@ const MonthView = (): JSX.Element | null => {
 
   useEffect(() => {
     dispatch(fetchCategories());
+    dispatch(fetchBudgets());
   }, [])
 
   useEffect(() => {
