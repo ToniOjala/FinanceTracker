@@ -22,7 +22,7 @@ export const sumOfCategoryTransactions = (category: Category, transactions: Tran
 }
 
 export const getBudgetOfCategory = (category: string, budgets: Budget[]): string => {
-  const amount = budgets.find(b => b.category === category)?.amount;
+  const amount = budgets?.find(b => b.category === category)?.amount;
   if (amount) return roundToDecimals(amount, 2);
   return '0.00';
 }
