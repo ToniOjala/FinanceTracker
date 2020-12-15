@@ -1,11 +1,22 @@
 import toNewTransaction from './toNewTransaction';
 import toNewCategory from './toNewCategory';
-import toNewBudget from './toNewBudget';
+import toNewBudgets from './toNewBudgets';
 import { filterByMonth } from './filters';
+import { IBudget } from '../models/budget';
+
+export const budgetExists = (budget: IBudget, budgets: IBudget[]): boolean => {
+  for (const b of budgets) {
+    if (b.amount === budget.amount &&
+        b.category === budget.category &&
+        b.startDate === budget.startDate) return true;
+  }
+
+  return false;
+};
 
 export {
   toNewTransaction,
   toNewCategory,
-  toNewBudget,
+  toNewBudgets,
   filterByMonth
 };
