@@ -6,10 +6,14 @@ import { selectBudgets } from '../slices/budgets';
 import { selectCategories } from '../slices/categories';
 import { getBudgetOfCategory } from './MonthView/utils';
 
+export interface UnprocessedBudgets {
+  [key: string]: string
+}
+
 interface Props {
   isOpen: boolean;
   handleClose: () => void;
-  handleSetBudgets: () => void;
+  handleSetBudgets: (budgets: UnprocessedBudgets) => void;
 }
 
 const SetBudgetsDialog = ({ isOpen, handleClose, handleSetBudgets }: Props): JSX.Element => {
@@ -31,7 +35,7 @@ const SetBudgetsDialog = ({ isOpen, handleClose, handleSetBudgets }: Props): JSX
               control={control}
               rules={{required: `Budget for ${category.name} is required`}}
               margin="normal"
-              name={`${category.name}_budget`}
+              name={`${category.name}`}
               label={`${category.name}`}
               defaultValue={getBudgetOfCategory(category.name, budgets)}
               error={errors[`${category.name}_budget`] && true}
@@ -51,7 +55,7 @@ const SetBudgetsDialog = ({ isOpen, handleClose, handleSetBudgets }: Props): JSX
           <Button
             type="submit"
             color="primary"
-            disabled={!isDirty || isValid}
+            disabled={!isDirty || !isValid}
           >
             Set
           </Button>

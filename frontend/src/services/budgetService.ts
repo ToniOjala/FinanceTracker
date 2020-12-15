@@ -7,6 +7,10 @@ export const getBudgets = (): Promise<Budget[]> => {
   return get<Budget[]>(`${url}`);
 }
 
-export const saveBudget = (budget: Budget): Promise<Budget> => {
+export const postBudget = (budget: Budget): Promise<Budget> => {
   return post<Budget>(url, budget);
+}
+
+export const postBudgets = (budgets: Budget[]): Promise<Budget[]> => {
+  return post<Budget[]>(url, budgets);
 }

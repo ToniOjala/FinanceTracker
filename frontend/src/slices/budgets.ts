@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
-import { getBudgets, saveBudget } from '../services/budgetService';
+import { getBudgets, postBudgets } from '../services/budgetService';
 import { Budget } from '../types';
 
 const budgetSlice = createSlice({
@@ -11,13 +11,16 @@ const budgetSlice = createSlice({
     setBudgets: (state, action) => {
       return action.payload;
     },
-    addBudget: (state, action) => {
-      state.push(action.payload);
+    addBudgets: (state, action) => {
+      const budgets: Budget[] = action.payload;
+      budgets.forEach(b => {
+        state.push(b);
+      })
     }
   }
 })
 
-export const { setBudgets, addBudget } = budgetSlice.actions;
+export const { setBudgets, addBudgets } = budgetSlice.actions;
 export default budgetSlice.reducer;
 
 export const fetchBudgets = (): AppThunk => async dispatch => {
@@ -29,12 +32,12 @@ export const fetchBudgets = (): AppThunk => async dispatch => {
   }
 }
 
-export const postBudget = (budget: Budget): AppThunk => async dispatch => {
+export const saveBudgets = (budgets: Budget[]): AppThunk => async dispatch => {
   try {
-    const savedBudget = await saveBudget(budget);
-    dispatch(addBudget(savedBudget));
+    const savedBudgets = await postBudgets(budgets);
+    if (savedBudgets.length > 0) dispatch(addBudgets(savedBudgets));
   } catch (error) {
-    console.error('Error while posting budget: ', error);
+    console.error('Error while saving budgets', error);
   }
 }
 

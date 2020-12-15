@@ -1,10 +1,12 @@
 import { Button, Card, makeStyles } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { saveBudgets } from '../../slices/budgets'
 import { postCategory, selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
-import { Category, Transaction } from '../../types'
+import { selectYearAndMonth } from '../../slices/dateSelection'
+import { Budget, Category, Transaction } from '../../types'
 import AddCategoryDialog from '../AddCategoryDialog'
-import SetBudgetsDialog from '../SetBudgetsDialog'
+import SetBudgetsDialog, { UnprocessedBudgets } from '../SetBudgetsDialog'
 import CategoryTable from './CategoryTable'
 
 const useStyles = makeStyles({
@@ -28,6 +30,7 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
   
   const incomeCategories = useSelector(selectIncomeCategories);
   const expenseCategories = useSelector(selectExpenseCategories);
+  const [year, month] = useSelector(selectYearAndMonth);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -42,8 +45,22 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
     closeCategoryDialog();
   }
 
-  const setBudgets = () => {
-    console.log('setting budgets');
+  const setBudgets = (budgets: UnprocessedBudgets) => {
+    const processedBudgets: Budget[] = [];
+    
+    for (const category in budgets) {
+      const budget: Budget = {
+        _id: '',
+        amount: Number(budgets[category]),
+        category,
+        startDate: `${year}-${month}`
+      }
+
+      if(budget.amount > 0) processedBudgets.push(budget);
+    }
+
+    dispatch(saveBudgets(processedBudgets));
+    closeBudgetDialog();
   }
 
   return (
