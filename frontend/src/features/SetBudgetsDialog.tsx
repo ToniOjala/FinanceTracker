@@ -20,7 +20,7 @@ const SetBudgetsDialog = ({ isOpen, handleClose, handleSetBudgets }: Props): JSX
   const budgets = useSelector(selectBudgets);
 
   return (
-    <Dialog open={isOpen} onClose={() => handleClose}>
+    <Dialog maxWidth='xs' open={isOpen} onClose={() => handleClose}>
       <form onSubmit={handleSubmit(handleSetBudgets)}>
         <DialogTitle>Set Budgets</DialogTitle>
         <DialogContent>
