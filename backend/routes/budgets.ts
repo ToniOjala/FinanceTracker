@@ -20,8 +20,7 @@ router.post('/', async (request, response) => {
       createdBudgets.push(createdBudget);
     }
   }
-
-  console.log(createdBudgets);
+  
   response.json(createdBudgets);
 });
 
