@@ -53,7 +53,7 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
         _id: '',
         amount: Number(budgets[category]),
         category,
-        startDate: `${year}-${month}`
+        startDate: new Date(year, month - 1, 1, 12)
       }
 
       if(budget.amount > 0) processedBudgets.push(budget);

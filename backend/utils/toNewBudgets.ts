@@ -33,11 +33,15 @@ const parseCategory = (category: any): string => {
   return category;
 };
 
-const parseDate = (date: any): string => {
-  if (!date || !isString(date)) 
+const parseDate = (date: any): Date => {
+  try {
+    if (!date || !isString(date)) 
+      throw new Error('Incorrect or missing date: ' + date);
+    const parsedDate = new Date(date);
+    return parsedDate;
+  } catch {
     throw new Error('Incorrect or missing date: ' + date);
-
-  return date;
+  }
 };
 
 export default toNewBudgets;

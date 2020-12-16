@@ -3,7 +3,7 @@ import { model, Schema, Document } from 'mongoose';
 interface IBudget {
   amount: number,
   category: string,
-  startDate: string
+  startDate: Date
 }
 
 interface IBudgetDoc extends IBudget, Document {}
@@ -12,7 +12,7 @@ interface IBudgetDoc extends IBudget, Document {}
 const BudgetSchemaFields: Record<keyof IBudget, any> = {
   amount: { type: Number, required: true },
   category: { type: String, required: true },
-  startDate: { type: String, required: true }
+  startDate: { type: Date, required: true }
 };
 
 const BudgetSchema = new Schema(BudgetSchemaFields);
