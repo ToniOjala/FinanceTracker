@@ -21,4 +21,5 @@
 | 13.12.20 | 5  | Frontend: Vuosinäkymän data näkyviin, lukuisia bugikorjauksia, UI:n tyylien kohentelua<br>Backend: Data vuosinäkymälle ratkaistu, budjettien malli sekä perusreitit lisätty
 | 14.12.20 | 1  | Frontend: Budjettien lisäys käyttäjärajapintaan
 | 15.12.20 | 1  | Frontend & Backend: Budjettien asettamisen lisäys
-| yht   | 48   | | 
+| 16.12.20 | 1  | Backend: Budjeteille reitti, joka palauttaa viimeisimmän budjetin per kategoria
+| yht   | 49   | | 
