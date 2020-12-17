@@ -22,4 +22,5 @@
 | 14.12.20 | 1  | Frontend: Budjettien lisäys käyttäjärajapintaan
 | 15.12.20 | 1  | Frontend & Backend: Budjettien asettamisen lisäys
 | 16.12.20 | 1  | Backend: Budjeteille reitti, joka palauttaa viimeisimmän budjetin per kategoria
-| yht   | 49   | | 
+| 17.12.20 | 2  | Frontend: Budjettien ja kategorian saldon lisäys kuukausinäkymään sekä saldojen lisäykseen dialogi<br>Backend: Parserit geneerisimmäksi, yritys saada saldojen päivitykselle reitti
+| yht   | 51   | | 
