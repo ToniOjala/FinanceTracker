@@ -1,6 +1,6 @@
 import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
 
-export enum TransactionType {
+export enum CategoryType {
   Expense = 'expense',
   Income = 'income'
 }
@@ -8,12 +8,11 @@ export enum TransactionType {
 export interface Category {
   _id: string;
   name: string;
-  type: TransactionType;
+  type: CategoryType;
 }
 
 export interface Transaction {
   _id: string;
-  type: TransactionType;
   amount: number;
   date: string;
   category: string;

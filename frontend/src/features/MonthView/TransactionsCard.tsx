@@ -34,7 +34,6 @@ const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null
       _id: '',
       date: values.date,
       amount: Number.parseFloat(values.amount),
-      type: category.type,
       category: category.name
     }
 

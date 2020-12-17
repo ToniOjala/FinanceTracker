@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, TextField } from '@material-ui/core';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Category, TransactionType } from '../types';
+import { Category, CategoryType } from '../types';
 
 interface AddCategoryProps {
   isOpen: boolean;
@@ -10,13 +10,13 @@ interface AddCategoryProps {
 }
 
 interface TypeOption {
-  value: TransactionType;
+  value: CategoryType;
   label: string;
 }
 
 const typeOptions: TypeOption[] = [
-  { value: TransactionType.Expense, label: 'Expense' },
-  { value: TransactionType.Income, label: 'Income' }
+  { value: CategoryType.Expense, label: 'Expense' },
+  { value: CategoryType.Income, label: 'Income' }
 ]
 
 const AddCategoryDialog = ({ isOpen, handleClose, handleAddCategory }: AddCategoryProps): JSX.Element => {

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
 import { getCategories, saveCategory } from "../services/categoryService";
-import { Category, TransactionType } from "../types";
+import { Category, CategoryType } from "../types";
 
 const categorySlice = createSlice({
   name: 'category',
@@ -42,7 +42,7 @@ export const postCategory = (category: Category): AppThunk => async dispatch => 
 export const selectCategories = (state: RootState): Category[] => state.categories;
 
 export const selectIncomeCategories = (state: RootState): Category[] => 
-  state.categories.filter(cat => cat.type === TransactionType.Income);
+  state.categories.filter(cat => cat.type === CategoryType.Income);
 
 export const selectExpenseCategories = (state: RootState): Category[] => 
-  state.categories.filter(cat => cat.type === TransactionType.Expense);
+  state.categories.filter(cat => cat.type === CategoryType.Expense);
