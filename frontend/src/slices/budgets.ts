@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
-import { getBudgets, postBudgets } from '../services/budgetService';
+import { getBudgets, getLatestBudgets, postBudgets } from '../services/budgetService';
 import { Budget } from '../types';
 
 const budgetSlice = createSlice({
@@ -26,6 +26,15 @@ export default budgetSlice.reducer;
 export const fetchBudgets = (): AppThunk => async dispatch => {
   try {
     const budgets = await getBudgets();
+    dispatch(setBudgets(budgets));
+  } catch (error) {
+    console.error('Error while fetching budgets', error);
+  }
+}
+
+export const fetchLatestBudgets = (year: number, month: number): AppThunk => async dispatch => {
+  try {
+    const budgets = await getLatestBudgets(year, month);
     dispatch(setBudgets(budgets));
   } catch (error) {
     console.error('Error while fetching budgets', error);
