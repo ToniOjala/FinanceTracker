@@ -8,13 +8,10 @@ import { sumOfCategoryTransactions } from './utils'
 
 const useStyles = makeStyles({
   headerCell: {
-    width: '30%',
-  },
-  budgetCell: {
-    width: '35%',
+    width: '28%',
   },
   valueCell: {
-    width: '35%',
+    width: '24%',
   }
 })
 
@@ -39,8 +36,9 @@ const CategoryTable = ({ className, title, categories, selectedCategory, transac
           <TableHead>
             <TableRow>
               <TableCell className={classes.headerCell}>Category</TableCell>
-              <TableCell className={classes.budgetCell}>Budgeted</TableCell>
+              <TableCell className={classes.valueCell}>Budgeted</TableCell>
               <TableCell className={classes.valueCell}>Real</TableCell>
+              <TableCell className={classes.valueCell}>Balance</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -54,6 +52,7 @@ const CategoryTable = ({ className, title, categories, selectedCategory, transac
                 <TableCell>{category.name}</TableCell>
                 <TableCell>{roundToDecimals(budgets[category.name], 2)}</TableCell>
                 <TableCell>{sumOfCategoryTransactions(category, transactions)}</TableCell>
+                <TableCell>{category.balance}</TableCell>
               </TableRow>
             ))}
           </TableBody>
