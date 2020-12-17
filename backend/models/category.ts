@@ -11,6 +11,8 @@ interface ICategory {
   balance: number,
 }
 
+interface CategoryWithId extends ICategory { _id: string }
+
 interface ICategoryDoc extends ICategory, Document {}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,4 +25,4 @@ const CategorySchemaFields: Record<keyof ICategory, any> = {
 const CategorySchema = new Schema(CategorySchemaFields);
 const Category = model<ICategoryDoc>('Category', CategorySchema);
 
-export { Category, ICategory, CategoryType };
+export { Category, ICategory, CategoryWithId, CategoryType };
