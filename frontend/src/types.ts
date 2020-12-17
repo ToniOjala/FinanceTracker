@@ -9,6 +9,7 @@ export interface Category {
   _id: string;
   name: string;
   type: CategoryType;
+  balance: number;
 }
 
 export interface Transaction {
@@ -32,6 +33,7 @@ export interface BudgetsByCategory {
 export interface YearlyData {
   [key: string]: number[]
 }
+
 export interface DateSelection {
   selectedDate: ParsableDate,
   year: number,
