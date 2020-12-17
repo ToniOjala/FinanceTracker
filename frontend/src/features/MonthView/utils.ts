@@ -1,4 +1,4 @@
-import { Budget, Category, Transaction } from "../../types";
+import { Category, Transaction } from "../../types";
 import { roundToDecimals } from "../../utils/round";
 
 export const formatDate = (date: string): string => {
@@ -19,10 +19,4 @@ export const sumOfCategoryTransactions = (category: Category, transactions: Tran
   });
 
   return roundToDecimals(sum, 2);
-}
-
-export const getBudgetOfCategory = (category: string, budgets: Budget[]): string => {
-  const amount = budgets?.find(b => b.category === category)?.amount;
-  if (amount) return roundToDecimals(amount, 2);
-  return '0.00';
 }
