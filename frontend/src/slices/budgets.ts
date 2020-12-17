@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
 import { getBudgets, getLatestBudgets, postBudgets } from '../services/budgetService';
-import { Budget } from '../types';
+import { Budget, BudgetsByCategory } from '../types';
 
 const budgetSlice = createSlice({
   name: 'budget',
-  initialState: [] as Budget[],
+  initialState: {} as BudgetsByCategory,
   reducers: {
     setBudgets: (state, action) => {
       return action.payload;
@@ -14,7 +14,7 @@ const budgetSlice = createSlice({
     addBudgets: (state, action) => {
       const budgets: Budget[] = action.payload;
       budgets.forEach(b => {
-        state.push(b);
+        state[b.category] = b.amount;
       })
     }
   }
@@ -50,4 +50,4 @@ export const saveBudgets = (budgets: Budget[]): AppThunk => async dispatch => {
   }
 }
 
-export const selectBudgets = (state: RootState): Budget[] => state.budgets;
+export const selectBudgets = (state: RootState): BudgetsByCategory => state.budgets;

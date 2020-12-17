@@ -1,4 +1,4 @@
-import { Budget } from '../types';
+import { Budget, BudgetsByCategory } from '../types';
 import { get, post } from './apiService';
 
 const url = 'http://localhost:3001/api/budgets';
@@ -7,8 +7,8 @@ export const getBudgets = (): Promise<Budget[]> => {
   return get<Budget[]>(`${url}`);
 }
 
-export const getLatestBudgets = (year: number, month: number): Promise<Budget[]> => {
-  return get<Budget[]>(`${url}/latest?year=${year}&month=${month}`);
+export const getLatestBudgets = (year: number, month: number): Promise<BudgetsByCategory> => {
+  return get<BudgetsByCategory>(`${url}/latest?year=${year}&month=${month}`);
 }
 
 export const postBudget = (budget: Budget): Promise<Budget> => {

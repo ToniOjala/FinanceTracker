@@ -4,7 +4,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { selectBudgets } from '../slices/budgets';
 import { selectCategories } from '../slices/categories';
-import { getBudgetOfCategory } from './MonthView/utils';
 
 export interface UnprocessedBudgets {
   [key: string]: string
@@ -37,7 +36,7 @@ const SetBudgetsDialog = ({ isOpen, handleClose, handleSetBudgets }: Props): JSX
               margin="normal"
               name={`${category.name}`}
               label={`${category.name}`}
-              defaultValue={getBudgetOfCategory(category.name, budgets)}
+              defaultValue={budgets[category.name]}
               error={errors[`${category.name}_budget`] && true}
               helperText={errors[`${category.name}_budget`]?.message}
               fullWidth
