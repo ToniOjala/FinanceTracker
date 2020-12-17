@@ -1,5 +1,5 @@
 import toNewTransaction from './toNewTransaction';
-import toNewCategory from './toNewCategory';
+import { toNewCategory, toCategoryWithId } from './toCategory';
 import toNewBudgets from './toNewBudgets';
 import { filterByMonth } from './filters';
 import { IBudget } from '../models/budget';
@@ -17,6 +17,7 @@ export const budgetExists = (budget: IBudget, budgets: IBudget[]): boolean => {
 export {
   toNewTransaction,
   toNewCategory,
+  toCategoryWithId,
   toNewBudgets,
   filterByMonth
 };

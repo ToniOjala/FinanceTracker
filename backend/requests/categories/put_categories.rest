@@ -1,0 +1,17 @@
+PUT http://localhost:3001/api/categories
+Content-Type: application/json
+
+[
+  {
+    "_id": "5fbd46b5ea345c2a9c055bcb",
+    "name": "Groceries",
+    "type": "expense",
+    "balance": 100
+  },
+  {
+    "_id": "5fbd46d7ea345c2a9c055bcc",
+    "name": "Eating Out",
+    "type": "expense",
+    "balance": 200
+  }
+]
