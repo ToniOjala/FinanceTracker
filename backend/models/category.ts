@@ -8,6 +8,7 @@ enum CategoryType {
 interface ICategory {
   name: string,
   type: CategoryType,
+  balance: number,
 }
 
 interface ICategoryDoc extends ICategory, Document {}
@@ -16,6 +17,7 @@ interface ICategoryDoc extends ICategory, Document {}
 const CategorySchemaFields: Record<keyof ICategory, any> = {
   name: { type: String, required: true, unique: true },
   type: { type: CategoryType, required: true },
+  balance: { type: Number, required: true }
 };
 
 const CategorySchema = new Schema(CategorySchemaFields);

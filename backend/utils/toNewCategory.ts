@@ -8,7 +8,8 @@ import { parseString, parseValue } from "./parsers";
 const toNewCategory = (object: any): ICategory => {
   const newCategory: ICategory = {
     name: parseString(object.name, 'name'),
-    type: parseValue<CategoryType>(object.type, 'type', 'type')
+    type: parseValue<CategoryType>(object.type, 'type', 'type'),
+    balance: 0,
   };
 
   return newCategory;
