@@ -37,8 +37,8 @@ const SetBudgetsDialog = ({ isOpen, handleClose, handleSetBudgets }: Props): JSX
               name={`${category.name}`}
               label={`${category.name}`}
               defaultValue={budgets[category.name]}
-              error={errors[`${category.name}_budget`] && true}
-              helperText={errors[`${category.name}_budget`]?.message}
+              error={errors[`${category.name}`] && true}
+              helperText={errors[`${category.name}`]?.message}
               fullWidth
               required
             />
