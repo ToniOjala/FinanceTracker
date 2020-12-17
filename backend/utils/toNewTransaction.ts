@@ -8,7 +8,7 @@ import { parseDate, parseNumber, parseString } from "./parsers";
 const toNewTransaction = (object: any): ITransaction => {
   const newTransaction: ITransaction = {
     amount: parseNumber(object.amount, 'amount'),
-    date: parseDate(object.date),
+    date: parseDate(object.date, 'date'),
     category: parseString(object.category, 'category')
   };
 
