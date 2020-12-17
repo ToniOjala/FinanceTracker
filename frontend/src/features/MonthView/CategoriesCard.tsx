@@ -5,6 +5,7 @@ import { saveBudgets } from '../../slices/budgets'
 import { postCategory, selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
 import { selectYearAndMonth } from '../../slices/dateSelection'
 import { Budget, Category, Transaction } from '../../types'
+import AddBalanceDialog, { CategoryBalances } from '../AddBalanceDialog'
 import AddCategoryDialog from '../AddCategoryDialog'
 import SetBudgetsDialog, { UnprocessedBudgets } from '../SetBudgetsDialog'
 import CategoryTable from './CategoryTable'
@@ -27,6 +28,7 @@ interface CategoriesCardProps {
 const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: CategoriesCardProps): JSX.Element => {
   const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
   const [isBudgetDialogOpen, setIsBudgetDialogOpen] = useState(false);
+  const [isBalanceDialogOpen, setIsBalanceDialogOpen] = useState(false);
   
   const incomeCategories = useSelector(selectIncomeCategories);
   const expenseCategories = useSelector(selectExpenseCategories);
@@ -35,14 +37,18 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
   const classes = useStyles();
 
   const openCategoryDialog = () => setIsCategoryDialogOpen(true);
-  const closeCategoryDialog = () => setIsCategoryDialogOpen(false);
-
   const openBudgetDialog = () => setIsBudgetDialogOpen(true);
-  const closeBudgetDialog = () => setIsBudgetDialogOpen(false);
+  const openBalanceDialog = () => setIsBalanceDialogOpen(true);
+  
+  const closeDialogs = () => {
+    setIsCategoryDialogOpen(false);
+    setIsBudgetDialogOpen(false);
+    setIsBalanceDialogOpen(false);
+  }
 
   const addNewCategory = (newCategory: Category) => {
     dispatch(postCategory(newCategory));
-    closeCategoryDialog();
+    closeDialogs();
   }
 
   const setBudgets = (budgets: UnprocessedBudgets) => {
@@ -60,7 +66,11 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
     }
 
     dispatch(saveBudgets(processedBudgets));
-    closeBudgetDialog();
+    closeDialogs();
+  }
+
+  const addToBalance = (balances: CategoryBalances) => {
+    console.log(balances);
   }
 
   return (
@@ -83,15 +93,21 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
       />
       <Button onClick={openCategoryDialog}>Add Category</Button>
       <Button onClick={openBudgetDialog}>Set Budgets</Button>
+      <Button onClick={openBalanceDialog}>Add to Balance</Button>
       <AddCategoryDialog 
         isOpen={isCategoryDialogOpen}
+        handleClose={closeDialogs}
         handleAddCategory={addNewCategory}
-        handleClose={closeCategoryDialog}
       />
       <SetBudgetsDialog
         isOpen={isBudgetDialogOpen}
-        handleClose={closeBudgetDialog}
+        handleClose={closeDialogs}
         handleSetBudgets={setBudgets}
+      />
+      <AddBalanceDialog
+        isOpen={isBalanceDialogOpen}
+        handleClose={closeDialogs}
+        handleAddToBalance={addToBalance}
       />
     </Card>
   )
