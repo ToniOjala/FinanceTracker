@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { TransactionType } from '../models/transaction';
+import { CategoryType } from '../models/category';
 
-export const isTransactionType = (type: any): type is TransactionType => {
-  return Object.values(TransactionType).includes(type);
+export const isCategoryType = (type: any): type is CategoryType => {
+  return Object.values(CategoryType).includes(type);
 };
 
 export const isString = (text: any): text is string => {

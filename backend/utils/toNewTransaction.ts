@@ -2,25 +2,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { ITransaction, TransactionType } from "../models/transaction";
-import { isString, isTransactionType } from "./validation";
+import { ITransaction } from "../models/transaction";
+import { isString } from "./validation";
 
 const toNewTransaction = (object: any): ITransaction => {
   const newTransaction: ITransaction = {
-    type: parseType(object.type),
     amount: parseAmount(object.amount),
     date: parseDate(object.date),
     category: parseCategory(object.category)
   };
 
   return newTransaction;
-};
-
-const parseType = (type: any): TransactionType => {
-  if (!type || !isTransactionType(type)) 
-    throw new Error('Incorrect or missing transaction type: ' + type);
-  
-  return type;
 };
 
 const parseAmount = (amount: any): number => {

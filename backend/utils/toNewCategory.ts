@@ -2,9 +2,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { ICategory } from "../models/category";
-import { TransactionType } from "../models/transaction";
-import { isString, isTransactionType } from "./validation";
+import { ICategory, CategoryType } from "../models/category";
+import { isString, isCategoryType } from "./validation";
 
 const toNewCategory = (object: any): ICategory => {
   const newCategory: ICategory = {
@@ -22,8 +21,8 @@ const parseName = (name: any): string => {
   return name;
 };
 
-const parseType = (type: any): TransactionType => {
-  if (!type || !isTransactionType(type)) 
+const parseType = (type: any): CategoryType => {
+  if (!type || !isCategoryType(type)) 
     throw new Error('Incorrect or missing transaction type: ' + type);
   
   return type;
