@@ -16,6 +16,8 @@ if (!MONGODB_URI) console.log('No URI for MongoDB found.');
 
 console.log('connecting to ', MONGODB_URI);
 
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB');
