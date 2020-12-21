@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
-import express, { response } from 'express';
-import { Category, CategoryWithId } from '../models/category';
+import express from 'express';
+import { Category } from '../models/category';
 import { toCategoryWithId, toNewCategory } from '../utils';
 
 const router = express.Router();
@@ -25,21 +25,12 @@ router.post('/', async (request, response) => {
   response.json(createdCategory);
 });
 
-router.put('/', async (request, _response) => {
-  const body: any[] = request.body;
-  const categories: CategoryWithId[] = [];
+router.put('/:id', async (request, response) => {
+  const id = request.params.id;
+  const category = toCategoryWithId(request.body);
+  await Category.findByIdAndUpdate(id, category);
 
-  try {
-    for (const item of body) {
-      const category = toCategoryWithId(item);
-      categories.push(category);
-      await Category.findByIdAndUpdate(category._id, category, { new: true });
-    }
-  } catch (error) {
-    response.status(400);
-  }
-
-  response.json(categories);
+  response.json(category);
 });
 
 export default router;
