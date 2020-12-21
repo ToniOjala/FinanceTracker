@@ -1,64 +1,82 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import * as path from 'path';
 import * as isDev from 'electron-is-dev';
 import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from "electron-devtools-installer";
-
-// require('../src/message_control/main');
+import { IpcChannel } from './IPC/IpcChannel';
+import { DatabaseChannel } from './IPC/DatabaseChannel';
 
 let win: BrowserWindow | null = null;
 
-function createWindow() {
-  win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true
+class Main {
+  private mainWindow: BrowserWindow | undefined;
+
+  public init(ipcChannels: IpcChannel[]) {
+    app.on('ready', this.createWindow);
+    app.on('window-all-closed', this.onWindowAllClosed);
+    app.on('activate', this.onActivate);
+
+    this.registerIpcChannels(ipcChannels);
+  }
+
+  private onWindowAllClosed() {
+    if (process.platform !== 'darwin') {
+      app.quit();
     }
-  })
-
-  if (isDev) {
-    win.loadURL('http://localhost:3000/index.html');
-  } else {
-    // 'build/index.html'
-    win.loadURL(`file://${__dirname}/../index.html`);
   }
 
-  win.on('closed', () => win = null);
+  private onActivate() {
+    if (!this.mainWindow) {
+      this.createWindow();
+    }
+  }
 
-  // Hot Reloading
-  if (isDev) {
-    // 'node_modules/.bin/electronPath'
-    require('electron-reload')(__dirname, {
-      electron: path.join(__dirname, '..', '..', 'node_modules', '.bin', 'electron'),
-      forceHardReset: true,
-      hardResetMethod: 'exit'
+  private createWindow() {
+    this.mainWindow = new BrowserWindow({
+      width: 800,
+      height: 600,
+      title: 'Finance Tracker',
+      webPreferences: {
+        nodeIntegration: true
+      }
     });
+
+    if (isDev) {
+      this.mainWindow.loadURL('http://localhost:3000/index.html');
+    } else {
+      // 'build/index.html'
+      this.mainWindow.loadURL(`file://${__dirname}/../index.html`);
+    }
+
+    this.mainWindow.on('closed', () => win = null);
+
+    // Hot Reloading
+    if (isDev) {
+      // 'node_modules/.bin/electronPath'
+      require('electron-reload')(__dirname, {
+        electron: path.join(__dirname, '..', '..', 'node_modules', '.bin', 'electron'),
+        forceHardReset: true,
+        hardResetMethod: 'exit'
+      });
+    }
+
+    // DevTools
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then(name => console.log(`Added Extension: ${name}`))
+      .catch(err => console.error('An error occurred: ', err));
+
+    installExtension(REDUX_DEVTOOLS)
+      .then((name => console.log(`Added Extension: ${name}`)))
+      .catch(err => console.error('An error occurred: ', err));
+
+    if (isDev) this.mainWindow.webContents.openDevTools();
   }
 
-  // DevTools
-  installExtension(REACT_DEVELOPER_TOOLS)
-    .then(name => console.log(`Added Extension: ${name}`))
-    .catch(err => console.error('An error occurred: ', err));
-
-  installExtension(REDUX_DEVTOOLS)
-    .then((name => console.log(`Added Extension: ${name}`)))
-    .catch(err => console.error('An error occurred: ', err));
-
-  if (isDev) {
-    win.webContents.openDevTools();
+  private registerIpcChannels(ipcChannels: IpcChannel[]) {
+    ipcChannels.forEach(channel => ipcMain.on(channel.getName(), 
+      (event, request) => channel.handle(event, request)));
   }
 }
 
-app.on('ready', createWindow);
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
-app.on('activate', () => {
-  if (win === null) {
-    createWindow();
-  }
-});
+(new Main()).init([
+  new DatabaseChannel()
+]);
