@@ -4,6 +4,7 @@ import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
 import { getCategories, saveCategory } from "../services/categoryService";
 import { Category, CategoryType } from "../types";
+import { send } from "../message_control/renderer";
 
 const categorySlice = createSlice({
   name: 'category',
@@ -23,7 +24,9 @@ export default categorySlice.reducer;
 
 export const fetchCategories = (): AppThunk => async dispatch => {
   try {
-    const categories = await getCategories();
+    // const categories = await getCategories();
+    // dispatch(setCategories(categories));
+    const categories = await send<Category[]>('SELECT * FROM categories');
     dispatch(setCategories(categories));
   } catch (error) {
     console.error('Error while fetcing categories: ', error);
