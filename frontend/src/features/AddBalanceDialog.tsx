@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectCategories } from '../slices/categories';
 
 export interface CategoryBalances {
-  [key: string]: number;
+  [key: string]: string;
 }
 
 interface Props {

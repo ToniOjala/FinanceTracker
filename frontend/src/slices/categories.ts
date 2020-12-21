@@ -2,7 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
-import { getCategories, saveCategory } from "../services/categoryService";
+import { getCategories, saveCategory, updateCategory } from "../services/categoryService";
 import { Category, CategoryType } from "../types";
 
 const categorySlice = createSlice({
@@ -14,11 +14,17 @@ const categorySlice = createSlice({
     },
     addCategory: (state, action) => {
       state.push(action.payload);
+    },
+    replaceCategory: (state, action) => {
+      return state.map(category => {
+        if (category.name === action.payload.name) return action.payload;
+        else return category;
+      });
     }
   }
 })
 
-export const { setCategories, addCategory } = categorySlice.actions;
+export const { setCategories, addCategory, replaceCategory } = categorySlice.actions;
 export default categorySlice.reducer;
 
 export const fetchCategories = (): AppThunk => async dispatch => {
@@ -36,6 +42,17 @@ export const postCategory = (category: Category): AppThunk => async dispatch => 
     dispatch(addCategory(savedCategory));
   } catch (error) {
     console.error('Error while posting category: ', error);
+  }
+}
+
+export const updateCategories = (categoriesToUpdate: Category[]): AppThunk => async dispatch => {
+  try {
+    for (const category of categoriesToUpdate) {
+      const updatedCategory = await updateCategory(category);
+      dispatch(replaceCategory(updatedCategory));
+    }
+  } catch (error) {
+    console.error('Error while updating categories');
   }
 }
 
