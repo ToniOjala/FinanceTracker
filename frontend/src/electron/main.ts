@@ -5,8 +5,6 @@ import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from "electro
 import { IpcChannel } from './IPC/IpcChannel';
 import { DatabaseChannel } from './IPC/DatabaseChannel';
 
-let win: BrowserWindow | null = null;
-
 class Main {
   private mainWindow: BrowserWindow | undefined;
 
@@ -47,7 +45,7 @@ class Main {
       this.mainWindow.loadURL(`file://${__dirname}/../index.html`);
     }
 
-    this.mainWindow.on('closed', () => win = null);
+    this.mainWindow.on('closed', () => this.mainWindow = undefined);
 
     // Hot Reloading
     if (isDev) {
