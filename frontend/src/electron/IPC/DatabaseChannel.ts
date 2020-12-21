@@ -1,6 +1,7 @@
-import { IpcChannel, IpcRequest } from './IpcChannel';
+import { IpcChannel } from './IpcChannel';
 import { IpcMainEvent } from 'electron';
 import sqliteDB, { Database } from 'better-sqlite3';
+import { IpcRequest } from '../../shared/IpcRequest';
 
 export class DatabaseChannel implements IpcChannel {
   private db: Database;

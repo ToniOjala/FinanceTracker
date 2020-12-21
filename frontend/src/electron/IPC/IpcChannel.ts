@@ -1,9 +1,5 @@
 import { IpcMainEvent } from 'electron';
-
-export interface IpcRequest {
-  responseChannel?: string;
-  params?: string[];
-}
+import { IpcRequest } from '../../shared/IpcRequest';
 
 export interface IpcChannel {
   getName(): string;
