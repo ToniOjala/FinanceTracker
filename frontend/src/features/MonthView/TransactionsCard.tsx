@@ -1,6 +1,7 @@
 import { Button, Card, makeStyles, Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { updateCategories } from '../../slices/categories';
 import { postTransaction } from '../../slices/transactions';
 import { Category, Transaction } from '../../types';
 import AddTransactionDialog, { PartialNewTransaction } from '../AddTransactionDialog';
@@ -38,6 +39,10 @@ const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null
     }
 
     dispatch(postTransaction(newTransaction));
+    dispatch(updateCategories([{ 
+      ...category, 
+      balance: category.balance - newTransaction.amount
+    }]));
     closeDialog();
   }
 
