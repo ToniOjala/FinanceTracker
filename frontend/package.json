@@ -47,8 +47,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint \"./src/**/*.{ts,tsx}\"",
     "postinstall": "electron-builder install-app-deps",
-    "electron:dev": "concurrently \"SET BROWSER=none && npm start\" \"wait-on http://localhost:3000 && tsc -p electron -w\" \"wait-on http://localhost:3000 && tsc -p electron && electron .\"",
-    "electron:build": "npm run build && tsc -p electron && electron-builder",
+    "electron:dev": "concurrently \"SET BROWSER=none && npm start\" \"wait-on http://localhost:3000 && tsc -p src/electron -w\" \"wait-on http://localhost:3000 && tsc -p src/electron && electron .\"",
+    "electron:build": "npm run build && tsc -p src/electron && electron-builder",
     "rebuild:better-sqlite3": "electron-rebuild -f -w better-sqlite3"
   },
   "eslintConfig": {

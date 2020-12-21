@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as isDev from 'electron-is-dev';
 import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from "electron-devtools-installer";
 
-require('../src/message_control/main');
+// require('../src/message_control/main');
 
 let win: BrowserWindow | null = null;
 
