@@ -25,4 +25,5 @@
 | 17.12.20 | 2  | Frontend: Budjettien ja kategorian saldon lisäys kuukausinäkymään sekä saldojen lisäykseen dialogi<br>Backend: Parserit geneerisimmäksi, yritys saada saldojen päivitykselle reitti
 | 20.12.20 | 3  | Electron + SQLite opiskelua, electronin testaus olemassa olevaan frontendiin (uudessa branchissa)
 | 21.12.20 | 3  | Electronin opiskelua ja koodausta, pyrkimys saada IPC viestitys toimimaan
-| yht   | 57   | | 
+| 23.12.20 | 1.5| Electron pääprosessin ja SQLiten yhteyden debuggaus ja korjaus
+| yht   | 58.5   | | 
