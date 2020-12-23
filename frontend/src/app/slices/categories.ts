@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
-import { getCategories, saveCategory } from "../services/categoryService";
-import { Category, CategoryType } from "../types";
-import { send } from "../message_control/renderer";
+import { getCategories, saveCategory } from '../services/categoryService';
+import { Category, CategoryType } from '../types';
+import { IpcService } from '../services/ipcService';
 
 const categorySlice = createSlice({
   name: 'category',
@@ -26,7 +26,9 @@ export const fetchCategories = (): AppThunk => async dispatch => {
   try {
     // const categories = await getCategories();
     // dispatch(setCategories(categories));
-    const categories = await send<Category[]>('SELECT * FROM categories');
+    const ipc = new IpcService();
+    const categories = await ipc.send<Category[]>('database', { params: ['SELECT * FROM categories'] });
+    console.log('categories: ', categories);
     dispatch(setCategories(categories));
   } catch (error) {
     console.error('Error while fetcing categories: ', error);
