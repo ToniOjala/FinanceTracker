@@ -1,12 +1,10 @@
-import { Category } from "../types";
-import { get, post } from "./apiService";
+import { Category } from '../types';
+import { getMany } from './dbService';
 
-const url = 'http://localhost:3001/api/categories';
-
-export const getCategories = (): Promise<Category[]> => {
-  return get<Category[]>(url);
+export function getCategories(): Promise<Category[]> {
+  return getMany<Category[]>('categories');
 }
 
-export const saveCategory = (category: Category): Promise<Category> => {
-  return post<Category>(url, category);
-}
+// export const saveCategory = (category: Category): Promise<Category> => {
+//   return post<Category>(url, category);
+// }
