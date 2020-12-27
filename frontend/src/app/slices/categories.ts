@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
-import { getCategories } from '../services/categoryService';
+import { getCategories, saveCategory } from '../services/categoryService';
 import { Category, CategoryType } from '../types';
 
 const categorySlice = createSlice({
@@ -29,16 +29,14 @@ export const fetchCategories = (): AppThunk => async dispatch => {
   }
 }
 
-// export const postCategory = (category: Category): AppThunk => async dispatch => {
-//   try {
-//     // const savedCategory = await saveCategory(category);
-//     const savedCategory = await ipc.send<Category>('database', { params: ['INSERT INTO categories (name, type, ']})
-
-//     dispatch(addCategory(savedCategory));
-//   } catch (error) {
-//     console.error('Error while posting category: ', error);
-//   }
-// }
+export const postCategory = (category: Category): AppThunk => async dispatch => {
+  try {
+    const savedCategory = await saveCategory(category);
+    dispatch(addCategory(savedCategory));
+  } catch (error) {
+    console.error('Error while posting category: ', error);
+  }
+}
 
 export const selectCategories = (state: RootState): Category[] => state.categories;
 
