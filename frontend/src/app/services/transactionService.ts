@@ -1,5 +1,6 @@
-import { Transaction } from "../types";
-import { get, post } from "./apiService";
+import { Transaction } from '../types';
+import { get } from './apiService';
+import { post } from './dbService';
 
 const url = 'http://localhost:3001/api/transactions';
 
@@ -16,5 +17,6 @@ export const getYearlyData = (year: number): Promise<[]> => {
 }
 
 export const saveTransaction = (transaction: Transaction): Promise<Transaction> => {
-  return post<Transaction>(url, transaction);
+  const keys = ['amount', 'date', 'category'];
+  return post<Transaction>('transactions', keys, transaction);
 }

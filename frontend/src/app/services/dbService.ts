@@ -28,7 +28,9 @@ function getSqlStrings(keys: string[]) {
 
   keys.forEach(key => {
     keyString += `${key}, `;
-    paramsString += `@${key}, `;
+
+    if (key.includes('date')) paramsString += `strftime('%s', @${key}), `;
+    else paramsString += `@${key}, `;
   })
 
   keyString = keyString.substring(0, keyString.length - 2);
