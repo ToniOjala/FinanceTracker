@@ -1,7 +1,7 @@
 import { IpcRenderer } from 'electron';
 import { IpcRequest } from '../../shared/types';
 
-export function send<T>(channel: string, params?: string[]): Promise<T> {
+export function send<T>(channel: string, params?: unknown[]): Promise<T> {
   const ipcRenderer = initializeIpcRenderer();
 
   const request: IpcRequest = {
