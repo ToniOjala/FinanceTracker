@@ -28,7 +28,7 @@ function getSqlStrings(keys: string[]) {
 
   keys.forEach(key => {
     keyString += `${key}, `;
-    paramsString += '?, ';
+    paramsString += `@${key}, `;
   })
 
   keyString = keyString.substring(0, keyString.length - 2);

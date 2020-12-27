@@ -15,7 +15,7 @@ export class DatabaseChannel implements IpcChannel {
       const requestType: DBRequestType = request.params[0] as DBRequestType;
       const sql = request.params[1] as string;
       const statement = db.prepare(sql);
-      let result: unknown[] = [];
+      let result: unknown;
 
       console.log('requestType: ', requestType);
       console.log('sql: ', sql);
@@ -33,7 +33,7 @@ export class DatabaseChannel implements IpcChannel {
           case DBRequestType.POST: {
             const object: NewModel = request.params[2] as NewModel;
             const { lastInsertRowid } = statement.run(object);
-            result = [{ ...object, id: lastInsertRowid }];
+            result = { id: lastInsertRowid, ...object };
           }
         }
         console.log('result: ', result);

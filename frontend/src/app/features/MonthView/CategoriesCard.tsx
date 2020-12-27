@@ -47,6 +47,7 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
   }
 
   const addNewCategory = (newCategory: Category) => {
+    newCategory.balance = 0;
     dispatch(postCategory(newCategory));
     closeDialogs();
   }
