@@ -1,7 +1,7 @@
 import { IpcChannel } from './IpcChannel';
 import { IpcMainEvent } from 'electron';
 import sqliteDB from 'better-sqlite3';
-import { DBRequestType, IpcRequest } from '../../shared/types';
+import { DBRequestType, IpcRequest, NewModel } from '../../shared/types';
 
 export class DatabaseChannel implements IpcChannel {
   getName(): string { return 'database'; }
@@ -13,7 +13,7 @@ export class DatabaseChannel implements IpcChannel {
 
     if (request.params) {
       const requestType: DBRequestType = request.params[0] as DBRequestType;
-      const sql = request.params[1];
+      const sql = request.params[1] as string;
       const statement = db.prepare(sql);
       let result: unknown[] = [];
 
@@ -29,6 +29,11 @@ export class DatabaseChannel implements IpcChannel {
             const id = Number(request.params[2]);
             result = statement.get(id);
             break;
+          }
+          case DBRequestType.POST: {
+            const object: NewModel = request.params[2] as NewModel;
+            const { lastInsertRowid } = statement.run(object);
+            result = [{ ...object, id: lastInsertRowid }];
           }
         }
         console.log('result: ', result);
