@@ -8,13 +8,13 @@ export async function getMany<T>(table: DBTable): Promise<T> {
 }
 
 export async function getSingle<T>(table: DBTable, id: number): Promise<T> {
-  const requestParams = { table, requestType: DBRequestType.GET_SINGLE, query: { id: id } };
+  const requestParams = { table, requestType: DBRequestType.GET_SINGLE, query: { id } };
   const result = send<T>('database', { params: requestParams });
   return result;
 }
 
 export async function post<T>(table: DBTable, item: T): Promise<T> {
-  const requestParams = { table, requestType: DBRequestType.POST, data: { item: item } };
+  const requestParams = { table, requestType: DBRequestType.POST, data: { item } };
   const result = send<T>('database', { params: requestParams });
   return result;
 }

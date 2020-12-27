@@ -8,8 +8,6 @@ export class DatabaseChannel implements IpcChannel {
   getName(): string { return 'database'; }
 
   handle(event: IpcMainEvent, request: IpcRequest): void {
-    console.log(request);
-
     if (!request.responseChannel) request.responseChannel = `${this.getName()}_response`;
 
     const db = new sqliteDB('C:/Users/Toni/Repos/Helsinki University/FinanceTracker/db.db', { verbose: console.log });
@@ -21,14 +19,12 @@ export class DatabaseChannel implements IpcChannel {
       const query = request.params.query;
       let result: unknown;
 
-      console.log('table', table);
-      console.log('requestType: ', requestType);
-      console.log('data: ', data);
-      console.log('query: ', query);
-
-      if (table === DBTable.CATEGORIES) result = handleCategoryRequest(db, requestType, data, query);
-
-      event.sender.send(request.responseChannel, { result: result });
+      try {
+        if (table === DBTable.CATEGORIES) result = handleCategoryRequest(db, requestType, data, query);
+        event.sender.send(request.responseChannel, { result: result });
+      } catch (error) {
+        console.error('Error while handling database event ', error.message);
+      }
     }
 
     db.close();

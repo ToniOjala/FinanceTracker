@@ -46,8 +46,8 @@ export enum DBRequestType {
 export interface DBRequestParams {
   table: DBTable;
   requestType: DBRequestType;
-  data?: { [key: string]: unknown }
-  query?: { [key: string]: unknown }
+  data?: KeyValuePair,
+  query?: KeyValuePair
 }
 
 export interface IpcRequest {
