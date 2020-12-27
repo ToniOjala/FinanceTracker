@@ -24,6 +24,7 @@
 | 16.12.20 | 1  | Backend: Budjeteille reitti, joka palauttaa viimeisimmän budjetin per kategoria
 | 17.12.20 | 2  | Frontend: Budjettien ja kategorian saldon lisäys kuukausinäkymään sekä saldojen lisäykseen dialogi<br>Backend: Parserit geneerisimmäksi, yritys saada saldojen päivitykselle reitti
 | 20.12.20 | 3  | Electron + SQLite opiskelua, electronin testaus olemassa olevaan frontendiin (uudessa branchissa)
-| 21.12.20 | 3  | Electronin opiskelua ja koodausta, pyrkimys saada IPC viestitys toimimaan
-| 23.12.20 | 1.5| Electron pääprosessin ja SQLiten yhteyden debuggaus ja korjaus
-| yht   | 58.5   | | 
+| 21.12.20 | 3  | Electron: opiskelua ja koodausta, pyrkimys saada IPC viestitys toimimaan
+| 23.12.20 | 1.5| Electron: pääprosessin ja SQLiten yhteyden debuggaus ja korjaus
+| 27.12.20 | 5.5  | Electron: IPC-viestityksen ja tietokantakyselyiden kehitystä
+| yht   | 64   | | 
