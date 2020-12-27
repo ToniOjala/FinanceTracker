@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
-import { getCategories, saveCategory } from '../services/categoryService';
+import { getCategories } from '../services/categoryService';
 import { Category, CategoryType } from '../types';
-import { IpcService } from '../services/ipcService';
 
 const categorySlice = createSlice({
   name: 'category',
@@ -24,22 +22,23 @@ export default categorySlice.reducer;
 
 export const fetchCategories = (): AppThunk => async dispatch => {
   try {
-    const ipc = new IpcService();
-    const categories = await ipc.send<Category[]>('database', { params: ['SELECT * FROM categories'] });
+    const categories = await getCategories();
     dispatch(setCategories(categories));
   } catch (error) {
     console.error('Error while fetcing categories: ', error);
   }
 }
 
-export const postCategory = (category: Category): AppThunk => async dispatch => {
-  try {
-    const savedCategory = await saveCategory(category);
-    dispatch(addCategory(savedCategory));
-  } catch (error) {
-    console.error('Error while posting category: ', error);
-  }
-}
+// export const postCategory = (category: Category): AppThunk => async dispatch => {
+//   try {
+//     // const savedCategory = await saveCategory(category);
+//     const savedCategory = await ipc.send<Category>('database', { params: ['INSERT INTO categories (name, type, ']})
+
+//     dispatch(addCategory(savedCategory));
+//   } catch (error) {
+//     console.error('Error while posting category: ', error);
+//   }
+// }
 
 export const selectCategories = (state: RootState): Category[] => state.categories;
 
