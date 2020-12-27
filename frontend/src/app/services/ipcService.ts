@@ -1,25 +1,25 @@
 import { IpcRenderer } from 'electron';
-import { IpcRequest } from '../../shared/IpcRequest';
+import { IpcRequest } from '../../shared/types';
 
-export class IpcService {
-  private ipcRenderer?: IpcRenderer;
+export function send<T>(channel: string, params?: string[]): Promise<T> {
+  const ipcRenderer = initializeIpcRenderer();
 
-  public send<T>(channel: string, request: IpcRequest = {}): Promise<T> {
-    if (!this.ipcRenderer) this.initializeIpcRenderer();
-    if (!request.responseChannel) request.responseChannel = `${channel}_response_${new Date().getTime()}`;
-
-    this.ipcRenderer?.send(channel, request);
-
-    return new Promise(resolve => {
-      this.ipcRenderer?.once(request.responseChannel || '', (event, response) => resolve(response.result));
-    });
+  const request: IpcRequest = {
+    responseChannel: `${channel}_response_${new Date().getTime()}`,
+    params: params
   }
 
-  private initializeIpcRenderer() {
-    if (!window || !window.process || !window.require) {
-      throw new Error('Unable to require renderer process');
-    }
+  ipcRenderer.send(channel, request);
 
-    this.ipcRenderer = window.require('electron').ipcRenderer;
+  return new Promise(resolve => {
+    ipcRenderer.once(request.responseChannel || '', (event, response) => resolve(response.result));
+  });
+}
+
+function initializeIpcRenderer(): IpcRenderer {
+  if (!window || !window.process || !window.require) {
+    throw new Error('Unable to require renderer process');
   }
+
+  return window.require('electron').ipcRenderer;
 }
