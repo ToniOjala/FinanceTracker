@@ -17,7 +17,6 @@ export class DatabaseChannel implements IpcChannel {
         sql = request.params[0];
         const statement = db.prepare(sql);
         const result = statement.all();
-        console.log(result);
         event.sender.send(request.responseChannel, { result: result });
       } catch (error) {
         console.error('Error while handling database event: ', error.message);

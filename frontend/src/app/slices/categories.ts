@@ -24,11 +24,8 @@ export default categorySlice.reducer;
 
 export const fetchCategories = (): AppThunk => async dispatch => {
   try {
-    // const categories = await getCategories();
-    // dispatch(setCategories(categories));
     const ipc = new IpcService();
     const categories = await ipc.send<Category[]>('database', { params: ['SELECT * FROM categories'] });
-    console.log('categories: ', categories);
     dispatch(setCategories(categories));
   } catch (error) {
     console.error('Error while fetcing categories: ', error);
