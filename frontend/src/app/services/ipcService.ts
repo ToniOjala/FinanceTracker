@@ -11,7 +11,7 @@ export class IpcService {
     this.ipcRenderer?.send(channel, request);
 
     return new Promise(resolve => {
-      this.ipcRenderer?.once(request.responseChannel || '', (event, response) => resolve(response));
+      this.ipcRenderer?.once(request.responseChannel || '', (event, response) => resolve(response.result));
     });
   }
 
