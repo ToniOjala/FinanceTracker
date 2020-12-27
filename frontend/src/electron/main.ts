@@ -1,5 +1,4 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import * as path from 'path';
 import * as isDev from 'electron-is-dev';
 import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from "electron-devtools-installer";
 import { IpcChannel } from './IPC/IpcChannel';
@@ -30,8 +29,8 @@ class Main {
 
   private createWindow() {
     this.mainWindow = new BrowserWindow({
-      width: 800,
-      height: 600,
+      width: 1920,
+      height: 1080,
       title: 'Finance Tracker',
       webPreferences: {
         nodeIntegration: true
@@ -49,12 +48,9 @@ class Main {
 
     // Hot Reloading
     if (isDev) {
-      // 'node_modules/.bin/electronPath'
-      require('electron-reload')(__dirname, {
-        electron: path.join(__dirname, '..', '..', 'node_modules', '.bin', 'electron'),
-        forceHardReset: true,
-        hardResetMethod: 'exit'
-      });
+      try {
+        require('electron-reloader')(module)
+      } catch(_) { console.error('electron-reloader not found') }
     }
 
     // DevTools
