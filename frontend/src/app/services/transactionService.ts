@@ -1,3 +1,4 @@
+import { DBTable } from '../../shared/types';
 import { Transaction } from '../types';
 import { get } from './apiService';
 import { post } from './dbService';
@@ -17,6 +18,5 @@ export const getYearlyData = (year: number): Promise<[]> => {
 }
 
 export const saveTransaction = (transaction: Transaction): Promise<Transaction> => {
-  const keys = ['amount', 'date', 'category'];
-  return post<Transaction>('transactions', keys, transaction);
+  return post<Transaction>(DBTable.TRANSACTIONS, transaction);
 }

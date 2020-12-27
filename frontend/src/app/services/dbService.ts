@@ -1,43 +1,20 @@
-import { DBRequestType } from "../../shared/types";
+import { DBRequestType, DBTable } from "../../shared/types";
 import { send } from "./ipcService";
 
-export async function getMany<T>(table: string): Promise<T> {
-  const sql = `SELECT * FROM ${table}`;
-  const result = send<T>('database', [DBRequestType.GET_MANY, sql]);
+export async function getMany<T>(table: DBTable): Promise<T> {
+  const requestParams = { table, requestType: DBRequestType.GET_MANY };
+  const result = send<T>('database', { params: requestParams });
   return result;
 }
 
-export async function getSingle<T>(table: string, id: number): Promise<T> {
-  const sql = `SELECT * FROM ${table} WHERE id = ?`;
-  const result = send<T>('database', [DBRequestType.GET_SINGLE, sql, id.toString()])
+export async function getSingle<T>(table: DBTable, id: number): Promise<T> {
+  const requestParams = { table, requestType: DBRequestType.GET_SINGLE, query: { id: id } };
+  const result = send<T>('database', { params: requestParams });
   return result;
 }
 
-export async function post<T>(table: string, keys: string[], item: T): Promise<T> {
-  const { keyString, paramsString } = getSqlStrings(keys);
-  
-  const sql = `INSERT INTO ${table} ${keyString} VALUES ${paramsString}`;
-  console.log('sql: ', sql);
-  const result = send<T>('database', [DBRequestType.POST, sql, item]);
+export async function post<T>(table: DBTable, item: T): Promise<T> {
+  const requestParams = { table, requestType: DBRequestType.POST, data: { item: item } };
+  const result = send<T>('database', { params: requestParams });
   return result;
-}
-
-function getSqlStrings(keys: string[]) {
-  let keyString = '(';
-  let paramsString = '(';
-
-  keys.forEach(key => {
-    keyString += `${key}, `;
-
-    if (key.includes('date')) paramsString += `strftime('%s', @${key}), `;
-    else paramsString += `@${key}, `;
-  })
-
-  keyString = keyString.substring(0, keyString.length - 2);
-  paramsString = paramsString.substring(0, paramsString.length - 2);
-
-  keyString += ')';
-  paramsString += ')';
-
-  return { keyString, paramsString };
 }

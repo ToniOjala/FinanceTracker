@@ -1,13 +1,10 @@
 import { IpcRenderer } from 'electron';
 import { IpcRequest } from '../../shared/types';
 
-export function send<T>(channel: string, params?: unknown[]): Promise<T> {
+export function send<T>(channel: string, request: IpcRequest): Promise<T> {
   const ipcRenderer = initializeIpcRenderer();
 
-  const request: IpcRequest = {
-    responseChannel: `${channel}_response_${new Date().getTime()}`,
-    params: params
-  }
+  request.responseChannel = `${channel}_response_${new Date().getTime()}`,
 
   ipcRenderer.send(channel, request);
 
