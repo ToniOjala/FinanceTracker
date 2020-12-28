@@ -26,5 +26,6 @@
 | 20.12.20 | 3  | Electron + SQLite opiskelua, electronin testaus olemassa olevaan frontendiin (uudessa branchissa)
 | 21.12.20 | 3  | Electron: opiskelua ja koodausta, pyrkimys saada IPC viestitys toimimaan
 | 23.12.20 | 1.5| Electron: pääprosessin ja SQLiten yhteyden debuggaus ja korjaus
-| 27.12.20 | 5.5  | Electron: IPC-viestityksen ja tietokantakyselyiden kehitystä
-| yht   | 64   | | 
+| 27.12.20 | 5.5| Electron: IPC-viestityksen ja tietokantakyselyiden kehitystä
+| 28.12.20 | 2.5| Electron: MongoDB-tietokantakyselyiden siirtoa SQLitelle.
+| yht   | 66.5   | | 
