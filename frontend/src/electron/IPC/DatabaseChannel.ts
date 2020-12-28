@@ -26,7 +26,7 @@ export class DatabaseChannel implements IpcChannel {
 
       try {
         if (table === DBTable.CATEGORIES) result = handleCategoryRequest(db, requestType, data, query);
-        if (table === DBTable.TRANSACTIONS) result = handleTransactionRequest(db, requestType, data);
+        if (table === DBTable.TRANSACTIONS) result = handleTransactionRequest(db, requestType, data, query);
         event.sender.send(request.responseChannel, { result: result });
       } catch (error) {
         console.error('Error while handling database event ', error.message);

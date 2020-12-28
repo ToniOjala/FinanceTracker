@@ -1,12 +1,13 @@
 import { DBTable } from '../../shared/types';
 import { Transaction } from '../types';
 import { get } from './apiService';
-import { post } from './dbService';
+import { getMany, post } from './dbService';
 
 const url = 'http://localhost:3001/api/transactions';
+const table = DBTable.TRANSACTIONS;
 
 export const getTransactionsOfMonth = (year: number, month: number): Promise<Transaction[]> => {
-  return get<Transaction[]>(`${url}/?year=${year}&month=${month}`);
+  return getMany<Transaction[]>(table, { year, month })
 }
 
 export const getTransactionsOfYear = (year: number): Promise<Transaction[]> => {
@@ -18,5 +19,5 @@ export const getYearlyData = (year: number): Promise<[]> => {
 }
 
 export const saveTransaction = (transaction: Transaction): Promise<Transaction> => {
-  return post<Transaction>(DBTable.TRANSACTIONS, transaction);
+  return post<Transaction>(table, transaction);
 }
