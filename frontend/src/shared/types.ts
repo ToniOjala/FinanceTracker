@@ -35,17 +35,9 @@ export enum DBTable {
   BUDGETS = 'budgets'
 }
 
-export enum DBRequestType {
-  GET_SINGLE = 'getSingle',
-  GET_MANY = 'getMany',
-  POST = 'post',
-  UPDATE = 'update',
-  DELETE = 'delete'
-}
-
 export interface DBRequestParams {
   table: DBTable;
-  requestType: DBRequestType;
+  requestType: string;
   data?: KeyValuePair,
   query?: KeyValuePair
 }
