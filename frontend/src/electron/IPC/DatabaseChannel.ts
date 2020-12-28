@@ -1,8 +1,8 @@
-import { IpcChannel } from '../IpcChannel';
+import { IpcChannel } from './IpcChannel';
 import { IpcMainEvent } from 'electron';
 import sqliteDB from 'better-sqlite3';
-import { DBTable, IpcRequest } from '../../../shared/types';
-import { handleCategoryRequest } from './categories';
+import { DBTable, IpcRequest } from '../../shared/types';
+import { handleCategoryRequest } from './handlers/categories';
 
 export class DatabaseChannel implements IpcChannel {
   getName(): string { return 'database'; }
