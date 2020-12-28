@@ -5,6 +5,8 @@ export function send<T>(channel: string, request: IpcRequest): Promise<T> {
   const ipcRenderer = initializeIpcRenderer();
 
   request.responseChannel = `${channel}_response_${new Date().getTime()}`,
+  
+  console.log('request: ', request);
   ipcRenderer.send(channel, request);
 
   return new Promise(resolve => {

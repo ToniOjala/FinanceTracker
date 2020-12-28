@@ -1,7 +1,7 @@
 import { Database } from "better-sqlite3";
 import { Category, DBRequestType, KeyValuePair } from "../../../shared/types";
 
-export function handleCategoryRequest(db: Database, requestType: DBRequestType, data?: KeyValuePair, query?: KeyValuePair): Category | Category[] {
+export function handleCategoryRequest(db: Database, requestType: DBRequestType, data: KeyValuePair, query?: KeyValuePair ): Category | Category[] {
   let result: Category | Category[];
   
   switch (requestType) {
@@ -15,12 +15,8 @@ export function handleCategoryRequest(db: Database, requestType: DBRequestType, 
     }
     case DBRequestType.POST: {
       const sql = 'INSERT INTO categories (name, type, balance) VALUES (?, ?, ?)';
-      let result = [] as Category[];
-      db.transaction(() => {
-        const { lastInsertRowid } = db.prepare(sql).run(data?.name, data?.type, data?.balance);
-        result = db.prepare('SELECT * FROM Categories WHERE id = ?').get(lastInsertRowid);
-      });
-
+      const { lastInsertRowid } = db.prepare(sql).run(data?.name, data?.type, data?.balance);
+      const result = db.prepare('SELECT * FROM categories WHERE id = ?').get(lastInsertRowid);
       return result;
     }
     default:
