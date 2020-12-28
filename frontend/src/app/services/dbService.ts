@@ -13,8 +13,8 @@ export function getSingle<T>(table: DBTable, id: number): Promise<T> {
   return result;
 }
 
-export function getCustom<T>(table: DBTable, requestType: string): Promise<T> {
-  const requestParams = { table, requestType };
+export function getCustom<T>(table: DBTable, requestType: string, query?: KeyValuePair): Promise<T> {
+  const requestParams = { table, requestType, query };
   const result = send<T>('database', { params: requestParams });
   return result
 }
