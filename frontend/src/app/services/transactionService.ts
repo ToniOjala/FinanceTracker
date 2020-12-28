@@ -7,11 +7,11 @@ const url = 'http://localhost:3001/api/transactions';
 const table = DBTable.TRANSACTIONS;
 
 export const getTransactionsOfMonth = (year: number, month: number): Promise<Transaction[]> => {
-  return getMany<Transaction[]>(table, { year, month })
+  return getMany<Transaction[]>(table, { year, month });
 }
 
 export const getTransactionsOfYear = (year: number): Promise<Transaction[]> => {
-  return get<Transaction[]>(`${url}/?year=${year}`);
+  return getMany<Transaction[]>(table, { year });
 }
 
 export const getYearlyData = (year: number): Promise<[]> => {
