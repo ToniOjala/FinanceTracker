@@ -25,7 +25,6 @@ export function handleTransactionRequest(db: Database, requestType: string, data
         const year = Number(query.year)
 
         const categories: Category[] = db.prepare('SELECT * FROM categories').all();
-        console.log('categories: ', categories);
 
         for (const category of categories) {
           const months = new Array<number>(12);
@@ -39,7 +38,6 @@ export function handleTransactionRequest(db: Database, requestType: string, data
         }
       }
 
-      console.log('yearViewData: ', yearViewData); 
       return yearViewData;
     }
     case 'post': {

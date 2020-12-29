@@ -5,7 +5,7 @@ export function handleCategoryRequest(db: Database, requestType: string, data: K
   let result: Category | Category[];
   
   switch (requestType) {
-    case 'getSingle': {
+    case 'get': {
       result = db.prepare('SELECT * FROM categories WHERE id = ?').get(query?.id);
       return result;
     }

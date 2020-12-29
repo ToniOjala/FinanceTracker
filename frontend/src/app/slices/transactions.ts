@@ -51,7 +51,6 @@ export const fetchTransactionsOfYear = (year: number): AppThunk => async dispatc
 export const fetchYearlyData = (year: number): AppThunk => async dispatch => {
   try {
     const yearlyData = await getYearlyData(year);
-    console.log('client yearlyData: ', yearlyData)
     dispatch(setYearlyData(yearlyData));
   } catch (error) {
     console.error('Error while fetching sums by categories: ', error);
