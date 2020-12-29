@@ -28,4 +28,5 @@
 | 23.12.20 | 1.5| Electron: pääprosessin ja SQLiten yhteyden debuggaus ja korjaus
 | 27.12.20 | 5.5| Electron: IPC-viestityksen ja tietokantakyselyiden kehitystä
 | 28.12.20 | 2.5| Electron: MongoDB-tietokantakyselyiden siirtoa SQLitelle.
-| yht   | 66.5   | | 
+| 29.12.20 | 2  | Electron: MongoDB-tietokantakyselyiden siirtoa SQLitelle ja suuret määrät debuggausta.
+| yht   | 68.5   | | 
