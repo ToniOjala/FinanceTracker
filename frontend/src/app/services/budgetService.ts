@@ -1,12 +1,13 @@
-import { Budget, BudgetsByCategory } from '../types';
-import { get, post } from './apiService';
+import { DBTable, KeyValuePair } from '../../shared/types';
+import { Budget } from '../types';
+import { getCustom, postMany } from './dbService';
 
-const url = 'http://localhost:3001/api/budgets';
+const table = DBTable.BUDGETS;
 
-export const getLatestBudgets = (year: number, month: number): Promise<BudgetsByCategory> => {
-  return get<BudgetsByCategory>(`${url}/latest?year=${year}&month=${month}`);
+export const getLatestBudgets = (year: number, month: number): Promise<KeyValuePair> => {
+  return getCustom<KeyValuePair>(table, 'get-latest', { year, month });
 }
 
 export const postBudgets = (budgets: Budget[]): Promise<Budget[]> => {
-  return post<Budget[]>(url, budgets);
+  return postMany<Budget[]>(table, budgets);
 }
