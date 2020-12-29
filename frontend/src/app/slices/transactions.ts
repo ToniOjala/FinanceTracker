@@ -4,6 +4,7 @@ import { AppThunk } from '../store';
 import { getYearlyData, getTransactionsOfMonth, getTransactionsOfYear, saveTransaction } from "../services/transactionService";
 import { Transaction, YearlyData } from "../types";
 import { RootState } from "../rootReducer";
+import { KeyValuePair } from "../../shared/types";
 
 const initialState = {
   transactions: [] as Transaction[],
@@ -49,8 +50,8 @@ export const fetchTransactionsOfYear = (year: number): AppThunk => async dispatc
 
 export const fetchYearlyData = (year: number): AppThunk => async dispatch => {
   try {
-    const data = await getYearlyData(year);
-    const yearlyData = parseYearlyData(data);
+    const yearlyData = await getYearlyData(year);
+    console.log('client yearlyData: ', yearlyData)
     dispatch(setYearlyData(yearlyData));
   } catch (error) {
     console.error('Error while fetching sums by categories: ', error);
@@ -67,16 +68,16 @@ export const postTransaction = (transaction: Transaction): AppThunk => async dis
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const parseYearlyData = (data: any[]): YearlyData => {
-  const yearlyData: YearlyData = {};
-  data.forEach(element => {
-    const category = element[0];
-    const values = element[1];
-    yearlyData[category] = values;
-  });
+// const parseYearlyData = (data: any[]): KeyValuePair => {
+//   const yearlyData: KeyValuePair = {};
+//   data.forEach(element => {
+//     const category = element[0];
+//     const values = element[1];
+//     yearlyData[category] = values;
+//   });
 
-  return yearlyData;
-}
+//   return yearlyData;
+// }
 
 export const selectTransactions = (state: RootState): Transaction[] => state.transactions.transactions;
 export const selectYearlyData = (state: RootState): YearlyData => state.transactions.yearlyData;
