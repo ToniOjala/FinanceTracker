@@ -25,6 +25,7 @@ export function handleTransactionRequest(db: Database, requestType: string, data
         const year = Number(query.year)
 
         const categories: Category[] = db.prepare('SELECT * FROM categories').all();
+        console.log('categories: ', categories);
 
         for (const category of categories) {
           const months = new Array<number>(12);
@@ -61,9 +62,8 @@ function getTransactionsOfMonth(db: Database, year: number, month: number) {
 
 function getTransactionsOfMonthAndCategory(db: Database, year: number, month: number, category: string) {
   const date = `${year}-${month}-01`;
-  const sql = `SELECT * FROM transactions 
-               WHERE date BETWEEN date('${date}') AND date('${date}', '+1 month', '-1 day')
-               AND category = ${category}`;
+  const sql = `SELECT * FROM transactions WHERE category = '${category}' AND date BETWEEN date('${date}') AND date('${date}', '+1 month', '-1 day')`;
+  console.log('sql: ', sql);
   return db.prepare(sql).all();
 }
 
