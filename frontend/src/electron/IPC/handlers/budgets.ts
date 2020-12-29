@@ -28,11 +28,20 @@ export function handleBudgetRequest(db: Database, requestType: string, data: Key
 
       return latestBudgetPerCategory;
     }
-    case 'post': {
-      const sql = 'INSERT INTO budgets (amount, startDate, category) VALUES (?, ?, ?)';
-      const { lastInsertRowid } = db.prepare(sql).run(data?.amount, data?.startDate, data?.category);
-      const budget = db.prepare('SELECT * FROM budgets WHERE id = ?').get(lastInsertRowid);
-      return budget;
+    case 'postMany': {
+      const budgets: Budget[] = data.budgets as Budget[];
+      const savedBudgets: Budget[] = [];
+
+      if (budgets) {
+        budgets.forEach((budget: Budget) => {
+          const sql = 'INSERT INTO budgets (amount, startDate, category) VALUES (?, ?, ?)';
+          const { lastInsertRowid } = db.prepare(sql).run(budget.amount, data?.startDate, data?.category);
+          const savedBudget = db.prepare('SELECT * FROM budgets WHERE id = ?').get(lastInsertRowid);
+          savedBudgets.push(savedBudget);
+        })
+      }
+
+      return savedBudgets;
     }
     default:
       return [];
