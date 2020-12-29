@@ -1,5 +1,5 @@
 import { Database } from "better-sqlite3";
-import { Budget, KeyValuePair } from "../../../shared/types";
+import { Budget, Category, KeyValuePair } from "../../../shared/types";
 
 export function handleBudgetRequest(db: Database, requestType: string, data: KeyValuePair, query?: KeyValuePair ): Budget | Budget[] | KeyValuePair {
   switch (requestType) {
@@ -10,20 +10,17 @@ export function handleBudgetRequest(db: Database, requestType: string, data: Key
 
       if (year && month) {
         const date = `${year}-${month}-01`;
-        const categories: string[] = db.prepare('SELECT name FROM categories').all();
+        const categories: Category[] = db.prepare('SELECT * FROM categories').all();
 
-        for (const category in categories) {
+        categories.forEach((category: Category) => {
           try {
-            const sql = `SELECT amount FROM budgets
-                       WHERE category = '${category}'
-                       AND startDate <= date('${date}')
-                       ORDER BY startDate DESC`;
-            const amount = db.prepare(sql).get();
-            latestBudgetPerCategory[category] = amount
+            const sql = `SELECT amount FROM budgets WHERE category = '${category.name}' AND startDate <= date('${date}') ORDER BY startDate DESC`;
+            const { amount } = db.prepare(sql).get();
+            latestBudgetPerCategory[category.name] = amount || 0;
           } catch (_) {
-            latestBudgetPerCategory[category] = 0;
+            latestBudgetPerCategory[category.name] = 0;
           }
-        }
+        })
       }
 
       return latestBudgetPerCategory;
