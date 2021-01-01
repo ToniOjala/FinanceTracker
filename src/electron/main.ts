@@ -47,11 +47,7 @@ class Main {
     this.mainWindow.on('closed', () => this.mainWindow = undefined);
 
     // Hot Reloading
-    if (isDev) {
-      try {
-        require('electron-reloader')(module)
-      } catch(_) { console.error('electron-reloader not found') }
-    }
+    if (isDev) require('electron-reloader')(module)
 
     // DevTools
     installExtension(REACT_DEVELOPER_TOOLS)
