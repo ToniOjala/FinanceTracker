@@ -41,7 +41,8 @@ export const postCategory = (category: Category): AppThunk => async dispatch => 
 export const selectCategories = (state: RootState): Category[] => state.categories;
 
 export const selectIncomeCategories = (state: RootState): Category[] => 
-  state.categories?.filter(cat => cat.type === CategoryType.Income);
+  state.categories ? state.categories.filter(cat => cat.type === CategoryType.Income) : [] as Category[];
 
 export const selectExpenseCategories = (state: RootState): Category[] => 
-  state.categories?.filter(cat => cat.type === CategoryType.Expense);
+  state.categories ? state.categories.filter(cat => cat.type === CategoryType.Expense) : [] as Category[];
+  
