@@ -29,4 +29,5 @@
 | 27.12.20 | 5.5| Electron: IPC-viestityksen ja tietokantakyselyiden kehitystä
 | 28.12.20 | 2.5| Electron: MongoDB-tietokantakyselyiden siirtoa SQLitelle.
 | 29.12.20 | 2  | Electron: MongoDB-tietokantakyselyiden siirtoa SQLitelle ja suuret määrät debuggausta.
-| yht   | 68.5   | | 
+| 01.01.21 | 4.5| Projektin repon ja npm-packageiden uudelleen järjestely ja sen aiheuttamien ongelmien ratkominen<br>Yritys saada E2E testit toimimaan<br>Sekalaisten ongelmien korjausta
+| yht   | 73   | | 
