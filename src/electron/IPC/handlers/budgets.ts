@@ -35,8 +35,9 @@ export function handleBudgetRequest(db: Database, requestType: string, data?: Ke
 
       if (budgets) {
         budgets.forEach((budget: Budget) => {
+          const startDate = `${budget.startDate.getFullYear()}-${budget.startDate.getMonth()}-01`;
           const sql = 'INSERT INTO budgets (amount, startDate, category) VALUES (?, ?, ?)';
-          const { lastInsertRowid } = db.prepare(sql).run(budget.amount, budget.startDate.toISOString(), budget.category);
+          const { lastInsertRowid } = db.prepare(sql).run(budget.amount, startDate, budget.category);
           const savedBudget = db.prepare('SELECT * FROM budgets WHERE id = ?').get(lastInsertRowid);
           savedBudgets.push(savedBudget);
         })
