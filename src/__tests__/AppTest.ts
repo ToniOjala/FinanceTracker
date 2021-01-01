@@ -10,11 +10,8 @@ beforeAll(() => {
   });
 
   return app.start().then(async () => {
-    console.log('app started');
     await app.browserWindow.focus();
-    console.log('window focused');
     await app.browserWindow.setAlwaysOnTop(true);
-    console.log('window set to always be on top');
   })
 }, 15000);
 
@@ -26,7 +23,7 @@ afterAll(function () {
 
 test('Displays App window', async function () {
   const windowCount = await app.client.getWindowCount();
-  expect(windowCount).toBe(2);
+  expect(windowCount).toBe(1);
 });
 
 test('Title text is correct', async function () {
