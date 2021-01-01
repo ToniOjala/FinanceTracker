@@ -7,8 +7,8 @@ import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
 
 const initialState: DateSelection = {
   selectedDate: moment().format(),
-  year: 2020,
-  month: 12
+  year: Number(moment().format('yyyy')),
+  month: Number(moment().format('MM'))
 }
 
 const dateSelectionSlice = createSlice({
