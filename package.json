@@ -34,12 +34,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "concurrently \"SET BROWSER=none && npm start\" \"wait-on http://localhost:3000 && tsc -p src/electron && jest\"",
+    "compile": "tsc -p src/electron",
+    "test": "concurrently \"npm start\" \"wait-on http://localhost:3000 && npm run compile && jest\"",
     "eject": "react-scripts eject",
     "lint": "eslint \"./src/**/*.{ts,tsx}\"",
     "postinstall": "electron-builder install-app-deps",
-    "electron:dev": "concurrently \"SET BROWSER=none && npm start\" \"wait-on http://localhost:3000 && tsc -p src/electron && electron .\"",
-    "electron:build": "npm run build && tsc -p src/electron && electron-builder",
+    "electron:dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && npm run compile && electron .\"",
+    "electron:build": "npm run build && npm run compile && electron-builder",
     "rebuild:better-sqlite3": "electron-rebuild -f -w better-sqlite3"
   },
   "eslintConfig": {
