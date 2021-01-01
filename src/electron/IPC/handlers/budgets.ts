@@ -1,7 +1,8 @@
 import { Database } from "better-sqlite3";
 import { Budget, Category, KeyValuePair } from "../../../shared/types";
 
-export function handleBudgetRequest(db: Database, requestType: string, data: KeyValuePair, query?: KeyValuePair ): Budget | Budget[] | KeyValuePair {
+export function handleBudgetRequest(db: Database, requestType: string, data?: KeyValuePair, query?: KeyValuePair ): Budget | Budget[] | KeyValuePair {
+  console.log('handling budget request');
   switch (requestType) {
     case 'getLatest': {
       const year = query?.year;
@@ -26,13 +27,16 @@ export function handleBudgetRequest(db: Database, requestType: string, data: Key
       return latestBudgetPerCategory;
     }
     case 'postMany': {
-      const budgets: Budget[] = data.budgets as Budget[];
+      console.log('hereeeeee');
+      if (!data) throw new Error('Data to post was not given');
+      const budgets: Budget[] = data.items as Budget[];
+      console.log('budgets: ', budgets);
       const savedBudgets: Budget[] = [];
 
       if (budgets) {
         budgets.forEach((budget: Budget) => {
           const sql = 'INSERT INTO budgets (amount, startDate, category) VALUES (?, ?, ?)';
-          const { lastInsertRowid } = db.prepare(sql).run(budget.amount, data?.startDate, data?.category);
+          const { lastInsertRowid } = db.prepare(sql).run(budget.amount, budget.startDate.toISOString(), budget.category);
           const savedBudget = db.prepare('SELECT * FROM budgets WHERE id = ?').get(lastInsertRowid);
           savedBudgets.push(savedBudget);
         })

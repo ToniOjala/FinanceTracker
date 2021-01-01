@@ -41,8 +41,10 @@ export function handleTransactionRequest(db: Database, requestType: string, data
       return yearViewData;
     }
     case 'post': {
+      if (!data) throw new Error('Data to post was not given');
+      const transaction = data.item as Transaction;
       const sql = 'INSERT INTO transactions (amount, date, category) VALUES (?, ?, ?)';
-      const { lastInsertRowid } = db.prepare(sql).run(data?.amount, data?.date, data?.category);
+      const { lastInsertRowid } = db.prepare(sql).run(transaction.amount, transaction.date, transaction.category);
       result = db.prepare('SELECT * FROM transactions WHERE id = ?').get(lastInsertRowid);
 
       return result;
