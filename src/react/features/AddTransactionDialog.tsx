@@ -5,6 +5,8 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/picker
 import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import MomentUtils from '@date-io/moment';
 import moment from 'moment';
+import { selectDate } from '../slices/dateSelection';
+import { useSelector } from 'react-redux';
 
 interface Props {
   isOpen: boolean;
@@ -20,6 +22,7 @@ export interface PartialNewTransaction {
 const AddTransactionDialog = ({ isOpen, handleClose, handleAddTransaction }: Props): JSX.Element => {
   const { errors, control, handleSubmit, formState, setValue } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
+  const selectedDate = useSelector(selectDate);
 
   return (
     <Dialog open={isOpen} onClose={() => handleClose}>
@@ -40,9 +43,11 @@ const AddTransactionDialog = ({ isOpen, handleClose, handleAddTransaction }: Pro
               margin="normal"
               name="date"
               label="Date"
-              defaultValue={moment().format()}
+              defaultValue={moment(selectedDate)}
               error={errors.date && true}
               helperText={errors.date?.message}
+              minDate={moment(selectedDate).startOf('month')}
+              maxDate={moment(selectedDate).endOf('month')}
               fullWidth
               required
               autoOk
