@@ -57,7 +57,8 @@ export function handleTransactionRequest(db: Database, requestType: string, data
 }
 
 function getTransactionsOfMonth(db: Database, year: number, month: number) {
-  const date = `${year}-${month}-01`;
+  const date = (month >= 10) ? `${year}-${month}-01` : `${year}-0${month}-01`;
+
   const sql = `SELECT * FROM transactions WHERE date BETWEEN date('${date}') AND date('${date}', '+1 month', '-1 day')`;
   return db.prepare(sql).all();
 }
