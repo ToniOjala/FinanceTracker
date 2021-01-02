@@ -64,7 +64,7 @@ function getTransactionsOfMonth(db: Database, year: number, month: number) {
 }
 
 function getTransactionsOfMonthAndCategory(db: Database, year: number, month: number, category: string) {
-  const date = `${year}-${month}-01`;
+  const date = (month < 10) ? `${year}-0${month}-01` : `${year}-${month}-01`;
   const sql = `SELECT * FROM transactions
                WHERE category = '${category}'
                AND date BETWEEN date('${date}') AND date('${date}', '+1 month', '-1 day')`;
