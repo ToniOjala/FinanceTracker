@@ -2,7 +2,7 @@ import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, Tab
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { selectYearlyData } from '../../slices/transactions';
-import { Category } from '../../types';
+import { Category } from '../../../shared/types';
 import { roundToDecimals } from '../../utils/round';
 import { months } from './constants'
 

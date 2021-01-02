@@ -2,7 +2,7 @@ import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, Tab
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { selectBudgets } from '../../slices/budgets'
-import { Category, Transaction } from '../../types'
+import { Category, Transaction } from '../../../shared/types'
 import { roundToDecimals } from '../../utils/round'
 import { sumOfCategoryTransactions } from './utils'
 

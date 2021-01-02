@@ -1,5 +1,4 @@
-import { DBTable, KeyValuePair } from '../../shared/types';
-import { Budget } from '../types';
+import { DBTable, KeyValuePair, Budget } from '../../shared/types';
 import { getCustom, postMany } from './dbService';
 
 const table = DBTable.BUDGETS;

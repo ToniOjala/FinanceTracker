@@ -2,9 +2,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppThunk } from '../store';
 import { getYearlyData, getTransactionsOfMonth, getTransactionsOfYear, saveTransaction } from "../services/transactionService";
-import { Transaction, YearlyData } from "../types";
 import { RootState } from "../rootReducer";
-import { KeyValuePair } from "../../shared/types";
+import { Transaction } from "../../shared/types";
+import { YearlyData } from "../types";
 
 const initialState = {
   transactions: [] as Transaction[],
@@ -65,18 +65,6 @@ export const postTransaction = (transaction: Transaction): AppThunk => async dis
     console.error('Error while posting transaction', error);
   }
 }
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// const parseYearlyData = (data: any[]): KeyValuePair => {
-//   const yearlyData: KeyValuePair = {};
-//   data.forEach(element => {
-//     const category = element[0];
-//     const values = element[1];
-//     yearlyData[category] = values;
-//   });
-
-//   return yearlyData;
-// }
 
 export const selectTransactions = (state: RootState): Transaction[] => state.transactions.transactions;
 export const selectYearlyData = (state: RootState): YearlyData => state.transactions.yearlyData;

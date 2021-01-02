@@ -1,4 +1,4 @@
-import { Category, Transaction } from "../../types";
+import { Category, Transaction } from "../../../shared/types";
 import { roundToDecimals } from "../../utils/round";
 
 export const formatDate = (date: string): string => {

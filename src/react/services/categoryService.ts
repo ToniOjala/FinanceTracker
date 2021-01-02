@@ -1,5 +1,4 @@
-import { DBTable } from '../../shared/types';
-import { Category } from '../types';
+import { DBTable, Category } from '../../shared/types';
 import { getMany, post } from './dbService';
 
 export function getCategories(): Promise<Category[]> {

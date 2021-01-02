@@ -2,7 +2,7 @@ import { Button, Card, makeStyles, Table, TableCell, TableContainer, TableHead, 
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postTransaction } from '../../slices/transactions';
-import { Category, Transaction } from '../../types';
+import { Category, Transaction } from '../../../shared/types';
 import AddTransactionDialog, { PartialNewTransaction } from '../AddTransactionDialog';
 import { formatDate } from './utils';
 
@@ -31,7 +31,7 @@ const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null
 
   const handleNewTransaction = async (values: PartialNewTransaction) => {
     const newTransaction: Transaction = {
-      _id: '',
+      id: '',
       date: values.date,
       amount: Number.parseFloat(values.amount),
       category: category.name
@@ -58,7 +58,7 @@ const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null
           </TableHead>
           <TableBody>
             {transactions.map(transaction => (
-              <TableRow key={transaction._id}>
+              <TableRow key={transaction.id}>
                 <TableCell component="th" scope="row">
                   {formatDate(transaction.date)}
                 </TableCell>

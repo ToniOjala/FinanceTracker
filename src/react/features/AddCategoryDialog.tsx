@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, TextField } from '@material-ui/core';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Category, CategoryType } from '../types';
+import { Category, CategoryType } from '../../shared/types';
 
 interface AddCategoryProps {
   isOpen: boolean;

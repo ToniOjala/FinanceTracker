@@ -1,7 +1,7 @@
 import { Box, makeStyles } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Category, Transaction } from '../../types';
+import { Category, Transaction } from '../../../shared/types';
 import CategoriesCard from './CategoriesCard';
 import TransactionsCard from './TransactionsCard'
 import { fetchCategories } from '../../slices/categories';

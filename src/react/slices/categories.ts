@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
 import { getCategories, saveCategory } from '../services/categoryService';
-import { Category, CategoryType } from '../types';
+import { Category, CategoryType } from '../../shared/types';
 
 const categorySlice = createSlice({
   name: 'category',

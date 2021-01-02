@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
 import { getLatestBudgets, postBudgets } from '../services/budgetService';
-import { Budget, BudgetsByCategory } from '../types';
+import { Budget } from '../../shared/types';
+import { BudgetsByCategory } from '../types';
 
 const budgetSlice = createSlice({
   name: 'budget',
