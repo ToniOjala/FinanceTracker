@@ -39,7 +39,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint \"./src/**/*.{ts,tsx}\"",
     "postinstall": "electron-builder install-app-deps",
-    "electron:dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && npm run compile && electron .\"",
+    "electron:dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && tsc -p src/electron -w\" \"wait-on http://localhost:3000 && tsc -p src/electron && electron .\"",
     "electron:build": "npm run build && npm run compile && electron-builder",
     "rebuild:better-sqlite3": "electron-rebuild -f -w better-sqlite3"
   },
