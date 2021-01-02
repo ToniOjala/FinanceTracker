@@ -18,8 +18,18 @@ export function handleCategoryRequest(db: Database, requestType: string, data?: 
       const category = data.item as Category;
       const sql = 'INSERT INTO categories (name, type, balance) VALUES (?, ?, ?)';
       const { lastInsertRowid } = db.prepare(sql).run(category?.name, category?.type, category?.balance);
-      const result = db.prepare('SELECT * FROM categories WHERE id = ?').get(lastInsertRowid);
+      result = db.prepare('SELECT * FROM categories WHERE id = ?').get(lastInsertRowid);
       return result;
+    }
+    case 'update': {
+      if (!data) throw new Error('Data to update was not given');
+      const item: { categoryName: string, balance: number } = data.item as { categoryName: string, balance: number };
+
+      const category: Category = db.prepare('SELECT * FROM categories WHERE name = ?').get(item.categoryName);
+      category.balance += item.balance;
+      db.prepare(`UPDATE categories SET balance = ? WHERE name = ?`).run(category.balance, category.name);
+      
+      return category;
     }
     default:
       return [];

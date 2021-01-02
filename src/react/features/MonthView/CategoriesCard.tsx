@@ -2,7 +2,7 @@ import { Button, Card, makeStyles } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveBudgets } from '../../slices/budgets'
-import { postCategory, selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
+import { updateBalances as updateBalances, postCategory, selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
 import { selectYearAndMonth } from '../../slices/dateSelection'
 import { Budget, Category, Transaction } from '../../../shared/types'
 import AddBalanceDialog, { CategoryBalances } from '../AddBalanceDialog'
@@ -71,7 +71,12 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
   }
 
   const addToBalance = (balances: CategoryBalances) => {
-    console.log(balances);
+    for (const category in balances) {
+      balances[category] = Number(balances[category]);
+    }
+    
+    dispatch(updateBalances(balances));
+    closeDialogs();
   }
 
   return (
