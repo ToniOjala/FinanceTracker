@@ -1,72 +1,37 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import isDev from 'electron-is-dev';
-import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from "electron-devtools-installer";
-import { IpcChannel } from './IPC/IpcChannel';
+import path from 'path';
+import url from 'url';
 import { DatabaseChannel } from './IPC/DatabaseChannel';
 
-class Main {
-  private mainWindow: BrowserWindow | undefined;
+console.log('process.env.NODE_ENV=', process.env.NODE_ENV);
 
-  public init(ipcChannels: IpcChannel[]) {
-    app.on('ready', this.createWindow);
-    app.on('window-all-closed', this.onWindowAllClosed);
-    app.on('activate', this.onActivate);
+app.on('ready', () => {
+  let mainWindow: Electron.BrowserWindow | null = new BrowserWindow({
+    width: 2560,
+    height: 1440,
+    webPreferences: {
+      nodeIntegration: true,
+      webSecurity: false,
+      worldSafeExecuteJavaScript: true,
+    },
+  });
 
-    this.registerIpcChannels(ipcChannels);
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.loadURL(`http://localhost:4000`);
+    mainWindow.webContents.openDevTools();
+  } else {
+    mainWindow.loadURL(
+      url.format({
+        pathname: path.join(app.getAppPath(), '/app/index.html'),
+        protocol: 'file:',
+        slashes: true,
+      })
+    );
   }
 
-  private onWindowAllClosed() {
-    if (process.platform !== 'darwin') {
-      app.quit();
-    }
-  }
+  mainWindow.on('closed', () => mainWindow = null);
+});
 
-  private onActivate() {
-    if (!this.mainWindow) {
-      this.createWindow();
-    }
-  }
+ipcMain.on('database', (event, request) => new DatabaseChannel().handle(event, request));
 
-  private createWindow() {
-    this.mainWindow = new BrowserWindow({
-      width: 1920,
-      height: 1080,
-      title: 'Finance Tracker',
-      webPreferences: {
-        nodeIntegration: true
-      }
-    });
-
-    if (isDev) {
-      this.mainWindow.loadURL('http://localhost:3000/index.html');
-    } else {
-      // 'build/index.html'
-      this.mainWindow.loadURL(`file://${__dirname}/../index.html`);
-    }
-
-    this.mainWindow.on('closed', () => this.mainWindow = undefined);
-
-    // Hot Reloading
-    if (isDev) require('electron-reloader')(module)
-
-    // DevTools
-    installExtension(REACT_DEVELOPER_TOOLS)
-      .then(name => console.log(`Added Extension: ${name}`))
-      .catch(err => console.error('An error occurred: ', err));
-
-    installExtension(REDUX_DEVTOOLS)
-      .then((name => console.log(`Added Extension: ${name}`)))
-      .catch(err => console.error('An error occurred: ', err));
-
-    if (isDev) this.mainWindow.webContents.openDevTools();
-  }
-
-  private registerIpcChannels(ipcChannels: IpcChannel[]) {
-    ipcChannels.forEach(channel => ipcMain.on(channel.getName(), 
-      (event, request) => channel.handle(event, request)));
-  }
-}
-
-(new Main()).init([
-  new DatabaseChannel()
-]);
+app.allowRendererProcessReuse = true;
