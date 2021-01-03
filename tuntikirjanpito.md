@@ -31,4 +31,5 @@
 | 29.12.20 | 2  | Electron: MongoDB-tietokantakyselyiden siirtoa SQLitelle ja suuret määrät debuggausta.
 | 01.01.21 | 4.5| Projektin repon ja npm-packageiden uudelleen järjestely ja sen aiheuttamien ongelmien ratkominen<br>Yritys saada E2E testit toimimaan<br>Sekalaisten ongelmien korjausta
 | 02.01.21 | 3  | Ongelmien korjausta ja kategorioiden saldoon lisäämisen mahdollisuus
-| yht   | 76   | | 
+| 03.01.21 | 4  | Webpackin opiskelua sekä projektin uudelleenkonfigurointi webpackille boilerplatella create-react-appin sijaan.<br>Uusi yritys saada Spectron toimimaan. Ei toiminut.<br>React-komponenttitestien konfigurointi ja ensimmäisen testin luonti Jestillä ja react-testing-libraryllä
+| yht   | 80   | | 
