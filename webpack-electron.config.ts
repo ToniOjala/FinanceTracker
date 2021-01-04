@@ -1,6 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import CopyPlugin from 'copy-webpack-plugin';
+import Dotenv from 'dotenv-webpack';
 
 const config: webpack.Configuration = {
   resolve: {
@@ -31,6 +32,7 @@ const config: webpack.Configuration = {
         },
       ]
     }),
+    new Dotenv(),
   ],
   externals: {
     'better-sqlite3': 'commonjs better-sqlite3',

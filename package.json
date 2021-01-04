@@ -6,6 +6,7 @@
   "scripts": {
     "build:renderer:prod": "cross-env NODE_ENV=production webpack --config webpack-renderer.config.ts --mode production",
     "build:electron-main:dev": "cross-env NODE_ENV=development webpack --config webpack-electron.config.ts --mode development",
+    "build:electron-main:test": "cross-env NODE_ENV=test webpack --config webpack-electron.config.ts --mode development",
     "build:electron-main:prod": "cross-env NODE_ENV=production webpack --config webpack-electron.config.ts --mode production",
     "build:app": "npm run build:renderer:prod && npm run build:electron-main:prod",
     "build:unpacked": "electron-builder --dir",
@@ -15,10 +16,10 @@
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
     "rebuild:better-sqlite3": "electron-rebuild -f -w better-sqlite3",
-    "start:renderer:dev": "cross-env NODE_ENV=development webpack serve --config webpack-renderer.config.ts --mode development",
+    "start:renderer": "webpack serve --config webpack-renderer.config.ts --mode development",
     "start:run-electron": "cross-env NODE_ENV=development electron ./app/electron-main.js",
-    "start": "npm run build:electron-main:dev && concurrently \"npm run start:renderer:dev\" \"npm run start:run-electron\" -n renderer,electron",
-    "test:e2e": "concurrently \"npm run start:renderer:dev\" \"jest src/__tests__\""
+    "start": "npm run build:electron-main:test && concurrently \"cross-env NODE_ENV=test npm run start:renderer\" \"npm run start:run-electron\" -n renderer,electron",
+    "test:e2e": "concurrently \"cross-env NODE_ENV=test npm run start:renderer\" \"jest src/__tests__ --runInBand\""
   },
   "author": "Toni Ojala",
   "license": "ISC",
@@ -41,6 +42,7 @@
     "@testing-library/react": "^11.2.2",
     "@types/better-sqlite3": "^5.4.1",
     "@types/copy-webpack-plugin": "^6.4.0",
+    "@types/dotenv-webpack": "^5.0.0",
     "@types/jest": "^26.0.19",
     "@types/material-ui": "^0.21.8",
     "@types/node": "^14.14.19",
@@ -54,6 +56,7 @@
     "concurrently": "^5.3.0",
     "copy-webpack-plugin": "^7.0.0",
     "cross-env": "^7.0.2",
+    "dotenv-webpack": "^6.0.0",
     "electron": "^10.1.1",
     "electron-builder": "^22.8.0",
     "electron-rebuild": "^2.3.4",
