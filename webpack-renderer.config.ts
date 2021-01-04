@@ -6,6 +6,9 @@ const config: webpack.Configuration = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     mainFields: ['main', 'module', 'browser'],
+    alias: {
+      '@': path.join(__dirname, '..', 'src')
+    }
   },
   entry: './src/react/index.tsx',
   target: 'electron-renderer',
