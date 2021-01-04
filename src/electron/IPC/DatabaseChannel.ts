@@ -10,12 +10,11 @@ export class DatabaseChannel implements IpcChannel {
   handle(event: IpcMainEvent, request: IpcRequest): void {
     if (!request.responseChannel) request.responseChannel = `${this.getName()}_response`;
 
-    const devDBPath = 'C:/Users/Toni/Repos/db.db';
-    const testDBPath = '@/__tests__/test.db';
+    let databasePath = process.env.DATABASE_PATH;
+    if (process.env.NODE_ENV === 'test') databasePath = process.env.TEST_DATABASE_PATH;
+    if (!databasePath) throw new Error('Environment variable DATABASE_PATH was not given');
 
-    const db = (process.env.NODE_ENV === 'testing') 
-      ? new sqliteDB(testDBPath, { verbose: console.log })
-      : new sqliteDB(devDBPath, { verbose: console.log });
+    const db = new sqliteDB(databasePath, { verbose: console.log });
 
     if (request.params) {
       const table = request.params.table;
