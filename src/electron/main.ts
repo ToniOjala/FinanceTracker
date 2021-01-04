@@ -9,8 +9,10 @@ app.on('ready', () => {
   let mainWindow: Electron.BrowserWindow | null = new BrowserWindow({
     width: 2560,
     height: 1440,
+    title: 'Finance Tracker',
     webPreferences: {
       nodeIntegration: true,
+      enableRemoteModule: true,
       webSecurity: false,
       worldSafeExecuteJavaScript: true,
     },
@@ -18,7 +20,7 @@ app.on('ready', () => {
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.loadURL(`http://localhost:4000`);
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadURL(
       url.format({

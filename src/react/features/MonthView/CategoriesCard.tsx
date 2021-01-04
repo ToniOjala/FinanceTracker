@@ -97,7 +97,7 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
         transactions={transactions}
         selectCategory={selectCategory}
       />
-      <Button onClick={openCategoryDialog}>Add Category</Button>
+      <Button className='addCategory' onClick={openCategoryDialog}>Add Category</Button>
       <Button onClick={openBudgetDialog}>Set Budgets</Button>
       <Button onClick={openBalanceDialog}>Add to Balance</Button>
       <AddCategoryDialog 
