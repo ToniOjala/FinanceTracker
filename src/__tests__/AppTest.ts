@@ -4,7 +4,6 @@ import electron from 'electron';
 let app: Application;
 
 beforeAll(async () => {
-  process.env.NODE_ENV = 'test';
   app = new Application({
     path: '' + electron,
     args: ['app/electron-main.js'],
@@ -31,13 +30,19 @@ test('Title is correct', async () => {
 });
 
 test('Category can be added', async () => {
-  console.log('starting');
   (await app.client.$('.addCategory')).click();
 
   const addCategoryDialog = await app.client.react$('AddCategoryDialog');
   const name = (await addCategoryDialog.$$('input'))[0];
-  await name.keys('Testinen');
+  await name.keys('Testikategoria');
   
   const add = (await addCategoryDialog.$$('button'))[1];
   add.click();
+
+  const expenseCategoryTableBody = await app.client.$('//*[@id="root"]/div/main/div[2]/div[1]/div/div[2]/div/table/tbody');
+  const expenseCategoryRows = await expenseCategoryTableBody.$$('tr');
+  const lastRow = expenseCategoryRows[expenseCategoryRows.length - 1];
+  const nameCellText = await (await lastRow.$$('td'))[0].getText();
+
+  expect(nameCellText).toBe('Testikategoria');
 });
