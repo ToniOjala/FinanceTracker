@@ -1,6 +1,5 @@
 import { Application } from 'spectron';
 import electron from 'electron';
-import { addCategory } from '../react/slices/categories';
 
 let app: Application;
 
