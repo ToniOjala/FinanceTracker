@@ -33,4 +33,5 @@
 | 02.01.21 | 3  | Ongelmien korjausta ja kategorioiden saldoon lisäämisen mahdollisuus
 | 03.01.21 | 4  | Webpackin opiskelua sekä projektin uudelleenkonfigurointi webpackille boilerplatella create-react-appin sijaan.<br>Uusi yritys saada Spectron toimimaan. Ei toiminut.<br>React-komponenttitestien konfigurointi ja ensimmäisen testin luonti Jestillä ja react-testing-libraryllä
 | 04.01.21 | 2  | Ensimmäisten E2E-testit luonti onnistuneesti Spectronilla. .env-tiedoston käyttöönotto eri tietokantapolkujen käyttöä varten.
-| yht   | 82   | | 
+| 05.01.21 | 2  | Testiympäristön korjaus, yritys ottaa webpack-aliakset käyttöön epäonnistuneesti ja päivämäärien prosessoinnin korjauksen aloitus
+| yht   | 84   | | 
