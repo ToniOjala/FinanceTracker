@@ -15,8 +15,6 @@ export class DatabaseChannel implements IpcChannel {
     if (process.env.DEPLOY_ENV === 'test') databasePath = path.join(__dirname, '..', 'src', '__tests__', 'test.db');
     if (!databasePath) throw new Error('Path for database was not given');
 
-    console.log('databasePath: ', databasePath);
-
     const db = new sqliteDB(databasePath, { verbose: console.log });
 
     if (request.params) {
