@@ -6,7 +6,6 @@
   "scripts": {
     "build:renderer:prod": "cross-env NODE_ENV=production webpack --config webpack-renderer.config.ts --mode production",
     "build:electron-main:dev": "cross-env NODE_ENV=development webpack --config webpack-electron.config.ts --mode development",
-    "build:electron-main:test": "cross-env NODE_ENV=test webpack --config webpack-electron.config.ts --mode development",
     "build:electron-main:prod": "cross-env NODE_ENV=production webpack --config webpack-electron.config.ts --mode production",
     "build:app": "npm run build:renderer:prod && npm run build:electron-main:prod",
     "build:unpacked": "electron-builder --dir",
@@ -18,8 +17,8 @@
     "rebuild:better-sqlite3": "electron-rebuild -f -w better-sqlite3",
     "start:renderer": "webpack serve --config webpack-renderer.config.ts --mode development",
     "start:run-electron": "cross-env NODE_ENV=development electron ./app/electron-main.js",
-    "start": "npm run build:electron-main:test && concurrently \"cross-env NODE_ENV=test npm run start:renderer\" \"npm run start:run-electron\" -n renderer,electron",
-    "test:e2e": "concurrently \"cross-env NODE_ENV=test npm run start:renderer\" \"jest src/__tests__ --runInBand\""
+    "start": "npm run build:electron-main:dev && concurrently \"cross-env npm run start:renderer\" \"npm run start:run-electron\" -n renderer,electron",
+    "test:e2e": "concurrently \"npm run start:renderer\" \"jest src/__tests__ --runInBand\""
   },
   "author": "Toni Ojala",
   "license": "ISC",
@@ -69,6 +68,7 @@
     "ts-jest": "^26.4.4",
     "ts-loader": "^8.0.3",
     "ts-node": "^9.0.0",
+    "tsconfig-paths-webpack-plugin": "^3.3.0",
     "typescript": "^4.0.2",
     "webpack": "^5.11.1",
     "webpack-cli": "^4.3.1",

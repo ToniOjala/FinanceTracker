@@ -3,7 +3,8 @@ import path from 'path';
 import url from 'url';
 import { DatabaseChannel } from './IPC/DatabaseChannel';
 
-console.log('process.env.NODE_ENV=', process.env.NODE_ENV);
+console.log('process.env.NODE_ENV = ', process.env.NODE_ENV);
+console.log('process.env.DEPLOY_ENV = ', process.env.DEPLOY_ENV);
 
 app.on('ready', () => {
   let mainWindow: Electron.BrowserWindow | null = new BrowserWindow({
@@ -20,7 +21,7 @@ app.on('ready', () => {
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.loadURL(`http://localhost:4000`);
-    // mainWindow.webContents.openDevTools();
+    if (process.env.DEPLOY_ENV === 'development') mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadURL(
       url.format({
