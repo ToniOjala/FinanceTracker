@@ -1,7 +1,7 @@
 import React from 'react'
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
-import MomentUtils from '@date-io/moment';
+import DateFnsUtils from '@date-io/date-fns';
 import { makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectDate, setDateSelection } from '../slices/dateSelection';
@@ -23,33 +23,18 @@ const YearMonthSelector = (): JSX.Element => {
 
   const handleChange = (date: ParsableDate) => {
     const dateString = date?.toLocaleString();
-    if (dateString) {
-      const parsedDate: Date = new Date(dateString);
-      const dateSelection = {
-        year: parsedDate.getFullYear(),
-        month: parsedDate.getMonth() + 1
-      }
-      dispatch(setDateSelection(dateSelection));
-    }  
+    console.log('dateString: ', dateString);
+    if (dateString) dispatch(setDateSelection(dateString));
   }
 
   return (
-    <MuiPickersUtilsProvider utils={MomentUtils}>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <div className={classes.root}>
         <DatePicker
           variant="inline"
-          views={["month"]}
-          label="Month"
-          format="MMMM"
-          value={selectedDate}
-          onChange={handleChange}
-          autoOk
-        />
-        <DatePicker
-          className={classes.item}
-          variant="inline"
-          views={["year"]}
-          label="Year"
+          views={["month", "year"]}
+          label="Month/Year"
+          format="MMMM yyyy"
           value={selectedDate}
           onChange={handleChange}
           autoOk
