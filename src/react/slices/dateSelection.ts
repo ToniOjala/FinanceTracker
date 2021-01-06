@@ -5,10 +5,10 @@ import { RootState } from "../rootReducer";
 
 const dateSelectionSlice = createSlice({
   name: 'dateSelection',
-  initialState: format(new Date(), 'yyyy-MM'),
+  initialState: format(new Date(), 'yyyy-MM-dd'),
   reducers: {
     setSelectedDate: (state, action) => {
-      const selectedDate = format(new Date(action.payload), 'yyyy-MM');
+      const selectedDate = format(new Date(action.payload).setDate(1), 'yyyy-MM-dd');
       return selectedDate;
     }
   }
