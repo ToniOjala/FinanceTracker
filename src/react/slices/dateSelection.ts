@@ -2,7 +2,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { format } from 'date-fns';
 import { RootState } from "../rootReducer";
-import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
 
 const dateSelectionSlice = createSlice({
   name: 'dateSelection',
@@ -19,6 +18,6 @@ const dateSelectionSlice = createSlice({
 export const { setSelectedDate } = dateSelectionSlice.actions;
 export default dateSelectionSlice.reducer;
 
-export const selectDate = (state: RootState): ParsableDate => state.dateSelection;
+export const selectDate = (state: RootState): string => state.dateSelection;
 export const selectYearAndMonth = (state: RootState): Array<number> => [Number(format(new Date(state.dateSelection), 'yyyy')), Number(format(new Date(state.dateSelection), 'MM'))]
 export const selectYear = (state: RootState): number => Number(format(new Date(state.dateSelection), 'yyyy'));
