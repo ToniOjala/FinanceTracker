@@ -4,12 +4,10 @@ import { Budget, Category, KeyValuePair } from "../../../shared/types";
 export function handleBudgetRequest(db: Database, requestType: string, data?: KeyValuePair, query?: KeyValuePair ): Budget | Budget[] | KeyValuePair {
   switch (requestType) {
     case 'getLatest': {
-      const year = Number(query?.year);
-      const month = Number(query?.month);
+      const date = query?.date as string;
       const latestBudgetPerCategory: KeyValuePair = {};
 
-      if (year && month) {
-        const date = (month < 10) ? `${year}-0${month}-01` : `${year}-${month}-01`;
+      if (date) {
         const categories: Category[] = db.prepare('SELECT * FROM categories').all();
 
         categories.forEach((category: Category) => {
@@ -32,12 +30,8 @@ export function handleBudgetRequest(db: Database, requestType: string, data?: Ke
 
       if (budgets) {
         budgets.forEach((budget: Budget) => {
-          const year = budget.startDate.getFullYear();
-          const month = budget.startDate.getMonth() + 1;
-          const startDate = (month < 10) ? `${year}-0${month}-01` : `${year}-${month}-01`;
-
           const sql = 'INSERT INTO budgets (amount, startDate, category) VALUES (?, ?, ?)';
-          const { lastInsertRowid } = db.prepare(sql).run(budget.amount, startDate, budget.category);
+          const { lastInsertRowid } = db.prepare(sql).run(budget.amount, budget.startDate, budget.category);
           const savedBudget = db.prepare('SELECT * FROM budgets WHERE id = ?').get(lastInsertRowid);
           savedBudgets.push(savedBudget);
         })

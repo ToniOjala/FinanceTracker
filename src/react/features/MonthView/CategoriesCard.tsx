@@ -9,6 +9,7 @@ import AddBalanceDialog, { CategoryBalances } from '../AddBalanceDialog'
 import AddCategoryDialog from '../AddCategoryDialog'
 import SetBudgetsDialog, { UnprocessedBudgets } from '../SetBudgetsDialog'
 import CategoryTable from './CategoryTable'
+import { format } from 'date-fns'
 
 const useStyles = makeStyles({
   root: {
@@ -60,7 +61,7 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
         id: '',
         amount: Number(budgets[category]),
         category,
-        startDate: selectedDate
+        startDate: format(new Date(selectedDate).setDate(1), 'yyyy-MM-dd')
       }
 
       if(budget.amount > 0) processedBudgets.push(budget);
