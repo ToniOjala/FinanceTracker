@@ -21,7 +21,7 @@ export interface Budget {
   id: string;
   amount: number;
   category: string;
-  startDate: Date;
+  startDate: string;
 }
 
 export type NewCategory = Omit<Category, 'id'>

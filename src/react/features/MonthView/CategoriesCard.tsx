@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveBudgets } from '../../slices/budgets'
 import { updateBalances as updateBalances, postCategory, selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
-import { selectYearAndMonth } from '../../slices/dateSelection'
+import { selectDate } from '../../slices/dateSelection'
 import { Budget, Category, Transaction } from '../../../shared/types'
 import AddBalanceDialog, { CategoryBalances } from '../AddBalanceDialog'
 import AddCategoryDialog from '../AddCategoryDialog'
@@ -32,7 +32,7 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
   
   const incomeCategories = useSelector(selectIncomeCategories);
   const expenseCategories = useSelector(selectExpenseCategories);
-  const [year, month] = useSelector(selectYearAndMonth);
+  const selectedDate = useSelector(selectDate);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -60,7 +60,7 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
         id: '',
         amount: Number(budgets[category]),
         category,
-        startDate: new Date(year, month - 1, 1, 12)
+        startDate: selectedDate
       }
 
       if(budget.amount > 0) processedBudgets.push(budget);
