@@ -7,10 +7,6 @@ export const getTransactionsOfMonth = (year: number, month: number): Promise<Tra
   return getMany<Transaction[]>(table, { year, month });
 }
 
-export const getTransactionsOfYear = (year: number): Promise<Transaction[]> => {
-  return getMany<Transaction[]>(table, { year });
-}
-
 export const getYearlyData = (year: number): Promise<KeyValuePair> => {
   return getCustom<KeyValuePair>(table, 'yearly-data', { year });
 }

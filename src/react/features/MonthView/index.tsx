@@ -32,7 +32,7 @@ const MonthView = (): JSX.Element | null => {
   useEffect(() => {
     dispatch(fetchTransactionsOfMonth(year, month));
     dispatch(fetchLatestBudgets(selectedDate));
-  }, [year, month])
+  }, [selectedDate])
 
   useEffect(() => {
     dispatch(fetchCategories());

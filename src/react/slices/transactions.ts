@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
 import { AppThunk } from '../store';
-import { getYearlyData, getTransactionsOfMonth, getTransactionsOfYear, saveTransaction } from "../services/transactionService";
+import { getYearlyData, getTransactionsOfMonth, saveTransaction } from "../services/transactionService";
 import { RootState } from "../rootReducer";
 import { Transaction } from "../../shared/types";
 import { YearlyData } from "../types";
@@ -33,15 +33,6 @@ export default transactionSlice.reducer;
 export const fetchTransactionsOfMonth = (year: number, month: number): AppThunk => async dispatch => {
   try {
     const transactions = await getTransactionsOfMonth(year, month);
-    dispatch(setTransactions(transactions));
-  } catch (error) {
-    console.error('Error while fetching transactions: ', error);
-  }
-}
-
-export const fetchTransactionsOfYear = (year: number): AppThunk => async dispatch => {
-  try {
-    const transactions = await getTransactionsOfYear(year);
     dispatch(setTransactions(transactions));
   } catch (error) {
     console.error('Error while fetching transactions: ', error);
