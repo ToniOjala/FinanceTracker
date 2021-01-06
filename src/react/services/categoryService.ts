@@ -10,6 +10,5 @@ export const saveCategory = (category: Category): Promise<Category> => {
 }
 
 export const updateBalance = (categoryName: string, balance: number): Promise<Category> => {
-  console.log(`Updating balance of category ${categoryName} to ${balance}`);
   return update<Category>(DBTable.CATEGORIES, { categoryName, balance });
 }

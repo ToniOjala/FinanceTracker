@@ -9,7 +9,6 @@ const dateSelectionSlice = createSlice({
   reducers: {
     setSelectedDate: (state, action) => {
       const selectedDate = format(new Date(action.payload), 'yyyy-MM');
-      console.log('selectedDate: ', selectedDate);
       return selectedDate;
     }
   }

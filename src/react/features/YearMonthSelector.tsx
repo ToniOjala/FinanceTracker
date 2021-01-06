@@ -15,13 +15,11 @@ const useStyles = makeStyles({
 
 const YearMonthSelector = (): JSX.Element => {
   const selectedDate = useSelector(selectDate);
-  console.log('selectedDate: ', selectedDate);
   const dispatch = useDispatch();
   const classes = useStyles();
 
   const handleChange = (date: ParsableDate) => {
     const dateString = date?.toLocaleString();
-    console.log('dateString: ', dateString);
     if (dateString) dispatch(setSelectedDate(dateString));
   }
 
