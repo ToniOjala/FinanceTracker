@@ -15,7 +15,7 @@ interface Props {
 }
 
 export interface PartialNewTransaction {
-  date: string;
+  date: Date;
   amount: string;
 }
 
