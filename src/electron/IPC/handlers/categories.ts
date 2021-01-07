@@ -1,37 +1,23 @@
-import { Database } from "better-sqlite3";
 import { Category, KeyValuePair } from "../../../shared/types";
+import CategoryService from "../../DataAccess/services/categoryService";
 
-export function handleCategoryRequest(db: Database, requestType: string, data?: KeyValuePair, query?: KeyValuePair ): Category | Category[] {
-  let result: Category | Category[];
-  
+export function handleCategoryRequest(requestType: string, data?: KeyValuePair): Category | Category[] {
+  const categoryService = new CategoryService();
+
   switch (requestType) {
-    case 'get': {
-      result = db.prepare('SELECT * FROM categories WHERE id = ?').get(query?.id);
-      return result;
-    }
-    case 'getMany': {
-      result = db.prepare('SELECT * FROM categories').all();
-      return result;
-    }
-    case 'post': {
+    case 'get': 
+      if (!data) throw new Error('Category id not given');
+      return categoryService.getCategory(Number(data.id));
+    case 'getMany': 
+      return categoryService.getCategories();
+    case 'post':
       if (!data) throw new Error('Data to post was not given');
-      const category = data.item as Category;
-      const sql = 'INSERT INTO categories (name, type, balance) VALUES (?, ?, ?)';
-      const { lastInsertRowid } = db.prepare(sql).run(category?.name, category?.type, category?.balance);
-      result = db.prepare('SELECT * FROM categories WHERE id = ?').get(lastInsertRowid);
-      return result;
-    }
-    case 'update': {
+      return categoryService.saveCategory(data.item as Category);
+    case 'update':
       if (!data) throw new Error('Data to update was not given');
-      const item: { categoryName: string, balance: number } = data.item as { categoryName: string, balance: number };
-
-      const category: Category = db.prepare('SELECT * FROM categories WHERE name = ?').get(item.categoryName);
-      category.balance += item.balance;
-      db.prepare(`UPDATE categories SET balance = ? WHERE name = ?`).run(category.balance, category.name);
-      
-      return category;
-    }
+      const item = data.item as { categoryName: string, balance: number };
+      return categoryService.updateCategoryBalance(item.categoryName, item.balance);
     default:
-      return [];
+      return [] as Category[];
   }
 }

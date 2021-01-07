@@ -1,81 +1,24 @@
-import { Database } from "better-sqlite3";
-import { Transaction, KeyValuePair, Category } from "../../../shared/types";
+import { Transaction, KeyValuePair } from "../../../shared/types";
+import TransactionService from "../../DataAccess/services/transactionService";
 
-export function handleTransactionRequest(db: Database, requestType: string, data?: KeyValuePair, query?: KeyValuePair): Transaction | Transaction[] | KeyValuePair {
-  let result: Transaction | Transaction[] | KeyValuePair;
+export function handleTransactionRequest(requestType: string, data?: KeyValuePair, query?: KeyValuePair): Transaction | Transaction[] | KeyValuePair {
+  const transactionService = new TransactionService();
   
   switch (requestType) {
-    case 'getMany': {
+    case 'getMany':
       if (query && query.month && query.year) {
-        const year = Number(query.year);
-        const month = Number(query.month);
-        result = getTransactionsOfMonth(db, year, month);
+        return transactionService.getTransactionsOfMonth(Number(query.year), Number(query.month));
       } else if (query && query.year) {
-        const year = Number(query.year);
-        result = getTransactionsOfYear(db, year);
-      } else {
-        result = db.prepare('SELECT * FROM transactions').all();
+        return transactionService.getTransactionsOfYear(Number(query.year));
       }
-      return result;
-    }
-    case 'yearly-data': {
-      const yearViewData: KeyValuePair = {};
-
-      if (query && query.year) {
-        const year = Number(query.year)
-
-        const categories: Category[] = db.prepare('SELECT * FROM categories').all();
-
-        for (const category of categories) {
-          const months = new Array<number>(12);
-          for (let month = 0; month < 12; month++) {
-            const monthlyTransactions = getTransactionsOfMonthAndCategory(db, year, month + 1, category.name);
-            const sum = monthlyTransactions?.reduce((acc, tran) => acc + tran.amount, 0);
-            months[month] = sum
-          }
-
-          yearViewData[category.name] = months;
-        }
-      }
-
-      return yearViewData;
-    }
-    case 'post': {
+      return [] as Transaction[]
+    case 'yearly-data':
+      if (!query || !query.year) throw new Error('Year was not given');
+      return transactionService.getYearlyData(Number(query.year));
+    case 'post':
       if (!data) throw new Error('Data to post was not given');
-      const transaction = data.item as Transaction;
-
-      const category: Category = db.prepare('SELECT * FROM categories WHERE name = ?').get(transaction.category);
-      db.prepare(`UPDATE categories SET balance = ? WHERE name = ?`).run(category.balance -= transaction.amount, category.name);
-
-      const sql = 'INSERT INTO transactions (amount, date, category) VALUES (?, ?, ?)';
-      const { lastInsertRowid } = db.prepare(sql).run(transaction.amount, transaction.date, transaction.category);
-      result = db.prepare('SELECT * FROM transactions WHERE id = ?').get(lastInsertRowid);
-
-      return result;
-    }
+      return transactionService.saveTransaction(data.item as Transaction);
     default:
-      return [];
+      return [] as Transaction[];
   }
-}
-
-function getTransactionsOfMonth(db: Database, year: number, month: number) {
-  const date = (month >= 10) ? `${year}-${month}-01` : `${year}-0${month}-01`;
-
-  const sql = `SELECT * FROM transactions WHERE date BETWEEN date('${date}') AND date('${date}', '+1 month', '-1 day')`;
-  return db.prepare(sql).all();
-}
-
-function getTransactionsOfMonthAndCategory(db: Database, year: number, month: number, category: string) {
-  const date = (month < 10) ? `${year}-0${month}-01` : `${year}-${month}-01`;
-  const sql = `SELECT * FROM transactions
-               WHERE category = '${category}'
-               AND date BETWEEN date('${date}') AND date('${date}', '+1 month', '-1 day')`;
-  return db.prepare(sql).all();
-}
-
-function getTransactionsOfYear(db: Database, year: number) {
-  const startDate = `${year}-01-01`;
-  const endDate = `${year}-12-31`;
-  const sql = `SELECT * FROM transactions WHERE date BETWEEN date('${startDate}') AND date('${endDate}')`;
-  return db.prepare(sql).all();
 }
