@@ -2,6 +2,7 @@ import { CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SideNav from './components/SideNav';
+import HomeView from './features/HomeView';
 import MonthView from './features/MonthView';
 import YearMonthSelector from './features/YearMonthSelector';
 import YearView from './features/YearView';
@@ -31,8 +32,11 @@ const App = (): JSX.Element | null => {
               <Route path="/year">
                 <YearView />
               </Route>
-              <Route path="/">
+              <Route path="/month">
                 <MonthView />
+              </Route>
+              <Route path="/">
+                <HomeView />
               </Route>
             </Switch>
           </main>
