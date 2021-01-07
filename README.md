@@ -1,46 +1,67 @@
-# Getting Started with Create React App
+# ReTypeTron
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Minimalistic React + TypeScript + Electron Boilerplate. Nothing more.
 
-## Available Scripts
+Uses a minimal webpack config to bundle everything together, and includes
+just what you need to build your electron app. Tiny enough so that you keep
+a good overview of everything, simple enough for you to add what you need
+and still complete enough to start working on production projects.
 
-In the project directory, you can run:
+Features:
 
-### `npm start`
+- Completely typed, not only your application code, but also the electron
+  main process code, the webpack configuration files (editor suggestions
+  in those files make extensions really easy!), and in json configuration
+  files via json schemas.
+- No built-in frontend libraries like `react-router` or `redux`. They
+  are dead-simple to integrate manually, this boilerplate does not make
+  assumptions about your tech stack.
+- `electron-builder` included for bundling the app for Windows, Linux
+  and Mac. Easily adjustable configurations allows bundling installers or
+  zipped portable packages.
+- `prettier` included for formatting.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Removing stuff
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Utilities like `electron-builder` and `prettier` are included for
+convenience, but can easily be removed if you don't want them.
 
-### `npm test`
+### Removing `electron-builder`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Remove the fields `build:unpacked`, `build:packed`, `build` from
+  `package.json:scripts`.
+- Remove the dependency `electron-builder`.
+- Remove the file `electron-builder.json`.
 
-### `npm run build`
+### Removing `prettier`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Remove the fields `prettier:check` and `prettier:write` from
+  `package.json:scripts`
+- Remove the dependency `prettier`.
+- Remove the file `prettierrc.json`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## FAQ
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Where does the code land once built?
+  - The built files `index.html`, `electron-main.js` and
+    `js/main.js` (render logic) are placed in the `app/`
+    folder, which is loaded into the root of the
+    `resources/app.asar` archive once built into an
+    distributable package.
+- How can I access the location of the built code?
+  - e.g. `path.join(app.getAppPath(), '/app/index.html')`
+- How can I add other files to be included into that archive?
+  - Add the file paths as glob to the `files`-array in
+    `electron-builder.json`.
+- How can I import images/css/scss/other custom things in
+  TypeScript?
+  - Add the relevant loaders in `webpack-renderer.config.ts`
+    if you want to load those files in the render process, or
+    in `webpack-electron.config.ts` for the main process.
+- How can I change the icon?
+  - `resources/icon.png`
+- I don't want to use yarn.
+  - Remove the file `yarn.lock`, change `yarn` to `npm run`
+    in the scripts inside of `package.json`.
+- I want a more comprehensive boilerplate that includes more features.
+  - Look into https://github.com/electron-react-boilerplate/electron-react-boilerplate

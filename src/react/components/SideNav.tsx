@@ -35,6 +35,9 @@ const SideNav = (): JSX.Element => {
     >
       <div className={classes.links}>
         <Link to="/">
+          <Button className={classes.button}>Home</Button>
+        </Link>
+        <Link to="/month">
           <Button className={classes.button}>Month</Button>
         </Link>
         <Link to="year">

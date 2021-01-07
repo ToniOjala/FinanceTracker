@@ -1,39 +1,30 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
-import { DateSelection } from "../types";
-import moment from 'moment';
+import { format, getMonth, getYear } from 'date-fns';
 import { RootState } from "../rootReducer";
-import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
 
-const initialState: DateSelection = {
-  selectedDate: moment().format(),
-  year: Number(moment().format('yyyy')),
-  month: Number(moment().format('MM'))
+const initialState = {
+  isComponentShown: true,
+  selectedDate: format(new Date().setDate(1), 'yyyy-MM-dd')
 }
 
 const dateSelectionSlice = createSlice({
   name: 'dateSelection',
-  initialState,
+  initialState: initialState,
   reducers: {
-    setDateSelection: (state, action) => {
-      const { year, month } = action.payload;
-
-      let dateString;
-      if (month < 10) dateString = `${year}0${month}01`;
-      else dateString = `${year}${month}01`;
-
-      const selectedDate = moment(dateString).format();
-
-      state.year = year;
-      state.month = month;
+    setSelectedDate: (state, action) => {
+      const selectedDate = format(new Date(action.payload).setDate(1), 'yyyy-MM-dd');
       state.selectedDate = selectedDate;
-    }
+    },
+    showDateSelection: (state) => { state.isComponentShown = true },
+    hideDateSelection: (state) => { state.isComponentShown = false }
   }
 })
 
-export const { setDateSelection } = dateSelectionSlice.actions;
+export const { setSelectedDate, showDateSelection, hideDateSelection } = dateSelectionSlice.actions;
 export default dateSelectionSlice.reducer;
 
-export const selectDate = (state: RootState): ParsableDate => state.dateSelection.selectedDate;
-export const selectYearAndMonth = (state: RootState): Array<number> => [ state.dateSelection.year, state.dateSelection.month ]
-export const selectYear = (state: RootState): number => state.dateSelection.year;
+export const selectDate = (state: RootState): string => state.dateSelection.selectedDate;
+export const selectYearAndMonth = (state: RootState): Array<number> => [getYear(new Date(state.dateSelection.selectedDate)), getMonth(new Date(state.dateSelection.selectedDate))];
+export const selectYear = (state: RootState): number => getYear(new Date(state.dateSelection.selectedDate));
+export const selectIsDateSelectionShown = (state: RootState): boolean => state.dateSelection.isComponentShown;

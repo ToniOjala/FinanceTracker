@@ -24,9 +24,9 @@ const budgetSlice = createSlice({
 export const { setBudgets, addBudgets } = budgetSlice.actions;
 export default budgetSlice.reducer;
 
-export const fetchLatestBudgets = (year: number, month: number): AppThunk => async dispatch => {
+export const fetchLatestBudgets = (date: string): AppThunk => async dispatch => {
   try {
-    const budgets = await getLatestBudgets(year, month);
+    const budgets = await getLatestBudgets(date);
     dispatch(setBudgets(budgets));
   } catch (error) {
     console.error('Error while fetching budgets', error);

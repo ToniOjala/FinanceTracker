@@ -3,8 +3,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
 import { Controller, useForm } from 'react-hook-form';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
-import MomentUtils from '@date-io/moment';
-import moment from 'moment';
+import DateFnsUtils from '@date-io/date-fns';
+import { startOfMonth, endOfMonth } from 'date-fns';
 import { selectDate } from '../slices/dateSelection';
 import { useSelector } from 'react-redux';
 
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export interface PartialNewTransaction {
-  date: string;
+  date: Date;
   amount: string;
 }
 
@@ -29,13 +29,13 @@ const AddTransactionDialog = ({ isOpen, handleClose, handleAddTransaction }: Pro
       <form onSubmit={handleSubmit(handleAddTransaction)}>
         <DialogTitle>Add transaction</DialogTitle>
         <DialogContent>
-          <MuiPickersUtilsProvider utils={MomentUtils}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Controller
               as={
                 <KeyboardDatePicker 
                   value=''
                   onChange={(date: ParsableDate) => setValue('date', date)}
-                  format="DD.MM.yyyy"
+                  format="dd.MM.yyyy"
                 />
               }
               control={control}
@@ -43,11 +43,11 @@ const AddTransactionDialog = ({ isOpen, handleClose, handleAddTransaction }: Pro
               margin="normal"
               name="date"
               label="Date"
-              defaultValue={moment(selectedDate)}
+              defaultValue={selectedDate}
               error={errors.date && true}
               helperText={errors.date?.message}
-              minDate={moment(selectedDate).startOf('month')}
-              maxDate={moment(selectedDate).endOf('month')}
+              minDate={startOfMonth(new Date(selectedDate))}
+              maxDate={endOfMonth(new Date(selectedDate))}
               fullWidth
               required
               autoOk

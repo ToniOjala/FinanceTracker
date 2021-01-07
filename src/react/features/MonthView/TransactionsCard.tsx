@@ -5,6 +5,7 @@ import { postTransaction } from '../../slices/transactions';
 import { Category, Transaction } from '../../../shared/types';
 import AddTransactionDialog, { PartialNewTransaction } from '../AddTransactionDialog';
 import { formatDate } from './utils';
+import { format } from 'date-fns';
 
 const useStyles = makeStyles({
   root: {
@@ -32,7 +33,7 @@ const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null
   const handleNewTransaction = async (values: PartialNewTransaction) => {
     const newTransaction: Transaction = {
       id: '',
-      date: values.date,
+      date: format(values.date, 'yyyy-MM-dd'),
       amount: Number.parseFloat(values.amount),
       category: category.name
     }
