@@ -3,20 +3,28 @@ import { createSlice } from "@reduxjs/toolkit";
 import { format, getMonth, getYear } from 'date-fns';
 import { RootState } from "../rootReducer";
 
+const initialState = {
+  isComponentShown: true,
+  selectedDate: format(new Date().setDate(1), 'yyyy-MM-dd')
+}
+
 const dateSelectionSlice = createSlice({
   name: 'dateSelection',
-  initialState: format(new Date().setDate(1), 'yyyy-MM-dd'),
+  initialState: initialState,
   reducers: {
     setSelectedDate: (state, action) => {
       const selectedDate = format(new Date(action.payload).setDate(1), 'yyyy-MM-dd');
-      return selectedDate;
-    }
+      state.selectedDate = selectedDate;
+    },
+    showDateSelection: (state) => { state.isComponentShown = true },
+    hideDateSelection: (state) => { state.isComponentShown = false }
   }
 })
 
-export const { setSelectedDate } = dateSelectionSlice.actions;
+export const { setSelectedDate, showDateSelection, hideDateSelection } = dateSelectionSlice.actions;
 export default dateSelectionSlice.reducer;
 
-export const selectDate = (state: RootState): string => state.dateSelection;
-export const selectYearAndMonth = (state: RootState): Array<number> => [getYear(new Date(state.dateSelection)), getMonth(new Date(state.dateSelection))];
-export const selectYear = (state: RootState): number => getYear(new Date(state.dateSelection));
+export const selectDate = (state: RootState): string => state.dateSelection.selectedDate;
+export const selectYearAndMonth = (state: RootState): Array<number> => [getYear(new Date(state.dateSelection.selectedDate)), getMonth(new Date(state.dateSelection.selectedDate))];
+export const selectYear = (state: RootState): number => getYear(new Date(state.dateSelection.selectedDate));
+export const selectIsDateSelectionShown = (state: RootState): boolean => state.dateSelection.isComponentShown;
