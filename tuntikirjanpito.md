@@ -35,4 +35,8 @@
 | 04.01.21 | 2  | Ensimmäisten E2E-testit luonti onnistuneesti Spectronilla. .env-tiedoston käyttöönotto eri tietokantapolkujen käyttöä varten.
 | 05.01.21 | 2  | Testiympäristön korjaus, yritys ottaa webpack-aliakset käyttöön epäonnistuneesti ja päivämäärien prosessoinnin korjauksen aloitus
 | 06.01.21 | 2.5| Päivämäärien prosessoinnin korjauksen viimeistely, projektin suunnittelua (= Github Issueiden lisäystä)
+<<<<<<< HEAD
 | yht   | 86.5   | | 
+=======
+| yht   | 86.5   | | 
+>>>>>>> 9a4f7fab4936d74600127a9ef110e95c5084a24b
