@@ -13,7 +13,6 @@ export default class BudgetService {
 
   getLatestBudgets(date: string) {
     const latestBudgetPerCategory: KeyValuePair = {};
-
     const categories = this.categoryService.getCategories();
     categories.forEach((category: Category) => {
       try {
@@ -24,19 +23,16 @@ export default class BudgetService {
         latestBudgetPerCategory[category.name] = 0;
       }
     });
-
     return latestBudgetPerCategory;
   }
 
   saveBudgets(budgets: Budget[]) {
     const savedBudgets: Budget[] = [];
-
     budgets.forEach((budget: Budget) => {
       const sql = 'INSERT INTO budgets (amount, startDate, category) VALUES (?, ?, ?)';
       const id = this.db.run(sql, [budget.amount, budget.startDate, budget.category]);
       savedBudgets.push(this.db.get('SELECT * FROM budgets WHERE id = ?', id));
     });
-
     return savedBudgets;
   }
 }

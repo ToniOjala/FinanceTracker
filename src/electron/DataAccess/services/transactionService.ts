@@ -42,17 +42,13 @@ export default class TransactionService {
         const monthlyTransactions = this.getTransactionsOfMonthAndCategory(year, month + 1, category.name);
         months[month] = monthlyTransactions?.reduce((acc, tran) => acc + tran.amount, 0);
       }
-
       yearlyData[category.name] = months;
     }
-
     return yearlyData;
   }
 
   saveTransaction(transaction: Transaction) {
-    const category = this.db.get('SELECT * FROM categories WHERE name = ?', transaction.category);
     this.categoryService.updateCategoryBalance(transaction.category, -transaction.amount);
-
     const sql = 'INSERT INTO transactions (amount, date, category) VALUES (?, ?, ?)';
     const id = this.db.run(sql, [transaction.amount, transaction.date, transaction.category]);
     const savedTransaction = this.db.get<Transaction>('SELECT * FROM transactions WHERE id = ?', id);

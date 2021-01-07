@@ -2,14 +2,20 @@ import sqliteDB from 'better-sqlite3';
 import path from 'path';
 
 export default class SqliteDataAccess {
+  private databasePath: string;
   private db: sqliteDB.Database | null = null;
 
-  private connect(): sqliteDB.Database {
-    let databasePath = process.env.DATABASE_PATH;
-    if (process.env.DEPLOY_ENV === 'test') databasePath = path.join(__dirname, '..', 'src', '__tests__', 'test.db');
-    if (!databasePath) throw new Error('Path for database was not given');
+  constructor() {
+    const DATABASE_PATH = (process.env.DEPLOY_ENV === 'test')
+      ? path.join(__dirname, '..', 'src', '__tests__', 'test.db')
+      : process.env.DATABASE_PATH;
+      
+    if (!DATABASE_PATH) throw new Error('Path for database was not defined');
+    else this.databasePath = DATABASE_PATH;
+  }
 
-    this.db = sqliteDB(databasePath, { verbose: console.log });
+  private connect(): sqliteDB.Database {
+    this.db = sqliteDB(this.databasePath, { verbose: console.log });
     return this.db;
   }
 
