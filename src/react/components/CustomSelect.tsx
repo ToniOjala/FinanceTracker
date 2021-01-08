@@ -6,9 +6,9 @@ interface Props {
   name: string;
   label: string;
   control: Control<Record<string, any>>;
-  defaultValue: string;
-  children: JSX.Element;
-  otherProps: unknown;
+  defaultValue: unknown;
+  children: JSX.Element[];
+  otherProps?: unknown;
 }
 
 const CustomSelect = (props: Props) => {
