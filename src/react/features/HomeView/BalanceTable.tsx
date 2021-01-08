@@ -1,4 +1,4 @@
-import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
+import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import React from 'react'
 import { Category } from '../../../shared/types'
 
@@ -20,7 +20,10 @@ const BalanceTable = ({ className, categories }: Props): JSX.Element | null => {
   const classes = useStyles();  
 
   return (
-    <TableContainer className={className}>
+    <TableContainer
+      className={className}
+      component={Paper}
+    >
       <Table>
         <TableHead>
           <TableRow>

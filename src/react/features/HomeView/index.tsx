@@ -1,4 +1,4 @@
-import { Button, Container, makeStyles, Typography } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectCategories } from '../../slices/categories';
@@ -7,7 +7,7 @@ import BalanceTable from './BalanceTable';
 
 const useStyles = makeStyles({
   root: {
-    marginTop: '50px',
+    margin: '50px 20px'
   },
   button: {
     margin: '20px 20px 0 0',
@@ -31,8 +31,7 @@ const HomeView = (): JSX.Element => {
   }
 
   return (
-    <Container className={classes.root}>
-      <Typography variant="h3">Home</Typography>
+    <div className={classes.root}>
       <BalanceTable
         className={classes.table}
         categories={categories}
@@ -53,7 +52,7 @@ const HomeView = (): JSX.Element => {
       >
         Add Expense
       </Button>
-    </Container>
+    </div>
   )
 }
 
