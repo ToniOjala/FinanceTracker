@@ -36,5 +36,6 @@
 | 05.01.21 | 2  | Testiympäristön korjaus, yritys ottaa webpack-aliakset käyttöön epäonnistuneesti ja päivämäärien prosessoinnin korjauksen aloitus
 | 06.01.21 | 2  | Päivämäärien prosessoinnin korjauksen viimeistely, projektin suunnittelua (= Github Issueiden lisäystä)
 | 07.01.21 | 2  | Electron: Tietokantakyselyiden koodin refaktorointi omiksi palveluluokiksi.<br>React: Kotinäkymän koodausta<br>Github: Webpack-haaran mergeäminen masteriin
-| yht   | 88   | | 
+| 08.01.21 | 1.5  | Kotinäkymän koodausta
+| yht   | 89.5   | | 
 
