@@ -1,8 +1,10 @@
 import { Button, makeStyles } from '@material-ui/core';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectCategories } from '../../slices/categories';
+import { Transaction } from '../../../shared/types';
+import { fetchCategories, selectCategories, selectIncomeCategories } from '../../slices/categories';
 import { hideDateSelection } from '../../slices/dateSelection';
+import AddIncomeDialog from '../AddIncomeDialog';
 import BalanceTable from './BalanceTable';
 
 const useStyles = makeStyles({
@@ -18,16 +20,28 @@ const useStyles = makeStyles({
 });
 
 const HomeView = (): JSX.Element => {
+  const [isAddIncomeDialogOpen, setIsAddIncomeDialogOpen] = useState(false);
+
   const dispatch = useDispatch();
   const classes = useStyles();
   const categories = useSelector(selectCategories);
+  const incomeCategories = useSelector(selectIncomeCategories);
 
   useEffect(() => {
+    dispatch(fetchCategories());
     dispatch(hideDateSelection());
   }, [])
 
-  const openDialog = () => {
-    console.log('opening dialog');
+  const openDialog = (type: string) => {
+    type === 'income' ? setIsAddIncomeDialogOpen(true) : null;
+  }
+
+  const closeDialog = () => {
+    setIsAddIncomeDialogOpen(false);
+  }
+
+  const addIncome = (income: Transaction) => {
+    console.log(income);
   }
 
   return (
@@ -40,7 +54,7 @@ const HomeView = (): JSX.Element => {
         className={classes.button}
         size="large"
         variant="contained"
-        onClick={() => openDialog()}
+        onClick={() => openDialog('income')}
       >
         Add Income
       </Button>
@@ -48,10 +62,17 @@ const HomeView = (): JSX.Element => {
         className={classes.button}
         size="large"
         variant="contained"
-        onClick={() => openDialog()}
+        onClick={() => openDialog('expense')}
       >
         Add Expense
       </Button>
+
+      <AddIncomeDialog
+        isOpen={isAddIncomeDialogOpen}
+        categories={incomeCategories}
+        handleClose={closeDialog}
+        handleAddIncome={addIncome}
+      />
     </div>
   )
 }
