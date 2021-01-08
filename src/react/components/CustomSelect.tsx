@@ -8,13 +8,12 @@ interface Props {
   control: Control<Record<string, any>>;
   defaultValue: unknown;
   children: JSX.Element[];
-  otherProps?: unknown;
 }
 
-const CustomSelect = (props: Props) => {
+const CustomSelect = (props: Props, ...rest: any[]) => {
   const labelId = `${props.name}-label`;
   return (
-    <FormControl {...props.otherProps}>
+    <FormControl {...rest}>
       <InputLabel id={labelId}>{props.label}</InputLabel>
       <Controller
         as={
