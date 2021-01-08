@@ -8,8 +8,8 @@ console.log('process.env.DEPLOY_ENV = ', process.env.DEPLOY_ENV);
 
 app.on('ready', () => {
   let mainWindow: Electron.BrowserWindow | null = new BrowserWindow({
-    width: 2560,
-    height: 1440,
+    width: 2060,
+    height: 1140,
     title: 'Finance Tracker',
     webPreferences: {
       nodeIntegration: true,
