@@ -71,7 +71,14 @@ const AddIncomeDialog = ({ isOpen, categories, handleClose, handleAddIncome }: P
           label="Category"
           defaultValue={{} as Category}
         >
-          {categories.map((category: Category) => <MenuItem value={category.name}>{category.name}</MenuItem>)}
+          {categories.map((category: Category) => 
+            <MenuItem
+              key={category.name}
+              value={category.name}
+            >
+              {category.name}
+            </MenuItem>
+          )}
         </CustomSelect>
       </>
     </BaseDialog>
