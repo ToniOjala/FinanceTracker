@@ -1,4 +1,4 @@
-import { Category, KeyValuePair, Transaction } from '../../../shared/types';
+import { Category, KeyValuePair, NewTransaction, Transaction } from '../../../shared/types';
 import CategoryService from './categoryService';
 import SqliteDataAccess from '../SqliteDataAccess';
 
@@ -47,7 +47,7 @@ export default class TransactionService {
     return yearlyData;
   }
 
-  saveTransaction(transaction: Transaction) {
+  saveTransaction(transaction: NewTransaction) {
     this.categoryService.updateCategoryBalance(transaction.category, -transaction.amount);
     const sql = 'INSERT INTO transactions (amount, date, category) VALUES (?, ?, ?)';
     const id = this.db.run(sql, [transaction.amount, transaction.date, transaction.category]);

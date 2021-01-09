@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { AppThunk } from '../store';
 import { getYearlyData, getTransactionsOfMonth, saveTransaction } from "../services/transactionService";
 import { RootState } from "../rootReducer";
-import { Transaction } from "../../shared/types";
+import { NewTransaction, Transaction } from "../../shared/types";
 import { YearlyData } from "../types";
 
 const initialState = {
@@ -48,9 +48,10 @@ export const fetchYearlyData = (year: number): AppThunk => async dispatch => {
   }
 }
 
-export const postTransaction = (transaction: Transaction): AppThunk => async dispatch => {
+export const postTransaction = (transaction: NewTransaction): AppThunk => async dispatch => {
   try {
     const savedTransaction = await saveTransaction(transaction);
+    console.log('savedTransaction: ', savedTransaction);
     dispatch(addTransaction(savedTransaction));
   } catch (error) {
     console.error('Error while posting transaction', error);

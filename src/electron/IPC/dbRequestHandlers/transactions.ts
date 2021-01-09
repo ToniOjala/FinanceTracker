@@ -1,4 +1,4 @@
-import { Transaction, KeyValuePair } from "../../../shared/types";
+import { Transaction, KeyValuePair, NewTransaction } from "../../../shared/types";
 import TransactionService from "../../DataAccess/services/transactionService";
 
 export function handleTransactionRequest(requestType: string, data?: KeyValuePair, query?: KeyValuePair): Transaction | Transaction[] | KeyValuePair {
@@ -17,7 +17,7 @@ export function handleTransactionRequest(requestType: string, data?: KeyValuePai
       return transactionService.getYearlyData(Number(query.year));
     case 'post':
       if (!data) throw new Error('Data to post was not given');
-      return transactionService.saveTransaction(data.item as Transaction);
+      return transactionService.saveTransaction(data.item as NewTransaction);
     default:
       return [] as Transaction[];
   }
