@@ -31,9 +31,9 @@ export function newPost<T, K>(table: DBTable, item: T): Promise<K> {
   return result;
 }
 
-export function postMany<T>(table: DBTable, items: T): Promise<T> {
+export function postMany<T, K>(table: DBTable, items: T): Promise<K> {
   const requestParams = { table, requestType: 'postMany', data: { items }};
-  const result = send<T>('database', { params: requestParams });
+  const result = send<K>('database', { params: requestParams });
   return result;
 }
 

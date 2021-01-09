@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { saveBudgets } from '../../slices/budgets'
 import { postCategory, selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
 import { selectDate } from '../../slices/dateSelection'
-import { Budget, Category, NewCategory, Transaction } from '../../../shared/types'
+import { Budget, Category, NewBudget, NewCategory, Transaction } from '../../../shared/types'
 import AddCategoryDialog from '../AddCategoryDialog'
 import SetBudgetsDialog, { UnprocessedBudgets } from '../SetBudgetsDialog'
 import CategoryTable from './CategoryTable'
@@ -49,11 +49,10 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
   }
 
   const setBudgets = (budgets: UnprocessedBudgets) => {
-    const processedBudgets: Budget[] = [];
+    const processedBudgets: NewBudget[] = [];
     
     for (const category in budgets) {
-      const budget: Budget = {
-        id: 0,
+      const budget: NewBudget = {
         amount: Number(budgets[category]),
         category,
         startDate: selectedDate

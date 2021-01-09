@@ -1,4 +1,4 @@
-import { Budget, KeyValuePair } from "../../../shared/types";
+import { Budget, KeyValuePair, NewBudget } from "../../../shared/types";
 import BudgetService from "../../DataAccess/services/budgetService";
 
 export function handleBudgetRequest(requestType: string, data?: KeyValuePair, query?: KeyValuePair ): Budget | Budget[] | KeyValuePair {
@@ -10,7 +10,7 @@ export function handleBudgetRequest(requestType: string, data?: KeyValuePair, qu
       return budgetService.getLatestBudgets(query.date as string);
     case 'postMany':
       if (!data) throw new Error('Budgets to post were not given');
-      return budgetService.saveBudgets(data.items as Budget[]);
+      return budgetService.saveBudgets(data.items as NewBudget[]);
     default:
       return [] as Budget[];
   }
