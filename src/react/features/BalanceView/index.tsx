@@ -1,8 +1,9 @@
-import { makeStyles } from '@material-ui/core';
-import React, { useEffect } from 'react'
+import { Button, makeStyles } from '@material-ui/core';
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCategories, selectCategories } from '../../slices/categories';
+import { fetchCategories, selectCategories, updateBalances } from '../../slices/categories';
 import { hideDateSelection } from '../../slices/dateSelection';
+import AddBalanceDialog, { CategoryBalances } from '../AddBalanceDialog';
 import BalanceTable from './BalanceTable';
 
 const useStyles = makeStyles({
@@ -15,6 +16,8 @@ const useStyles = makeStyles({
 });
 
 const BalanceView = (): JSX.Element => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const dispatch = useDispatch();
   const classes = useStyles();
   const categories = useSelector(selectCategories);
@@ -24,11 +27,29 @@ const BalanceView = (): JSX.Element => {
     dispatch(hideDateSelection());
   }, [])
 
+  const openDialog = () => setIsDialogOpen(true);
+  const closeDialog = () => setIsDialogOpen(false);
+
+  const addToBalance = (balances: CategoryBalances) => {
+    for (const category in balances) {
+      balances[category] = Number(balances[category]);
+    }
+    
+    dispatch(updateBalances(balances));
+    closeDialog();
+  }
+
   return (
     <div className={classes.root}>
       <BalanceTable
         className={classes.table}
         categories={categories}
+      />
+      <Button onClick={openDialog}>Add to Balance</Button>
+      <AddBalanceDialog
+        isOpen={isDialogOpen}
+        handleClose={closeDialog}
+        handleAddToBalance={addToBalance}
       />
     </div>
   )
