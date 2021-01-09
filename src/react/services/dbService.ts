@@ -19,13 +19,7 @@ export function getCustom<T>(table: DBTable, requestType: string, query?: KeyVal
   return result
 }
 
-export function post<T>(table: DBTable, item: T): Promise<T> {
-  const requestParams = { table, requestType: 'post', data: { item } };
-  const result = send<T>('database', { params: requestParams });
-  return result;
-}
-
-export function newPost<T, K>(table: DBTable, item: T): Promise<K> {
+export function post<T, K>(table: DBTable, item: T): Promise<K> {
   const requestParams = { table, requestType: 'post', data: { item } };
   const result = send<K>('database', { params: requestParams });
   return result;

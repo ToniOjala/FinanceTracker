@@ -27,7 +27,6 @@ export default budgetSlice.reducer;
 export const fetchLatestBudgets = (date: string): AppThunk => async dispatch => {
   try {
     const budgets = await getLatestBudgets(date);
-    console.log('budgets: ', budgets);
     dispatch(setBudgets(budgets));
   } catch (error) {
     console.error('Error while fetching budgets', error);

@@ -51,7 +51,6 @@ export const fetchYearlyData = (year: number): AppThunk => async dispatch => {
 export const postTransaction = (transaction: NewTransaction): AppThunk => async dispatch => {
   try {
     const savedTransaction = await saveTransaction(transaction);
-    console.log('savedTransaction: ', savedTransaction);
     dispatch(addTransaction(savedTransaction));
   } catch (error) {
     console.error('Error while posting transaction', error);

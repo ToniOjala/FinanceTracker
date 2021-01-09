@@ -1,5 +1,5 @@
 import { DBTable, KeyValuePair, NewTransaction, Transaction } from '../../shared/types';
-import { getCustom, getMany, newPost } from './dbService';
+import { getCustom, getMany, post } from './dbService';
 
 const table = DBTable.TRANSACTIONS;
 
@@ -12,5 +12,5 @@ export const getYearlyData = (year: number): Promise<KeyValuePair> => {
 }
 
 export const saveTransaction = (transaction: NewTransaction): Promise<Transaction> => {
-  return newPost<NewTransaction, Transaction>(table, transaction);
+  return post<NewTransaction, Transaction>(table, transaction);
 }
