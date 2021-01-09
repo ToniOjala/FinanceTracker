@@ -4,21 +4,21 @@ export enum CategoryType {
 }
 
 export interface Category {
-  id: string;
+  id: number;
   name: string;
   type: CategoryType;
   balance: number;
 }
 
 export interface Transaction {
-  id: string;
+  id: number;
   amount: number;
   date: string;
   category: string;
 }
 
 export interface Budget {
-  id: string;
+  id: number;
   amount: number;
   category: string;
   startDate: string;

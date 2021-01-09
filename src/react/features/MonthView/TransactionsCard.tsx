@@ -32,7 +32,7 @@ const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null
 
   const handleNewTransaction = async (values: PartialNewTransaction) => {
     const newTransaction: Transaction = {
-      id: '',
+      id: 0,
       date: format(values.date, 'yyyy-MM-dd'),
       amount: Number.parseFloat(values.amount),
       category: category.name

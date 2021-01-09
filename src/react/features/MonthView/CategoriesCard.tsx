@@ -53,7 +53,7 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
     
     for (const category in budgets) {
       const budget: Budget = {
-        id: '',
+        id: 0,
         amount: Number(budgets[category]),
         category,
         startDate: selectedDate
