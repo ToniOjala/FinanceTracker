@@ -34,14 +34,14 @@ const SideNav = (): JSX.Element => {
       anchor="left"
     >
       <div className={classes.links}>
-        <Link to="/">
-          <Button className={classes.button}>Home</Button>
-        </Link>
         <Link to="/month">
           <Button className={classes.button}>Month</Button>
         </Link>
         <Link to="year">
           <Button className={classes.button}>Year</Button>
+        </Link>
+        <Link to="/balance">
+          <Button className={classes.button}>Balances</Button>
         </Link>
       </div>
     </Drawer>

@@ -2,7 +2,7 @@ import { CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SideNav from './components/SideNav';
-import HomeView from './features/HomeView';
+import BalanceView from './features/BalanceView';
 import MonthView from './features/MonthView';
 import YearMonthSelector from './features/YearMonthSelector';
 import YearView from './features/YearView';
@@ -29,14 +29,14 @@ const App = (): JSX.Element | null => {
           <main className={classes.content}>
             <YearMonthSelector />
             <Switch>
+              <Route path="/balance">
+                <BalanceView />
+              </Route>
               <Route path="/year">
                 <YearView />
               </Route>
-              <Route path="/month">
-                <MonthView />
-              </Route>
               <Route path="/">
-                <HomeView />
+                <MonthView />
               </Route>
             </Switch>
           </main>
