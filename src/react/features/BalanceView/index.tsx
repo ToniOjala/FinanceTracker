@@ -1,7 +1,7 @@
 import { Button, makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCategories, selectCategories, updateBalances } from '../../slices/categories';
+import { fetchCategories, selectExpenseCategories, updateBalances } from '../../slices/categories';
 import { hideDateSelection } from '../../slices/dateSelection';
 import AddBalanceDialog, { CategoryBalances } from '../AddBalanceDialog';
 import BalanceTable from './BalanceTable';
@@ -20,7 +20,7 @@ const BalanceView = (): JSX.Element => {
 
   const dispatch = useDispatch();
   const classes = useStyles();
-  const categories = useSelector(selectCategories);
+  const categories = useSelector(selectExpenseCategories);
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -48,6 +48,7 @@ const BalanceView = (): JSX.Element => {
       <Button onClick={openDialog}>Add to Balance</Button>
       <AddBalanceDialog
         isOpen={isDialogOpen}
+        categories={categories}
         handleClose={closeDialog}
         handleAddToBalance={addToBalance}
       />
