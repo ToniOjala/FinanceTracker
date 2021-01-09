@@ -40,7 +40,7 @@ const MonthView = (): JSX.Element | null => {
   }, [])
 
   useEffect(() => {
-    setTransactionsOfCategory(transactions?.filter(tr => tr.category === selectedCategory?.name));
+    setTransactionsOfCategory(transactions?.filter(tr => tr.categoryId === selectedCategory?.id));
   }, [selectedCategory, transactions])
 
   return (

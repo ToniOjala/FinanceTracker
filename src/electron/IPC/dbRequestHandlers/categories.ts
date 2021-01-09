@@ -15,8 +15,8 @@ export function handleCategoryRequest(requestType: string, data?: KeyValuePair):
       return categoryService.saveCategory(data.item as NewCategory);
     case 'update':
       if (!data) throw new Error('Data to update was not given');
-      const item = data.item as { categoryName: string, balance: number };
-      return categoryService.updateCategoryBalance(item.categoryName, item.balance);
+      const item = data.item as { categoryId: number, amount: number };
+      return categoryService.addToBalanceOfCategory(item.categoryId, item.amount);
     default:
       return [] as Category[];
   }

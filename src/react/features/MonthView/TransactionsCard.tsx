@@ -34,7 +34,7 @@ const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null
     const newTransaction: NewTransaction = {
       date: format(values.date, 'yyyy-MM-dd'),
       amount: Number.parseFloat(values.amount),
-      category: category.name
+      categoryId: category.id
     }
 
     dispatch(postTransaction(newTransaction));

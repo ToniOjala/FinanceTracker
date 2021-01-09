@@ -11,7 +11,7 @@ export const formatDate = (date: string): string => {
 }
 
 export const sumOfCategoryTransactions = (category: Category, transactions: Transaction[]): string => {
-  const transOfCategory = transactions?.filter(tr => tr.category === category.name);
+  const transOfCategory = transactions?.filter(tr => tr.categoryId === category.id);
   let sum = 0;
 
   transOfCategory.forEach(tr => {
