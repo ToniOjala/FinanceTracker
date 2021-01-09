@@ -19,13 +19,16 @@ export interface Transaction {
 }
 export type NewTransaction = Omit<Transaction, 'id'>
 
-export interface Budget {
+interface BaseBudget {
   id: number;
   amount: number;
-  category: string;
   startDate: string;
+  categoryId: number;
+  category: Category;
 }
-export type NewBudget = Omit<Budget, 'id'>
+export type Budget = Omit<BaseBudget, 'categoryId'>
+export type NewBudget = Omit<BaseBudget, 'id' | 'category'>
+export type DbBudget = Omit<BaseBudget, 'category'>
 
 export enum DBTable {
   CATEGORIES = 'categories',

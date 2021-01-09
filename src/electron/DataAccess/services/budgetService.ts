@@ -1,4 +1,4 @@
-import { Budget, Category, KeyValuePair, NewBudget } from '../../../shared/types';
+import { Budget, Category, DbBudget, KeyValuePair, NewBudget } from '../../../shared/types';
 import SqliteDataAccess from '../SqliteDataAccess';
 import CategoryService from './categoryService';
 
@@ -16,7 +16,7 @@ export default class BudgetService {
     const categories = this.categoryService.getCategories();
     categories.forEach((category: Category) => {
       try {
-        const sql = `SELECT amount FROM budgets WHERE category = '${category.name}' AND startDate <= date('${date}') ORDER BY startDate DESC`;
+        const sql = `SELECT amount FROM budgets WHERE categoryId = '${category.id}' AND startDate <= date('${date}') ORDER BY startDate DESC`;
         const { amount } = this.db.get(sql);
         latestBudgetPerCategory[category.name] = amount || 0;
       } catch (error) {
@@ -29,9 +29,11 @@ export default class BudgetService {
   saveBudgets(budgets: NewBudget[]) {
     const savedBudgets: Budget[] = [];
     budgets.forEach((budget: NewBudget) => {
-      const sql = 'INSERT INTO budgets (amount, startDate, category) VALUES (?, ?, ?)';
-      const id = this.db.run(sql, [budget.amount, budget.startDate, budget.category]);
-      savedBudgets.push(this.db.get('SELECT * FROM budgets WHERE id = ?', id));
+      const sql = 'INSERT INTO budgets (amount, startDate, categoryId) VALUES (?, ?, ?)';
+      const id = this.db.run(sql, [budget.amount, budget.startDate, budget.categoryId]);
+      const category = this.categoryService.getCategory(budget.categoryId);
+      const savedBudget = this.db.get<DbBudget>('SELECT * FROM budgets WHERE id = ?', id);
+      savedBudgets.push({ ...savedBudget, category });
     });
     return savedBudgets;
   }

@@ -1,8 +1,8 @@
 import { Button, Card, makeStyles } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { saveBudgets } from '../../slices/budgets'
-import { postCategory, selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
+import { saveBudgets, selectBudgets } from '../../slices/budgets'
+import { postCategory, selectCategories, selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
 import { selectDate } from '../../slices/dateSelection'
 import { Budget, Category, NewBudget, NewCategory, Transaction } from '../../../shared/types'
 import AddCategoryDialog from '../AddCategoryDialog'
@@ -28,8 +28,11 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
   const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
   const [isBudgetDialogOpen, setIsBudgetDialogOpen] = useState(false);
   
+  const categories = useSelector(selectCategories);
   const incomeCategories = useSelector(selectIncomeCategories);
   const expenseCategories = useSelector(selectExpenseCategories);
+  const budgets = useSelector(selectBudgets)
+
   const selectedDate = useSelector(selectDate);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -51,11 +54,14 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
   const setBudgets = (budgets: UnprocessedBudgets) => {
     const processedBudgets: NewBudget[] = [];
     
-    for (const category in budgets) {
+    for (const categoryName in budgets) {
+      const categoryId = categories.find(cat => cat.name === categoryName)?.id;
+      if (!categoryId) continue;
+
       const budget: NewBudget = {
-        amount: Number(budgets[category]),
-        category,
-        startDate: selectedDate
+        amount: Number(budgets[categoryName]),
+        startDate: selectedDate,
+        categoryId: categoryId,
       }
 
       if(budget.amount > 0) processedBudgets.push(budget);
@@ -92,6 +98,8 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
       />
       <SetBudgetsDialog
         isOpen={isBudgetDialogOpen}
+        categories={categories}
+        budgets={budgets}
         handleClose={closeDialogs}
         handleSetBudgets={setBudgets}
       />
