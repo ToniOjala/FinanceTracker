@@ -19,28 +19,29 @@ export default class SqliteDataAccess {
     return this.db;
   }
 
-  private disConnect(): void {
+  private disconnect(): void {
     this.db?.close();
   }
 
   public run(sql: string, data?: unknown): number {
     this.connect();
     const id = this.db?.prepare(sql).run(data).lastInsertRowid;
-    this.disConnect();
+    this.disconnect();
     return id as number;
   }
 
   public getAll<T>(sql: string) {
     this.connect();
     const data: T[] = this.db?.prepare(sql).all() || [];
-    this.disConnect();
+    this.disconnect();
     return data;
   }
 
   public get<T>(sql: string, param?: number | string) {
     this.connect();
-    const data: T = this.db?.prepare(sql).get(param);
-    this.disConnect();
+    const stmt = this.db?.prepare(sql);
+    const data: T = (!param) ? stmt?.get() : stmt?.get(param);
+    this.disconnect();
     return data;
   }
 };
