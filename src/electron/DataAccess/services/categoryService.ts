@@ -1,4 +1,4 @@
-import { Category } from '../../../shared/types';
+import { Category, NewCategory } from '../../../shared/types';
 import SqliteDataAccess from '../SqliteDataAccess';
 
 export default class CategoryService {
@@ -18,7 +18,7 @@ export default class CategoryService {
     return categories;
   }
 
-  saveCategory(category: Category) {
+  saveCategory(category: NewCategory) {
     const sql = 'INSERT INTO categories (name, type, balance) VALUES (?, ?, ?)';
     const id = this.db.run(sql, [category.name, category.type, 0]);
     const savedCategory = this.db.get<Category>('SELECT * FROM categories WHERE id = ?', id);

@@ -9,6 +9,7 @@ export interface Category {
   type: CategoryType;
   balance: number;
 }
+export type NewCategory = Omit<Category, 'id'>
 
 export interface Transaction {
   id: number;
@@ -16,6 +17,7 @@ export interface Transaction {
   date: string;
   category: string;
 }
+export type NewTransaction = Omit<Transaction, 'id'>
 
 export interface Budget {
   id: number;
@@ -23,11 +25,7 @@ export interface Budget {
   category: string;
   startDate: string;
 }
-
-export type NewCategory = Omit<Category, 'id'>
-export type NewTransaction = Omit<Transaction, 'id'>
 export type NewBudget = Omit<Budget, 'id'>
-export type NewModel = NewCategory | NewTransaction | NewBudget
 
 export enum DBTable {
   CATEGORIES = 'categories',

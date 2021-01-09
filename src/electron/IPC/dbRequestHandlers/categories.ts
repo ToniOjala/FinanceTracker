@@ -1,4 +1,4 @@
-import { Category, KeyValuePair } from "../../../shared/types";
+import { Category, KeyValuePair, NewCategory } from "../../../shared/types";
 import CategoryService from "../../DataAccess/services/categoryService";
 
 export function handleCategoryRequest(requestType: string, data?: KeyValuePair): Category | Category[] {
@@ -12,7 +12,7 @@ export function handleCategoryRequest(requestType: string, data?: KeyValuePair):
       return categoryService.getCategories();
     case 'post':
       if (!data) throw new Error('Data to post was not given');
-      return categoryService.saveCategory(data.item as Category);
+      return categoryService.saveCategory(data.item as NewCategory);
     case 'update':
       if (!data) throw new Error('Data to update was not given');
       const item = data.item as { categoryName: string, balance: number };
