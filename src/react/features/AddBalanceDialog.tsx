@@ -1,8 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
-import { selectCategories } from '../slices/categories';
+import { Category } from '../../shared/types';
 
 export interface CategoryBalances {
   [key: string]: number;
@@ -10,15 +9,14 @@ export interface CategoryBalances {
 
 interface Props {
   isOpen: boolean;
+  categories: Category[];
   handleClose: () => void;
   handleAddToBalance: (balances: CategoryBalances) => void;
 }
 
-const SetBudgetsDialog = ({ isOpen, handleClose, handleAddToBalance }: Props): JSX.Element => {
+const SetBudgetsDialog = ({ isOpen, categories, handleClose, handleAddToBalance }: Props): JSX.Element => {
   const { errors, control, handleSubmit, formState } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
-
-  const categories = useSelector(selectCategories);
 
   return (
     <Dialog maxWidth='xs' open={isOpen} onClose={() => handleClose}>
