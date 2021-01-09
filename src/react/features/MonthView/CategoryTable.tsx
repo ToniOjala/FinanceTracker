@@ -38,7 +38,6 @@ const CategoryTable = ({ className, title, categories, selectedCategory, transac
               <TableCell className={classes.headerCell}>Category</TableCell>
               <TableCell className={classes.valueCell}>Budgeted</TableCell>
               <TableCell className={classes.valueCell}>Real</TableCell>
-              <TableCell className={classes.valueCell}>Balance</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -52,7 +51,6 @@ const CategoryTable = ({ className, title, categories, selectedCategory, transac
                 <TableCell>{category.name}</TableCell>
                 <TableCell>{roundToDecimals(budgets[category.name], 2)}</TableCell>
                 <TableCell>{sumOfCategoryTransactions(category, transactions)}</TableCell>
-                <TableCell>{category.balance}</TableCell>
               </TableRow>
             ))}
           </TableBody>
