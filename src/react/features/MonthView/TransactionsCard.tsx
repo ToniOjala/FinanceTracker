@@ -43,8 +43,6 @@ const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null
 
   const classes = useStyles();
 
-  if (!category) return null;
-
   return (
     <Card className={classes.root}>
       <Typography variant="h6">{category.name}</Typography>
@@ -68,7 +66,12 @@ const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null
           </TableBody>
         </Table>
       </TableContainer>
-      <Button onClick={openDialog}>Add transaction</Button>
+      <Button
+        disabled={!category.name}
+        onClick={openDialog}
+      >
+        Add transaction
+      </Button>
       <AddTransactionDialog
         isOpen={isDialogOpen}
         handleClose={closeDialog}
