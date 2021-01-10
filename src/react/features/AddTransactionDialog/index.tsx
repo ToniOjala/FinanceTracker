@@ -23,9 +23,11 @@ export interface PartialNewTransaction {
 }
 
 const AddTransactionDialog = ({ isOpen, categories, handleClose, handleAddTransaction }: Props): JSX.Element => {
-  const { errors, control, handleSubmit, formState, setValue } = useForm({ mode: 'onChange' });
+  const { errors, control, handleSubmit, formState, getValues, setValue, watch } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
   const selectedDate = useSelector(selectDate);
+
+  const watchAmount = watch('amount', 0);
 
   return (
     <Dialog open={isOpen} onClose={() => handleClose}>
@@ -70,6 +72,7 @@ const AddTransactionDialog = ({ isOpen, categories, handleClose, handleAddTransa
             required
           />
           <BalancesAccordion
+            amount={Number(watchAmount)}
             categories={categories}
           />
         </DialogContent>

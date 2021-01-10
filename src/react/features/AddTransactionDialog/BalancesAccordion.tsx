@@ -1,10 +1,12 @@
 import { Accordion, AccordionDetails, AccordionSummary, makeStyles, TextField, Typography } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Category } from '../../../shared/types'
+import { CategoryBalances } from '../AddBalanceDialog';
 
 interface Props {
   categories: Category[];
+  amount: number;
 }
 
 const useStyles = makeStyles({
@@ -26,10 +28,16 @@ const useStyles = makeStyles({
   }
 })
 
-const BalancesAccordion = ({ categories }: Props): JSX.Element | null => {
+const BalancesAccordion = ({ categories, amount }: Props): JSX.Element | null => {
+  const [sum, setSum] = useState(categories.length);
   const classes = useStyles();
   
   if (!categories) return null;
+  
+  useEffect(() => {
+    if (!amount || isNaN(amount)) setSum(categories.length);
+    else setSum(amount);
+  }, [amount])
 
   return (
     <Accordion className={classes.root}>
@@ -46,6 +54,7 @@ const BalancesAccordion = ({ categories }: Props): JSX.Element | null => {
             className={classes.row}
             id={category.name}
             label={category.name}
+            value={sum / categories.length}
           />
         )}
       </AccordionDetails>
