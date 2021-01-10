@@ -2,7 +2,7 @@ import { Button, makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCategories, selectExpenseCategories, updateBalances } from '../../slices/categories';
-import { hideDateSelection } from '../../slices/dateSelection';
+import { setDateSelectionStatus } from '../../slices/dateSelection';
 import AddBalanceDialog, { CategoryBalances } from '../AddBalanceDialog';
 import BalanceTable from './BalanceTable';
 
@@ -24,7 +24,7 @@ const BalanceView = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(fetchCategories());
-    dispatch(hideDateSelection());
+    dispatch(setDateSelectionStatus('hidden'));
   }, [])
 
   const openDialog = () => setIsDialogOpen(true);

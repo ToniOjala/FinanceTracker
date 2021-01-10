@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
-import { selectYear, showDateSelection } from '../../slices/dateSelection'
+import { selectYear, setDateSelectionStatus } from '../../slices/dateSelection'
 import { fetchYearlyData } from '../../slices/transactions'
 import CategoryTable from './CategoryTable'
 
@@ -12,7 +12,7 @@ const YearView = (): JSX.Element => {
   const expenseCategories = useSelector(selectExpenseCategories);
 
   useEffect(() => {
-    dispatch(showDateSelection());
+    dispatch(setDateSelectionStatus('year'));
   }, []);
 
   useEffect(() => {

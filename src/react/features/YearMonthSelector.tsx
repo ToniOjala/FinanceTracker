@@ -4,7 +4,7 @@ import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import DateFnsUtils from '@date-io/date-fns';
 import { makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectDate, selectIsDateSelectionShown, setSelectedDate } from '../slices/dateSelection';
+import { selectDate, selectDateSelectionStatus, setSelectedDate } from '../slices/dateSelection';
 
 const useStyles = makeStyles({
   root: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 
 const YearMonthSelector = (): JSX.Element | null => {
   const selectedDate = useSelector(selectDate);
-  const isComponentShown = useSelector(selectIsDateSelectionShown);
+  const dateSelectionStatus = useSelector(selectDateSelectionStatus);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -24,21 +24,40 @@ const YearMonthSelector = (): JSX.Element | null => {
     if (dateString) dispatch(setSelectedDate(dateString));
   }
 
-  if (!isComponentShown) return null;
+  if (dateSelectionStatus === 'hidden') return null;
 
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <DatePicker
-        className={classes.root}
-        variant="inline"
-        views={["month", "year"]}
-        label="Month/Year"
-        format="MMMM yyyy"
-        value={selectedDate}
-        onChange={handleChange}
-        autoOk
-      />
-    </MuiPickersUtilsProvider>
+    <>
+      {dateSelectionStatus === 'month' && 
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <DatePicker
+            className={classes.root}
+            variant="inline"
+            views={["month", "year"]}
+            label="Month/Year"
+            format="MMMM yyyy"
+            value={selectedDate}
+            onChange={handleChange}
+            autoOk
+          />
+        </MuiPickersUtilsProvider>
+      }
+
+      {dateSelectionStatus === 'year' &&
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <DatePicker
+            className={classes.root}
+            variant="inline"
+            views={["year"]}
+            label="Year"
+            format="yyyy"
+            value={selectedDate}
+            onChange={handleChange}
+            autoOk
+          />
+        </MuiPickersUtilsProvider>
+      }
+    </>
   )
 }
 
