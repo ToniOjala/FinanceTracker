@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchCategories, selectExpenseCategories, updateBalances } from '../../slices/categories';
 import { setDateSelectionStatus } from '../../slices/dateSelection';
 import AddBalanceDialog, { CategoryBalances } from '../AddBalanceDialog';
+import BalanceAdditionDefaultsDialog, { BalanceAdditions } from '../BalanceAdditionDefaultsDialog';
 import BalanceTable from './BalanceTable';
 
 const useStyles = makeStyles({
@@ -17,6 +18,7 @@ const useStyles = makeStyles({
 
 const BalanceView = (): JSX.Element => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isBalanceAdditionsDialogOpen, setIsBalanceAdditionsDialogOpen] = useState(false);
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -28,14 +30,20 @@ const BalanceView = (): JSX.Element => {
   }, [])
 
   const openDialog = () => setIsDialogOpen(true);
-  const closeDialog = () => setIsDialogOpen(false);
+  const openBalanceAdditionsDialog = () => setIsBalanceAdditionsDialogOpen(true);
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+    setIsBalanceAdditionsDialogOpen(false);
+  }
 
   const addToBalance = (balances: CategoryBalances) => {
-    for (const category in balances) {
-      balances[category] = Number(balances[category]);
-    }
-    
+    for (const category in balances) balances[category] = Number(balances[category]);
     dispatch(updateBalances(balances));
+    closeDialog();
+  }
+
+  const modifyAdditionDefaults = (additions: BalanceAdditions) => {
+    console.log(additions);
     closeDialog();
   }
 
@@ -46,11 +54,18 @@ const BalanceView = (): JSX.Element => {
         categories={categories}
       />
       <Button onClick={openDialog}>Add to Balance</Button>
+      <Button onClick={openBalanceAdditionsDialog}>Modify balance addition defaults</Button>
       <AddBalanceDialog
         isOpen={isDialogOpen}
         categories={categories}
         handleClose={closeDialog}
         handleAddToBalance={addToBalance}
+      />
+      <BalanceAdditionDefaultsDialog
+        isOpen={isBalanceAdditionsDialogOpen}
+        categories={categories}
+        handleClose={closeDialog}
+        handleModifyAdditionDefaults={modifyAdditionDefaults}
       />
     </div>
   )
