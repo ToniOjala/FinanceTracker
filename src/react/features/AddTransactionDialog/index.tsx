@@ -1,15 +1,18 @@
 import React from 'react'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core'
-import { Controller, useForm } from 'react-hook-form';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
+import { Controller, useForm } from 'react-hook-form';
 import DateFnsUtils from '@date-io/date-fns';
 import { startOfMonth, endOfMonth } from 'date-fns';
-import { selectDate } from '../slices/dateSelection';
+import { selectDate } from '../../slices/dateSelection';
 import { useSelector } from 'react-redux';
+import { Category } from '../../../shared/types';
+import BalancesAccordion from './BalancesAccordion';
 
 interface Props {
   isOpen: boolean;
+  categories: Category[];
   handleClose: () => void;
   handleAddTransaction: (newTransaction: PartialNewTransaction) => void;
 }
@@ -19,7 +22,7 @@ export interface PartialNewTransaction {
   amount: string;
 }
 
-const AddTransactionDialog = ({ isOpen, handleClose, handleAddTransaction }: Props): JSX.Element => {
+const AddTransactionDialog = ({ isOpen, categories, handleClose, handleAddTransaction }: Props): JSX.Element => {
   const { errors, control, handleSubmit, formState, setValue } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
   const selectedDate = useSelector(selectDate);
@@ -27,7 +30,7 @@ const AddTransactionDialog = ({ isOpen, handleClose, handleAddTransaction }: Pro
   return (
     <Dialog open={isOpen} onClose={() => handleClose}>
       <form onSubmit={handleSubmit(handleAddTransaction)}>
-        <DialogTitle>Add transaction</DialogTitle>
+        <DialogTitle>Add Transaction</DialogTitle>
         <DialogContent>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Controller
@@ -65,6 +68,9 @@ const AddTransactionDialog = ({ isOpen, handleClose, handleAddTransaction }: Pro
             helperText={errors.amount?.message}
             fullWidth
             required
+          />
+          <BalancesAccordion
+            categories={categories}
           />
         </DialogContent>
         <DialogActions>

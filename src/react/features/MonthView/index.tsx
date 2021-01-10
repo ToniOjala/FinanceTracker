@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Category, Transaction } from '../../../shared/types';
 import CategoriesCard from './CategoriesCard';
 import TransactionsCard from './TransactionsCard'
-import { fetchCategories } from '../../slices/categories';
+import { fetchCategories, selectExpenseCategories } from '../../slices/categories';
 import { fetchTransactionsOfMonth, selectTransactions } from '../../slices/transactions';
 import { selectDate,  selectYearAndMonth, setDateSelectionStatus } from '../../slices/dateSelection';
 import { fetchLatestBudgets } from '../../slices/budgets';
@@ -23,9 +23,12 @@ const useStyles = makeStyles({
 const MonthView = (): JSX.Element | null => {
   const [selectedCategory, setSelectedCategory] = useState<Category>({} as Category);
   const [transactionsOfCategory, setTransactionsOfCategory] = useState<Transaction[]>([]);
+  
   const classes = useStyles();
   const dispatch = useDispatch();
+  
   const transactions = useSelector(selectTransactions);
+  const expenseCategories = useSelector(selectExpenseCategories);
   const [year, month] = useSelector(selectYearAndMonth);
   const selectedDate = useSelector(selectDate);
 
@@ -55,7 +58,8 @@ const MonthView = (): JSX.Element | null => {
       <Box className={classes.transactions}>
         {selectedCategory && 
           <TransactionsCard 
-            category={selectedCategory}
+            selectedCategory={selectedCategory}
+            categories={expenseCategories}
             transactions={transactionsOfCategory}
           />}
       </Box>

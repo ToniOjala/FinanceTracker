@@ -18,11 +18,12 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-  category: Category;
+  selectedCategory: Category;
+  categories: Category[];
   transactions: Transaction[];
 }
 
-const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null => {
+const TransactionsCard = ({ selectedCategory, categories, transactions }: Props): JSX.Element | null => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null
     const newTransaction: NewTransaction = {
       date: format(values.date, 'yyyy-MM-dd'),
       amount: Number.parseFloat(values.amount),
-      categoryId: category.id
+      categoryId: selectedCategory.id
     }
 
     dispatch(postTransaction(newTransaction));
@@ -45,7 +46,7 @@ const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null
 
   return (
     <Card className={classes.root}>
-      <Typography variant="h6">{category.name}</Typography>
+      <Typography variant="h6">{selectedCategory.name}</Typography>
       <TableContainer className={classes.table}>
         <Table>
           <TableHead>
@@ -67,13 +68,14 @@ const TransactionsCard = ({ category, transactions }: Props): JSX.Element | null
         </Table>
       </TableContainer>
       <Button
-        disabled={!category.name}
+        disabled={!selectedCategory.name}
         onClick={openDialog}
       >
         Add transaction
       </Button>
       <AddTransactionDialog
         isOpen={isDialogOpen}
+        categories={categories}
         handleClose={closeDialog}
         handleAddTransaction={handleNewTransaction}
       />
