@@ -38,5 +38,6 @@
 | 07.01.21 | 2  | Electron: Tietokantakyselyiden koodin refaktorointi omiksi palveluluokiksi.<br>React: Kotinäkymän koodausta<br>Github: Webpack-haaran mergeäminen masteriin
 | 08.01.21 | 1.5 | Kotinäkymän koodausta
 | 09.01.21 | 4 | Kotinäkymän muuttaminen saldonäkymäksi, tyypitysten parantelua
-| yht   | 93.5   | | 
+| 10.01.21 | 3 | React-komponenttien koodausta
+| yht   | 96.5   | | 
 
