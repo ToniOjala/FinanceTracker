@@ -39,5 +39,6 @@
 | 08.01.21 | 1.5 | Kotinäkymän koodausta
 | 09.01.21 | 4 | Kotinäkymän muuttaminen saldonäkymäksi, tyypitysten parantelua
 | 10.01.21 | 3 | React-komponenttien koodausta
-| yht   | 96.5   | | 
+| 11.01.21 | 1 | Issue #8:n koodausta. https://github.com/ToniOjala/FinanceTracker/issues/8 
+| yht   | 97.5   | | 
 
