@@ -1,6 +1,7 @@
 import { makeStyles, Paper, TextField, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { Category } from '../../../shared/types'
+import { CategoryBalances } from '../AddBalanceDialog'
 
 interface Props {
   categories: Category[];
@@ -22,15 +23,33 @@ const useStyles = makeStyles({
 })
 
 const BalancesList = ({ categories, amount }: Props): JSX.Element | null => {
-  const [sum, setSum] = useState(categories.length);
+  const [sum, setSum] = useState(0);
+  const [categoryBalances, setCategoryBalances] = useState<CategoryBalances>({} as CategoryBalances);
   const classes = useStyles();
   
   if (!categories) return null;
-  
+
   useEffect(() => {
-    if (!amount || isNaN(amount)) setSum(categories.length);
+    if (!amount || isNaN(amount)) setSum(0);
     else setSum(amount);
   }, [amount])
+
+  useEffect(() => {
+    const balances = {} as CategoryBalances;
+    categories.forEach((category: Category) => {
+      balances[category.name] = sum / categories.length;
+    })
+    setCategoryBalances(balances);
+  }, [sum])
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const balances = {...categoryBalances};
+    balances[event.currentTarget.id] = Number(event.currentTarget.value);
+    console.log('id: ', event.currentTarget.id);
+    console.log('value: ', Number(event.currentTarget.value));
+    console.log('balance: ', balances[event.currentTarget.id])
+    setCategoryBalances(balances);
+  }
 
   return (
     <Paper variant="outlined" className={classes.root}>
@@ -41,7 +60,8 @@ const BalancesList = ({ categories, amount }: Props): JSX.Element | null => {
             className={classes.row}
             id={category.name}
             label={category.name}
-            value={sum / categories.length}
+            value={categoryBalances[category.name] || ''}
+            onChange={handleChange}
           />
         )}
     </Paper>
