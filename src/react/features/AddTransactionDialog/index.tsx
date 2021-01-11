@@ -37,19 +37,16 @@ const AddTransactionDialog = ({ isOpen, transactionType, categories, handleClose
         <DialogContent>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Controller
-              as={
-                <KeyboardDatePicker 
-                  value=''
-                  onChange={(date: ParsableDate) => setValue('date', date)}
-                  format="dd.MM.yyyy"
-                />
-              }
+              as={KeyboardDatePicker}
               control={control}
               rules={{required: 'Date is required'}}
               margin="normal"
               name="date"
               label="Date"
               defaultValue={selectedDate}
+              value=''
+              format="dd.MM.yyyy"
+              onChange={(date: ParsableDate) => setValue('date', date)}
               error={errors.date && true}
               helperText={errors.date?.message}
               minDate={startOfMonth(new Date(selectedDate))}
@@ -60,7 +57,7 @@ const AddTransactionDialog = ({ isOpen, transactionType, categories, handleClose
             />
           </MuiPickersUtilsProvider>
           <Controller 
-            as={<TextField />}
+            as={TextField}
             control={control}
             rules={{required: 'Amount is required'}}
             defaultValue=""
