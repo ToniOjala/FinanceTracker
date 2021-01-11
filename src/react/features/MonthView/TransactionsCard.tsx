@@ -75,6 +75,7 @@ const TransactionsCard = ({ selectedCategory, categories, transactions }: Props)
       </Button>
       <AddTransactionDialog
         isOpen={isDialogOpen}
+        transactionType={selectedCategory.type}
         categories={categories}
         handleClose={closeDialog}
         handleAddTransaction={handleNewTransaction}

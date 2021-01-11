@@ -8,10 +8,11 @@ import { startOfMonth, endOfMonth } from 'date-fns';
 import { selectDate } from '../../slices/dateSelection';
 import { useSelector } from 'react-redux';
 import { Category } from '../../../shared/types';
-import BalancesAccordion from './BalancesAccordion';
+import BalancesList from './BalancesList';
 
 interface Props {
   isOpen: boolean;
+  transactionType: string;
   categories: Category[];
   handleClose: () => void;
   handleAddTransaction: (newTransaction: PartialNewTransaction) => void;
@@ -22,8 +23,8 @@ export interface PartialNewTransaction {
   amount: string;
 }
 
-const AddTransactionDialog = ({ isOpen, categories, handleClose, handleAddTransaction }: Props): JSX.Element => {
-  const { errors, control, handleSubmit, formState, getValues, setValue, watch } = useForm({ mode: 'onChange' });
+const AddTransactionDialog = ({ isOpen, transactionType, categories, handleClose, handleAddTransaction }: Props): JSX.Element => {
+  const { errors, control, handleSubmit, formState, setValue, watch } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
   const selectedDate = useSelector(selectDate);
 
@@ -71,10 +72,12 @@ const AddTransactionDialog = ({ isOpen, categories, handleClose, handleAddTransa
             fullWidth
             required
           />
-          <BalancesAccordion
-            amount={Number(watchAmount)}
-            categories={categories}
-          />
+          {transactionType === 'income' && 
+            <BalancesList
+              amount={Number(watchAmount)}
+              categories={categories}
+            />
+          }
         </DialogContent>
         <DialogActions>
           <Button
