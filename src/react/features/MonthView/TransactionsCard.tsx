@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postTransaction } from '../../slices/transactions';
 import { Category, NewTransaction, Transaction } from '../../../shared/types';
-import AddTransactionDialog, { PartialNewTransaction } from '../AddTransactionDialog';
+import AddTransactionDialog, { AddTransactionFormValues } from '../AddTransactionDialog';
 import { formatDate } from './utils';
 import { format } from 'date-fns';
 
@@ -31,14 +31,15 @@ const TransactionsCard = ({ selectedCategory, categories, transactions }: Props)
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
 
-  const handleNewTransaction = async (values: PartialNewTransaction) => {
+  const handleNewTransaction = async (values: AddTransactionFormValues) => {
+    console.log('values: ', values);
     const newTransaction: NewTransaction = {
       date: format(values.date, 'yyyy-MM-dd'),
       amount: Number.parseFloat(values.amount),
       categoryId: selectedCategory.id
     }
 
-    dispatch(postTransaction(newTransaction));
+    // dispatch(postTransaction(newTransaction));
     closeDialog();
   }
 

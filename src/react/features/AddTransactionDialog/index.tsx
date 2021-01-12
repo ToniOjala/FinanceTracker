@@ -7,7 +7,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { startOfMonth, endOfMonth } from 'date-fns';
 import { selectDate } from '../../slices/dateSelection';
 import { useSelector } from 'react-redux';
-import { Category } from '../../../shared/types';
+import { Category, KeyNumberPairs } from '../../../shared/types';
 import BalancesList from './BalancesList';
 
 interface Props {
@@ -15,20 +15,20 @@ interface Props {
   transactionType: string;
   categories: Category[];
   handleClose: () => void;
-  handleAddTransaction: (newTransaction: PartialNewTransaction) => void;
+  handleAddTransaction: (newTransaction: AddTransactionFormValues) => void;
 }
 
-export interface PartialNewTransaction {
+export interface AddTransactionFormValues {
   date: Date;
   amount: string;
+  balanceAdditions: KeyNumberPairs;
 }
 
 const AddTransactionDialog = ({ isOpen, transactionType, categories, handleClose, handleAddTransaction }: Props): JSX.Element => {
-  const { errors, control, handleSubmit, formState, setValue, watch } = useForm({ mode: 'onChange' });
+  const { errors, control, handleSubmit, formState, setValue, watch } = useForm<AddTransactionFormValues>({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
   const selectedDate = useSelector(selectDate);
-
-  const watchAmount = watch('amount', 0);
+  const watchAmount = watch('amount', '0');
 
   return (
     <Dialog open={isOpen} onClose={() => handleClose}>
@@ -71,8 +71,10 @@ const AddTransactionDialog = ({ isOpen, transactionType, categories, handleClose
           />
           {transactionType === 'income' && 
             <BalancesList
-              amount={Number(watchAmount)}
               categories={categories}
+              amount={Number(watchAmount)}
+              control={control}
+              errors={errors}
             />
           }
         </DialogContent>
