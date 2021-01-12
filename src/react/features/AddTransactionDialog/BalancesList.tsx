@@ -59,7 +59,6 @@ const BalancesList = ({ categories, amount, control, errors }: Props): JSX.Eleme
             <Controller
               as={TextField}
               control={control}
-              rules={{required: 'Amount is required'}}
               name={`${category.name}`}
               label={`${category.name}`}
               defaultValue={0}

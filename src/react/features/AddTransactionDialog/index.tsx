@@ -4,7 +4,7 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/picker
 import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import { Controller, useForm } from 'react-hook-form';
 import DateFnsUtils from '@date-io/date-fns';
-import { startOfMonth, endOfMonth } from 'date-fns';
+import { startOfMonth, endOfMonth, parseISO } from 'date-fns';
 import { selectDate } from '../../slices/dateSelection';
 import { useSelector } from 'react-redux';
 import { Category, KeyNumberPairs } from '../../../shared/types';
@@ -43,7 +43,7 @@ const AddTransactionDialog = ({ isOpen, transactionType, categories, handleClose
               margin="normal"
               name="date"
               label="Date"
-              defaultValue={selectedDate}
+              defaultValue={parseISO(selectedDate)}
               value=''
               format="dd.MM.yyyy"
               onChange={(date: ParsableDate) => setValue('date', date)}
