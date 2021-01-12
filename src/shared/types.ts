@@ -51,3 +51,7 @@ export interface IpcRequest {
 export interface KeyValuePair {
   [key: string]: unknown;
 }
+
+export interface KeyNumberPairs {
+  [key: string]: number;
+}
