@@ -1,4 +1,4 @@
-import { Button, Card, makeStyles } from '@material-ui/core'
+import { Button, makeStyles } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveBudgets, selectBudgets } from '../../slices/budgets'
@@ -10,11 +10,9 @@ import SetBudgetsDialog, { UnprocessedBudgets } from '../../features/SetBudgetsD
 import CategoryTable from './CategoryTable'
 
 const useStyles = makeStyles({
-  root: {
-    padding: '20px'
-  },
   table: {
-    marginBottom: '50px'
+    padding: '20px',
+    marginBottom: '20px'
   }
 })
 
@@ -24,7 +22,7 @@ interface CategoriesCardProps {
   transactions: Transaction[]
 }
 
-const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: CategoriesCardProps): JSX.Element => {
+const CategoryTableContainer = ({ selectCategory, selectedCategory, transactions }: CategoriesCardProps): JSX.Element => {
   const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
   const [isBudgetDialogOpen, setIsBudgetDialogOpen] = useState(false);
   
@@ -72,7 +70,7 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
   }
 
   return (
-    <Card className={classes.root}>
+    <>
       <CategoryTable
         className={classes.table}
         title="Incomes"
@@ -103,8 +101,8 @@ const CategoriesCard = ({ selectCategory, selectedCategory, transactions }: Cate
         handleClose={closeDialogs}
         handleSetBudgets={setBudgets}
       />
-    </Card>
+    </>
   )
 }
 
-export default CategoriesCard
+export default CategoryTableContainer
