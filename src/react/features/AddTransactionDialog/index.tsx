@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
@@ -25,10 +25,20 @@ export interface AddTransactionFormValues {
 }
 
 const AddTransactionDialog = ({ isOpen, transactionType, categories, handleClose, handleAddTransaction }: Props): JSX.Element => {
+  const [sumOfBalances, setSumOfBalances] = useState(0);
   const { errors, control, handleSubmit, formState, setValue, watch } = useForm<AddTransactionFormValues>({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
   const selectedDate = useSelector(selectDate);
   const watchAmount = watch('amount', '0');
+  const watchBalanceAdditions = watch('balanceAdditions', {});
+
+  useEffect(() => {
+    let total = 0;
+    for (const category of categories) {
+      total += Number(watchBalanceAdditions[category.name]) || 0;
+    }
+    setSumOfBalances(total);
+  }, [watchBalanceAdditions])
 
   return (
     <Dialog open={isOpen} onClose={() => handleClose}>
@@ -88,7 +98,7 @@ const AddTransactionDialog = ({ isOpen, transactionType, categories, handleClose
           <Button 
             type="submit"
             color="primary"
-            disabled={!isDirty || !isValid}
+            disabled={!isDirty || !isValid || Number(watchAmount) !== sumOfBalances}
           >
             Add
           </Button>
