@@ -7,6 +7,9 @@ import { roundToDecimals } from '../../utils/round'
 import { sumOfCategoryTransactions } from './utils'
 
 const useStyles = makeStyles({
+  title: {
+    marginBottom: '20px'
+  },
   headerCell: {
     width: '28%',
   },
@@ -30,7 +33,7 @@ const CategoryTable = ({ className, title, categories, selectedCategory, transac
 
   return (
     <Card className={className}>
-      <Typography variant="h5">{title}</Typography>
+      <Typography variant="h5" className={classes.title}>{title}</Typography>
       <TableContainer>
         <Table>
           <TableHead>

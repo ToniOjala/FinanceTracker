@@ -11,6 +11,7 @@ const useStyles = makeStyles({
     margin: '50px 20px'
   },
   table: {
+    padding: '10px',
     margin: '20px 0 20px 0',
   }
 });
