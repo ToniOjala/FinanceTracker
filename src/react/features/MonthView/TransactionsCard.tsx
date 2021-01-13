@@ -42,7 +42,7 @@ const TransactionsCard = ({ selectedCategory, categories, transactions }: Props)
     const balancesToAdd = {} as KeyNumberPairs;
     for (const category of categories) {
       if (values.balanceAdditions[category.name]) {
-        balancesToAdd[category.name] = Number(values.balanceAdditions[category.name]);
+        balancesToAdd[category.id] = Number(values.balanceAdditions[category.name]);
       }
     }
 

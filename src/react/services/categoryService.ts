@@ -9,6 +9,6 @@ export const saveCategory = (category: NewCategory): Promise<Category> => {
   return post<NewCategory, Category>(DBTable.CATEGORIES, category);
 }
 
-export const updateBalance = (categoryName: string, balance: number): Promise<Category> => {
-  return update<Category>(DBTable.CATEGORIES, { categoryName, balance });
+export const addToBalance = (categoryId: number, amount: number): Promise<Category> => {
+  return update<Category>(DBTable.CATEGORIES, { categoryId, amount });
 }

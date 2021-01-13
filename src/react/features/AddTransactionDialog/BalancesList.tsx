@@ -59,7 +59,7 @@ const BalancesList = ({ categories, amount, control, errors }: Props): JSX.Eleme
             <Controller
               as={TextField}
               control={control}
-              name={`${category.name}`}
+              name={`balanceAdditions[${category.name}]`}
               label={`${category.name}`}
               defaultValue={0}
               error={errors.balanceAdditions && errors.balanceAdditions[`${category.name}`] && true}
