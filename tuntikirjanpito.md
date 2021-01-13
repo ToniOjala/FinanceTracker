@@ -41,5 +41,6 @@
 | 10.01.21 | 3 | React-komponenttien koodausta
 | 11.01.21 | 1 | Issue #8:n koodausta. https://github.com/ToniOjala/FinanceTracker/issues/8 
 | 12.01.21 | 2 | Issue #8:n koodausta. Epäonnistunut yritys saada "monimutkainen" logiikka toimimaan.
-| yht   | 99.5   | | 
+| 13.01.21 | 1.5 | Issue #8:n viimeistely ja UI:n ulkonäön parantelua
+| yht   | 101   | | 
 
