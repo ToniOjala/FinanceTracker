@@ -2,10 +2,11 @@ import { Button, Card, makeStyles, Table, TableCell, TableContainer, TableHead, 
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postTransaction } from '../../slices/transactions';
-import { Category, NewTransaction, Transaction } from '../../../shared/types';
+import { Category, KeyNumberPairs, NewTransaction, Transaction } from '../../../shared/types';
 import AddTransactionDialog, { AddTransactionFormValues } from '../AddTransactionDialog';
 import { formatDate } from './utils';
 import { format } from 'date-fns';
+import { updateBalances } from '../../slices/categories';
 
 const useStyles = makeStyles({
   root: {
@@ -32,14 +33,21 @@ const TransactionsCard = ({ selectedCategory, categories, transactions }: Props)
   const closeDialog = () => setIsDialogOpen(false);
 
   const handleNewTransaction = async (values: AddTransactionFormValues) => {
-    console.log('values: ', values);
     const newTransaction: NewTransaction = {
       date: format(values.date, 'yyyy-MM-dd'),
       amount: Number.parseFloat(values.amount),
       categoryId: selectedCategory.id
     }
 
-    // dispatch(postTransaction(newTransaction));
+    const balancesToAdd = {} as KeyNumberPairs;
+    for (const category of categories) {
+      if (values.balanceAdditions[category.name]) {
+        balancesToAdd[category.name] = Number(values.balanceAdditions[category.name]);
+      }
+    }
+
+    dispatch(postTransaction(newTransaction));
+    dispatch(updateBalances(balancesToAdd));
     closeDialog();
   }
 
