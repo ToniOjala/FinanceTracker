@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postTransaction } from '../../slices/transactions';
 import { Category, KeyNumberPairs, NewTransaction, Transaction } from '../../../shared/types';
-import AddTransactionDialog, { AddTransactionFormValues } from '../AddTransactionDialog';
+import AddTransactionDialog, { AddTransactionFormValues } from '../../features/AddTransactionDialog';
 import { formatDate } from './utils';
 import { format } from 'date-fns';
 import { updateBalances } from '../../slices/categories';

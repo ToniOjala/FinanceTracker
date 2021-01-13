@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { saveBudgets, selectBudgets } from '../../slices/budgets'
 import { postCategory, selectCategories, selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
 import { selectDate } from '../../slices/dateSelection'
-import { Budget, Category, NewBudget, NewCategory, Transaction } from '../../../shared/types'
-import AddCategoryDialog from '../AddCategoryDialog'
-import SetBudgetsDialog, { UnprocessedBudgets } from '../SetBudgetsDialog'
+import { Category, NewBudget, NewCategory, Transaction } from '../../../shared/types'
+import AddCategoryDialog from '../../features/AddCategoryDialog'
+import SetBudgetsDialog, { UnprocessedBudgets } from '../../features/SetBudgetsDialog'
 import CategoryTable from './CategoryTable'
 
 const useStyles = makeStyles({

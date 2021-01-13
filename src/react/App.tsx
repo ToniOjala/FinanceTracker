@@ -2,10 +2,10 @@ import { CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SideNav from './components/SideNav';
-import BalanceView from './features/BalanceView';
-import MonthView from './features/MonthView';
+import BalanceView from './views/BalanceView';
+import MonthView from './views/MonthView';
 import YearMonthSelector from './features/YearMonthSelector';
-import YearView from './features/YearView';
+import YearView from './views/YearView';
 import { theme } from './theme';
 
 const useStyles = makeStyles({
