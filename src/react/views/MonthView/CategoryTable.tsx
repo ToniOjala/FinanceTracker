@@ -1,4 +1,4 @@
-import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
+import { Card, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { selectBudgets } from '../../slices/budgets'
@@ -29,7 +29,7 @@ const CategoryTable = ({ className, title, categories, selectedCategory, transac
   const budgets = useSelector(selectBudgets);
 
   return (
-    <div className={className}>
+    <Card className={className}>
       <Typography variant="h5">{title}</Typography>
       <TableContainer>
         <Table>
@@ -56,7 +56,7 @@ const CategoryTable = ({ className, title, categories, selectedCategory, transac
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </Card>
   )
 }
 
