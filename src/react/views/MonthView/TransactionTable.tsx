@@ -2,7 +2,7 @@ import { Button, Card, makeStyles, Table, TableCell, TableContainer, TableHead, 
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteTransaction, postTransaction } from '../../slices/transactions';
-import { Category, KeyNumberPairs, NewTransaction, Transaction } from '../../../shared/types';
+import { Category, CategoryType, KeyNumberPairs, NewTransaction, Transaction } from '../../../shared/types';
 import AddTransactionDialog, { AddTransactionFormValues } from '../../features/AddTransactionDialog';
 import { formatDate } from './utils';
 import { format } from 'date-fns';
@@ -41,15 +41,17 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
       categoryId: selectedCategory.id
     }
 
-    const balancesToAdd = {} as KeyNumberPairs;
-    for (const category of categories) {
-      if (values.balanceAdditions[category.name]) {
-        balancesToAdd[category.id] = Number(values.balanceAdditions[category.name]);
+    if (selectedCategory.type === CategoryType.Income) {
+      const balancesToAdd = {} as KeyNumberPairs;
+      for (const category of categories) {
+        if (values.balanceAdditions[category.name]) {
+          balancesToAdd[category.id] = Number(values.balanceAdditions[category.name]);
+        }
       }
+      dispatch(updateBalances(balancesToAdd));
     }
 
     dispatch(postTransaction(newTransaction));
-    dispatch(updateBalances(balancesToAdd));
     closeDialog();
   }
 

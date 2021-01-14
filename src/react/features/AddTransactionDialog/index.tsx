@@ -98,7 +98,7 @@ const AddTransactionDialog = ({ isOpen, transactionType, categories, handleClose
           <Button 
             type="submit"
             color="primary"
-            disabled={!isDirty || !isValid || Number(watchAmount) !== sumOfBalances}
+            disabled={!isDirty || !isValid || (transactionType === 'income' && Number(watchAmount) !== sumOfBalances)}
           >
             Add
           </Button>
