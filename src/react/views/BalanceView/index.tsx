@@ -32,8 +32,13 @@ const BalanceView = (): JSX.Element => {
   const closeDialog = () => setIsDialogOpen(false);
 
   const addToBalance = (balances: CategoryBalances) => {
-    for (const category in balances) balances[category] = Number(balances[category]);
-    dispatch(updateBalances(balances));
+    const balancesToAdd = {} as CategoryBalances;
+    for (const category of categories) {
+      if (balances[category.name]) {
+        balancesToAdd[category.id] = Number(balances[category.name]);
+      }
+    }
+    dispatch(updateBalances(balancesToAdd));
     closeDialog();
   }
 
