@@ -2,6 +2,7 @@ import { Category, Transaction } from "../../../shared/types";
 import { roundToDecimals } from "../../utils/round";
 
 export const formatDate = (date: string): string => {
+  if (!date) return '';
   const splitDate = date.split('-');
   const year = splitDate[0];
   const month = splitDate[1];

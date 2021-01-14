@@ -1,7 +1,7 @@
 import { Button, Card, makeStyles, Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { postTransaction } from '../../slices/transactions';
+import { deleteTransaction, postTransaction } from '../../slices/transactions';
 import { Category, KeyNumberPairs, NewTransaction, Transaction } from '../../../shared/types';
 import AddTransactionDialog, { AddTransactionFormValues } from '../../features/AddTransactionDialog';
 import { formatDate } from './utils';
@@ -27,13 +27,14 @@ interface Props {
 
 const TransactionTable = ({ selectedCategory, categories, transactions }: Props): JSX.Element | null => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
   
   const dispatch = useDispatch();
 
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
 
-  const handleNewTransaction = async (values: AddTransactionFormValues) => {
+  const handleNewTransaction = (values: AddTransactionFormValues) => {
     const newTransaction: NewTransaction = {
       date: format(values.date, 'yyyy-MM-dd'),
       amount: Number.parseFloat(values.amount),
@@ -52,6 +53,11 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
     closeDialog();
   }
 
+  const removeTransaction = () => {
+    dispatch(deleteTransaction(selectedTransaction!));
+    setSelectedTransaction(null);
+  }
+
   const classes = useStyles();
 
   return (
@@ -68,7 +74,12 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
             </TableHead>
             <TableBody>
               {transactions.map(transaction => (
-                <TableRow key={transaction.id}>
+                <TableRow
+                  key={transaction.id}
+                  hover
+                  selected={transaction === selectedTransaction}
+                  onClick={() => setSelectedTransaction(transaction)}
+                >
                   <TableCell component="th" scope="row">
                     {formatDate(transaction.date)}
                   </TableCell>
@@ -85,6 +96,11 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
       >
         Add transaction
       </Button>
+      {selectedTransaction && 
+        <Button onClick={removeTransaction}>
+          Remove
+        </Button>
+      }
       <AddTransactionDialog
         isOpen={isDialogOpen}
         transactionType={selectedCategory.type}

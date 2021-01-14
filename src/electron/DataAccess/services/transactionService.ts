@@ -54,4 +54,10 @@ export default class TransactionService {
     if (savedTransaction) this.categoryService.addToBalanceOfCategory(transaction.categoryId, -transaction.amount);
     return savedTransaction;
   }
+
+  deleteTransaction(transaction: Transaction) {
+    this.db.run('DELETE FROM transactions WHERE id = ?', transaction.id);
+    this.categoryService.addToBalanceOfCategory(transaction.categoryId, transaction.amount);
+    return true;
+  }
 }

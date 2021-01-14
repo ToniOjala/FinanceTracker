@@ -1,5 +1,5 @@
 import { DBTable, KeyValuePair, NewTransaction, Transaction } from '../../shared/types';
-import { getCustom, getMany, post } from './dbService';
+import { deleteItem, getCustom, getMany, post } from './dbService';
 
 const table = DBTable.TRANSACTIONS;
 
@@ -13,4 +13,8 @@ export const getYearlyData = (year: number): Promise<KeyValuePair> => {
 
 export const saveTransaction = (transaction: NewTransaction): Promise<Transaction> => {
   return post<NewTransaction, Transaction>(table, transaction);
+}
+
+export const deleteTransactionFromDB = (transaction: Transaction): Promise<boolean> => {
+  return deleteItem<Transaction>(table, transaction);
 }

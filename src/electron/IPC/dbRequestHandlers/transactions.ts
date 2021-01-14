@@ -1,7 +1,7 @@
 import { Transaction, KeyValuePair, NewTransaction } from "../../../shared/types";
 import TransactionService from "../../DataAccess/services/transactionService";
 
-export function handleTransactionRequest(requestType: string, data?: KeyValuePair, query?: KeyValuePair): Transaction | Transaction[] | KeyValuePair {
+export function handleTransactionRequest(requestType: string, data?: KeyValuePair, query?: KeyValuePair): Transaction | Transaction[] | KeyValuePair | boolean {
   const transactionService = new TransactionService();
   
   switch (requestType) {
@@ -18,7 +18,10 @@ export function handleTransactionRequest(requestType: string, data?: KeyValuePai
     case 'post':
       if (!data) throw new Error('Data to post was not given');
       return transactionService.saveTransaction(data.item as NewTransaction);
+    case 'delete':
+      if (!data) throw new Error('Data to delete was not given');
+      return transactionService.deleteTransaction(data.item as Transaction);
     default:
-      return [] as Transaction[];
+      throw new Error(`Request method not recognized: ${requestType}`);
   }
 }

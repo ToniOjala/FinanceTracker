@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
 import { AppThunk } from '../store';
-import { getYearlyData, getTransactionsOfMonth, saveTransaction } from "../services/transactionService";
+import { getYearlyData, getTransactionsOfMonth, saveTransaction, deleteTransactionFromDB } from "../services/transactionService";
 import { RootState } from "../rootReducer";
 import { NewTransaction, Transaction } from "../../shared/types";
 import { YearlyData } from "../types";
@@ -23,11 +23,14 @@ const transactionSlice = createSlice({
     },
     addTransaction: (state, action) => {
       state.transactions.push(action.payload);
+    },
+    removeTransaction: (state, action) => {
+      state.transactions = state.transactions.filter(tr => tr.id !== action.payload.id);
     }
   }
 })
 
-export const { setTransactions, setYearlyData, addTransaction } = transactionSlice.actions;
+export const { setTransactions, setYearlyData, addTransaction, removeTransaction } = transactionSlice.actions;
 export default transactionSlice.reducer;
 
 export const fetchTransactionsOfMonth = (year: number, month: number): AppThunk => async dispatch => {
@@ -54,6 +57,15 @@ export const postTransaction = (transaction: NewTransaction): AppThunk => async 
     dispatch(addTransaction(savedTransaction));
   } catch (error) {
     console.error('Error while posting transaction', error);
+  }
+}
+
+export const deleteTransaction = (transaction: Transaction): AppThunk => async dispatch => {
+  try {
+    const deleted = await deleteTransactionFromDB(transaction);
+    if (deleted) dispatch(removeTransaction(transaction));
+  } catch (error) {
+    console.error('Error while deleting transaction', error);
   }
 }
 

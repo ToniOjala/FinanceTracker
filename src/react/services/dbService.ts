@@ -36,3 +36,9 @@ export function update<T>(table: DBTable, item: unknown): Promise<T> {
   const result = send<T>('database', { params: requestParams });
   return result;
 }
+
+export function deleteItem<T>(table: DBTable, item: T): Promise<boolean> {
+  const requestParams = { table, requestType: 'delete', data: { item } };
+  const result = send<boolean>('database', { params: requestParams });
+  return result;
+}
