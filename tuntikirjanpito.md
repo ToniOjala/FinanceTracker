@@ -42,5 +42,6 @@
 | 11.01.21 | 1 | Issue #8:n koodausta. https://github.com/ToniOjala/FinanceTracker/issues/8 
 | 12.01.21 | 2 | Issue #8:n koodausta. Epäonnistunut yritys saada "monimutkainen" logiikka toimimaan.
 | 13.01.21 | 1.5 | Issue #8:n viimeistely ja UI:n ulkonäön parantelua
-| yht   | 101   | | 
+| 14.01.21 | 1.5 | Transaktioiden poistamisen mahdollisuuden lisäys sekä bugikorjauksia
+| yht   | 102.5   | | 
 
