@@ -96,13 +96,19 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
         disabled={!selectedCategory.name}
         onClick={openDialog}
       >
-        Add transaction
+        Add
       </Button>
-      {selectedTransaction && 
-        <Button onClick={removeTransaction}>
-          Remove
-        </Button>
-      }
+      <Button 
+        disabled={!selectedTransaction}
+        onClick={removeTransaction}
+      >
+        Remove
+      </Button>
+      <Button
+        disabled={!selectedTransaction}
+      >
+        Edit
+      </Button>
       <AddTransactionDialog
         isOpen={isDialogOpen}
         transactionType={selectedCategory.type}
