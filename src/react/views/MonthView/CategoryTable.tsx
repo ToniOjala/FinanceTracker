@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   }
 })
 
-interface CategoryListProps {
+interface Props {
   className: string,
   title: string,
   categories: Category[],
@@ -27,7 +27,7 @@ interface CategoryListProps {
   selectCategory: (category: Category) => void
 }
 
-const CategoryTable = ({ className, title, categories, selectedCategory, transactions, selectCategory }: CategoryListProps): JSX.Element | null => {
+const CategoryTable = ({ className, title, categories, selectedCategory, transactions, selectCategory }: Props): JSX.Element | null => {
   const classes = useStyles();  
   const budgets = useSelector(selectBudgets);
 
