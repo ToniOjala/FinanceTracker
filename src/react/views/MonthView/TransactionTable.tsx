@@ -10,11 +10,12 @@ import { updateBalances } from '../../slices/categories';
 
 const useStyles = makeStyles({
   root: {
-    padding: '20px'
+    padding: '20px',
+    marginBottom: '20px',
   },
   table: {
-    marginTop: '25px',
-    marginBottom: '25px'
+    marginTop: '20px',
+    marginBottom: '20px'
   }
 })
 
@@ -24,7 +25,7 @@ interface Props {
   transactions: Transaction[];
 }
 
-const TransactionsCard = ({ selectedCategory, categories, transactions }: Props): JSX.Element | null => {
+const TransactionTable = ({ selectedCategory, categories, transactions }: Props): JSX.Element | null => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   
   const dispatch = useDispatch();
@@ -54,28 +55,30 @@ const TransactionsCard = ({ selectedCategory, categories, transactions }: Props)
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
-      <Typography variant="h6">{selectedCategory.name}</Typography>
-      <TableContainer className={classes.table}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell>Amount</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {transactions.map(transaction => (
-              <TableRow key={transaction.id}>
-                <TableCell component="th" scope="row">
-                  {formatDate(transaction.date)}
-                </TableCell>
-                <TableCell>{transaction.amount}</TableCell>
+    <>
+      <Card className={classes.root}>
+        <Typography variant="h6">{selectedCategory.name}</Typography>
+        <TableContainer className={classes.table}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Date</TableCell>
+                <TableCell>Amount</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {transactions.map(transaction => (
+                <TableRow key={transaction.id}>
+                  <TableCell component="th" scope="row">
+                    {formatDate(transaction.date)}
+                  </TableCell>
+                  <TableCell>{transaction.amount}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Card>
       <Button
         disabled={!selectedCategory.name}
         onClick={openDialog}
@@ -89,8 +92,8 @@ const TransactionsCard = ({ selectedCategory, categories, transactions }: Props)
         handleClose={closeDialog}
         handleAddTransaction={handleNewTransaction}
       />
-    </Card>
+    </>
   )
 }
 
-export default TransactionsCard;
+export default TransactionTable;

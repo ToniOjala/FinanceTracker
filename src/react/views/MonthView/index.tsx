@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Category, Transaction } from '../../../shared/types';
 import CategoryTableContainer from './CategoryTableContainer';
-import TransactionsCard from './TransactionsCard'
+import TransactionTable from './TransactionTable'
 import { fetchCategories, selectExpenseCategories } from '../../slices/categories';
 import { fetchTransactionsOfMonth, selectTransactions } from '../../slices/transactions';
-import { selectDate,  selectYearAndMonth, setDateSelectionStatus } from '../../slices/dateSelection';
+import { selectDate, selectYearAndMonth, setDateSelectionStatus } from '../../slices/dateSelection';
 import { fetchLatestBudgets } from '../../slices/budgets';
 
 const useStyles = makeStyles({
@@ -33,14 +33,14 @@ const MonthView = (): JSX.Element | null => {
   const selectedDate = useSelector(selectDate);
 
   useEffect(() => {
-    dispatch(fetchTransactionsOfMonth(year, month));
-    dispatch(fetchLatestBudgets(selectedDate));
-  }, [selectedDate])
-
-  useEffect(() => {
     dispatch(setDateSelectionStatus('month'));
     dispatch(fetchCategories());
   }, [])
+
+  useEffect(() => {
+    dispatch(fetchTransactionsOfMonth(year, month));
+    dispatch(fetchLatestBudgets(selectedDate));
+  }, [selectedDate])
 
   useEffect(() => {
     setTransactionsOfCategory(transactions?.filter(tr => tr.categoryId === selectedCategory?.id));
@@ -57,11 +57,12 @@ const MonthView = (): JSX.Element | null => {
       </Box>
       <Box className={classes.transactions}>
         {selectedCategory && 
-          <TransactionsCard 
+          <TransactionTable 
             selectedCategory={selectedCategory}
             categories={expenseCategories}
             transactions={transactionsOfCategory}
-          />}
+          />
+        }
       </Box>
     </Box>
   )
