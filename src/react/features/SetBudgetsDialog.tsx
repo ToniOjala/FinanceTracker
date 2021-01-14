@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, TextField, Typography } from '@material-ui/core';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Category } from '../../shared/types';
@@ -10,13 +10,14 @@ export interface UnprocessedBudgets {
 
 interface Props {
   isOpen: boolean;
-  categories: Category[];
+  incomeCategories: Category[];
+  expenseCategories: Category[];
   budgets: BudgetsByCategory;
   handleClose: () => void;
   handleSetBudgets: (budgets: UnprocessedBudgets) => void;
 }
 
-const SetBudgetsDialog = ({ isOpen, categories, budgets, handleClose, handleSetBudgets }: Props): JSX.Element => {
+const SetBudgetsDialog = ({ isOpen, incomeCategories, expenseCategories, budgets, handleClose, handleSetBudgets }: Props): JSX.Element => {
   const { errors, control, handleSubmit, formState } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
 
@@ -25,10 +26,28 @@ const SetBudgetsDialog = ({ isOpen, categories, budgets, handleClose, handleSetB
       <form onSubmit={handleSubmit(handleSetBudgets)}>
         <DialogTitle>Set Budgets</DialogTitle>
         <DialogContent>
-          {categories.map(category => (
+          <Typography variant="h6">Income</Typography>
+          {incomeCategories.map(category => (
             <Controller
               key={category.name}
-              as={<TextField />}
+              as={TextField}
+              control={control}
+              rules={{required: `Budget for ${category.name} is required`}}
+              margin="normal"
+              name={`${category.name}`}
+              label={`${category.name}`}
+              defaultValue={budgets[category.name]}
+              error={errors[`${category.name}`] && true}
+              helperText={errors[`${category.name}`]?.message}
+              fullWidth
+              required
+            />
+          ))}
+          <Typography variant="h6" style={{ marginTop: '30px' }}>Expense</Typography>
+          {expenseCategories.map(category => (
+            <Controller
+              key={category.name}
+              as={TextField}
               control={control}
               rules={{required: `Budget for ${category.name} is required`}}
               margin="normal"

@@ -96,7 +96,8 @@ const CategoryTableContainer = ({ selectCategory, selectedCategory, transactions
       />
       <SetBudgetsDialog
         isOpen={isBudgetDialogOpen}
-        categories={categories}
+        incomeCategories={incomeCategories}
+        expenseCategories={expenseCategories}
         budgets={budgets}
         handleClose={closeDialogs}
         handleSetBudgets={setBudgets}
