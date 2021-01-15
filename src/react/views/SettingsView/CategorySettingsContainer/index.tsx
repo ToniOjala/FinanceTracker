@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Category } from '../../../../shared/types';
-import { postCategory, selectCategories } from '../../../slices/categories';
+import { postCategory, selectCategories, updateCategory } from '../../../slices/categories';
 import CategoryDialog, { CategoryDialogValues } from './CategoryDialog';
 import CategoryTable from './CategoryTable'
 
@@ -40,6 +40,13 @@ const CategorySettingsContainer = () => {
     }));
     closeDialog();
   }
+  
+  const removeCategory = () => {
+    if (!selectedCategory) return;
+    const category = { ...selectedCategory, removed: format(new Date(), 'yyyy')};
+    dispatch(updateCategory(category));
+    setSelectedCategory(null);
+  }
 
   return (
     <>
@@ -51,9 +58,14 @@ const CategorySettingsContainer = () => {
         selectCategory={setSelectedCategory}
       />
       <Box display="flex">
-        <Button onClick={openDialog}>Add</Button>
+        <Button
+          onClick={openDialog}
+        >
+          Add
+        </Button>
         <Button
           disabled={!selectedCategory}
+          onClick={removeCategory}
         >
           Remove
         </Button>

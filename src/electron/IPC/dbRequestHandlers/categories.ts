@@ -13,11 +13,14 @@ export function handleCategoryRequest(requestType: string, data?: KeyValuePair):
     case 'post':
       if (!data) throw new Error('Data to post was not given');
       return categoryService.saveCategory(data.item as NewCategory);
-    case 'update':
+    case 'update': 
       if (!data) throw new Error('Data to update was not given');
+      return categoryService.updateCategory(data.item as Category);
+    case 'addBalance':
+      if (!data) throw new Error('Data for add balance was not given');
       const item = data.item as { categoryId: number, amount: number };
       return categoryService.addToBalanceOfCategory(item.categoryId, item.amount);
     default:
-      return [] as Category[];
+      throw new Error(`Request method not recognized: ${requestType}`);
   }
 }

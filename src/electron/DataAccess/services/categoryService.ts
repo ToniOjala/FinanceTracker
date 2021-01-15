@@ -25,6 +25,12 @@ export default class CategoryService {
     return savedCategory;
   }
 
+  updateCategory(category: Category) {
+    const sql = "UPDATE categories SET name = ?, removed = ? WHERE id = ?";
+    this.db.run(sql, [category.name, category.removed, category.id]);
+    return category;
+  }
+
   addToBalanceOfCategory(categoryId: number, amount: number): Category {
     const category = this.db.get<Category>('SELECT * FROM categories WHERE id = ?', categoryId);
     category.balance += amount;

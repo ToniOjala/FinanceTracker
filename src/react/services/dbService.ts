@@ -31,6 +31,12 @@ export function postMany<T, K>(table: DBTable, items: T): Promise<K> {
   return result;
 }
 
+export function sendCustom<T>(table: DBTable, requestType: string, item: unknown): Promise<T> {
+  const requestParams = { table, requestType, data: { item } };
+  const result = send<T>('database', { params: requestParams });
+  return result;
+}
+
 export function update<T>(table: DBTable, item: unknown): Promise<T> {
   const requestParams = { table, requestType: 'update', data: { item } };
   const result = send<T>('database', { params: requestParams });

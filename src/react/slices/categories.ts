@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
-import { getCategories, saveCategory, addToBalance } from '../services/categoryService';
+import { getCategories, saveCategory, addToBalance, updateCategoryInDB } from '../services/categoryService';
 import { Category, CategoryType, NewCategory } from '../../shared/types';
 import { CategoryBalances } from '../features/AddBalanceDialog';
 
@@ -63,6 +63,15 @@ export const updateBalances = (balances: CategoryBalances): AppThunk => async di
     dispatch(replaceCategories(updatedCategories));
   } catch (error) {
     console.error('Error while updating balance: ', error);
+  }
+}
+
+export const updateCategory = (category: Category): AppThunk => async dispatch => {
+  try {
+    const updatedCategory = await updateCategoryInDB(category);
+    dispatch(replaceCategories([updatedCategory]));
+  } catch (error) {
+    console.error('Error while updating category: ', error);
   }
 }
 
