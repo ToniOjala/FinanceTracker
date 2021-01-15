@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SideNav from './components/SideNav';
 import BalanceView from './views/BalanceView';
 import MonthView from './views/MonthView';
-import YearMonthSelector from './features/YearMonthSelector';
+import YearMonthSelector from './components/YearMonthSelector';
 import YearView from './views/YearView';
 import { theme } from './theme';
 import SettingsView from './views/SettingsView';
