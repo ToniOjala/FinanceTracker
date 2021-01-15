@@ -11,7 +11,7 @@ export interface Category {
   created: string;
   removed: string;
 }
-export type NewCategory = Omit<Category, 'id'>
+export type NewCategory = Omit<Category, 'id' | 'removed'>
 
 export interface Transaction {
   id: number;
