@@ -1,7 +1,10 @@
 import { Box, Button, makeStyles, Typography } from '@material-ui/core'
-import React from 'react'
-import { useSelector } from 'react-redux';
-import { selectCategories } from '../../../slices/categories';
+import { format } from 'date-fns';
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { Category } from '../../../../shared/types';
+import { postCategory, selectCategories } from '../../../slices/categories';
+import CategoryDialog, { CategoryDialogValues } from './CategoryDialog';
 import CategoryTable from './CategoryTable'
 
 const useStyles = makeStyles({
@@ -12,8 +15,31 @@ const useStyles = makeStyles({
 });
 
 const CategorySettingsContainer = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+  const [categoryToEdit, setCategoryToEdit] = useState<Category | null>(null);
+
   const categories = useSelector(selectCategories);
+  const dispatch = useDispatch();
   const classes = useStyles();
+
+  const openDialog = () => setIsDialogOpen(true);
+
+  const closeDialog = () => {
+    setSelectedCategory(null);
+    setCategoryToEdit(null);
+    setIsDialogOpen(false);
+  }
+
+  const handleCategory = (values: CategoryDialogValues) => {
+    dispatch(postCategory({
+      name: values.name,
+      type: values.type,
+      balance: 0,
+      created: format(new Date(), 'yyyy')
+    }));
+    closeDialog();
+  }
 
   return (
     <>
@@ -23,10 +49,15 @@ const CategorySettingsContainer = () => {
         categories={categories}
       />
       <Box display="flex">
-        <Button>Add</Button>
+        <Button onClick={openDialog}>Add</Button>
         <Button>Remove</Button>
         <Button>Edit</Button>
       </Box>
+      <CategoryDialog
+        isOpen={isDialogOpen}
+        handleClose={closeDialog}
+        handleCategory={handleCategory}
+      />
     </>
   )
 }

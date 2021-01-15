@@ -1,12 +1,17 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, TextField } from '@material-ui/core';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Category, CategoryType } from '../../shared/types';
+import { CategoryType } from '../../../../shared/types';
+
+export interface CategoryDialogValues {
+  name: string;
+  type: CategoryType;
+}
 
 interface AddCategoryProps {
   isOpen: boolean;
   handleClose: () => void;
-  handleAddCategory: (newCategory: Category) => void;
+  handleCategory: (category: CategoryDialogValues) => void;
 }
 
 interface TypeOption {
@@ -19,17 +24,17 @@ const typeOptions: TypeOption[] = [
   { value: CategoryType.Income, label: 'Income' }
 ]
 
-const CategoryDialog = ({ isOpen, handleClose, handleAddCategory }: AddCategoryProps): JSX.Element => {
+const CategoryDialog = ({ isOpen, handleClose, handleCategory }: AddCategoryProps): JSX.Element => {
   const { errors, control, handleSubmit, formState } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
 
   return (
     <Dialog open={isOpen}>
-      <form onSubmit={handleSubmit(handleAddCategory)}>
+      <form onSubmit={handleSubmit(handleCategory)}>
         <DialogTitle>Add new category</DialogTitle>
         <DialogContent>
           <Controller
-            as={<TextField />}
+            as={TextField}
             control={control}
             rules={{required: 'Name is required'}}
             defaultValue=""
@@ -43,7 +48,7 @@ const CategoryDialog = ({ isOpen, handleClose, handleAddCategory }: AddCategoryP
             autoFocus
           />
           <Controller
-            as={<TextField />}
+            as={TextField}
             control={control}
             margin="normal"
             name="type"
