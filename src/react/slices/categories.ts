@@ -3,7 +3,7 @@ import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
 import { getCategories, saveCategory, addToBalance, updateCategoryInDB } from '../services/categoryService';
 import { Category, CategoryType, NewCategory } from '../../shared/types';
-import { CategoryBalances } from '../features/AddBalanceDialog';
+import { CategoryBalances } from '../views/BalanceView/AddBalanceDialog';
 
 const categorySlice = createSlice({
   name: 'category',

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCategories, selectExpenseCategories, updateBalances } from '../../slices/categories';
 import { setDateSelectionStatus } from '../../slices/dateSelection';
-import AddBalanceDialog, { CategoryBalances } from '../../features/AddBalanceDialog';
+import AddBalanceDialog, { CategoryBalances } from './AddBalanceDialog';
 import BalanceTable from './BalanceTable';
 
 const useStyles = makeStyles({

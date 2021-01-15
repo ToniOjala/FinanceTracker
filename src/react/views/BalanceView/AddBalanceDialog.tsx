@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Category } from '../../shared/types';
+import { Category } from '../../../shared/types';
 
 export interface CategoryBalances {
   [key: string]: number;
