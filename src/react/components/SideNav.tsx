@@ -11,11 +11,7 @@ const useStyles = makeStyles({
     padding: 0
   },
   drawerPaper: {
-    width: 100
-  },
-  links: {
-    margin: 0,
-    padding: 0
+    width: 100,
   },
   button: {
     padding: '30px 0',
@@ -33,17 +29,18 @@ const SideNav = (): JSX.Element => {
       classes={{ paper: classes.drawerPaper}}
       anchor="left"
     >
-      <div className={classes.links}>
-        <Link to="/month">
-          <Button className={classes.button}>Month</Button>
-        </Link>
-        <Link to="year">
-          <Button className={classes.button}>Year</Button>
-        </Link>
-        <Link to="/balance">
-          <Button className={classes.button}>Balances</Button>
-        </Link>
-      </div>
+      <Link to="/month">
+        <Button className={classes.button}>Month</Button>
+      </Link>
+      <Link to="year">
+        <Button className={classes.button}>Year</Button>
+      </Link>
+      <Link to="/balance">
+        <Button className={classes.button}>Balances</Button>
+      </Link>
+      <Link to="/settings">
+        <Button className={classes.button}>Settings</Button>
+      </Link>
     </Drawer>
   )
 }
