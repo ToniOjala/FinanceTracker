@@ -5,7 +5,7 @@ import { saveBudgets, selectBudgets } from '../../slices/budgets'
 import { selectCategories, selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
 import { selectDate } from '../../slices/dateSelection'
 import { Category, NewBudget, Transaction } from '../../../shared/types'
-import SetBudgetsDialog, { UnprocessedBudgets } from '../../features/SetBudgetsDialog'
+import SetBudgetsDialog, { UnprocessedBudgets } from './SetBudgetsDialog'
 import CategoryTable from './CategoryTable'
 
 const useStyles = makeStyles({
@@ -21,7 +21,7 @@ interface CategoriesCardProps {
   transactions: Transaction[]
 }
 
-const CategoryTableContainer = ({ selectCategory, selectedCategory, transactions }: CategoriesCardProps): JSX.Element => {
+const CategoryTablesContainer = ({ selectCategory, selectedCategory, transactions }: CategoriesCardProps): JSX.Element => {
   const [isBudgetDialogOpen, setIsBudgetDialogOpen] = useState(false);
   
   const categories = useSelector(selectCategories);
@@ -90,4 +90,4 @@ const CategoryTableContainer = ({ selectCategory, selectedCategory, transactions
   )
 }
 
-export default CategoryTableContainer
+export default CategoryTablesContainer

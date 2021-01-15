@@ -37,10 +37,10 @@ export default class SqliteDataAccess {
     return data;
   }
 
-  public get<T>(sql: string, param?: number | string) {
+  public get<T>(sql: string, params?: unknown) {
     this.connect();
     const stmt = this.db?.prepare(sql);
-    const data: T = (!param) ? stmt?.get() : stmt?.get(param);
+    const data: T = (!params) ? stmt?.get() : stmt?.get(params);
     this.disconnect();
     return data;
   }
