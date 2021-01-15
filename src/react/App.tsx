@@ -7,6 +7,7 @@ import MonthView from './views/MonthView';
 import YearMonthSelector from './features/YearMonthSelector';
 import YearView from './views/YearView';
 import { theme } from './theme';
+import SettingsView from './views/SettingsView';
 
 const useStyles = makeStyles({
   root: {
@@ -29,6 +30,9 @@ const App = (): JSX.Element | null => {
           <main className={classes.content}>
             <YearMonthSelector />
             <Switch>
+              <Route path="/settings">
+                <SettingsView />
+              </Route>
               <Route path="/balance">
                 <BalanceView />
               </Route>
