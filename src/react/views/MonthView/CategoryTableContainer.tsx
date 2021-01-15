@@ -5,7 +5,7 @@ import { saveBudgets, selectBudgets } from '../../slices/budgets'
 import { postCategory, selectCategories, selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
 import { selectDate } from '../../slices/dateSelection'
 import { Category, NewBudget, NewCategory, Transaction } from '../../../shared/types'
-import AddCategoryDialog from '../../features/AddCategoryDialog'
+import CategoryDialog from '../../features/CategoryDialog'
 import SetBudgetsDialog, { UnprocessedBudgets } from '../../features/SetBudgetsDialog'
 import CategoryTable from './CategoryTable'
 
@@ -89,7 +89,7 @@ const CategoryTableContainer = ({ selectCategory, selectedCategory, transactions
       />
       <Button className='addCategory' onClick={openCategoryDialog}>Add Category</Button>
       <Button onClick={openBudgetDialog}>Set Budgets</Button>
-      <AddCategoryDialog 
+      <CategoryDialog 
         isOpen={isCategoryDialogOpen}
         handleClose={closeDialogs}
         handleAddCategory={addNewCategory}

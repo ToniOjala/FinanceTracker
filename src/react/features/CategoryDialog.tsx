@@ -19,7 +19,7 @@ const typeOptions: TypeOption[] = [
   { value: CategoryType.Income, label: 'Income' }
 ]
 
-const AddCategoryDialog = ({ isOpen, handleClose, handleAddCategory }: AddCategoryProps): JSX.Element => {
+const CategoryDialog = ({ isOpen, handleClose, handleAddCategory }: AddCategoryProps): JSX.Element => {
   const { errors, control, handleSubmit, formState } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
 
@@ -75,4 +75,4 @@ const AddCategoryDialog = ({ isOpen, handleClose, handleAddCategory }: AddCatego
   )
 }
 
-export default AddCategoryDialog;
+export default CategoryDialog;
