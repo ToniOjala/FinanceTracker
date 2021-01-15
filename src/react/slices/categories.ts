@@ -34,7 +34,6 @@ export default categorySlice.reducer;
 export const fetchCategories = (): AppThunk => async dispatch => {
   try {
     let categories = await getCategories();
-    if (categories.length === 0 || !categories[0]) categories = await getCategories();
     dispatch(setCategories(categories));
   } catch (error) {
     console.error('Error while fetcing categories: ', error);
