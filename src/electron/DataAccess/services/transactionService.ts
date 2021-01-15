@@ -60,4 +60,11 @@ export default class TransactionService {
     this.categoryService.addToBalanceOfCategory(transaction.categoryId, transaction.amount);
     return true;
   }
+
+  updateTransaction(transaction: Transaction) {
+    const oldTransaction = this.db.get<Transaction>('SELECT * FROM transactions WHERE id = ?', transaction.id);
+    this.db.run('UPDATE transactions SET amount = ?, date = ? WHERE id = ?', [transaction.amount, transaction.date, transaction.id]);
+    this.categoryService.addToBalanceOfCategory(transaction.categoryId, (transaction.amount - oldTransaction.amount))
+    return transaction;
+  }
 }

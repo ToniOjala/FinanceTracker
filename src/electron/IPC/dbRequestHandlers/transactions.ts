@@ -21,6 +21,9 @@ export function handleTransactionRequest(requestType: string, data?: KeyValuePai
     case 'delete':
       if (!data) throw new Error('Data to delete was not given');
       return transactionService.deleteTransaction(data.item as Transaction);
+    case 'update':
+      if (!data) throw new Error('Data to update was not given');
+      return transactionService.updateTransaction(data.item as Transaction);
     default:
       throw new Error(`Request method not recognized: ${requestType}`);
   }

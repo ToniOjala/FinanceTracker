@@ -1,5 +1,5 @@
 import { DBTable, KeyValuePair, NewTransaction, Transaction } from '../../shared/types';
-import { deleteItem, getCustom, getMany, post } from './dbService';
+import { deleteItem, getCustom, getMany, post, update } from './dbService';
 
 const table = DBTable.TRANSACTIONS;
 
@@ -17,4 +17,8 @@ export const saveTransaction = (transaction: NewTransaction): Promise<Transactio
 
 export const deleteTransactionFromDB = (transaction: Transaction): Promise<boolean> => {
   return deleteItem<Transaction>(table, transaction);
+}
+
+export const updateTransactionInDB = (transaction: Transaction): Promise<Transaction> => {
+  return update<Transaction>(table, transaction);
 }

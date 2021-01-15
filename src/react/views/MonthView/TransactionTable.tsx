@@ -1,7 +1,7 @@
 import { Button, Card, makeStyles, Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteTransaction, postTransaction } from '../../slices/transactions';
+import { deleteTransaction, postTransaction, updateTransaction } from '../../slices/transactions';
 import { Category, CategoryType, KeyNumberPairs, NewTransaction, Transaction } from '../../../shared/types';
 import AddTransactionDialog, { AddTransactionFormValues } from '../../features/AddTransactionDialog';
 import { formatDate } from './utils';
@@ -28,13 +28,35 @@ interface Props {
 const TransactionTable = ({ selectedCategory, categories, transactions }: Props): JSX.Element | null => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
-  
+  const [transactionToEdit, setTransactionToEdit] = useState<Transaction | null>(null);
+
   const dispatch = useDispatch();
 
   const openDialog = () => setIsDialogOpen(true);
-  const closeDialog = () => setIsDialogOpen(false);
+  
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+    setTransactionToEdit(null);
+    setSelectedTransaction(null);
+  }
 
-  const handleNewTransaction = (values: AddTransactionFormValues) => {
+  const editTransaction = () => {
+    setTransactionToEdit(selectedTransaction);
+    openDialog();
+  }
+
+  const handleTransaction = (values: AddTransactionFormValues) => {
+    if (transactionToEdit) {
+      dispatch(updateTransaction({
+        id: transactionToEdit.id,
+        date: format(values.date, 'yyyy-MM-dd'),
+        amount: Number(parseFloat(values.amount)),
+        categoryId: transactionToEdit.categoryId
+      }));
+      closeDialog();
+      return;
+    }
+
     const newTransaction: NewTransaction = {
       date: format(values.date, 'yyyy-MM-dd'),
       amount: Number.parseFloat(values.amount),
@@ -106,6 +128,7 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
       </Button>
       <Button
         disabled={!selectedTransaction}
+        onClick={editTransaction}
       >
         Edit
       </Button>
@@ -113,8 +136,9 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
         isOpen={isDialogOpen}
         transactionType={selectedCategory.type}
         categories={categories}
+        transactionToEdit={transactionToEdit}
         handleClose={closeDialog}
-        handleAddTransaction={handleNewTransaction}
+        handleTransaction={handleTransaction}
       />
     </>
   )

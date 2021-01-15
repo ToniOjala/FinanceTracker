@@ -7,15 +7,16 @@ import DateFnsUtils from '@date-io/date-fns';
 import { startOfMonth, endOfMonth, parseISO } from 'date-fns';
 import { selectDate } from '../../slices/dateSelection';
 import { useSelector } from 'react-redux';
-import { Category, KeyNumberPairs } from '../../../shared/types';
+import { Category, KeyNumberPairs, Transaction } from '../../../shared/types';
 import BalancesList from './BalancesList';
 
 interface Props {
   isOpen: boolean;
   transactionType: string;
   categories: Category[];
+  transactionToEdit: Transaction | null;
   handleClose: () => void;
-  handleAddTransaction: (newTransaction: AddTransactionFormValues) => void;
+  handleTransaction: (newTransaction: AddTransactionFormValues) => void;
 }
 
 export interface AddTransactionFormValues {
@@ -24,7 +25,7 @@ export interface AddTransactionFormValues {
   balanceAdditions: KeyNumberPairs;
 }
 
-const AddTransactionDialog = ({ isOpen, transactionType, categories, handleClose, handleAddTransaction }: Props): JSX.Element => {
+const AddTransactionDialog = ({ isOpen, transactionType, categories, transactionToEdit, handleClose, handleTransaction }: Props): JSX.Element => {
   const [sumOfBalances, setSumOfBalances] = useState(0);
   const { errors, control, handleSubmit, formState, setValue, watch } = useForm<AddTransactionFormValues>({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
@@ -42,7 +43,7 @@ const AddTransactionDialog = ({ isOpen, transactionType, categories, handleClose
 
   return (
     <Dialog open={isOpen} onClose={() => handleClose}>
-      <form onSubmit={handleSubmit(handleAddTransaction)}>
+      <form onSubmit={handleSubmit(handleTransaction)}>
         <DialogTitle>Add Transaction</DialogTitle>
         <DialogContent>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -53,7 +54,7 @@ const AddTransactionDialog = ({ isOpen, transactionType, categories, handleClose
               margin="normal"
               name="date"
               label="Date"
-              defaultValue={parseISO(selectedDate)}
+              defaultValue={transactionToEdit && parseISO(transactionToEdit.date) || parseISO(selectedDate)}
               value=''
               format="dd.MM.yyyy"
               onChange={(date: ParsableDate) => setValue('date', date)}
@@ -70,7 +71,7 @@ const AddTransactionDialog = ({ isOpen, transactionType, categories, handleClose
             as={TextField}
             control={control}
             rules={{required: 'Amount is required'}}
-            defaultValue=""
+            defaultValue={transactionToEdit?.amount || ''}
             margin="normal"
             name="amount"
             label="Amount"
