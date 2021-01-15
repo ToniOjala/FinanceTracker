@@ -8,6 +8,8 @@ export interface Category {
   name: string;
   type: CategoryType;
   balance: number;
+  created: string;
+  removed: string;
 }
 export type NewCategory = Omit<Category, 'id'>
 
