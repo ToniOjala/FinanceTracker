@@ -32,12 +32,20 @@ const CategorySettingsContainer = () => {
   }
 
   const handleCategory = (values: CategoryDialogValues) => {
-    dispatch(postCategory({
-      name: values.name,
-      type: values.type,
-      balance: 0,
-      created: format(new Date(), 'yyyy')
-    }));
+    if (categoryToEdit) {
+      dispatch(updateCategory({
+        ...categoryToEdit,
+        name: values.name,
+        type: values.type
+      }));
+    } else {
+      dispatch(postCategory({
+        name: values.name,
+        type: values.type,
+        balance: 0,
+        created: format(new Date(), 'yyyy')
+      }));
+    }
     closeDialog();
   }
   
@@ -46,6 +54,12 @@ const CategorySettingsContainer = () => {
     const category = { ...selectedCategory, removed: format(new Date(), 'yyyy')};
     dispatch(updateCategory(category));
     setSelectedCategory(null);
+  }
+
+  const editCategory = () => {
+    if (!selectedCategory) return;
+    setCategoryToEdit(selectedCategory);
+    openDialog();
   }
 
   return (
@@ -71,12 +85,14 @@ const CategorySettingsContainer = () => {
         </Button>
         <Button
           disabled={!selectedCategory}
+          onClick={editCategory}
         >
           Edit
         </Button>
       </Box>
       <CategoryDialog
         isOpen={isDialogOpen}
+        categoryToEdit={categoryToEdit}
         handleClose={closeDialog}
         handleCategory={handleCategory}
       />
