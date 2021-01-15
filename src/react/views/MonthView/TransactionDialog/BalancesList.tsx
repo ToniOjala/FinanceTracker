@@ -1,10 +1,8 @@
 import { Box, makeStyles, Paper, TextField, Typography } from '@material-ui/core'
-// import LockIcon from '@material-ui/icons/Lock';
-// import LockOpenIcon from '@material-ui/icons/LockOpen';
 import React from 'react'
 import { Control, Controller, DeepMap, FieldError } from 'react-hook-form';
 import { AddTransactionFormValues } from '.';
-import { Category } from '../../../shared/types'
+import { Category } from '../../../../shared/types'
 
 interface Props {
   categories: Category[];
@@ -12,10 +10,6 @@ interface Props {
   control: Control<AddTransactionFormValues>;
   errors: DeepMap<AddTransactionFormValues, FieldError>;
 }
-
-// interface Locked {
-//   [key: string]: boolean
-// }
 
 const useStyles = makeStyles({
   root: {
@@ -37,16 +31,9 @@ const useStyles = makeStyles({
 })
 
 const BalancesList = ({ categories, amount, control, errors }: Props): JSX.Element | null => {
-  // const [locked, setLocked] = useState({} as Locked);
   const classes = useStyles();
   
   if (!categories) return null;
-
-  // const toggleLocked = (categoryName: string) => {
-  //   const newLocked = {...locked}
-  //   newLocked[categoryName] = !newLocked[categoryName];
-  //   setLocked(newLocked);
-  // }
 
   return (
     <Paper variant="outlined" className={classes.root}>
@@ -68,9 +55,6 @@ const BalancesList = ({ categories, amount, control, errors }: Props): JSX.Eleme
               fullWidth
               required
             />
-            {/* <Box onClick={() => toggleLocked(category.name)}>
-              {locked[category.name] ? <LockIcon /> : <LockOpenIcon />}
-            </Box> */}
           </Box>
         )}
     </Paper>

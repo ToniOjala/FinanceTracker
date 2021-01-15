@@ -5,9 +5,9 @@ import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import { Controller, useForm } from 'react-hook-form';
 import DateFnsUtils from '@date-io/date-fns';
 import { startOfMonth, endOfMonth, parseISO } from 'date-fns';
-import { selectDate } from '../../slices/dateSelection';
+import { selectDate } from '../../../slices/dateSelection';
 import { useSelector } from 'react-redux';
-import { Category, KeyNumberPairs, Transaction } from '../../../shared/types';
+import { Category, KeyNumberPairs, Transaction } from '../../../../shared/types';
 import BalancesList from './BalancesList';
 
 interface Props {
