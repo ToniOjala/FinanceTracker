@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteTransaction, postTransaction, updateTransaction } from '../../slices/transactions';
 import { Category, CategoryType, KeyNumberPairs, NewTransaction, Transaction } from '../../../shared/types';
-import AddTransactionDialog, { AddTransactionFormValues } from '../../features/AddTransactionDialog';
+import TransactionDialog, { AddTransactionFormValues } from '../../features/TransactionDialog';
 import { formatDate } from './utils';
 import { format } from 'date-fns';
 import { updateBalances } from '../../slices/categories';
@@ -132,7 +132,7 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
       >
         Edit
       </Button>
-      <AddTransactionDialog
+      <TransactionDialog
         isOpen={isDialogOpen}
         transactionType={selectedCategory.type}
         categories={categories}

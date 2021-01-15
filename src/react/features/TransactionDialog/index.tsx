@@ -25,7 +25,7 @@ export interface AddTransactionFormValues {
   balanceAdditions: KeyNumberPairs;
 }
 
-const AddTransactionDialog = ({ isOpen, transactionType, categories, transactionToEdit, handleClose, handleTransaction }: Props): JSX.Element => {
+const TransactionDialog = ({ isOpen, transactionType, categories, transactionToEdit, handleClose, handleTransaction }: Props): JSX.Element => {
   const [sumOfBalances, setSumOfBalances] = useState(0);
   const { errors, control, handleSubmit, formState, setValue, watch } = useForm<AddTransactionFormValues>({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
@@ -109,4 +109,4 @@ const AddTransactionDialog = ({ isOpen, transactionType, categories, transaction
   )
 }
 
-export default AddTransactionDialog
+export default TransactionDialog
