@@ -12,11 +12,13 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-  className: string,
-  categories: Category[],
+  className: string;
+  categories: Category[];
+  selectedCategory: Category | null;
+  selectCategory: (category: Category) => void;
 }
 
-const CategoryTable = ({ className, categories }: Props): JSX.Element | null => {
+const CategoryTable = ({ className, categories, selectedCategory, selectCategory }: Props): JSX.Element | null => {
   const classes = useStyles();
 
   return (
@@ -37,7 +39,9 @@ const CategoryTable = ({ className, categories }: Props): JSX.Element | null => 
           {categories.map(category => (
             <TableRow
                 key={category.name}
-                hover
+                hover 
+                selected={selectedCategory === category}
+                onClick={() => selectCategory(category)}
               >
               <TableCell>{category.name}</TableCell>
               <TableCell>{category.type[0].toUpperCase() + category.type.substr(1)}</TableCell>

@@ -47,11 +47,21 @@ const CategorySettingsContainer = () => {
       <CategoryTable
         className={classes.table}
         categories={categories}
+        selectedCategory={selectedCategory}
+        selectCategory={setSelectedCategory}
       />
       <Box display="flex">
         <Button onClick={openDialog}>Add</Button>
-        <Button>Remove</Button>
-        <Button>Edit</Button>
+        <Button
+          disabled={!selectedCategory}
+        >
+          Remove
+        </Button>
+        <Button
+          disabled={!selectedCategory}
+        >
+          Edit
+        </Button>
       </Box>
       <CategoryDialog
         isOpen={isDialogOpen}
