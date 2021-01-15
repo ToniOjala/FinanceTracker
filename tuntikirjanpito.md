@@ -43,5 +43,6 @@
 | 12.01.21 | 2 | Issue #8:n koodausta. Epäonnistunut yritys saada "monimutkainen" logiikka toimimaan.
 | 13.01.21 | 1.5 | Issue #8:n viimeistely ja UI:n ulkonäön parantelua
 | 14.01.21 | 1.5 | Transaktioiden poistamisen mahdollisuuden lisäys sekä bugikorjauksia
-| yht   | 102.5   | | 
+| 15.01.21 | 4.5 | Transaktioiden muokkaamisen mahdollisuus, kategorioiden muokkaamisen ja poistamisen mahdollisuus,<br>budjettien lisäyksen korjaus
+| yht   | 107   | | 
 
