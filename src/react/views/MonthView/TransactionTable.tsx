@@ -2,11 +2,12 @@ import { Button, Card, makeStyles, Table, TableCell, TableContainer, TableHead, 
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteTransaction, postTransaction, updateTransaction } from '../../slices/transactions';
-import { Category, CategoryType, NewTransaction, Transaction } from '../../../shared/types';
+import { Category, CategoryType, NewBalanceLog, NewTransaction, Transaction } from '../../../shared/types';
 import TransactionDialog, { AddTransactionFormValues } from './TransactionDialog';
 import { formatDate } from './utils';
 import { format } from 'date-fns';
 import { updateCategory } from '../../slices/categories';
+import { saveBalanceLog } from '../../slices/balanceLogs';
 
 const useStyles = makeStyles({
   root: {
@@ -40,11 +41,6 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
     setSelectedTransaction(null);
   }
 
-  const editTransaction = () => {
-    setTransactionToEdit(selectedTransaction);
-    openDialog();
-  }
-
   const handleTransaction = (values: AddTransactionFormValues) => {
     if (transactionToEdit) {
       dispatch(updateTransaction({
@@ -66,8 +62,9 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
     if (selectedCategory.type === CategoryType.Income) {
       for (const category of categories) {
         if (values.balanceAdditions[category.name]) {
+          const amount = Number(values.balanceAdditions[category.name]);
           const categoryToUpdate = { ...category };
-          categoryToUpdate.balance += Number(values.balanceAdditions[category.name]);
+          categoryToUpdate.balance += amount;
           dispatch(updateCategory(categoryToUpdate));
         }
       }
@@ -75,6 +72,11 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
 
     dispatch(postTransaction(newTransaction));
     closeDialog();
+  }
+
+  const editTransaction = () => {
+    setTransactionToEdit(selectedTransaction);
+    openDialog();
   }
 
   const removeTransaction = () => {
