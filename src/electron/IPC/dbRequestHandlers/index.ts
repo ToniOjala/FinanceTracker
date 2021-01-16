@@ -1,4 +1,4 @@
-import { handleCategoryRequest } from './categories';
+import { handleCategoryRequest } from './categoryHandler';
 import { handleTransactionRequest } from './transactionHandler';
 import { handleBudgetRequest } from './budgets';
 import { DBTable, KeyValuePair } from '../../../shared/types';

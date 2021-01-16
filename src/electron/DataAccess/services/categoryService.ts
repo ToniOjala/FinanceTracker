@@ -21,14 +21,12 @@ export default class CategoryService {
   saveCategory(category: NewCategory) {
     const sql = 'INSERT INTO categories (name, type, balance, created) VALUES (?, ?, ?, ?)';
     const id = this.db.run(sql, [category.name, category.type, 0, category.created]);
-    const savedCategory = this.db.get<Category>('SELECT * FROM categories WHERE id = ?', id);
-    return savedCategory;
+    return this.db.get<Category>('SELECT * FROM categories WHERE id = ?', id);
   }
 
   updateCategory(category: Category) {
     const sql = "UPDATE categories SET name = ?, balance = ?, removed = ? WHERE id = ?";
     this.db.run(sql, [category.name, category.balance, category.removed, category.id]);
-    return category;
   }
 
   addToBalanceOfCategory(categoryId: number, amount: number): Category {
