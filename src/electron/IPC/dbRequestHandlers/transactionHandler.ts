@@ -66,6 +66,6 @@ function handleDelete(transaction: Transaction): boolean {
 function handleUpdate(transaction: Transaction): Transaction {
   const oldTransaction = transactionService.getTransaction(transaction.id);
   transactionService.updateTransaction(transaction);
-  categoryService.addToBalanceOfCategory(transaction.categoryId, (transaction.amount - oldTransaction.amount));
+  categoryService.addToBalanceOfCategory(transaction.categoryId, (oldTransaction.amount - transaction.amount));
   return transactionService.getTransaction(transaction.id);
 }
