@@ -1,5 +1,5 @@
 import { handleCategoryRequest } from './categories';
-import { handleTransactionRequest } from './transactions';
+import { handleTransactionRequest } from './transactionHandler';
 import { handleBudgetRequest } from './budgets';
 import { DBTable, KeyValuePair } from '../../../shared/types';
 import { handleBalanceLogRequest } from './balanceLog';
