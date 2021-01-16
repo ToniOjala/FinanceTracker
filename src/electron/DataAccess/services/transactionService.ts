@@ -1,14 +1,11 @@
 import { NewTransaction, Transaction } from '../../../shared/types';
-import CategoryService from './categoryService';
 import SqliteDataAccess from '../SqliteDataAccess';
 
 export default class TransactionService {
   private db;
-  private categoryService;
 
   constructor() {
     this.db = new SqliteDataAccess();
-    this.categoryService = new CategoryService();
   }
 
   getTransaction(id: number): Transaction {
@@ -42,12 +39,10 @@ export default class TransactionService {
 
   deleteTransaction(transaction: Transaction): void {
     this.db.run('DELETE FROM transactions WHERE id = ?', transaction.id);
-    this.categoryService.addToBalanceOfCategory(transaction.categoryId, transaction.amount);
   }
 
   updateTransaction(transaction: Transaction): void {
     const oldTransaction = this.db.get<Transaction>('SELECT * FROM transactions WHERE id = ?', transaction.id);
     this.db.run('UPDATE transactions SET amount = ?, date = ? WHERE id = ?', [transaction.amount, transaction.date, transaction.id]);
-    this.categoryService.addToBalanceOfCategory(transaction.categoryId, (transaction.amount - oldTransaction.amount))
   }
 }
