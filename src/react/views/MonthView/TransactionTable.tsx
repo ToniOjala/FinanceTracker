@@ -2,11 +2,11 @@ import { Button, Card, makeStyles, Table, TableCell, TableContainer, TableHead, 
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteTransaction, postTransaction, updateTransaction } from '../../slices/transactions';
-import { Category, CategoryType, KeyNumberPairs, NewTransaction, Transaction } from '../../../shared/types';
+import { Category, CategoryType, NewTransaction, Transaction } from '../../../shared/types';
 import TransactionDialog, { AddTransactionFormValues } from './TransactionDialog';
 import { formatDate } from './utils';
 import { format } from 'date-fns';
-import { updateBalances } from '../../slices/categories';
+import { updateCategory } from '../../slices/categories';
 
 const useStyles = makeStyles({
   root: {
@@ -64,13 +64,13 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
     }
 
     if (selectedCategory.type === CategoryType.Income) {
-      const balancesToAdd = {} as KeyNumberPairs;
       for (const category of categories) {
         if (values.balanceAdditions[category.name]) {
-          balancesToAdd[category.id] = Number(values.balanceAdditions[category.name]);
+          const categoryToUpdate = { ...category };
+          categoryToUpdate.balance += Number(values.balanceAdditions[category.name]);
+          dispatch(updateCategory(categoryToUpdate));
         }
       }
-      dispatch(updateBalances(balancesToAdd));
     }
 
     dispatch(postTransaction(newTransaction));

@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
-import { getCategories, saveCategory, addToBalance, updateCategoryInDB } from '../services/categoryService';
-import { Category, CategoryType, KeyNumberPairs, NewCategory } from '../../shared/types';
+import { getCategories, saveCategory, updateCategoryInDB } from '../services/categoryService';
+import { Category, CategoryType, NewCategory } from '../../shared/types';
 
 const categorySlice = createSlice({
   name: 'category',
@@ -45,23 +45,6 @@ export const postCategory = (category: NewCategory): AppThunk => async dispatch 
     dispatch(addCategory(savedCategory));
   } catch (error) {
     console.error('Error while posting category: ', error);
-  }
-}
-
-export const updateBalances = (balances: KeyNumberPairs): AppThunk => async dispatch => {
-  const updatedCategories: Category[] = [];
-  try {
-    for (const categoryId in balances) {
-      const balance = balances[categoryId];
-      if (balance > 0) {
-        const updatedCategory = await addToBalance(Number(categoryId), balance);
-        updatedCategories.push(updatedCategory);
-      }
-    }
-
-    dispatch(replaceCategories(updatedCategories));
-  } catch (error) {
-    console.error('Error while updating balance: ', error);
   }
 }
 
