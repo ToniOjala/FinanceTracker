@@ -48,7 +48,7 @@ const SetBudgetsDialog = ({ isOpen, categoryName, handleClose, handleAddToBalanc
           <Button
             type="submit"
             color="primary"
-            disabled={!isDirty || !isValid || watchAmount <= 0}
+            disabled={!isDirty || !isValid || watchAmount == 0}
           >
             Add
           </Button>
