@@ -44,5 +44,6 @@
 | 13.01.21 | 1.5 | Issue #8:n viimeistely ja UI:n ulkonäön parantelua
 | 14.01.21 | 1.5 | Transaktioiden poistamisen mahdollisuuden lisäys sekä bugikorjauksia
 | 15.01.21 | 4.5 | Transaktioiden muokkaamisen mahdollisuus, kategorioiden muokkaamisen ja poistamisen mahdollisuus,<br>budjettien lisäyksen korjaus
-| yht   | 107   | | 
+| 16.01.21 | 2.5 | Saldojen muutosten logien lisäämistä
+| yht   | 109.5   | | 
 
