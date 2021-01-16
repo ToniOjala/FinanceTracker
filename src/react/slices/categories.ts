@@ -14,20 +14,16 @@ const categorySlice = createSlice({
     addCategory: (state, action) => {
       state.push(action.payload);
     },
-    replaceCategories: (state, action) => {
-      let newState: Category[] = [];
-      action.payload.forEach((updatedCategory: Category) => {
-        newState = state.map((category: Category) => {
-          if (category.id === updatedCategory.id) return updatedCategory;
-          return category;
-        });
+    replaceCategory: (state, action) => {
+      return state.map(cat => {
+        if (cat.id === action.payload.id) return action.payload;
+        return cat;
       });
-      return newState;
     }
   }
 })
 
-export const { setCategories, addCategory, replaceCategories } = categorySlice.actions;
+export const { setCategories, addCategory, replaceCategory } = categorySlice.actions;
 export default categorySlice.reducer;
 
 export const fetchCategories = (): AppThunk => async dispatch => {
@@ -51,7 +47,7 @@ export const postCategory = (category: NewCategory): AppThunk => async dispatch 
 export const updateCategory = (category: Category): AppThunk => async dispatch => {
   try {
     const updatedCategory = await updateCategoryInDB(category);
-    dispatch(replaceCategories([updatedCategory]));
+    dispatch(replaceCategory(updatedCategory));
   } catch (error) {
     console.error('Error while updating category: ', error);
   }
