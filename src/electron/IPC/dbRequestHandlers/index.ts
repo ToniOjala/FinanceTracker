@@ -1,8 +1,8 @@
 import { handleCategoryRequest } from './categoryHandler';
 import { handleTransactionRequest } from './transactionHandler';
 import { handleBudgetRequest } from './budgetHandler';
+import { handleBalanceLogRequest } from './balanceLogHandler';
 import { DBTable, KeyValuePair } from '../../../shared/types';
-import { handleBalanceLogRequest } from './balanceLog';
 
 export function handleDatabaseRequest(table: DBTable, requestType: string, data?: KeyValuePair, query?: KeyValuePair) {
   try {
