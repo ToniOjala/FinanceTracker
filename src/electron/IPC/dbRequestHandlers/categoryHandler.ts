@@ -36,7 +36,8 @@ function handleGetMany(): Category[] {
 }
 
 function handlePost(category: NewCategory): Category {
-  return categoryService.saveCategory(category);
+  const id = categoryService.saveCategory(category);
+  return categoryService.getCategory(id);
 }
 
 function handleUpdate(category: Category): Category {

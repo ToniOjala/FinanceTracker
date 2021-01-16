@@ -18,21 +18,19 @@ export default class CategoryService {
     return categories;
   }
 
-  saveCategory(category: NewCategory) {
+  saveCategory(category: NewCategory): number {
     const sql = 'INSERT INTO categories (name, type, balance, created) VALUES (?, ?, ?, ?)';
-    const id = this.db.run(sql, [category.name, category.type, 0, category.created]);
-    return this.db.get<Category>('SELECT * FROM categories WHERE id = ?', id);
+    return this.db.run(sql, [category.name, category.type, 0, category.created]);
   }
 
-  updateCategory(category: Category) {
+  updateCategory(category: Category): void {
     const sql = "UPDATE categories SET name = ?, balance = ?, removed = ? WHERE id = ?";
     this.db.run(sql, [category.name, category.balance, category.removed, category.id]);
   }
 
-  addToBalanceOfCategory(categoryId: number, amount: number): Category {
+  addToBalanceOfCategory(categoryId: number, amount: number): void {
     const category = this.db.get<Category>('SELECT * FROM categories WHERE id = ?', categoryId);
     category.balance += amount;
     this.db.run('UPDATE categories SET balance = ? WHERE id = ?', [ category.balance, categoryId ]);
-    return category;
   }
 }
