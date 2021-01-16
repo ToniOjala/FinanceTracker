@@ -34,9 +34,11 @@ export type DbBudget = Omit<BaseBudget, 'category'>
 
 export interface BalanceLog {
   id: number;
-  amount: number;
   categoryId: number;
+  transactionId: number;
+  amount: number;
   date: string;
+  type: 'manual' | 'income' | 'expense';
 }
 export type NewBalanceLog = Omit<BalanceLog, 'id'>
 
