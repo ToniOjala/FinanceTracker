@@ -1,6 +1,7 @@
 import { makeStyles, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import React from 'react'
 import { Category } from '../../../shared/types'
+import { roundToDecimals } from '../../utils/round'
 
 const useStyles = makeStyles({
   headerCell: {
@@ -38,7 +39,7 @@ const BalanceTable = ({ className, categories }: Props): JSX.Element | null => {
                 hover
               >
               <TableCell>{category.name}</TableCell>
-              <TableCell>{category.balance}</TableCell>
+              <TableCell>{roundToDecimals(category.balance, 2)}</TableCell>
             </TableRow>
           ))}
         </TableBody>
