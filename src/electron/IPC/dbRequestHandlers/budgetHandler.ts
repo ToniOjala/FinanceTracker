@@ -21,7 +21,7 @@ export function handleBudgetRequest(requestType: string, data?: KeyValuePair, qu
   }
 }
 
-function handleGetLatest(date: string) {
+function handleGetLatest(date: string): KeyValuePair {
   const latestBudgetPerCategory: KeyValuePair = {};
   const categories = categoryService.getCategories();
   for (const category of categories) {
@@ -35,7 +35,7 @@ function handleGetLatest(date: string) {
   return latestBudgetPerCategory;
 }
 
-function handlePostMany(budgets: NewBudget[]) {
+function handlePostMany(budgets: NewBudget[]): Budget[] {
   const savedBudgets = [] as Budget[];
   for (const budget of budgets) {
     const latestBudget = budgetService.getLatestBudget(budget.categoryId, budget.startDate);
@@ -43,13 +43,13 @@ function handlePostMany(budgets: NewBudget[]) {
     
     const category = categoryService.getCategory(budget.categoryId);
     if (latestBudget && latestBudget.amount !== budget.amount && latestBudget.startDate === budget.startDate) {
-      const updatedBudget = budgetService.updateBudget({ ...latestBudget, amount: budget.amount });
-      savedBudgets.push({ ...updatedBudget, category });
+      budgetService.updateBudget({ ...latestBudget, amount: budget.amount });
+      savedBudgets.push(budgetService.getBudget(latestBudget.id));
       continue;
     }
 
-    const savedBudget = budgetService.saveBudget(budget);
-    savedBudgets.push({ ...savedBudget, category });
+    const id = budgetService.saveBudget(budget);
+    savedBudgets.push(budgetService.getBudget(id));
   }
   return savedBudgets;
 }
