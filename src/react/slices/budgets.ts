@@ -36,7 +36,6 @@ export const fetchLatestBudgets = (date: string): AppThunk => async dispatch => 
 export const saveBudgets = (budgets: NewBudget[]): AppThunk => async dispatch => {
   try {
     const savedBudgets = await postBudgets(budgets);
-    console.log('saved budgets: ', savedBudgets);
     if (savedBudgets.length > 0) dispatch(addBudgets(savedBudgets));
   } catch (error) {
     console.error('Error while saving budgets', error);

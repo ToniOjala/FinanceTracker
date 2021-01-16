@@ -32,10 +32,19 @@ export type Budget = Omit<BaseBudget, 'categoryId'>
 export type NewBudget = Omit<BaseBudget, 'id' | 'category'>
 export type DbBudget = Omit<BaseBudget, 'category'>
 
+export interface BalanceLog {
+  id: number;
+  amount: number;
+  categoryId: number;
+  date: string;
+}
+export type NewBalanceLog = Omit<BalanceLog, 'id'>
+
 export enum DBTable {
   CATEGORIES = 'categories',
   TRANSACTIONS = 'transactions',
-  BUDGETS = 'budgets'
+  BUDGETS = 'budgets',
+  BALANCELOGS = 'balanceLogs'
 }
 
 export interface DBRequestParams {
