@@ -1,43 +1,42 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core';
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { Category } from '../../../shared/types';
-
-export interface CategoryBalances {
-  [key: string]: number;
-}
+import { Controller, useForm, SubmitHandler } from 'react-hook-form';
 
 interface Props {
   isOpen: boolean;
-  categories: Category[];
+  categoryName: string | undefined;
   handleClose: () => void;
-  handleAddToBalance: (balances: CategoryBalances) => void;
+  handleAddToBalance: (values: AddBalanceValues) => void;
 }
 
-const SetBudgetsDialog = ({ isOpen, categories, handleClose, handleAddToBalance }: Props): JSX.Element => {
-  const { errors, control, handleSubmit, formState } = useForm({ mode: 'onChange' });
+interface AddBalanceValues {
+  amount: number;
+}
+
+const SetBudgetsDialog = ({ isOpen, categoryName, handleClose, handleAddToBalance }: Props): JSX.Element => {
+  const { errors, control, formState, handleSubmit, watch } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
+  const onSubmit: SubmitHandler<AddBalanceValues> = data => handleAddToBalance(data);
+  const watchAmount = watch('amount', 0);
 
   return (
     <Dialog maxWidth='xs' open={isOpen} onClose={() => handleClose}>
-      <form onSubmit={handleSubmit(handleAddToBalance)}>
-        <DialogTitle>Add to Balance</DialogTitle>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <DialogTitle>Add Balance to {categoryName}</DialogTitle>
         <DialogContent>
-          {categories.map(category => (
-            <Controller
-              key={category.name}
-              as={<TextField />}
-              control={control}
-              margin="normal"
-              name={`${category.name}`}
-              label={`${category.name}`}
-              defaultValue='0'
-              error={errors[`${category.name}`] && true}
-              helperText={errors[`${category.name}`]?.message}
-              fullWidth
-              required
-            />
-          ))}
+        <Controller
+          as={<TextField />}
+          control={control}
+          rules={{required: 'Amount is required'}}
+          margin="normal"
+          name="amount"
+          label="Amount"
+          defaultValue='0'
+          error={errors['amount'] && true}
+          helperText={errors['amount']?.message}
+          fullWidth
+          required
+        />
         </DialogContent>
         <DialogActions>
           <Button
@@ -49,7 +48,7 @@ const SetBudgetsDialog = ({ isOpen, categories, handleClose, handleAddToBalance 
           <Button
             type="submit"
             color="primary"
-            disabled={!isDirty || !isValid}
+            disabled={!isDirty || !isValid || watchAmount <= 0}
           >
             Add
           </Button>

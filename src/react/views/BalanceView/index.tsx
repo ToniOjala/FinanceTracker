@@ -1,9 +1,10 @@
 import { Button, makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCategories, selectExpenseCategories, updateBalances } from '../../slices/categories';
+import { Category } from '../../../shared/types';
+import { fetchCategories, selectExpenseCategories, updateCategory } from '../../slices/categories';
 import { setDateSelectionStatus } from '../../slices/dateSelection';
-import AddBalanceDialog, { CategoryBalances } from './AddBalanceDialog';
+import AddBalanceDialog from './AddBalanceDialog';
 import BalanceTable from './BalanceTable';
 
 const useStyles = makeStyles({
@@ -18,6 +19,7 @@ const useStyles = makeStyles({
 
 const BalanceView = (): JSX.Element => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -31,14 +33,11 @@ const BalanceView = (): JSX.Element => {
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
 
-  const addToBalance = (balances: CategoryBalances) => {
-    const balancesToAdd = {} as CategoryBalances;
-    for (const category of categories) {
-      if (balances[category.name]) {
-        balancesToAdd[category.id] = Number(balances[category.name]);
-      }
-    }
-    dispatch(updateBalances(balancesToAdd));
+  const addToBalance = (values: { amount: number }) => {
+    if (!selectedCategory) return;
+    const categoryToUpdate = { ...selectedCategory }
+    categoryToUpdate.balance += Number(values.amount);
+    dispatch(updateCategory(categoryToUpdate));
     closeDialog();
   }
 
@@ -47,11 +46,13 @@ const BalanceView = (): JSX.Element => {
       <BalanceTable
         className={classes.table}
         categories={categories}
+        selectedCategory={selectedCategory}
+        selectCategory={setSelectedCategory}
       />
-      <Button onClick={openDialog}>Add to Balance</Button>
+      <Button onClick={openDialog}>Add Balance</Button>
       <AddBalanceDialog
         isOpen={isDialogOpen}
-        categories={categories}
+        categoryName={selectedCategory?.name}
         handleClose={closeDialog}
         handleAddToBalance={addToBalance}
       />

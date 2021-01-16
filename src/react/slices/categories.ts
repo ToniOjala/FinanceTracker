@@ -2,8 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
 import { getCategories, saveCategory, addToBalance, updateCategoryInDB } from '../services/categoryService';
-import { Category, CategoryType, NewCategory } from '../../shared/types';
-import { CategoryBalances } from '../views/BalanceView/AddBalanceDialog';
+import { Category, CategoryType, KeyNumberPairs, NewCategory } from '../../shared/types';
 
 const categorySlice = createSlice({
   name: 'category',
@@ -49,7 +48,7 @@ export const postCategory = (category: NewCategory): AppThunk => async dispatch 
   }
 }
 
-export const updateBalances = (balances: CategoryBalances): AppThunk => async dispatch => {
+export const updateBalances = (balances: KeyNumberPairs): AppThunk => async dispatch => {
   const updatedCategories: Category[] = [];
   try {
     for (const categoryId in balances) {

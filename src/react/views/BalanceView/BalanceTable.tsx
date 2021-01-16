@@ -15,9 +15,11 @@ const useStyles = makeStyles({
 interface Props {
   className: string,
   categories: Category[],
+  selectedCategory: Category | null;
+  selectCategory: (category: Category) => void;
 }
 
-const BalanceTable = ({ className, categories }: Props): JSX.Element | null => {
+const BalanceTable = ({ className, categories, selectedCategory, selectCategory }: Props): JSX.Element | null => {
   const classes = useStyles();  
 
   return (
@@ -37,6 +39,8 @@ const BalanceTable = ({ className, categories }: Props): JSX.Element | null => {
             <TableRow
                 key={category.name}
                 hover
+                selected={category.id === selectedCategory?.id}
+                onClick={() => selectCategory(category)}
               >
               <TableCell>{category.name}</TableCell>
               <TableCell>{roundToDecimals(category.balance, 2)}</TableCell>

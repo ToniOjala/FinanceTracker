@@ -26,8 +26,8 @@ export default class CategoryService {
   }
 
   updateCategory(category: Category) {
-    const sql = "UPDATE categories SET name = ?, removed = ? WHERE id = ?";
-    this.db.run(sql, [category.name, category.removed, category.id]);
+    const sql = "UPDATE categories SET name = ?, balance = ?, removed = ? WHERE id = ?";
+    this.db.run(sql, [category.name, category.balance, category.removed, category.id]);
     return category;
   }
 
