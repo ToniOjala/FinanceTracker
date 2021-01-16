@@ -44,12 +44,12 @@ function handlePostMany(budgets: NewBudget[]): Budget[] {
     const category = categoryService.getCategory(budget.categoryId);
     if (latestBudget && latestBudget.amount !== budget.amount && latestBudget.startDate === budget.startDate) {
       budgetService.updateBudget({ ...latestBudget, amount: budget.amount });
-      savedBudgets.push(budgetService.getBudget(latestBudget.id));
+      savedBudgets.push({ ...budgetService.getBudget(latestBudget.id), category });
       continue;
     }
 
     const id = budgetService.saveBudget(budget);
-    savedBudgets.push(budgetService.getBudget(id));
+    savedBudgets.push({ ...budgetService.getBudget(id), category });
   }
   return savedBudgets;
 }
