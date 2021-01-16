@@ -35,10 +35,9 @@ export default class TransactionService {
     return this.db.getAll<Transaction>(sql);
   }
 
-  saveTransaction(transaction: NewTransaction): Transaction {
+  saveTransaction(transaction: NewTransaction): number {
     const sql = 'INSERT INTO transactions (amount, date, categoryId) VALUES (?, ?, ?)';
-    const id = this.db.run(sql, [transaction.amount, transaction.date, transaction.categoryId]);
-    return this.db.get<Transaction>('SELECT * FROM transactions WHERE id = ?', id);
+    return this.db.run(sql, [transaction.amount, transaction.date, transaction.categoryId]);
   }
 
   deleteTransaction(transaction: Transaction): void {

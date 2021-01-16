@@ -50,7 +50,8 @@ function handleYearlyData(year: number): KeyValuePair {
 }
 
 function handlePost(transaction: NewTransaction): Transaction {
-  const savedTransaction = transactionService.saveTransaction(transaction);
+  const id = transactionService.saveTransaction(transaction);
+  const savedTransaction = transactionService.getTransaction(id);
   if (savedTransaction) categoryService.addToBalanceOfCategory(savedTransaction.categoryId, -savedTransaction.amount);
   return savedTransaction;
 }
