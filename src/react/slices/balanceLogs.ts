@@ -6,7 +6,7 @@ import { getBalanceLogs, postBalanceLog } from '../services/balanceLogService';
 
 const balanceLogSlice = createSlice({
   name: 'balanceLog',
-  initialState: {} as BalanceLog[],
+  initialState: [] as BalanceLog[],
   reducers: {
     setBalanceLogs: (state, action) => {
       return action.payload;
