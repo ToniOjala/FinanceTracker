@@ -49,7 +49,12 @@ const BalanceView = (): JSX.Element => {
         selectedCategory={selectedCategory}
         selectCategory={setSelectedCategory}
       />
-      <Button onClick={openDialog}>Add Balance</Button>
+      <Button
+        disabled={!selectedCategory}
+        onClick={openDialog}
+      >
+        Add Balance
+      </Button>
       <AddBalanceDialog
         isOpen={isDialogOpen}
         categoryName={selectedCategory?.name}
