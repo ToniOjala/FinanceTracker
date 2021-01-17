@@ -14,7 +14,7 @@ export default class CategoryService {
   }
 
   getCategories(): Category[] {
-    const categories: Category[] = this.db.getAll<Category>('SELECT * FROM categories ORDER BY type DESC');
+    const categories: Category[] = this.db.getMany<Category>('SELECT * FROM categories ORDER BY type DESC');
     return categories;
   }
 

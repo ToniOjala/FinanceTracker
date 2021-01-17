@@ -30,9 +30,10 @@ export default class SqliteDataAccess {
     return id as number;
   }
 
-  public getAll<T>(sql: string) {
+  public getMany<T>(sql: string, params?: unknown) {
     this.connect();
-    const data: T[] = this.db?.prepare(sql).all() || [];
+    const stmt = this.db?.prepare(sql);
+    const data: T[] = ((!params) ? stmt?.all() : stmt?.all(params)) || [];
     this.disconnect();
     return data;
   }
@@ -41,6 +42,7 @@ export default class SqliteDataAccess {
     this.connect();
     const stmt = this.db?.prepare(sql);
     const data: T = (!params) ? stmt?.get() : stmt?.get(params);
+    console.log('GET: data received = ', data);
     this.disconnect();
     return data;
   }
