@@ -39,12 +39,12 @@
 | 08.01.21 | 1.5 | Kotinäkymän koodausta
 | 09.01.21 | 4 | Kotinäkymän muuttaminen saldonäkymäksi, tyypitysten parantelua
 | 10.01.21 | 3 | React-komponenttien koodausta
-| 11.01.21 | 1 | Issue #8:n koodausta. https://github.com/ToniOjala/FinanceTracker/issues/8 
-| 12.01.21 | 2 | Issue #8:n koodausta. Epäonnistunut yritys saada "monimutkainen" logiikka toimimaan.
-| 13.01.21 | 1.5 | Issue #8:n viimeistely ja UI:n ulkonäön parantelua
+| 11.01.21 | 1 | [Issue #8:n](https://github.com/ToniOjala/FinanceTracker/issues/8) koodausta
+| 12.01.21 | 2 | [Issue #8:n](https://github.com/ToniOjala/FinanceTracker/issues/8) koodausta. Epäonnistunut yritys saada "monimutkainen" logiikka toimimaan.
+| 13.01.21 | 1.5 | [Issue #8:n](https://github.com/ToniOjala/FinanceTracker/issues/8) viimeistely ja UI:n ulkonäön parantelua
 | 14.01.21 | 1.5 | Transaktioiden poistamisen mahdollisuuden lisäys sekä bugikorjauksia
 | 15.01.21 | 4.5 | Transaktioiden muokkaamisen mahdollisuus, kategorioiden muokkaamisen ja poistamisen mahdollisuus,<br>budjettien lisäyksen korjaus
-| 16.01.21 | 4 | Saldojen muutosten logit: https://github.com/ToniOjala/FinanceTracker/issues/11, koodin selkeyttämistä
-| 17.01.21 | 5 | Saldojen muutosten logit (Issue #11), tyylien kirjoittelua, bugikorjauksia
+| 16.01.21 | 4 | [Saldojen muutosten logit](https://github.com/ToniOjala/FinanceTracker/issues/11), koodin selkeyttämistä
+| 17.01.21 | 5 | [Saldojen muutosten logit](https://github.com/ToniOjala/FinanceTracker/issues/11), tyylien kirjoittelua, bugikorjauksia
 | yht   | 116   | | 
 
