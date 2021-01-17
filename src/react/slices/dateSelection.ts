@@ -26,6 +26,6 @@ export const { setSelectedDate, setDateSelectionStatus } = dateSelectionSlice.ac
 export default dateSelectionSlice.reducer;
 
 export const selectDate = (state: RootState): string => state.dateSelection.selectedDate;
-export const selectYearAndMonth = (state: RootState): Array<number> => [getYear(new Date(state.dateSelection.selectedDate)), getMonth(new Date(state.dateSelection.selectedDate))];
+export const selectYearAndMonth = (state: RootState): Array<number> => [getYear(new Date(state.dateSelection.selectedDate)), getMonth(new Date(state.dateSelection.selectedDate))+1];
 export const selectYear = (state: RootState): number => getYear(new Date(state.dateSelection.selectedDate));
 export const selectDateSelectionStatus = (state: RootState): string => state.dateSelection.componentStatus;
