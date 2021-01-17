@@ -3,8 +3,8 @@ import { getMany, post, update, deleteItem, getCustom } from './dbService';
 
 const table = DBTable.BALANCELOGS;
 
-export function getBalanceLogs(categoryId: number): Promise<BalanceLog[]> {
-  return getMany<BalanceLog[]>(table, { categoryId });
+export function getBalanceLogs(categoryId: number, page: number): Promise<BalanceLog[]> {
+  return getMany<BalanceLog[]>(table, { categoryId, page });
 }
 
 export function getBalanceLogCount(categoryId: number): Promise<number> {

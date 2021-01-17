@@ -28,9 +28,9 @@ const balanceLogSlice = createSlice({
 export const { setBalanceLogs, setCount, addBalanceLog } = balanceLogSlice.actions;
 export default balanceLogSlice.reducer;
 
-export const fetchBalanceLogs = (categoryId: number): AppThunk => async dispatch => {
+export const fetchBalanceLogs = (categoryId: number, page: number): AppThunk => async dispatch => {
   try {
-    const balanceLogs = await getBalanceLogs(categoryId);
+    const balanceLogs = await getBalanceLogs(categoryId, page);
     dispatch(setBalanceLogs(balanceLogs));
   } catch (error) {
     console.error('Error while fetcing balance logs: ', error)

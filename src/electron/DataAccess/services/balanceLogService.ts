@@ -13,9 +13,9 @@ export default class BalanceLogService {
     return this.db.get<BalanceLog>(sql, id);
   }
 
-  getBalanceLogs(categoryId: number): BalanceLog[] {
-    const sql = 'SELECT * FROM balanceLogs WHERE categoryId = ?';
-    return this.db.getMany<BalanceLog>(sql, categoryId);
+  getBalanceLogs(categoryId: number, page: number): BalanceLog[] {
+    const sql = 'SELECT * FROM balanceLogs WHERE categoryId = ? ORDER BY date DESC LIMIT 20 OFFSET 20 * ?';
+    return this.db.getMany<BalanceLog>(sql, [categoryId, page - 1]);
   }
 
   getCountOfBalanceLogs(categoryId: number): number {

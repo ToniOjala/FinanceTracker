@@ -8,8 +8,8 @@ export function handleBalanceLogRequest(requestType: string, data?: KeyValuePair
   
   switch (requestType) {
     case 'getMany':
-      if (!query || !query.categoryId) throw new Error('Category ID was not given');
-      return handleGetMany(query.categoryId as number);
+      if (!query || !query.categoryId || !query.page) throw new Error('Query parameters were not given');
+      return handleGetMany(query.categoryId as number, query.page as number);
     case 'getCount':
       if (!query || !query.categoryId) throw new Error('Category ID was not given');
       return handleGetCount(query.categoryId as number);
@@ -27,8 +27,8 @@ export function handleBalanceLogRequest(requestType: string, data?: KeyValuePair
   }
 }
 
-function handleGetMany(categoryId: number): BalanceLog[] {
-  return balanceLogService.getBalanceLogs(categoryId);
+function handleGetMany(categoryId: number, page: number): BalanceLog[] {
+  return balanceLogService.getBalanceLogs(categoryId, page);
 }
 
 function handleGetCount(categoryId: number): number {
