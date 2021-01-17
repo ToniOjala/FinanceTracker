@@ -42,7 +42,6 @@ export default class SqliteDataAccess {
     this.connect();
     const stmt = this.db?.prepare(sql);
     const data: T = (!params) ? stmt?.get() : stmt?.get(params);
-    console.log('GET: data received = ', data);
     this.disconnect();
     return data;
   }
