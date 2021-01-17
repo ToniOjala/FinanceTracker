@@ -53,21 +53,40 @@ function handleYearlyData(year: number): KeyValuePair {
   return yearlyData;
 }
 
-function handlePost(transaction: NewTransaction): Transaction {
-  const id = transactionService.saveTransaction(transaction);
+function handlePost(newTransaction: NewTransaction): Transaction {
+  const id = transactionService.saveTransaction(newTransaction);
   const savedTransaction = transactionService.getTransaction(id);
-  if (savedTransaction) {
-    const category = categoryService.getCategory(savedTransaction.categoryId);
-    categoryService.addToBalanceOfCategory(savedTransaction.categoryId, -savedTransaction.amount);
-    balanceLogService.saveBalanceLog({
-      categoryId: category.id,
-      amount: savedTransaction.amount,
-      date: savedTransaction.date,
-      type: category.type,
-      reason: 'add'
-    });
-  }
+  if (savedTransaction && newTransaction.type === 'expense') handleExpense(savedTransaction);
+  if (savedTransaction && newTransaction.type === 'income') handleIncome(newTransaction)
   return savedTransaction;
+}
+
+function handleIncome(transaction: NewTransaction) {
+  const categories = categoryService.getCategories();
+  for(const category of categories) {
+    if (transaction[category.name]) {
+      categoryService.addToBalanceOfCategory(category.id, Number(transaction[category.name]));
+      balanceLogService.saveBalanceLog({
+        categoryId: category.id,
+        amount: Number(transaction[category.name]),
+        date: transaction.date,
+        type: transaction.type,
+        reason: 'add',
+      });
+    }
+  }
+}
+
+function handleExpense(transaction: Transaction) {
+  const category = categoryService.getCategory(transaction.categoryId);
+  categoryService.addToBalanceOfCategory(transaction.categoryId, -transaction.amount);
+  balanceLogService.saveBalanceLog({
+    categoryId: category.id,
+    amount: transaction.amount,
+    date: transaction.date,
+    type: category.type,
+    reason: 'add'
+  });
 }
 
 function handleDelete(transaction: Transaction): boolean {

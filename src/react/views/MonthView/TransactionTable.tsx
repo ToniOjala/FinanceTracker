@@ -6,7 +6,6 @@ import { Category, NewTransaction, Transaction } from '../../../shared/types';
 import TransactionDialog, { AddTransactionFormValues } from './TransactionDialog';
 import { formatDate } from '../../utils/format';
 import { format } from 'date-fns';
-import { updateCategory } from '../../slices/categories';
 
 const useStyles = makeStyles({
   root: {
@@ -55,17 +54,13 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
     const newTransaction: NewTransaction = {
       date: format(values.date, 'yyyy-MM-dd'),
       amount: Number.parseFloat(values.amount),
-      categoryId: selectedCategory.id
+      categoryId: selectedCategory.id,
+      type: selectedCategory.type,
     }
 
     if (selectedCategory.type === 'income') {
-      for (const category of categories) {
-        if (values.balanceAdditions[category.name]) {
-          const amount = Number(values.balanceAdditions[category.name]);
-          const categoryToUpdate = { ...category };
-          categoryToUpdate.balance += amount;
-          dispatch(updateCategory(categoryToUpdate));
-        }
+      for (const category in values.balanceAdditions) {
+        newTransaction[category] = values.balanceAdditions[category];
       }
     }
 

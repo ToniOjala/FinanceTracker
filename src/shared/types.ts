@@ -16,7 +16,10 @@ export interface Transaction {
   date: string;
   categoryId: number;
 }
-export type NewTransaction = Omit<Transaction, 'id'>
+export interface NewTransaction extends Omit<Transaction, 'id'> {
+  type: 'income' | 'expense';
+  [categoryName: string]: string | number;
+}
 
 interface BaseBudget {
   id: number;
