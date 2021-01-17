@@ -59,7 +59,7 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
       categoryId: selectedCategory.id
     }
 
-    if (selectedCategory.type === CategoryType.Income) {
+    if (selectedCategory.type === 'income') {
       for (const category of categories) {
         if (values.balanceAdditions[category.name]) {
           const amount = Number(values.balanceAdditions[category.name]);

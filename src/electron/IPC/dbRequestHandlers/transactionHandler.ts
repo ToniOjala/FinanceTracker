@@ -1,14 +1,18 @@
+import { format } from "date-fns";
 import { Transaction, KeyValuePair, NewTransaction } from "../../../shared/types";
+import BalanceLogService from "../../DataAccess/services/balanceLogService";
 import CategoryService from "../../DataAccess/services/categoryService";
 import TransactionService from "../../DataAccess/services/transactionService";
 
 let transactionService: TransactionService;
 let categoryService: CategoryService;
+let balanceLogService: BalanceLogService;
 
 export function handleTransactionRequest(requestType: string, data?: KeyValuePair, query?: KeyValuePair): Transaction | Transaction[] | KeyValuePair | boolean {
   transactionService = new TransactionService();
   categoryService = new CategoryService();
-  
+  balanceLogService = new BalanceLogService();
+
   switch (requestType) {
     case 'getMany':
       if (!query) throw new Error('Year and month was not given');
@@ -52,20 +56,51 @@ function handleYearlyData(year: number): KeyValuePair {
 function handlePost(transaction: NewTransaction): Transaction {
   const id = transactionService.saveTransaction(transaction);
   const savedTransaction = transactionService.getTransaction(id);
-  if (savedTransaction) categoryService.addToBalanceOfCategory(savedTransaction.categoryId, -savedTransaction.amount);
+  if (savedTransaction) {
+    const category = categoryService.getCategory(savedTransaction.categoryId);
+    categoryService.addToBalanceOfCategory(savedTransaction.categoryId, -savedTransaction.amount);
+    balanceLogService.saveBalanceLog({
+      categoryId: category.id,
+      transactionId: savedTransaction.id,
+      amount: savedTransaction.amount,
+      date: savedTransaction.date,
+      type: category.type,
+      reason: 'add'
+    });
+  }
   return savedTransaction;
 }
 
 function handleDelete(transaction: Transaction): boolean {
   transactionService.deleteTransaction(transaction);
   const deletedTransaction = transactionService.getTransaction(transaction.id);
-  if (!deletedTransaction) categoryService.addToBalanceOfCategory(transaction.categoryId, transaction.amount);
+  if (!deletedTransaction) {
+    const category = categoryService.getCategory(transaction.categoryId);
+    categoryService.addToBalanceOfCategory(transaction.categoryId, transaction.amount);
+    balanceLogService.saveBalanceLog({
+      categoryId: category.id,
+      transactionId: transaction.id,
+      amount: transaction.amount,
+      date: format(new Date(), 'yyyy-MM-dd'),
+      type: category.type,
+      reason: 'remove'
+    });
+  }
   return deletedTransaction == null;
 }
 
 function handleUpdate(transaction: Transaction): Transaction {
   const oldTransaction = transactionService.getTransaction(transaction.id);
   transactionService.updateTransaction(transaction);
+  const category = categoryService.getCategory(transaction.categoryId);
   categoryService.addToBalanceOfCategory(transaction.categoryId, (oldTransaction.amount - transaction.amount));
+  balanceLogService.saveBalanceLog({
+    categoryId: category.id,
+    transactionId: transaction.id,
+    amount: (oldTransaction.amount - transaction.amount),
+    date: format(new Date(), 'yyyy-MM-dd'),
+    type: category.type,
+    reason: 'update'
+  });
   return transactionService.getTransaction(transaction.id);
 }

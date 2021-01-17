@@ -1,7 +1,4 @@
-export enum CategoryType {
-  Expense = 'expense',
-  Income = 'income'
-}
+export type CategoryType = 'expense' | 'income';
 
 export interface Category {
   id: number;
@@ -39,6 +36,7 @@ export interface BalanceLog {
   amount: number;
   date: string;
   type: 'manual' | 'income' | 'expense';
+  reason: 'add' | 'update' | 'remove';
 }
 export type NewBalanceLog = Omit<BalanceLog, 'id'>
 

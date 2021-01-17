@@ -21,8 +21,8 @@ interface TypeOption {
 }
 
 const typeOptions: TypeOption[] = [
-  { value: CategoryType.Expense, label: 'Expense' },
-  { value: CategoryType.Income, label: 'Income' }
+  { value: 'expense', label: 'Expense' },
+  { value: 'income', label: 'Income' }
 ]
 
 const CategoryDialog = ({ isOpen, categoryToEdit, handleClose, handleCategory }: AddCategoryProps): JSX.Element => {

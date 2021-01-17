@@ -56,11 +56,11 @@ export const updateCategory = (category: Category): AppThunk => async dispatch =
 export const selectCategories = (state: RootState): Category[] => state.categories;
 
 export const selectIncomeCategories = (state: RootState): Category[] => {
-  try { return state.categories.filter(cat => cat.type === CategoryType.Income); }
+  try { return state.categories.filter(cat => cat.type === 'income'); }
   catch (_) { return [] as Category[]; }
 }
 
 export const selectExpenseCategories = (state: RootState): Category[] => {
-  try { return state.categories.filter(cat => cat.type === CategoryType.Expense); }
+  try { return state.categories.filter(cat => cat.type === 'expense'); }
   catch (_) { return [] as Category[]; }
 }
