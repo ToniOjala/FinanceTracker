@@ -5,6 +5,7 @@ import { Category } from '../../../shared/types';
 import { fetchCategories, selectExpenseCategories, updateCategory } from '../../slices/categories';
 import { setDateSelectionStatus } from '../../slices/dateSelection';
 import AddBalanceDialog from './AddBalanceDialog';
+import BalanceLogsContainer from './BalanceLogsContainer';
 import BalanceTable from './BalanceTable';
 
 const useStyles = makeStyles({
@@ -55,6 +56,9 @@ const BalanceView = (): JSX.Element => {
       >
         Add Balance
       </Button>
+      <BalanceLogsContainer
+        category={selectedCategory}
+      />
       <AddBalanceDialog
         isOpen={isDialogOpen}
         categoryName={selectedCategory?.name}

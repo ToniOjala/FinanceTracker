@@ -38,4 +38,4 @@ export const saveBalanceLog = (balanceLog: NewBalanceLog): AppThunk => async dis
   }
 }
 
-export const selectBalanceLogs = (state: RootState, categoryId: number): BalanceLog[] => state.balanceLog.filter(bl => bl.categoryId === categoryId);
+export const selectBalanceLogs = (state: RootState): BalanceLog[] => state.balanceLog;
