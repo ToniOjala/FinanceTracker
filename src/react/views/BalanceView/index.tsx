@@ -7,7 +7,7 @@ import BalanceLogsContainer from './BalanceLogsContainer';
 const useStyles = makeStyles((theme) => 
   createStyles({
     root: {
-      margin: '50px 20px'
+      margin: '20px'
     },
     tableContainer: {
       width: '50%',
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) =>
     },
     table: {
       padding: '10px',
+      margin: theme.spacing(0, 0, 2),
     },
     list: {
       backgroundColor: theme.palette.background.paper,
