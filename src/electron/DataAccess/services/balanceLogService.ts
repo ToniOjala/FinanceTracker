@@ -15,7 +15,7 @@ export default class BalanceLogService {
 
   getBalanceLogs(categoryId: number): BalanceLog[] {
     const sql = 'SELECT * FROM balanceLogs WHERE categoryId = ?';
-    return this.db.get<BalanceLog[]>(sql, categoryId);
+    return this.db.getMany<BalanceLog>(sql, categoryId);
   }
 
   saveBalanceLog(balanceLog: NewBalanceLog): number {
