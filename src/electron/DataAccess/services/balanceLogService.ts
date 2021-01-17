@@ -25,7 +25,7 @@ export default class BalanceLogService {
   }
 
   saveBalanceLog(balanceLog: NewBalanceLog): number {
-    const sql = 'INSERT INTO balanceLogs (categoryId, amount, date, type, reason) VALUES (?, ?, ?)';
+    const sql = 'INSERT INTO balanceLogs (categoryId, amount, date) VALUES (?, ?, ?)';
     return this.db.run(sql, [balanceLog.categoryId, balanceLog.amount, balanceLog.date]);
   }
 

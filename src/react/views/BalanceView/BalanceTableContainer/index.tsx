@@ -3,7 +3,7 @@ import { format } from 'date-fns'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Category } from '../../../../shared/types'
-import { addBalanceLog } from '../../../slices/balanceLogs'
+import { saveBalanceLog } from '../../../slices/balanceLogs'
 import { fetchCategories, selectExpenseCategories, updateCategory } from '../../../slices/categories'
 import { setDateSelectionStatus } from '../../../slices/dateSelection'
 import AddBalanceDialog from './AddBalanceDialog'
@@ -34,12 +34,10 @@ const BalanceTableContainer = ({ classes, selectedCategory, setSelectedCategory 
     const categoryToUpdate = { ...selectedCategory }
     categoryToUpdate.balance += Number(values.amount);
     dispatch(updateCategory(categoryToUpdate));
-    dispatch(addBalanceLog({
+    dispatch(saveBalanceLog({
       categoryId: selectedCategory.id,
       amount: Number(values.amount),
       date: format(new Date(), 'yyyy-MM-dd'),
-      type: 'manual',
-      reason: Number(values.amount) < 0 ? 'remove' : 'add'
     }));
     closeDialog();
   }
