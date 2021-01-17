@@ -61,7 +61,6 @@ function handlePost(transaction: NewTransaction): Transaction {
     categoryService.addToBalanceOfCategory(savedTransaction.categoryId, -savedTransaction.amount);
     balanceLogService.saveBalanceLog({
       categoryId: category.id,
-      transactionId: savedTransaction.id,
       amount: savedTransaction.amount,
       date: savedTransaction.date,
       type: category.type,
@@ -79,7 +78,6 @@ function handleDelete(transaction: Transaction): boolean {
     categoryService.addToBalanceOfCategory(transaction.categoryId, transaction.amount);
     balanceLogService.saveBalanceLog({
       categoryId: category.id,
-      transactionId: transaction.id,
       amount: transaction.amount,
       date: format(new Date(), 'yyyy-MM-dd'),
       type: category.type,
@@ -96,8 +94,7 @@ function handleUpdate(transaction: Transaction): Transaction {
   categoryService.addToBalanceOfCategory(transaction.categoryId, (oldTransaction.amount - transaction.amount));
   balanceLogService.saveBalanceLog({
     categoryId: category.id,
-    transactionId: transaction.id,
-    amount: (oldTransaction.amount - transaction.amount),
+    amount: (transaction.amount - oldTransaction.amount),
     date: format(new Date(), 'yyyy-MM-dd'),
     type: category.type,
     reason: 'update'
