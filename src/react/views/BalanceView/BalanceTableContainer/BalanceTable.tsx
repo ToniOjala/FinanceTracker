@@ -1,7 +1,7 @@
 import { makeStyles, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import React from 'react'
-import { Category } from '../../../shared/types'
-import { roundToDecimals } from '../../utils/round'
+import { Category } from '../../../../shared/types'
+import { roundToDecimals } from '../../../utils/round'
 
 const useStyles = makeStyles({
   headerCell: {
