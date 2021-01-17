@@ -1,4 +1,4 @@
-import { createStyles, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles, Theme, Typography } from '@material-ui/core'
+import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import UpdateIcon from '@material-ui/icons/Update';
@@ -7,26 +7,11 @@ import { BalanceLog } from '../../../../shared/types'
 import { formatDate } from '../../../utils/format';
 
 interface Props {
+  className: string;
   balanceLogs: BalanceLog[];
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-      maxWidth: 752,
-    },
-    demo: {
-      backgroundColor: theme.palette.background.paper,
-    },
-    title: {
-      margin: theme.spacing(4, 0, 2),
-    },
-  }),
-);
-
-const BalanceLogList = ({ balanceLogs }: Props) => {
-  const classes = useStyles();
+const BalanceLogList = ({ className, balanceLogs }: Props) => {
 
   function generateText(balanceLog: BalanceLog) {
     const date = formatDate(balanceLog.date);
@@ -41,12 +26,14 @@ const BalanceLogList = ({ balanceLogs }: Props) => {
   }
 
   return (
-    <Grid item xs={12} md={6}>
-      <Typography variant="h6" className={classes.title}>
-        Logs
-      </Typography>
-      <div className={classes.demo}>
+    <div>
+      <div className={className}>
         <List dense>
+          {balanceLogs.length === 0 &&
+            <ListItem>
+              <ListItemText primary="No logs available" />
+            </ListItem>
+          }
           {balanceLogs.map(bl => 
             <ListItem key={bl.id}>
               <ListItemIcon>
@@ -61,7 +48,7 @@ const BalanceLogList = ({ balanceLogs }: Props) => {
           )}
         </List>
       </div>
-    </Grid>
+    </div>
   )
 }
 

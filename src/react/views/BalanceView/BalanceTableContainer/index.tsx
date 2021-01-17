@@ -1,4 +1,4 @@
-import { Button, makeStyles } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Category } from '../../../../shared/types'
@@ -7,23 +7,16 @@ import { setDateSelectionStatus } from '../../../slices/dateSelection'
 import AddBalanceDialog from './AddBalanceDialog'
 import BalanceTable from './BalanceTable'
 
-const useStyles = makeStyles({
-  table: {
-    padding: '10px',
-    margin: '20px 0 20px 0',
-  }
-});
-
 interface Props {
+  classes: Record<'tableContainer' | 'title' | 'table', string>
   selectedCategory: Category | null;
   setSelectedCategory: (category: Category) => void;
 }
 
-const BalanceTableContainer = ({ selectedCategory, setSelectedCategory }: Props) => {
+const BalanceTableContainer = ({ classes, selectedCategory, setSelectedCategory }: Props) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const dispatch = useDispatch();
-  const classes = useStyles();
   const categories = useSelector(selectExpenseCategories);
 
   useEffect(() => {
@@ -43,7 +36,8 @@ const BalanceTableContainer = ({ selectedCategory, setSelectedCategory }: Props)
   }
 
   return (
-    <>
+    <div className={classes.tableContainer}>
+      <Typography variant="h6" className={classes.title}>Balances</Typography>
       <BalanceTable
         className={classes.table}
         categories={categories}
@@ -62,7 +56,7 @@ const BalanceTableContainer = ({ selectedCategory, setSelectedCategory }: Props)
         handleClose={closeDialog}
         handleAddToBalance={addToBalance}
       />
-    </>
+    </div>
   )
 }
 

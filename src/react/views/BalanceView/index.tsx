@@ -1,14 +1,33 @@
-import { makeStyles } from '@material-ui/core';
+import { Box, createStyles, makeStyles } from '@material-ui/core';
 import React, { useState } from 'react'
 import { Category } from '../../../shared/types';
 import BalanceTableContainer from './BalanceTableContainer';
 import BalanceLogsContainer from './BalanceLogsContainer';
 
-const useStyles = makeStyles({
-  root: {
-    margin: '50px 20px'
-  },
-});
+const useStyles = makeStyles((theme) => 
+  createStyles({
+    root: {
+      margin: '50px 20px'
+    },
+    tableContainer: {
+      width: '50%',
+      marginRight: '20px',
+    },
+    logsContainer: {
+      width: '50%',
+    },
+    title: {
+      margin: theme.spacing(0, 0, 2),
+    },
+    table: {
+      padding: '10px',
+    },
+    list: {
+      backgroundColor: theme.palette.background.paper,
+      margin: theme.spacing(0, 0, 2),
+    },
+  })
+);
 
 const BalanceView = (): JSX.Element => {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
@@ -16,15 +35,21 @@ const BalanceView = (): JSX.Element => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <Box 
+      className={classes.root}
+      display="flex"
+      justifyContent="space-between"
+    >
       <BalanceTableContainer
+        classes={classes}
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
       <BalanceLogsContainer
+        classes={classes}
         category={selectedCategory}
       />
-    </div>
+    </Box>
   )
 }
 

@@ -1,9 +1,17 @@
 import React from 'react'
 import { Pagination } from '@material-ui/lab'
 
-const BalanceLogPagination = () => {
+interface Props {
+  disabled: boolean;
+}
+
+const BalanceLogPagination = ({ disabled }: Props) => {
   return (
-    <Pagination count={10} variant="outlined" />
+    <Pagination
+      disabled={disabled}
+      count={10}
+      variant="outlined"
+    />
   )
 }
 
