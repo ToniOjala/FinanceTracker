@@ -1,10 +1,14 @@
 import { DBTable, BalanceLog, NewBalanceLog } from '../../shared/types';
-import { getMany, post, update, deleteItem } from './dbService';
+import { getMany, post, update, deleteItem, getCustom } from './dbService';
 
 const table = DBTable.BALANCELOGS;
 
 export function getBalanceLogs(categoryId: number): Promise<BalanceLog[]> {
   return getMany<BalanceLog[]>(table, { categoryId });
+}
+
+export function getBalanceLogCount(categoryId: number): Promise<number> {
+  return getCustom<number>(table, 'getCount', { categoryId });
 }
 
 export function postBalanceLog(balanceLog: NewBalanceLog): Promise<BalanceLog> {

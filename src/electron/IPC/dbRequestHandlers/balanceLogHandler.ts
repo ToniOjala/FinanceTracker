@@ -3,13 +3,16 @@ import BalanceLogService from "../../DataAccess/services/balanceLogService";
 
 let balanceLogService: BalanceLogService;
 
-export function handleBalanceLogRequest(requestType: string, data?: KeyValuePair, query?: KeyValuePair): BalanceLog | BalanceLog[] | KeyValuePair | boolean {
+export function handleBalanceLogRequest(requestType: string, data?: KeyValuePair, query?: KeyValuePair): BalanceLog | BalanceLog[] | KeyValuePair | boolean | number {
   balanceLogService = new BalanceLogService();
   
   switch (requestType) {
     case 'getMany':
       if (!query || !query.categoryId) throw new Error('Category ID was not given');
       return handleGetMany(query.categoryId as number);
+    case 'getCount':
+      if (!query || !query.categoryId) throw new Error('Category ID was not given');
+      return handleGetCount(query.categoryId as number);
     case 'post':
       if (!data) throw new Error('Data to post was not given');
       return handlePost(data.item as NewBalanceLog);
@@ -26,6 +29,10 @@ export function handleBalanceLogRequest(requestType: string, data?: KeyValuePair
 
 function handleGetMany(categoryId: number): BalanceLog[] {
   return balanceLogService.getBalanceLogs(categoryId);
+}
+
+function handleGetCount(categoryId: number): number {
+  return balanceLogService.getCountOfBalanceLogs(categoryId);
 }
 
 function handlePost(balanceLog: NewBalanceLog): BalanceLog {

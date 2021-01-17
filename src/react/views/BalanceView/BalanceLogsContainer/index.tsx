@@ -2,7 +2,7 @@ import { Typography } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Category } from '../../../../shared/types'
-import { fetchBalanceLogs, selectBalanceLogs } from '../../../slices/balanceLogs'
+import { fetchBalanceLogs, selectBalanceLogs, selectBalanceLogCount, fetchBalanceLogCount } from '../../../slices/balanceLogs'
 import BalanceLogList from './BalanceLogList'
 import BalanceLogPagination from './BalanceLogPagination'
 
@@ -14,9 +14,13 @@ interface Props {
 const BalanceLogsContainer = ({ classes, category }: Props): JSX.Element | null => {
   const dispatch = useDispatch();
   const balanceLogs = useSelector(selectBalanceLogs);
+  const balanceLogCount = useSelector(selectBalanceLogCount);
 
   useEffect(() => {
-    if (category) dispatch(fetchBalanceLogs(category.id))
+    if (category) {
+      dispatch(fetchBalanceLogs(category.id))
+      dispatch(fetchBalanceLogCount(category.id));
+    }
   }, [category]);
 
   return (
@@ -28,6 +32,7 @@ const BalanceLogsContainer = ({ classes, category }: Props): JSX.Element | null 
       />
       <BalanceLogPagination
         disabled={!balanceLogs || balanceLogs.length === 0}
+        balanceLogCount={balanceLogCount}
       />
     </div>
   )

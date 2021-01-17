@@ -2,22 +2,30 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
 import { BalanceLog, NewBalanceLog } from '../../shared/types';
-import { getBalanceLogs, postBalanceLog } from '../services/balanceLogService';
+import { getBalanceLogCount, getBalanceLogs, postBalanceLog } from '../services/balanceLogService';
+
+const initialState = {
+  logs: [] as BalanceLog[],
+  count: 0,
+}
 
 const balanceLogSlice = createSlice({
   name: 'balanceLog',
-  initialState: [] as BalanceLog[],
+  initialState,
   reducers: {
     setBalanceLogs: (state, action) => {
-      return action.payload;
+      state.logs = action.payload;
+    },
+    setCount: (state, action) => {
+      state.count = action.payload;
     },
     addBalanceLog: (state, action) => {
-      state.push(action.payload);
+      state.logs.push(action.payload);
     }
   }
 })
 
-export const { setBalanceLogs, addBalanceLog } = balanceLogSlice.actions;
+export const { setBalanceLogs, setCount, addBalanceLog } = balanceLogSlice.actions;
 export default balanceLogSlice.reducer;
 
 export const fetchBalanceLogs = (categoryId: number): AppThunk => async dispatch => {
@@ -26,6 +34,15 @@ export const fetchBalanceLogs = (categoryId: number): AppThunk => async dispatch
     dispatch(setBalanceLogs(balanceLogs));
   } catch (error) {
     console.error('Error while fetcing balance logs: ', error)
+  }
+}
+
+export const fetchBalanceLogCount = (categoryId: number): AppThunk => async dispatch => {
+  try {
+    const count = await getBalanceLogCount(categoryId);
+    dispatch(setCount(count));
+  } catch (error) {
+    console.error('Error while fetching balance log count: ', error);
   }
 }
 
@@ -38,4 +55,5 @@ export const saveBalanceLog = (balanceLog: NewBalanceLog): AppThunk => async dis
   }
 }
 
-export const selectBalanceLogs = (state: RootState): BalanceLog[] => state.balanceLog;
+export const selectBalanceLogs = (state: RootState): BalanceLog[] => state.balanceLog.logs;
+export const selectBalanceLogCount = (state: RootState): number => state.balanceLog.count;

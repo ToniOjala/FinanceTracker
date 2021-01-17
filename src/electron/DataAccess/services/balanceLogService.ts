@@ -18,6 +18,12 @@ export default class BalanceLogService {
     return this.db.getMany<BalanceLog>(sql, categoryId);
   }
 
+  getCountOfBalanceLogs(categoryId: number): number {
+    const sql = 'SELECT COUNT(id) as count FROM balanceLogs WHERE categoryId = ?';
+    const data: { count: number } = this.db.get(sql, categoryId);
+    return data.count;
+  }
+
   saveBalanceLog(balanceLog: NewBalanceLog): number {
     const sql = 'INSERT INTO balanceLogs (categoryId, amount, date, type, reason) VALUES (?, ?, ?, ?, ?)';
     return this.db.run(sql, [balanceLog.categoryId, balanceLog.amount, balanceLog.date, balanceLog.type, balanceLog.reason]);
