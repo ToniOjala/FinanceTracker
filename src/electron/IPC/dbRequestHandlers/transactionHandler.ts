@@ -70,8 +70,6 @@ function handleIncome(transaction: NewTransaction) {
         categoryId: category.id,
         amount: Number(transaction[category.name]),
         date: transaction.date,
-        type: transaction.type,
-        reason: 'add',
       });
     }
   }
@@ -84,8 +82,6 @@ function handleExpense(transaction: Transaction) {
     categoryId: category.id,
     amount: transaction.amount,
     date: transaction.date,
-    type: category.type,
-    reason: 'add'
   });
 }
 
@@ -99,8 +95,6 @@ function handleDelete(transaction: Transaction): boolean {
       categoryId: category.id,
       amount: transaction.amount,
       date: format(new Date(), 'yyyy-MM-dd'),
-      type: category.type,
-      reason: 'remove'
     });
   }
   return deletedTransaction == null;
@@ -115,8 +109,6 @@ function handleUpdate(transaction: Transaction): Transaction {
     categoryId: category.id,
     amount: (transaction.amount - oldTransaction.amount),
     date: format(new Date(), 'yyyy-MM-dd'),
-    type: category.type,
-    reason: 'update'
   });
   return transactionService.getTransaction(transaction.id);
 }

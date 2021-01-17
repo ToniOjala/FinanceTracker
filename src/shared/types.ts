@@ -37,8 +37,6 @@ export interface BalanceLog {
   categoryId: number;
   amount: number;
   date: string;
-  type: 'manual' | 'income' | 'expense';
-  reason: 'add' | 'update' | 'remove';
 }
 export type NewBalanceLog = Omit<BalanceLog, 'id'>
 
