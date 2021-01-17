@@ -2,12 +2,11 @@ import { Button, Card, makeStyles, Table, TableCell, TableContainer, TableHead, 
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteTransaction, postTransaction, updateTransaction } from '../../slices/transactions';
-import { Category, CategoryType, NewBalanceLog, NewTransaction, Transaction } from '../../../shared/types';
+import { Category, NewTransaction, Transaction } from '../../../shared/types';
 import TransactionDialog, { AddTransactionFormValues } from './TransactionDialog';
-import { formatDate } from './utils';
+import { formatDate } from '../../utils/format';
 import { format } from 'date-fns';
 import { updateCategory } from '../../slices/categories';
-import { saveBalanceLog } from '../../slices/balanceLogs';
 
 const useStyles = makeStyles({
   root: {
