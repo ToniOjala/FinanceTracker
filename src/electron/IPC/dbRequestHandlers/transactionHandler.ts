@@ -68,6 +68,7 @@ function handleIncome(transaction: NewTransaction) {
       categoryService.addToBalanceOfCategory(category.id, Number(transaction[category.name]));
       balanceLogService.saveBalanceLog({
         categoryId: category.id,
+        transactionId: Number(transaction.id),
         amount: Number(transaction[category.name]),
         date: transaction.date,
       });
@@ -80,23 +81,17 @@ function handleExpense(transaction: Transaction) {
   categoryService.addToBalanceOfCategory(transaction.categoryId, -transaction.amount);
   balanceLogService.saveBalanceLog({
     categoryId: category.id,
-    amount: transaction.amount,
+    transactionId: transaction.id,
+    amount: -transaction.amount,
     date: transaction.date,
   });
 }
 
 function handleDelete(transaction: Transaction): boolean {
+  categoryService.addToBalanceOfCategory(transaction.categoryId, transaction.amount);
+  balanceLogService.deleteBalanceLogs(transaction.id);
   transactionService.deleteTransaction(transaction);
   const deletedTransaction = transactionService.getTransaction(transaction.id);
-  if (!deletedTransaction) {
-    const category = categoryService.getCategory(transaction.categoryId);
-    categoryService.addToBalanceOfCategory(transaction.categoryId, transaction.amount);
-    balanceLogService.saveBalanceLog({
-      categoryId: category.id,
-      amount: transaction.amount,
-      date: format(new Date(), 'yyyy-MM-dd'),
-    });
-  }
   return deletedTransaction == null;
 }
 
@@ -107,6 +102,7 @@ function handleUpdate(transaction: Transaction): Transaction {
   categoryService.addToBalanceOfCategory(transaction.categoryId, (oldTransaction.amount - transaction.amount));
   balanceLogService.saveBalanceLog({
     categoryId: category.id,
+    transactionId: transaction.id,
     amount: (transaction.amount - oldTransaction.amount),
     date: format(new Date(), 'yyyy-MM-dd'),
   });

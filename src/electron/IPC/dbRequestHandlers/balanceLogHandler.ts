@@ -16,9 +16,6 @@ export function handleBalanceLogRequest(requestType: string, data?: KeyValuePair
     case 'post':
       if (!data) throw new Error('Data to post was not given');
       return handlePost(data.item as NewBalanceLog);
-    case 'delete':
-      if (!data) throw new Error('Data to delete was not given');
-      return handleDelete(data.item as BalanceLog);
     case 'update':
       if (!data) throw new Error('Data to update was not given');
       return handleUpdate(data.item as BalanceLog);
@@ -38,12 +35,6 @@ function handleGetCount(categoryId: number): number {
 function handlePost(balanceLog: NewBalanceLog): BalanceLog {
   const id = balanceLogService.saveBalanceLog(balanceLog);
   return balanceLogService.getBalanceLog(id);
-}
-
-function handleDelete(balanceLog: BalanceLog): boolean {
-  balanceLogService.deleteBalanceLog(balanceLog);
-  const deletedLog = balanceLogService.getBalanceLog(balanceLog.id);
-  return (deletedLog == null);
 }
 
 function handleUpdate(balanceLog: BalanceLog): BalanceLog {
