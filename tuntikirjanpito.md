@@ -46,5 +46,6 @@
 | 15.01.21 | 4.5 | Transaktioiden muokkaamisen mahdollisuus, kategorioiden muokkaamisen ja poistamisen mahdollisuus,<br>budjettien lisäyksen korjaus
 | 16.01.21 | 4 | [Saldojen muutosten logit](https://github.com/ToniOjala/FinanceTracker/issues/11), koodin selkeyttämistä
 | 17.01.21 | 5 | [Saldojen muutosten logit](https://github.com/ToniOjala/FinanceTracker/issues/11), tyylien kirjoittelua, bugikorjauksia
-| yht   | 116   | | 
+| 18.01.21 | 1 | [Saldoje muutosten logien viimeistely](https://github.com/ToniOjala/FinanceTracker/issues/11), suunnittelua ja issueiden luomista
+| yht   | 117   | | 
 
