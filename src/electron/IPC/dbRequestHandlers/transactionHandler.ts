@@ -98,13 +98,7 @@ function handleDelete(transaction: Transaction): boolean {
 function handleUpdate(transaction: Transaction): Transaction {
   const oldTransaction = transactionService.getTransaction(transaction.id);
   transactionService.updateTransaction(transaction);
-  const category = categoryService.getCategory(transaction.categoryId);
   categoryService.addToBalanceOfCategory(transaction.categoryId, (oldTransaction.amount - transaction.amount));
-  balanceLogService.saveBalanceLog({
-    categoryId: category.id,
-    transactionId: transaction.id,
-    amount: (transaction.amount - oldTransaction.amount),
-    date: format(new Date(), 'yyyy-MM-dd'),
-  });
+  balanceLogService.updateBalanceLog(transaction.id, -transaction.amount, transaction.date);
   return transactionService.getTransaction(transaction.id);
 }

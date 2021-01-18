@@ -33,8 +33,8 @@ export default class BalanceLogService {
     this.db.run(`DELETE FROM balanceLogs WHERE transactionId = ?`, transactionId);
   }
 
-  updateBalanceLog(balanceLog: BalanceLog): void {
-    const sql = 'UPDATE balanceLogs SET amount = ?, date = ?';
-    this.db.run(sql, [balanceLog.amount, balanceLog.date]);
+  updateBalanceLog(transactionId: number, amount: number, date: string): void {
+    const sql = 'UPDATE balanceLogs SET amount = ?, date = ? WHERE transactionId = ?';
+    this.db.run(sql, [amount, date, transactionId]);
   }
 }

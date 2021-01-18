@@ -16,9 +16,6 @@ export function handleBalanceLogRequest(requestType: string, data?: KeyValuePair
     case 'post':
       if (!data) throw new Error('Data to post was not given');
       return handlePost(data.item as NewBalanceLog);
-    case 'update':
-      if (!data) throw new Error('Data to update was not given');
-      return handleUpdate(data.item as BalanceLog);
     default:
       throw new Error(`Request method not recognized: ${requestType}`);
   }
@@ -35,9 +32,4 @@ function handleGetCount(categoryId: number): number {
 function handlePost(balanceLog: NewBalanceLog): BalanceLog {
   const id = balanceLogService.saveBalanceLog(balanceLog);
   return balanceLogService.getBalanceLog(id);
-}
-
-function handleUpdate(balanceLog: BalanceLog): BalanceLog {
-  balanceLogService.updateBalanceLog(balanceLog);
-  return balanceLogService.getBalanceLog(balanceLog.id);
 }
