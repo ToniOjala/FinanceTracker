@@ -1,8 +1,11 @@
 import { Box, createStyles, makeStyles } from '@material-ui/core';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Category } from '../../../shared/types';
 import BalanceTableContainer from './BalanceTableContainer';
 import BalanceLogsContainer from './BalanceLogsContainer';
+import { setDateSelectionStatus } from '../../slices/dateSelection';
+import { useDispatch } from 'react-redux';
+import { fetchCategories } from '../../slices/categories';
 
 const useStyles = makeStyles((theme) => 
   createStyles({
@@ -32,8 +35,13 @@ const useStyles = makeStyles((theme) =>
 
 const BalanceView = (): JSX.Element => {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
-
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setDateSelectionStatus('hidden'));
+    dispatch(fetchCategories());
+  }, []);
 
   return (
     <Box 

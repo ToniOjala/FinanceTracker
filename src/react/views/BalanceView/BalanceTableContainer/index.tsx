@@ -1,11 +1,10 @@
 import { Button, Typography } from '@material-ui/core'
 import { format } from 'date-fns'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Category } from '../../../../shared/types'
 import { saveBalanceLog } from '../../../slices/balanceLogs'
-import { fetchCategories, selectExpenseCategories, updateCategory } from '../../../slices/categories'
-import { setDateSelectionStatus } from '../../../slices/dateSelection'
+import { selectExpenseCategories, updateCategory } from '../../../slices/categories'
 import AddBalanceDialog from './AddBalanceDialog'
 import BalanceTable from './BalanceTable'
 
@@ -20,11 +19,6 @@ const BalanceTableContainer = ({ classes, selectedCategory, setSelectedCategory 
 
   const dispatch = useDispatch();
   const categories = useSelector(selectExpenseCategories);
-
-  useEffect(() => {
-    dispatch(fetchCategories());
-    dispatch(setDateSelectionStatus('hidden'));
-  }, [])
 
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
