@@ -33,7 +33,7 @@ export default class TransactionService {
   }
 
   saveTransaction(transaction: NewTransaction): number {
-    const sql = 'INSERT INTO transactions (amount, date, label, categoryId) VALUES (?, ?, ?)';
+    const sql = 'INSERT INTO transactions (amount, date, label, categoryId) VALUES (?, ?, ?, ?)';
     return this.db.run(sql, [transaction.amount, transaction.date, transaction.label, transaction.categoryId]);
   }
 
