@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { Transaction, KeyValuePair, NewTransaction } from "../../../shared/types";
 import BalanceLogService from "../../DataAccess/services/balanceLogService";
 import CategoryService from "../../DataAccess/services/categoryService";
@@ -71,6 +70,7 @@ function handleIncome(transaction: NewTransaction) {
         transactionId: Number(transaction.id),
         amount: Number(transaction[category.name]),
         date: transaction.date,
+        label: transaction.label
       });
     }
   }
@@ -84,6 +84,7 @@ function handleExpense(transaction: Transaction) {
     transactionId: transaction.id,
     amount: -transaction.amount,
     date: transaction.date,
+    label: transaction.label
   });
 }
 
