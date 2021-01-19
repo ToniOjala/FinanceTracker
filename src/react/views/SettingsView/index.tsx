@@ -1,5 +1,7 @@
 import { Box, makeStyles } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux';
+import { setDateSelectionStatus } from '../../slices/dateSelection';
 import CategorySettingsContainer from './CategorySettingsContainer';
 
 const useStyles = makeStyles({
@@ -14,6 +16,11 @@ const useStyles = makeStyles({
 
 const SettingsView = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setDateSelectionStatus('hidden'));
+  }, []);
 
   return (
     <Box 
