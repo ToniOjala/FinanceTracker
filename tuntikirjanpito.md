@@ -47,6 +47,6 @@
 | 16.01.21 | 4 | [Saldojen muutosten logit](https://github.com/ToniOjala/FinanceTracker/issues/11), koodin selkeyttämistä
 | 17.01.21 | 5 | [Saldojen muutosten logit](https://github.com/ToniOjala/FinanceTracker/issues/11), tyylien kirjoittelua, bugikorjauksia
 | 18.01.21 | 1 | [Saldojen muutosten logien viimeistely](https://github.com/ToniOjala/FinanceTracker/issues/11), suunnittelua ja issueiden luomista
-| 19.01.21 | 2 | ["Labelin" lisäys transaktioiden ja saldojen muutoslogeihin](https://github.com/ToniOjala/FinanceTracker/issues/18), bugikorjauksia, e2e testien kirjoittamisen aloitus
+| 19.01.21 | 2 | ["Labelin" lisäys transaktioihin ja saldojen muutoslogeihin](https://github.com/ToniOjala/FinanceTracker/issues/18), bugikorjauksia, e2e testien kirjoittamisen aloitus
 | yht   | 119   | | 
 
