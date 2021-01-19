@@ -14,11 +14,12 @@ export interface Transaction {
   id: number;
   amount: number;
   date: string;
+  label?: string;
   categoryId: number;
 }
 export interface NewTransaction extends Omit<Transaction, 'id'> {
   type: 'income' | 'expense';
-  [categoryName: string]: string | number;
+  [categoryName: string]: string | number | undefined;
 }
 
 interface BaseBudget {
@@ -38,6 +39,7 @@ export interface BalanceLog {
   transactionId?: number;
   amount: number;
   date: string;
+  label?: string;
 }
 export type NewBalanceLog = Omit<BalanceLog, 'id'>
 
