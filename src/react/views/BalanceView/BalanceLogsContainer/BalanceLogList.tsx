@@ -1,9 +1,9 @@
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { format } from 'date-fns';
 import React from 'react'
 import { BalanceLog } from '../../../../shared/types'
-import { formatDate } from '../../../utils/format';
 
 interface Props {
   className: string;
@@ -13,7 +13,7 @@ interface Props {
 const BalanceLogList = ({ className, balanceLogs }: Props) => {
 
   function generateText(balanceLog: BalanceLog) {
-    const date = formatDate(balanceLog.date);
+    const date = format(new Date(balanceLog.date), 'dd.MM.yy');
     return `${date} ${balanceLog.amount}`;
   }
 
@@ -33,6 +33,7 @@ const BalanceLogList = ({ className, balanceLogs }: Props) => {
               </ListItemIcon>
               <ListItemText
                 primary={generateText(bl)}
+                secondary={bl.label}
               />
             </ListItem>,
           )}

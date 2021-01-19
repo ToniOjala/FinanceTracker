@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { deleteTransaction, postTransaction, updateTransaction } from '../../slices/transactions';
 import { Category, NewTransaction, Transaction } from '../../../shared/types';
 import TransactionDialog, { AddTransactionFormValues } from './TransactionDialog';
-import { formatDate } from '../../utils/format';
 import { format } from 'date-fns';
 
 const useStyles = makeStyles({
@@ -92,7 +91,7 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
               <TableRow>
                 <TableCell>Date</TableCell>
                 <TableCell>Label</TableCell>
-                <TableCell align="right">Amount</TableCell>
+                <TableCell>Amount</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -107,7 +106,7 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
                     {format(new Date(transaction.date), 'dd.MM.yy')}
                   </TableCell>
                   <TableCell>{transaction.label}</TableCell>
-                  <TableCell align="right">{transaction.amount}</TableCell>
+                  <TableCell>{transaction.amount}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
