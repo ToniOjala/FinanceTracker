@@ -9,6 +9,7 @@ import CategoryTable from './CategoryTable'
 
 const useStyles = makeStyles({
   table: {
+    width: '70%',
     padding: '10px',
     margin: '20px 0 20px 0',
   }

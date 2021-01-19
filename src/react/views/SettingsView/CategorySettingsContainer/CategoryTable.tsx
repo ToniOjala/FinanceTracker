@@ -26,7 +26,7 @@ const CategoryTable = ({ className, categories, selectedCategory, selectCategory
       className={className}
       component={Card}
     >
-      <Table>
+      <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell className={classes.headerCell}>Category</TableCell>
