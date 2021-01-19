@@ -44,6 +44,7 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
       dispatch(updateTransaction({
         id: transactionToEdit.id,
         date: format(values.date, 'yyyy-MM-dd'),
+        label: values.label,
         amount: Number(parseFloat(values.amount)),
         categoryId: transactionToEdit.categoryId
       }));
@@ -53,6 +54,7 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
 
     const newTransaction: NewTransaction = {
       date: format(values.date, 'yyyy-MM-dd'),
+      label: values.label,
       amount: Number.parseFloat(values.amount),
       categoryId: selectedCategory.id,
       type: selectedCategory.type,
@@ -89,7 +91,8 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
             <TableHead>
               <TableRow>
                 <TableCell>Date</TableCell>
-                <TableCell>Amount</TableCell>
+                <TableCell>Label</TableCell>
+                <TableCell align="right">Amount</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -101,9 +104,10 @@ const TransactionTable = ({ selectedCategory, categories, transactions }: Props)
                   onClick={() => setSelectedTransaction(transaction)}
                 >
                   <TableCell component="th" scope="row">
-                    {formatDate(transaction.date)}
+                    {format(new Date(transaction.date), 'dd.MM.yy')}
                   </TableCell>
-                  <TableCell>{transaction.amount}</TableCell>
+                  <TableCell>{transaction.label}</TableCell>
+                  <TableCell align="right">{transaction.amount}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

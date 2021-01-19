@@ -22,6 +22,7 @@ interface Props {
 export interface AddTransactionFormValues {
   date: Date;
   amount: string;
+  label?: string;
   balanceAdditions: KeyNumberPairs;
 }
 
@@ -77,6 +78,18 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
             label="Amount"
             error={errors.amount && true}
             helperText={errors.amount?.message}
+            fullWidth
+            required
+          />
+          <Controller 
+            as={TextField}
+            control={control}
+            defaultValue={transactionToEdit?.label || ''}
+            margin="normal"
+            name="label"
+            label="Label"
+            error={errors.label && true}
+            helperText={errors.label?.message}
             fullWidth
             required
           />
