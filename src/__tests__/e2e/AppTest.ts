@@ -1,5 +1,6 @@
 import { Application } from 'spectron';
 import electron from 'electron';
+electron.remote.getCurrentWindow().show();
 
 let app: Application;
 

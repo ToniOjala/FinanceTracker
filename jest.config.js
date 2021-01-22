@@ -1,12 +1,14 @@
 module.exports = {
-  'roots': [
+  roots: [
     './src'
   ],
-  'testMatch': [
+  testMatch: [
     '**/__tests__/e2e/**/*.+(ts|tsx|js)',
     '**/?(*.)+(spec|test).+(ts|tsx|js)'
   ],
-  'transform': {
+  transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest'
   },
+  runner: '@jest-runner/electron',
+  testEnvironment: '@jest-runner/electron/environment'
 }
