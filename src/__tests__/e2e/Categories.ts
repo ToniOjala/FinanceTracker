@@ -23,15 +23,13 @@ afterEach(() => {
 test('Category can be added', async () => {
   (await app.client.$('Add')).click();
 
-  const addCategoryDialog = await app.client.react$('CategoryDialog');
-  const name = (await addCategoryDialog.$$('input'))[0];
+  const name = (await app.client.$('#categoryDialog_name'));
   await name.keys('Testikategoria');
   
-  const add = (await addCategoryDialog.$$('button'))[1];
+  const add = (await app.client.$('#categoryDialog_add'));
   add.click();
 
-  const expenseCategoryTableBody = await app.client.$('//*[@id="root"]/div/main/div/div[1]/table');
-  const expenseCategoryRows = await expenseCategoryTableBody.$$('tr');
+  const expenseCategoryRows = await app.client.$$('.settings_categoryTableRow');
   const lastRow = expenseCategoryRows[expenseCategoryRows.length - 1];
   const nameCellText = await (await lastRow.$$('td'))[0].getText();
 

@@ -26,7 +26,10 @@ const CategoryTable = ({ className, categories, selectedCategory, selectCategory
       className={className}
       component={Card}
     >
-      <Table size="small">
+      <Table
+        id="settings_categoryTable"
+        size="small"
+      >
         <TableHead>
           <TableRow>
             <TableCell className={classes.headerCell}>Category</TableCell>
@@ -39,6 +42,8 @@ const CategoryTable = ({ className, categories, selectedCategory, selectCategory
           {categories.map(category => (
             <TableRow
                 key={category.name}
+                id={`settings_${category.name.toLowerCase()}_row`}
+                className="settings_categoryTableRow"
                 hover 
                 selected={selectedCategory === category}
                 onClick={() => selectCategory(category)}

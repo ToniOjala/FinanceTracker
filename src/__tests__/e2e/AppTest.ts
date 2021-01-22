@@ -13,7 +13,7 @@ beforeAll(async () => {
   app.client.waitUntilWindowLoaded();
   app.browserWindow.focus();
   return;
-}, 15000);
+}, 30000);
 
 afterAll(() => {
   if (app && app.isRunning()) return app.stop();

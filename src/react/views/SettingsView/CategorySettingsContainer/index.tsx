@@ -74,17 +74,20 @@ const CategorySettingsContainer = () => {
       />
       <Box display="flex">
         <Button
+          id="settings_addCategory"
           onClick={openDialog}
         >
           Add
         </Button>
         <Button
+          id="settings_removeCategory"
           disabled={!selectedCategory}
           onClick={removeCategory}
         >
           Remove
         </Button>
         <Button
+          id="settings_editCategory"
           disabled={!selectedCategory}
           onClick={editCategory}
         >
