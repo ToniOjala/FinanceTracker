@@ -19,8 +19,7 @@
     "start:renderer": "webpack serve --config webpack-renderer.config.ts --mode development",
     "start:run-electron": "cross-env NODE_ENV=development electron ./app/electron-main.js",
     "start": "npm run build:electron-main:dev && concurrently \"cross-env npm run start:renderer\" \"npm run start:run-electron\" -n renderer,electron",
-    "test:unit": "jest src/react",
-    "test:e2e": "concurrently \"npm run start:renderer\" \"jest src/__tests__\""
+    "test:unit": "jest src/react"
   },
   "author": "Toni Ojala",
   "license": "ISC",
@@ -41,7 +40,6 @@
   },
   "devDependencies": {
     "@hookform/devtools": "^2.2.1",
-    "@jest-runner/electron": "^3.0.0",
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/react": "^11.2.2",
     "@types/better-sqlite3": "^5.4.1",
@@ -69,7 +67,6 @@
     "nodemon": "^2.0.4",
     "prettier": "^2.1.1",
     "react-test-renderer": "^17.0.1",
-    "spectron": "^13.0.0",
     "ts-jest": "^26.4.4",
     "ts-loader": "^8.0.3",
     "ts-node": "^9.0.0",
