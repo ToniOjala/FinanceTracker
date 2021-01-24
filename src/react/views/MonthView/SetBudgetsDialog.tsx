@@ -34,11 +34,11 @@ const SetBudgetsDialog = ({ isOpen, incomeCategories, expenseCategories, budgets
               control={control}
               rules={{required: `Budget for ${category.name} is required`}}
               margin="normal"
-              name={`${category.name}`}
+              name={`${category.id}`}
               label={`${category.name}`}
-              defaultValue={budgets[category.name]}
-              error={errors[`${category.name}`] && true}
-              helperText={errors[`${category.name}`]?.message}
+              defaultValue={budgets[category.id] || '0'}
+              error={errors[`${category.id}`] && true}
+              helperText={errors[`${category.id}`]?.message}
               fullWidth
               required
             />
@@ -51,11 +51,11 @@ const SetBudgetsDialog = ({ isOpen, incomeCategories, expenseCategories, budgets
               control={control}
               rules={{required: `Budget for ${category.name} is required`}}
               margin="normal"
-              name={`${category.name}`}
+              name={`${category.id}`}
               label={`${category.name}`}
-              defaultValue={budgets[category.name]}
-              error={errors[`${category.name}`] && true}
-              helperText={errors[`${category.name}`]?.message}
+              defaultValue={budgets[category.id] || '0'}
+              error={errors[`${category.id}`] && true}
+              helperText={errors[`${category.id}`]?.message}
               fullWidth
               required
             />

@@ -52,7 +52,7 @@ const CategoryTable = ({ className, title, categories, selectedCategory, transac
                   onClick={() => selectCategory(category)}
                 >
                 <TableCell>{category.name}</TableCell>
-                <TableCell>{roundToDecimals(budgets[category.name], 2)}</TableCell>
+                <TableCell>{roundToDecimals(budgets[category.id], 2)}</TableCell>
                 <TableCell>{sumOfCategoryTransactions(category, transactions)}</TableCell>
               </TableRow>
             ))}

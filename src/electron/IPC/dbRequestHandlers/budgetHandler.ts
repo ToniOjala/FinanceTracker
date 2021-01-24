@@ -27,9 +27,9 @@ function handleGetLatest(date: string): KeyValuePair {
   for (const category of categories) {
     try {
       const budget = budgetService.getLatestBudget(category.id, date);
-      latestBudgetPerCategory[category.name] = budget.amount || 0;
+      latestBudgetPerCategory[category.id] = budget.amount || 0;
     } catch (error) {
-      latestBudgetPerCategory[category.name] = 0;
+      latestBudgetPerCategory[category.id] = 0;
     }
   }
   return latestBudgetPerCategory;

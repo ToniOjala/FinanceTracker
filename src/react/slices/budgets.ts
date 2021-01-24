@@ -15,7 +15,7 @@ const budgetSlice = createSlice({
     addBudgets: (state, action) => {
       const budgets: Budget[] = action.payload;
       budgets.forEach(b => {
-        state[b.category.name] = b.amount;
+        state[b.categoryId] = b.amount;
       })
     }
   }
