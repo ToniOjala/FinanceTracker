@@ -1,9 +1,9 @@
 import { assert, expect } from "chai";
-import CategoryService from "../../electron/DataAccess/services/categoryService";
-import { Category, NewCategory } from "../../shared/types";
-import { sampleCategories } from "../sampleData/categories";
-import { clearTables } from "../utils/database";
-import { verifyCategoryEquality } from "../utils/verification";
+import CategoryService from "../../../electron/DataAccess/services/categoryService";
+import { Category, NewCategory } from "../../../shared/types";
+import { sampleCategories } from "../../sampleData/categories";
+import { clearTables } from "../../utils/database";
+import { verifyCategoryEquality } from "../../utils/verification";
 
 describe('categoryService', () => {
   const categoryService = new CategoryService();

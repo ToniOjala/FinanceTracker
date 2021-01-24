@@ -1,14 +1,13 @@
 import { expect } from "chai";
-import BalanceLogService from "../../electron/DataAccess/services/balanceLogService";
-import CategoryService from "../../electron/DataAccess/services/categoryService";
-import TransactionService from "../../electron/DataAccess/services/transactionService";
-import { getBalanceLogs } from "../../react/services/balanceLogService";
-import { NewBalanceLog } from "../../shared/types";
-import { getSampleBalanceLogs } from "../sampleData/balanceLogs";
-import { sampleCategories } from "../sampleData/categories";
-import { getSampleTransactions } from "../sampleData/transactions";
-import { clearTables } from "../utils/database";
-import { verifyBalanceLogEquality } from "../utils/verification";
+import BalanceLogService from "../../../electron/DataAccess/services/balanceLogService";
+import CategoryService from "../../../electron/DataAccess/services/categoryService";
+import TransactionService from "../../../electron/DataAccess/services/transactionService";
+import { NewBalanceLog } from "../../../shared/types";
+import { getSampleBalanceLogs } from "../../sampleData/balanceLogs";
+import { sampleCategories } from "../../sampleData/categories";
+import { getSampleTransactions } from "../../sampleData/transactions";
+import { clearTables } from "../../utils/database";
+import { verifyBalanceLogEquality } from "../../utils/verification";
 
 const balanceLogService = new BalanceLogService();
 const categoryService = new CategoryService();

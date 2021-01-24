@@ -1,11 +1,11 @@
-import { assert, expect } from "chai";
-import CategoryService from "../../electron/DataAccess/services/categoryService";
-import TransactionService from "../../electron/DataAccess/services/transactionService";
-import { Transaction, NewTransaction } from "../../shared/types";
-import { sampleCategories } from "../sampleData/categories";
-import { getSampleTransactions } from "../sampleData/transactions";
-import { clearTables } from "../utils/database";
-import { verifyTransactionEquality } from "../utils/verification";
+import { expect } from "chai";
+import CategoryService from "../../../electron/DataAccess/services/categoryService";
+import TransactionService from "../../../electron/DataAccess/services/transactionService";
+import { NewTransaction } from "../../../shared/types";
+import { sampleCategories } from "../../sampleData/categories";
+import { getSampleTransactions } from "../../sampleData/transactions";
+import { clearTables } from "../../utils/database";
+import { verifyTransactionEquality } from "../../utils/verification";
 
 const transactionService = new TransactionService();
 const categoryService = new CategoryService();

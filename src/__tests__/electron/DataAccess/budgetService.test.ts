@@ -1,11 +1,11 @@
 import { expect } from "chai";
-import BudgetService from "../../electron/DataAccess/services/budgetService";
-import CategoryService from "../../electron/DataAccess/services/categoryService";
-import { NewBudget } from "../../shared/types";
-import { sampleBudgets } from "../sampleData/budgets";
-import { sampleCategories } from "../sampleData/categories";
-import { clearTables } from "../utils/database";
-import { verifyBudgetEquality } from "../utils/verification";
+import BudgetService from "../../../electron/DataAccess/services/budgetService";
+import CategoryService from "../../../electron/DataAccess/services/categoryService";
+import { NewBudget } from "../../../shared/types";
+import { sampleBudgets } from "../../sampleData/budgets";
+import { sampleCategories } from "../../sampleData/categories";
+import { clearTables } from "../../utils/database";
+import { verifyBudgetEquality } from "../../utils/verification";
 
 const budgetService = new BudgetService();
 const categoryService = new CategoryService();
