@@ -3,6 +3,7 @@ import CategoryService from "../../electron/DataAccess/services/categoryService"
 import { Category, NewCategory } from "../../shared/types";
 import { sampleCategories } from "../sampleData/categories";
 import { clearTables } from "../utils/database";
+import { verifyCategoryEquality } from "../utils/verification";
 
 describe('categoryService', () => {
   const categoryService = new CategoryService();
@@ -37,10 +38,7 @@ describe('categoryService', () => {
       const finalCategories = categoryService.getCategories();
       expect(finalCategories.length).equal(1);
       expect(finalCategories[0].id).equal(id);
-      expect(finalCategories[0].name).equal(categoryToSave.name);
-      expect(finalCategories[0].type).equal(categoryToSave.type);
-      expect(finalCategories[0].balance).equal(categoryToSave.balance);
-      expect(finalCategories[0].created).equal(categoryToSave.created);
+      verifyCategoryEquality(finalCategories[0], categoryToSave);
       expect(finalCategories[0].removed).to.be.null;
     })
 
@@ -87,10 +85,7 @@ describe('categoryService', () => {
       
       for (let i = 0; i < categories.length; i++) {
         expect(categories[i].id).to.exist;
-        expect(categories[i].name).equal(sampleCategories[i].name);
-        expect(categories[i].type).equal(sampleCategories[i].type);
-        expect(categories[i].balance).equal(sampleCategories[i].balance);
-        expect(categories[i].created).equal(sampleCategories[i].created);
+        verifyCategoryEquality(categories[i], sampleCategories[i]);
         expect(categories[i].removed).to.be.null;
       }
     })
@@ -103,10 +98,7 @@ describe('categoryService', () => {
 
         expect(category).to.exist;
         expect(category.id).equal(id);
-        expect(category.name).equal(sampleCategory.name);
-        expect(category.type).equal(sampleCategory.type);
-        expect(category.balance).equal(sampleCategory.balance);
-        expect(category.created).equal(sampleCategory.created);
+        verifyCategoryEquality(category, sampleCategory);
         expect(category.removed).to.be.null;
       }
     })
@@ -128,10 +120,7 @@ describe('categoryService', () => {
       
       const savedCategory = finalCategories.filter(c => c.id === id)[0];
       expect(savedCategory.id).equal(id);
-      expect(savedCategory.name).equal(categoryToSave.name);
-      expect(savedCategory.type).equal(categoryToSave.type);
-      expect(savedCategory.balance).equal(categoryToSave.balance);
-      expect(savedCategory.created).equal(categoryToSave.created);
+      verifyCategoryEquality(savedCategory, categoryToSave);
       expect(savedCategory.removed).to.be.null;
     })
 
@@ -145,10 +134,7 @@ describe('categoryService', () => {
       
       const updatedCategory = categoryService.getCategory(id);
       expect(updatedCategory.id).equal(id);
-      expect(updatedCategory.name).equal(modifiedCategory.name);
-      expect(updatedCategory.type).equal(modifiedCategory.type);
-      expect(updatedCategory.balance).equal(modifiedCategory.balance);
-      expect(updatedCategory.created).equal(modifiedCategory.created);
+      verifyCategoryEquality(updatedCategory, modifiedCategory);
       expect(updatedCategory.removed).equal('2021');
     })
 
