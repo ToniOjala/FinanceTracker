@@ -2,16 +2,16 @@ import { assert, expect } from "chai";
 import CategoryService from "../../electron/DataAccess/services/categoryService";
 import { Category, NewCategory } from "../../shared/types";
 import { sampleCategories } from "../sampleData/categories";
-import { clearDatabase } from "../utils/database";
+import { clearTables } from "../utils/database";
 
 describe('categoryService', () => {
   const categoryService = new CategoryService();
 
-  afterEach(() => {
-    clearDatabase();
-  });
-
   describe('database is empty', () => {
+    afterEach(() => {
+      clearTables('categories');
+    });
+
     it('getCategories returns empty array', () => {
       const categories = categoryService.getCategories();
       expect(categories.length).equal(0);
@@ -72,10 +72,14 @@ describe('categoryService', () => {
   })
 
   describe('database has existing categories', () => {
-    beforeEach(() => {
+    before(() => {
       for (const category of sampleCategories) {
         categoryService.saveCategory(category);
       }
+    })
+
+    after(() => {
+      clearTables('categories');
     })
 
     it('getCategories returns correct categories', () => {
@@ -149,7 +153,7 @@ describe('categoryService', () => {
     })
 
     it('addToBalanceOfCategory works', () => {
-      const id = 2;
+      const id = 3;
       const amount = 200;
       const initialCategory = categoryService.getCategory(id);
       expect(initialCategory).to.exist;

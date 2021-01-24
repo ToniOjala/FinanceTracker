@@ -1,11 +1,11 @@
 import transactions from '../../react/slices/transactions';
-import { Transaction } from '../../shared/types';
+import { NewTransaction } from '../../shared/types';
 import transactionData from './transactionData.json';
 
-export function getSampleTransactions(): Transaction[] {
-  const transactions: Transaction[] = []
-  for (const dataObj in transactionData) {
-    transactions.push(JSON.parse(dataObj) as Transaction);
+export function getSampleTransactions(): NewTransaction[] {
+  const transactions: NewTransaction[] = []
+  for (let i = 0; i < 100; i++) {
+    transactions.push(transactionData[i] as NewTransaction);
   }
   return transactions;
 }

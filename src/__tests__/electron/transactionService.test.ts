@@ -4,12 +4,12 @@ import TransactionService from "../../electron/DataAccess/services/transactionSe
 import { Transaction, NewTransaction } from "../../shared/types";
 import { sampleCategories } from "../sampleData/categories";
 import { getSampleTransactions } from "../sampleData/transactions";
-import { clearDatabase } from "../utils/database";
+import { clearTables } from "../utils/database";
 import { verifyTransactionEquality } from "../utils/verification";
 
 const transactionService = new TransactionService();
 const categoryService = new CategoryService();
-let sampleTransactions: Transaction[] = [];
+let sampleTransactions: NewTransaction[] = [];
 
 describe('transactionService', () => {
 
@@ -17,16 +17,16 @@ describe('transactionService', () => {
     sampleTransactions = getSampleTransactions();
     for(const category of sampleCategories) categoryService.saveCategory(category);
   })
-  
-  beforeEach(() => {
-    clearDatabase(false);
-  })
 
   after(() => {
-    clearDatabase();
+    clearTables('transactions', 'categories');
   })
   
   describe('database is empty', () => {
+    afterEach(() => {
+      clearTables('transactions');
+    })
+
     it('getTransaction retuns undefined', () => {
       const transaction = transactionService.getTransaction(1);
       expect(transaction).to.be.undefined;
@@ -59,54 +59,94 @@ describe('transactionService', () => {
       expect(savedTransaction.id).equal(id);
       verifyTransactionEquality(savedTransaction, transaction);
     })
-  
-    // it('saveCategory works', () => {
-    //   const initialCategories = categoryService.getCategories();
-    //   expect(initialCategories.length).equal(0);
-    
-    //   const categoryToSave: NewCategory = {
-    //     name: 'Testing',
-    //     type: 'expense',
-    //     balance: 0,
-    //     created: '2018'
-    //   }
-    //   const id = categoryService.saveCategory(categoryToSave);
-    
-    //   const finalCategories = categoryService.getCategories();
-    //   expect(finalCategories.length).equal(1);
-    //   expect(finalCategories[0].id).equal(id);
-    //   expect(finalCategories[0].name).equal(categoryToSave.name);
-    //   expect(finalCategories[0].type).equal(categoryToSave.type);
-    //   expect(finalCategories[0].balance).equal(categoryToSave.balance);
-    //   expect(finalCategories[0].created).equal(categoryToSave.created);
-    //   expect(finalCategories[0].removed).to.be.null;
-    // })
-  
-    // it('updateCategory does nothing', () => {
-    //   const initialCategories = categoryService.getCategories();
-    //   expect(initialCategories.length).equal(0);
+  })
+
+  describe('database has existing transactions', () => {
+    before(() => {
+      for (const transaction of sampleTransactions) {
+        transactionService.saveTransaction(transaction);
+      }
+    })
+
+    it('getTransaction returns correct transaction', () => {
+      const id = 8;
+      const transaction = transactionService.getTransaction(8);
+
+      expect(transaction.id).equal(id);
+      verifyTransactionEquality(transaction, sampleTransactions[id-1]);
+    })
+
+    it('getTransactionsOfMonth returns correct transactions', () => {
+      const transactions = transactionService.getTransactionsOfMonth(2020, 6);
       
-    //   categoryService.updateCategory({
-    //     id: 1,
-    //     name: 'Testing',
-    //     type: 'expense',
-    //     balance: 300,
-    //     created: '2020'
-    //   });
+      expect(transactions.length).equal(3);
+      for(let i = 0; i < 3; i++) {
+        verifyTransactionEquality(transactions[i], sampleTransactions[transactions[i].id-1]);
+      }
+    })
+
+    it('getTransactionsOfMonthAndCategory returns correct transactions', () => {
+      const transactions = transactionService.getTransactionsOfMonthAndCategory(2019, 11, 2);
+      
+      expect(transactions.length).equal(4);
+      for(let i = 0; i < 4; i++) {
+        verifyTransactionEquality(transactions[i], sampleTransactions[transactions[i].id-1]);
+      }
+    })
+
+    it('getTransactionsOfYear returns correct transactions', () => {
+      const transactions = transactionService.getTransactionsOfYear(2020);
+
+      expect(transactions.length).equal(47);
+      for(let i = 0; i < 47; i++) {
+        verifyTransactionEquality(transactions[i], sampleTransactions[transactions[i].id-1]);
+      }
+    })
+
+    it('saveTransaction works', () => {
+      const transaction: NewTransaction = {
+        amount: 200.12,
+        type: 'expense',
+        date: '2020-10-21',
+        label: 'Testinen',
+        categoryId: 2,
+      }
   
-    //   const finalCategories = categoryService.getCategories();
-    //   expect(finalCategories.length).equal(0);
-    // })
+      const id = transactionService.saveTransaction(transaction);
+      expect(id).to.exist;
   
-    // it('addToBalanceOfCategory throws error', () => {
-    //   const initialCategories = categoryService.getCategories();
-    //   expect(initialCategories.length).equal(0);
-  
-    //   assert.throws(() => categoryService.addToBalanceOfCategory(1, 200));
-  
-    //   const finalCategories = categoryService.getCategories();
-    //   expect(finalCategories.length).equal(0);
-    // })
+      const savedTransaction = transactionService.getTransaction(id);
+      expect(savedTransaction.id).equal(id);
+      verifyTransactionEquality(savedTransaction, transaction);
+    })
+
+    it('deleteTransaction works', () => {
+      const id = 9;
+      const transaction = transactionService.getTransaction(id);
+      expect(transaction).to.exist;
+
+      transactionService.deleteTransaction(transaction);
+      
+      const deletedTransaction = transactionService.getTransaction(id);
+      expect(deletedTransaction).to.not.exist;
+    })
+
+    it('updateTransaction works', () => {
+      const id = 12;
+      const amount = 300;
+      const date = '2020-12-12';
+      const transaction = transactionService.getTransaction(id);
+      expect(transaction.amount).to.not.equal(amount);
+      expect(transaction.date).to.not.equal(date);
+
+      transactionService.updateTransaction({ ...transaction, amount, date });
+
+      const updatedTransaction = transactionService.getTransaction(id);
+      expect(updatedTransaction.categoryId).equal(transaction.categoryId);
+      expect(updatedTransaction.label).equal(transaction.label);
+      expect(updatedTransaction.amount).equal(amount);
+      expect(updatedTransaction.date).equal(date);
+    })
   })
 
 })
