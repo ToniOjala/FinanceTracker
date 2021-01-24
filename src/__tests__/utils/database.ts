@@ -4,12 +4,14 @@ import path from 'path';
 let db: sqliteDB.Database | undefined;
 const databasePath = path.join(__dirname, '..', 'test.db');
 
-export function clearDatabase() {
+export function clearDatabase(clearCategories: boolean = true) {
+  console.log('clearCategories: ', clearCategories);
+
   db = sqliteDB(databasePath, { verbose: console.log });
   db.prepare('DELETE FROM balanceLogs').run();
   db.prepare('DELETE FROM transactions').run();
   db.prepare('DELETE FROM budgets').run();
-  db.prepare('DELETE FROM categories').run();
+  if (clearCategories) db.prepare('DELETE FROM categories').run();
   db.prepare('DELETE from sqlite_sequence').run();
   db.close();
 }
