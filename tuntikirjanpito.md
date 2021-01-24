@@ -48,5 +48,8 @@
 | 17.01.21 | 5 | [Saldojen muutosten logit](https://github.com/ToniOjala/FinanceTracker/issues/11), tyylien kirjoittelua, bugikorjauksia
 | 18.01.21 | 1 | [Saldojen muutosten logien viimeistely](https://github.com/ToniOjala/FinanceTracker/issues/11), suunnittelua ja issueiden luomista
 | 19.01.21 | 2 | ["Labelin" lisäys transaktioihin ja saldojen muutoslogeihin](https://github.com/ToniOjala/FinanceTracker/issues/18), bugikorjauksia, e2e testien kirjoittamisen aloitus
-| yht   | 119   | | 
+| 22.01.21 | 2 | E2E-testien kanssa taistelua. Eteen tulee aina uusia virheitä, kun aiemmat saa korjattua.
+| 23.01.21 | 1 | E2E-testien poisto, testaus strategioiden opiskelua ja miettimistä
+| 24.01.21 | 4 | Testausframeworkin vaihto mochaan, tntegraatiotestien kirjoittamista tietokannan rajapintaan
+| yht   | 126   | | 
 
