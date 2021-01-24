@@ -20,7 +20,7 @@ export default class CategoryService {
 
   saveCategory(category: NewCategory): number {
     const sql = 'INSERT INTO categories (name, type, balance, created) VALUES (?, ?, ?, ?)';
-    return this.db.run(sql, [category.name, category.type, 0, category.created]);
+    return this.db.run(sql, [category.name, category.type, category.balance, category.created]);
   }
 
   updateCategory(category: Category): void {

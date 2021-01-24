@@ -6,12 +6,9 @@ export default class SqliteDataAccess {
   private db: sqliteDB.Database | null = null;
 
   constructor() {
-    const DATABASE_PATH = (process.env.DEPLOY_ENV === 'test')
-      ? path.join(__dirname, '..', 'src', '__tests__', 'test.db')
-      : process.env.DATABASE_PATH;
-      
-    if (!DATABASE_PATH) throw new Error('Path for database was not defined');
-    else this.databasePath = DATABASE_PATH;
+    this.databasePath = path.resolve('./src/__tests__/test.db');
+    if (process.env.DEPLOY_ENV === 'development') this.databasePath = process.env.DATABASE_PATH || '';
+    if (!this.databasePath) throw new Error('Path for database was not defined');
   }
 
   private connect(): sqliteDB.Database {

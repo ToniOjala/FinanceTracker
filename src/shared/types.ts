@@ -6,7 +6,7 @@ export interface Category {
   type: CategoryType;
   balance: number;
   created: string;
-  removed: string;
+  removed?: string;
 }
 export type NewCategory = Omit<Category, 'id' | 'removed'>
 
