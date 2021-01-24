@@ -49,7 +49,7 @@ export enum DBTable {
 
 export interface DBRequestParams {
   table: DBTable;
-  requestType: string;
+  method: string;
   data?: KeyValuePair,
   query?: KeyValuePair
 }

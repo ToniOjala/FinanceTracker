@@ -7,12 +7,12 @@ let transactionService: TransactionService;
 let categoryService: CategoryService;
 let balanceLogService: BalanceLogService;
 
-export function handleTransactionRequest(requestType: string, data?: KeyValuePair, query?: KeyValuePair): Transaction | Transaction[] | KeyValuePair | boolean {
+export function handleTransactionRequest(method: string, data?: KeyValuePair, query?: KeyValuePair): Transaction | Transaction[] | KeyValuePair | boolean {
   transactionService = new TransactionService();
   categoryService = new CategoryService();
   balanceLogService = new BalanceLogService();
 
-  switch (requestType) {
+  switch (method) {
     case 'getMany':
       if (!query) throw new Error('Year and month was not given');
       return handleGetMany(Number(query.year), Number(query.month));
@@ -29,7 +29,7 @@ export function handleTransactionRequest(requestType: string, data?: KeyValuePai
       if (!data) throw new Error('Data to update was not given');
       return handleUpdate(data.item as Transaction);
     default:
-      throw new Error(`Request method not recognized: ${requestType}`);
+      throw new Error(`Request method not recognized: ${method}`);
   }
 }
 

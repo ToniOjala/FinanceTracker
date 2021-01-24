@@ -11,17 +11,17 @@ export class DatabaseChannel implements IpcChannel {
 
     if (request.params) {
       const table = request.params.table;
-      const requestType = request.params.requestType;
+      const method = request.params.method;
       const data = request.params.data;
       const query = request.params.query;
 
       console.log('\nNew message to the database channel');
       console.log('table: ', table);
-      console.log('requestType: ', requestType);
+      console.log('method: ', method);
       console.log('data: ', data);
       console.log('query: ', query);
 
-      const result = handleDatabaseRequest(table, requestType, data, query);
+      const result = handleDatabaseRequest(table, method, data, query);
       event.sender.send(request.responseChannel, { result });
     }
   }

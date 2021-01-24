@@ -5,11 +5,11 @@ import CategoryService from "../../DataAccess/services/categoryService";
 let budgetService: BudgetService;
 let categoryService: CategoryService;
 
-export function handleBudgetRequest(requestType: string, data?: KeyValuePair, query?: KeyValuePair ): Budget | Budget[] | KeyValuePair {
+export function handleBudgetRequest(method: string, data?: KeyValuePair, query?: KeyValuePair ): Budget | Budget[] | KeyValuePair {
   budgetService = new BudgetService();
   categoryService = new CategoryService();
 
-  switch (requestType) {
+  switch (method) {
     case 'getLatest':
       if (!query || !query.date) throw new Error('Date was not given');
       return handleGetLatest(query.date as string);
@@ -17,7 +17,7 @@ export function handleBudgetRequest(requestType: string, data?: KeyValuePair, qu
       if (!data) throw new Error('Budgets to post were not given');
       return handlePostMany(data.items as NewBudget[]);
     default:
-      return [] as Budget[];
+      throw new Error(`Request method not recognized: ${method}`);
   }
 }
 
@@ -44,12 +44,12 @@ function handlePostMany(budgets: NewBudget[]): Budget[] {
     const category = categoryService.getCategory(budget.categoryId);
     if (latestBudget && latestBudget.amount !== budget.amount && latestBudget.startDate === budget.startDate) {
       budgetService.updateBudget({ ...latestBudget, amount: budget.amount });
-      savedBudgets.push({ ...budgetService.getBudget(latestBudget.id), category });
+      savedBudgets.push({ ...budgetService.getBudget(latestBudget.id) });
       continue;
     }
 
     const id = budgetService.saveBudget(budget);
-    savedBudgets.push({ ...budgetService.getBudget(id), category });
+    savedBudgets.push({ ...budgetService.getBudget(id) });
   }
   return savedBudgets;
 }

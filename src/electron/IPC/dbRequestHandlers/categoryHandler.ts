@@ -3,10 +3,10 @@ import CategoryService from "../../DataAccess/services/categoryService";
 
 let categoryService: CategoryService;
 
-export function handleCategoryRequest(requestType: string, data?: KeyValuePair): Category | Category[] {
+export function handleCategoryRequest(method: string, data?: KeyValuePair): Category | Category[] {
   categoryService = new CategoryService();
 
-  switch (requestType) {
+  switch (method) {
     case 'get': 
       if (!data) throw new Error('Category id not given');
       return handleGet(Number(data.id));
@@ -23,7 +23,7 @@ export function handleCategoryRequest(requestType: string, data?: KeyValuePair):
       const item = data.item as { categoryId: number, amount: number };
       return handleAddBalance(item.categoryId, item.amount);
     default:
-      throw new Error(`Request method not recognized: ${requestType}`);
+      throw new Error(`Request method not recognized: ${method}`);
   }
 }
 

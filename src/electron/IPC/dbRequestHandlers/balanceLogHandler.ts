@@ -3,10 +3,10 @@ import BalanceLogService from "../../DataAccess/services/balanceLogService";
 
 let balanceLogService: BalanceLogService;
 
-export function handleBalanceLogRequest(requestType: string, data?: KeyValuePair, query?: KeyValuePair): BalanceLog | BalanceLog[] | KeyValuePair | boolean | number {
+export function handleBalanceLogRequest(method: string, data?: KeyValuePair, query?: KeyValuePair): BalanceLog | BalanceLog[] | KeyValuePair | boolean | number {
   balanceLogService = new BalanceLogService();
   
-  switch (requestType) {
+  switch (method) {
     case 'getMany':
       if (!query || !query.categoryId || !query.page) throw new Error('Query parameters were not given');
       return handleGetMany(query.categoryId as number, query.page as number);
@@ -17,7 +17,7 @@ export function handleBalanceLogRequest(requestType: string, data?: KeyValuePair
       if (!data) throw new Error('Data to post was not given');
       return handlePost(data.item as NewBalanceLog);
     default:
-      throw new Error(`Request method not recognized: ${requestType}`);
+      throw new Error(`Request method not recognized: ${method}`);
   }
 }
 
