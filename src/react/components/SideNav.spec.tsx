@@ -15,8 +15,8 @@ describe('<SideNav />', () => {
     const year = component.getByText('Year');
     const balance = component.getByText('Balances');
 
-    expect(month).toBeDefined();
-    expect(year).toBeDefined();
-    expect(balance).toBeDefined();
+    // expect(month).toBeDefined();
+    // expect(year).toBeDefined();
+    // expect(balance).toBeDefined();
   })
 })
