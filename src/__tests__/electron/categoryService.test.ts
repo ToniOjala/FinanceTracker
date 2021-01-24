@@ -1,6 +1,6 @@
 import { assert, expect } from "chai";
 import CategoryService from "../../electron/DataAccess/services/categoryService";
-import { NewCategory } from "../../shared/types";
+import { Category, NewCategory } from "../../shared/types";
 import { sampleCategories } from "../sampleData/categories";
 import { clearDatabase } from "../utils/database";
 
@@ -88,5 +88,75 @@ describe('database has existing categories', () => {
       expect(categories[i].created).equal(sampleCategories[i].created);
       expect(categories[i].removed).to.be.null;
     }
+  })
+
+  it('getCategory returns correct category', () => {
+    for (let i = 0; i < 4; i++) {
+      const id = i + 1;
+      const category = categoryService.getCategory(id);
+      const sampleCategory = sampleCategories[i];
+
+      expect(category).to.exist;
+      expect(category.id).equal(id);
+      expect(category.name).equal(sampleCategory.name);
+      expect(category.type).equal(sampleCategory.type);
+      expect(category.balance).equal(sampleCategory.balance);
+      expect(category.created).equal(sampleCategory.created);
+      expect(category.removed).to.be.null;
+    }
+  })
+
+  it('saveCategory works', () => {
+    const initialCategories = categoryService.getCategories();
+    expect(initialCategories.length).equal(sampleCategories.length);
+  
+    const categoryToSave: NewCategory = {
+      name: 'Testing',
+      type: 'expense',
+      balance: 0,
+      created: '2018'
+    }
+    const id = categoryService.saveCategory(categoryToSave);
+  
+    const finalCategories = categoryService.getCategories();
+    expect(finalCategories.length).equal(sampleCategories.length + 1);
+    
+    const savedCategory = finalCategories.filter(c => c.id === id)[0];
+    expect(savedCategory.id).equal(id);
+    expect(savedCategory.name).equal(categoryToSave.name);
+    expect(savedCategory.type).equal(categoryToSave.type);
+    expect(savedCategory.balance).equal(categoryToSave.balance);
+    expect(savedCategory.created).equal(categoryToSave.created);
+    expect(savedCategory.removed).to.be.null;
+  })
+
+  it('updateCategory works', () => {
+    const id = 2;
+    const initialCategory = categoryService.getCategory(id);
+    expect(initialCategory).to.exist;
+    
+    const modifiedCategory: Category = { ...initialCategory, name: 'Updated', balance: 999, removed: '2021' }
+    categoryService.updateCategory(modifiedCategory);
+    
+    const updatedCategory = categoryService.getCategory(id);
+    expect(updatedCategory.id).equal(id);
+    expect(updatedCategory.name).equal(modifiedCategory.name);
+    expect(updatedCategory.type).equal(modifiedCategory.type);
+    expect(updatedCategory.balance).equal(modifiedCategory.balance);
+    expect(updatedCategory.created).equal(modifiedCategory.created);
+    expect(updatedCategory.removed).equal('2021');
+  })
+
+  it('addToBalanceOfCategory works', () => {
+    const id = 2;
+    const amount = 200;
+    const initialCategory = categoryService.getCategory(id);
+    expect(initialCategory).to.exist;
+
+    categoryService.addToBalanceOfCategory(id, amount);
+    
+    const finalCategory = categoryService.getCategory(id);
+    expect(finalCategory.id).equal(initialCategory.id);
+    expect(finalCategory.balance).equal(initialCategory.balance + amount);
   })
 })

@@ -10,5 +10,6 @@ export function clearDatabase() {
   db.prepare('DELETE FROM transactions').run();
   db.prepare('DELETE FROM budgets').run();
   db.prepare('DELETE FROM categories').run();
+  db.prepare('DELETE from sqlite_sequence').run();
   db.close();
 }
