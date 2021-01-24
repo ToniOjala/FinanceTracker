@@ -2,8 +2,8 @@ import { expect } from "chai"
 import { BalanceLog, Budget, Category, NewBalanceLog, NewBudget, NewCategory, NewTransaction, Transaction } from "../../shared/types"
 
 export function verifyCategoryEquality(categoryA: Category, categoryB: Category | NewCategory) {
-  expect(categoryA.name).equal(categoryB);
-  expect(categoryA.type).equal(categoryB);
+  expect(categoryA.name).equal(categoryB.name);
+  expect(categoryA.type).equal(categoryB.type);
   expect(categoryA.balance).equal(categoryB.balance);
   expect(categoryA.created).equal(categoryB.created);
 }
