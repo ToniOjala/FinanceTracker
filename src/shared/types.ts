@@ -22,16 +22,13 @@ export interface NewTransaction extends Omit<Transaction, 'id'> {
   [categoryName: string]: string | number | undefined;
 }
 
-interface BaseBudget {
+export interface Budget {
   id: number;
   amount: number;
   startDate: string;
   categoryId: number;
-  category: Category;
 }
-export type Budget = Omit<BaseBudget, 'categoryId'>
-export type NewBudget = Omit<BaseBudget, 'id' | 'category'>
-export type DbBudget = Omit<BaseBudget, 'category'>
+export type NewBudget = Omit<Budget, 'id'>
 
 export interface BalanceLog {
   id: number;
