@@ -1,4 +1,3 @@
-import transactions from '../../react/slices/transactions';
 import { NewTransaction } from '../../shared/types';
 import transactionData from './transactionData.json';
 
