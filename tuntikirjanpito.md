@@ -51,5 +51,6 @@
 | 22.01.21 | 2 | E2E-testien kanssa taistelua. Eteen tulee aina uusia virheitä, kun aiemmat saa korjattua.
 | 23.01.21 | 1 | E2E-testien poisto, testaus strategioiden opiskelua ja miettimistä
 | 24.01.21 | 4 | Testausframeworkin vaihto mochaan, tntegraatiotestien kirjoittamista tietokannan rajapintaan
-| yht   | 126   | | 
+| 25.01.21 | 2 | Unit-testien kirjoitusta
+| yht   | 128   | | 
 
