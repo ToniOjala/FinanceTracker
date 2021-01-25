@@ -8,6 +8,8 @@ import YearMonthSelector from './components/YearMonthSelector';
 import YearView from './views/YearView';
 import { theme } from './theme';
 import SettingsView from './views/SettingsView';
+import { useSelector } from 'react-redux';
+import { selectDate, selectDateSelectionStatus } from './slices/dateSelection';
 
 const useStyles = makeStyles({
   root: {
@@ -21,6 +23,9 @@ const useStyles = makeStyles({
 const App = (): JSX.Element | null => {
   const classes = useStyles();
 
+  const selectedDate = useSelector(selectDate);
+  const dateSelectionStatus = useSelector(selectDateSelectionStatus);
+
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
@@ -28,7 +33,10 @@ const App = (): JSX.Element | null => {
         <Router>
           <SideNav />
           <main className={classes.content}>
-            <YearMonthSelector />
+            <YearMonthSelector 
+              selectedDate={selectedDate}
+              dateSelectionStatus={dateSelectionStatus}
+            />
             <Switch>
               <Route path="/settings">
                 <SettingsView />
