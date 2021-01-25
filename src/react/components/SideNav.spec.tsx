@@ -15,9 +15,11 @@ describe('<SideNav />', () => {
     const month = component.getByText('Month');
     const year = component.getByText('Year');
     const balance = component.getByText('Balances');
+    const settings = component.getByText('Settings');
 
     expect(month).to.exist;
     expect(year).to.exist;
     expect(balance).to.exist;
+    expect(settings).to.exist;
   })
 })
