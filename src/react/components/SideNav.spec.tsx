@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, RenderResult } from '@testing-library/react';
 import SideNav from './SideNav';
+import { render, RenderResult } from '@testing-library/react';
 import { BrowserRouter as Router} from 'react-router-dom'
+import { expect } from 'chai';
 
 describe('<SideNav />', () => {
   let component: RenderResult;
@@ -15,8 +16,8 @@ describe('<SideNav />', () => {
     const year = component.getByText('Year');
     const balance = component.getByText('Balances');
 
-    // expect(month).toBeDefined();
-    // expect(year).toBeDefined();
-    // expect(balance).toBeDefined();
+    expect(month).to.exist;
+    expect(year).to.exist;
+    expect(balance).to.exist;
   })
 })
