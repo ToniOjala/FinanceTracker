@@ -13,7 +13,7 @@ interface AddBalanceValues {
   amount: number;
 }
 
-const SetBudgetsDialog = ({ isOpen, categoryName, handleClose, handleAddToBalance }: Props): JSX.Element => {
+const AddBalanceDialog = ({ isOpen, categoryName, handleClose, handleAddToBalance }: Props): JSX.Element => {
   const { errors, control, formState, handleSubmit, watch } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
   const onSubmit: SubmitHandler<AddBalanceValues> = data => handleAddToBalance(data);
@@ -58,4 +58,4 @@ const SetBudgetsDialog = ({ isOpen, categoryName, handleClose, handleAddToBalanc
   )
 }
 
-export default SetBudgetsDialog;
+export default AddBalanceDialog;
