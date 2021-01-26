@@ -42,7 +42,6 @@ const BalanceLogsContainer = ({ classes, category }: Props): JSX.Element | null 
         balanceLogs={balanceLogs}
       />
       <BalanceLogPagination
-        disabled={!balanceLogs || balanceLogs.length === 0}
         balanceLogCount={balanceLogCount}
         onChange={handlePageChange}
       />
