@@ -2,18 +2,17 @@ import { expect } from "chai";
 import BudgetService from "../../../electron/DataAccess/services/budgetService";
 import CategoryService from "../../../electron/DataAccess/services/categoryService";
 import { NewBudget } from "../../../shared/types";
-import { sampleBudgets } from "../../sampleData/budgets";
-import { sampleCategories } from "../../sampleData/categories";
 import { clearTables } from "../../utils/database";
+import { generate } from "../../utils/generate";
 import { verifyBudgetEquality } from "../../utils/verification";
 
-const budgetService = new BudgetService();
-const categoryService = new CategoryService();
-
 describe('budgetService', () => {
+  const budgetService = new BudgetService();
+  const categoryService = new CategoryService();
+  const sampleBudgets = generate.budgets;
 
   before(() => {
-    for(const category of sampleCategories) {
+    for(const category of generate.categories) {
       categoryService.saveCategory(category);
     }
   })

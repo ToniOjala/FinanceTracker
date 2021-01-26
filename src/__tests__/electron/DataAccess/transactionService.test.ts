@@ -2,20 +2,17 @@ import { expect } from "chai";
 import CategoryService from "../../../electron/DataAccess/services/categoryService";
 import TransactionService from "../../../electron/DataAccess/services/transactionService";
 import { NewTransaction } from "../../../shared/types";
-import { sampleCategories } from "../../sampleData/categories";
-import { getSampleTransactions } from "../../sampleData/transactions";
 import { clearTables } from "../../utils/database";
+import { generate } from "../../utils/generate";
 import { verifyTransactionEquality } from "../../utils/verification";
 
-const transactionService = new TransactionService();
-const categoryService = new CategoryService();
-let sampleTransactions: NewTransaction[] = [];
-
 describe('transactionService', () => {
+  const transactionService = new TransactionService();
+  const categoryService = new CategoryService();
+  const sampleTransactions = generate.transactions();
 
   before(() => {
-    sampleTransactions = getSampleTransactions();
-    for(const category of sampleCategories) categoryService.saveCategory(category);
+    for(const category of generate.categories) categoryService.saveCategory(category);
   })
 
   after(() => {

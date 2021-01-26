@@ -1,12 +1,13 @@
 import { assert, expect } from "chai";
 import CategoryService from "../../../electron/DataAccess/services/categoryService";
 import { Category, NewCategory } from "../../../shared/types";
-import { sampleCategories } from "../../sampleData/categories";
 import { clearTables } from "../../utils/database";
+import { generate } from "../../utils/generate";
 import { verifyCategoryEquality } from "../../utils/verification";
 
 describe('categoryService', () => {
   const categoryService = new CategoryService();
+  const sampleCategories = generate.categories;
 
   describe('database is empty', () => {
     afterEach(() => {

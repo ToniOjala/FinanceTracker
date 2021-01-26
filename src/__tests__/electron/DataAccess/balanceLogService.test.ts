@@ -3,29 +3,24 @@ import BalanceLogService from "../../../electron/DataAccess/services/balanceLogS
 import CategoryService from "../../../electron/DataAccess/services/categoryService";
 import TransactionService from "../../../electron/DataAccess/services/transactionService";
 import { NewBalanceLog } from "../../../shared/types";
-import { getSampleBalanceLogs } from "../../sampleData/balanceLogs";
-import { sampleCategories } from "../../sampleData/categories";
-import { getSampleTransactions } from "../../sampleData/transactions";
 import { clearTables } from "../../utils/database";
+import { generate } from "../../utils/generate";
 import { verifyBalanceLogEquality } from "../../utils/verification";
 
-const balanceLogService = new BalanceLogService();
-const categoryService = new CategoryService();
-const transactionService = new TransactionService();
-let sampleBalanceLogs: NewBalanceLog[] = [];
-
 describe('balanceLogService', () => {
+  const balanceLogService = new BalanceLogService();
+  const categoryService = new CategoryService();
+  const transactionService = new TransactionService();
+  const sampleBalanceLogs = generate.balanceLogs();
 
   before(() => {
-    for(const category of sampleCategories) {
+    for(const category of generate.categories) {
       categoryService.saveCategory(category);
     }
 
-    for(const transaction of getSampleTransactions()) {
+    for(const transaction of generate.transactions()) {
       transactionService.saveTransaction(transaction);
     }
-
-    sampleBalanceLogs = getSampleBalanceLogs();
   })
 
   after(() => {
