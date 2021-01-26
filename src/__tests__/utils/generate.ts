@@ -69,7 +69,7 @@ const categories: Category[] = [
     id: 1,
     name: 'Test Category 1',
     type: 'income',
-    balance: 0,
+    balance: 592.94,
     created: '2019',
   },
   {
