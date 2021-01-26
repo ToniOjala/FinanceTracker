@@ -19,7 +19,7 @@
     "start:renderer": "webpack serve --config webpack-renderer.config.ts --mode development",
     "start:run-electron": "cross-env NODE_ENV=development electron ./app/electron-main.js",
     "start": "npm run build:electron-main:dev && concurrently \"cross-env npm run start:renderer\" \"npm run start:run-electron\" -n renderer,electron",
-    "test:unit": "mocha -r ts-node/register -r jsdom-global/register src/react/**/*.spec.tsx",
+    "test:unit": "mocha -r ts-node/register -r jsdom-global/register src/react/**/*.spec.{ts,tsx}",
     "test:unit:watch": "mocha -w -r ts-node/register -r jsdom-global/register src/react/**/*.spec.tsx --watch-files [\"src/react\"]",
     "test:integration": "set DEPLOY_ENV=test && electron-mocha -r ts-node/register src/__tests__/**/*.test.ts"
   },
