@@ -1,0 +1,8 @@
+{
+  "extension": [".spec.ts", ".spec.tsx"],
+  "package": "./package.json",
+  "require": [
+    "ts-node/register",
+    "jsdom-global/register"
+  ]
+}
