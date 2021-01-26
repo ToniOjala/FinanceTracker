@@ -2,12 +2,16 @@ import React from 'react';
 import BalanceLogPagination from './BalanceLogPagination';
 import { fireEvent, render, screen } from '../../../../__tests__/utils/react';
 import { expect } from 'chai';
+import sinon from 'sinon';
 
-function renderWithProps(count: number, onChange: () => void) {
+let fakeOnChange = sinon.fake();
+
+function renderWithProps(count: number) {
+  fakeOnChange = sinon.fake();
   return render(
     <BalanceLogPagination
       balanceLogCount={count}
-      onChange={onChange} 
+      onChange={fakeOnChange}
     />);
 }
 
@@ -28,7 +32,7 @@ describe('<BalanceLogPagination />', () => {
 
   describe('there are less than 21 balance logs', () => {
     beforeEach(() => {
-      renderWithProps(20, () => {});
+      renderWithProps(20);
       getButtons();
     })
 
@@ -47,7 +51,7 @@ describe('<BalanceLogPagination />', () => {
 
   describe('there are between 21 and 40 balance logs', () => {
     beforeEach(() => {
-      renderWithProps(21, () => {});
+      renderWithProps(21);
       getButtons();
     })
 
@@ -66,6 +70,7 @@ describe('<BalanceLogPagination />', () => {
 
     it('<- should be enabled and -> disabled when clicked to the next page', () => {
       fireEvent.click(nextButton);
+      expect(fakeOnChange.callCount).equal(1);
       expect(prevButton.classList.contains('Mui-disabled')).to.be.false;
       expect(nextButton.classList.contains('Mui-disabled')).to.be.true;
     })
@@ -73,7 +78,7 @@ describe('<BalanceLogPagination />', () => {
 
   describe('there are between 41 and 60 balance logs', () => {
     beforeEach(() => {
-      renderWithProps(41, () => {});
+      renderWithProps(41);
       getButtons();
     })
 
@@ -86,12 +91,14 @@ describe('<BalanceLogPagination />', () => {
 
     it('both <- and -> should be enabled when clicked to the next page', () => {
       fireEvent.click(nextButton);
+      expect(fakeOnChange.callCount).equal(1);
       expect(prevButton.classList.contains('Mui-disabled')).to.be.false;
       expect(nextButton.classList.contains('Mui-disabled')).to.be.false;
     })
 
     it('<- should be enabled and -> disabled when clicked to the third page', () => {
       thirdPage && fireEvent.click(thirdPage);
+      expect(fakeOnChange.callCount).equal(1);
       expect(prevButton.classList.contains('Mui-disabled')).to.be.false;
       expect(nextButton.classList.contains('Mui-disabled')).to.be.true;
     })
