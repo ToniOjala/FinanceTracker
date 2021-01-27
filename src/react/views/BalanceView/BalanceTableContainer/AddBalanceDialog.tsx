@@ -19,6 +19,10 @@ const AddBalanceDialog = ({ isOpen, categoryName, handleClose, handleAddToBalanc
   const onSubmit: SubmitHandler<AddBalanceValues> = data => handleAddToBalance(data);
   const watchAmount = watch('amount', 0);
 
+  function disableAdd () {
+    return (watchAmount <= 0 || isNaN(Number(watchAmount)));
+  }
+
   return (
     <Dialog maxWidth='xs' open={isOpen} onClose={() => handleClose}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -48,7 +52,7 @@ const AddBalanceDialog = ({ isOpen, categoryName, handleClose, handleAddToBalanc
           <Button
             type="submit"
             color="primary"
-            disabled={!isDirty || !isValid || watchAmount == 0}
+            disabled={!isDirty || !isValid || disableAdd() }
           >
             Add
           </Button>
