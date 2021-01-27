@@ -1,7 +1,7 @@
 import { Box, makeStyles, Paper, TextField, Typography } from '@material-ui/core'
 import React from 'react'
 import { Control, Controller, DeepMap, FieldError } from 'react-hook-form';
-import { AddTransactionFormValues } from '.';
+import { AddTransactionFormValues } from './TransactionDialog';
 import { Category } from '../../../../shared/types'
 
 interface Props {

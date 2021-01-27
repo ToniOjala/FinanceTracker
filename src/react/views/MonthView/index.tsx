@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Category, Transaction } from '../../../shared/types';
 import CategoryTablesContainer from './CategoryTablesContainer';
-import TransactionTable from './TransactionTable'
 import { fetchCategories, selectExpenseCategories } from '../../slices/categories';
 import { fetchTransactionsOfMonth, selectTransactions } from '../../slices/transactions';
 import { selectDate, selectYearAndMonth, setDateSelectionStatus } from '../../slices/dateSelection';
@@ -56,13 +55,9 @@ const MonthView = (): JSX.Element | null => {
         />
       </Box>
       <Box className={classes.transactions}>
-        {selectedCategory && 
-          <TransactionTable 
-            selectedCategory={selectedCategory}
-            categories={expenseCategories}
-            transactions={transactionsOfCategory}
-          />
-        }
+        <TransactionsContainer
+          
+        />
       </Box>
     </Box>
   )
