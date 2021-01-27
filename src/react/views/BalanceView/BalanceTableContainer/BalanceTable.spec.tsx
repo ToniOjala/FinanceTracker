@@ -36,7 +36,7 @@ describe('<BalanceTable />', () => {
     }
   })
 
-  it('selectCategory function gets called if row is clicked', () => {
+  it('selectCategory gets called if row is clicked', () => {
     const row = screen.getByRole('row', { name: 'Test Category 1 592.94'});
     fireEvent.click(row);
     expect(fakeSelectCategory.callCount).equal(1);
