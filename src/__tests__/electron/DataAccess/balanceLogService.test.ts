@@ -18,7 +18,7 @@ describe('balanceLogService', () => {
       categoryService.saveCategory(category);
     }
 
-    for(const transaction of generate.transactions()) {
+    for(const transaction of generate.newTransactions()) {
       transactionService.saveTransaction(transaction);
     }
   })

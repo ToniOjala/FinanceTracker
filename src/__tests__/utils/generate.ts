@@ -21,7 +21,7 @@ function balanceLogsWithIds(amount: number = 100): BalanceLog[] {
   return balanceLogs;
 }
 
-function transactions(amount: number = 100): NewTransaction[] {
+function newTransactions(amount: number = 100): NewTransaction[] {
   if (amount > 1000) amount = 1000;
 
   const transactions: NewTransaction[] = []
@@ -31,7 +31,7 @@ function transactions(amount: number = 100): NewTransaction[] {
   return transactions;
 }
 
-function transactionsWithIds(amount: number = 1000): Transaction[] {
+function transactions(amount: number = 1000): Transaction[] {
   if (amount > 1000) amount = 1000;
 
   const transactions: Transaction[] = [];
@@ -99,8 +99,8 @@ const categories: Category[] = [
 export const generate = {
   balanceLogs,
   balanceLogsWithIds,
+  newTransactions,
   transactions,
-  transactionsWithIds,
   budgets,
   categories,
 }

@@ -9,7 +9,7 @@ import { verifyTransactionEquality } from "../../utils/verification";
 describe('transactionService', () => {
   const transactionService = new TransactionService();
   const categoryService = new CategoryService();
-  const sampleTransactions = generate.transactions();
+  const sampleTransactions = generate.newTransactions();
 
   before(() => {
     for(const category of generate.categories) categoryService.saveCategory(category);
