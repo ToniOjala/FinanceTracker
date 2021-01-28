@@ -53,5 +53,7 @@
 | 24.01.21 | 4 | Testausframeworkin vaihto mochaan, integraatiotestien kirjoittamista tietokannan rajapintaan
 | 25.01.21 | 2 | Testien kirjoitusta
 | 26.01.21 | 3 | Testien kirjoitusta
-| yht   | 131   | | 
+| 27.01.21 | 1 | Testien kirjoitusta
+| 28.01.21 | 1 | Testien kirjoitusta
+| yht   | 133   | | 
 
