@@ -18,10 +18,10 @@ interface Props {
   transactions: Transaction[];
   title: string;
   selectedTransaction: Transaction | null;
-  setSelectedTransaction: (transaction: Transaction) => void;
+  selectTransaction: (transaction: Transaction) => void;
 }
 
-const TransactionTable = ({ transactions, title, selectedTransaction, setSelectedTransaction }: Props): JSX.Element | null => {
+const TransactionTable = ({ transactions, title, selectedTransaction, selectTransaction }: Props): JSX.Element | null => {
   const classes = useStyles();
 
   return (
@@ -43,7 +43,7 @@ const TransactionTable = ({ transactions, title, selectedTransaction, setSelecte
                   key={transaction.id}
                   hover
                   selected={transaction === selectedTransaction}
-                  onClick={() => setSelectedTransaction(transaction)}
+                  onClick={() => selectTransaction(transaction)}
                 >
                   <TableCell component="th" scope="row">
                     {format(new Date(transaction.date), 'dd.MM.yy')}

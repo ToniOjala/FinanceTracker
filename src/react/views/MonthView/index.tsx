@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Category, Transaction } from '../../../shared/types';
 import CategoryTablesContainer from './CategoryTablesContainer';
-import { fetchCategories, selectExpenseCategories } from '../../slices/categories';
+import { fetchCategories, selectCategories } from '../../slices/categories';
 import { fetchTransactionsOfMonth, selectTransactions } from '../../slices/transactions';
 import { selectDate, selectYearAndMonth, setDateSelectionStatus } from '../../slices/dateSelection';
 import { fetchLatestBudgets } from '../../slices/budgets';
+import TransactionContainer from './transactionsContainer/TransactionContainer';
 
 const useStyles = makeStyles({
   categories: {
@@ -27,7 +28,7 @@ const MonthView = (): JSX.Element | null => {
   const dispatch = useDispatch();
   
   const transactions = useSelector(selectTransactions);
-  const expenseCategories = useSelector(selectExpenseCategories);
+  const categories = useSelector(selectCategories);
   const [year, month] = useSelector(selectYearAndMonth);
   const selectedDate = useSelector(selectDate);
 
@@ -55,8 +56,10 @@ const MonthView = (): JSX.Element | null => {
         />
       </Box>
       <Box className={classes.transactions}>
-        <TransactionsContainer
-          
+        <TransactionContainer
+          categories={categories}
+          selectedCategory={selectedCategory}
+          transactions={transactionsOfCategory}
         />
       </Box>
     </Box>
