@@ -41,6 +41,18 @@ function transactions(amount: number = 1000): Transaction[] {
   return transactions;
 }
 
+function transactionsOfCategory(categoryId: number, amount?: number): Transaction[] {
+  const transactions: Transaction[] = [];
+  for( let i = 0; i < 1000; i++) {
+    if (transactionData[i].categoryId === categoryId) {
+      transactions.push({ id: i+1, ...transactionData[i] } as Transaction);
+      if (amount && transactions.length >= amount) return transactions; 
+    }
+  }
+
+  return transactions;
+}
+
 const budgets: NewBudget[] = [
   {
     categoryId: 2,
@@ -101,6 +113,7 @@ export const generate = {
   balanceLogsWithIds,
   newTransactions,
   transactions,
+  transactionsOfCategory,
   budgets,
   categories,
 }
