@@ -76,7 +76,7 @@ const TransactionContainer = ({ categories, selectedCategory, transactions }: Pr
           transactions={transactions}
           title={selectedCategory.name}
           selectedTransaction={selectedTransaction}
-          setSelectedTransaction={setSelectedTransaction}
+          selectTransaction={setSelectedTransaction}
         />
       }
       <Button
