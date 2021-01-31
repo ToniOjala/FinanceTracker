@@ -1,22 +1,22 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core';
 import React from 'react';
-import { Controller, useForm, SubmitHandler } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 interface Props {
   isOpen: boolean;
   categoryName: string | undefined;
   handleClose: () => void;
-  handleAddToBalance: (values: AddBalanceValues) => void;
+  handleAddToBalance: (values: FormValues) => void;
 }
 
-interface AddBalanceValues {
+interface FormValues {
   amount: number;
 }
 
 const AddBalanceDialog = ({ isOpen, categoryName, handleClose, handleAddToBalance }: Props): JSX.Element => {
   const { errors, control, formState, handleSubmit, watch } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
-  const onSubmit: SubmitHandler<AddBalanceValues> = data => handleAddToBalance(data);
+  const onSubmit = (values: FormValues) => handleAddToBalance(values);
   const watchAmount = watch('amount', 0);
 
   function disableAdd () {
