@@ -1,4 +1,4 @@
-import { act, fireEvent, getRoles, logRoles, render, screen, waitFor } from '../../../../__tests__/utils/react';
+import { act, fireEvent, render, screen, waitFor } from '../../../../__tests__/utils/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { Category, Transaction } from '../../../../shared/types';
@@ -6,42 +6,44 @@ import { generate } from '../../../../__tests__/utils/generate';
 import TransactionDialog from './TransactionDialog';
 import { format } from 'date-fns';
 
-let fakeHandleClose: jest.Mock;
-let fakeHandleTransaction: jest.Mock;
+const mockHandleClose = jest.fn();
+const mockHandleTransaction = jest.fn();
 
 function renderWithProps(transactionType: 'income' | 'expense', categories: Category[], transactionToEdit: Transaction | null) {
-  fakeHandleClose = jest.fn();
-  fakeHandleTransaction = jest.fn();
   return render(
     <TransactionDialog
       isOpen={true}
       transactionType={transactionType}
       categories={categories}
       transactionToEdit={transactionToEdit}
-      handleClose={fakeHandleClose}
-      handleTransaction={fakeHandleTransaction}
+      handleClose={mockHandleClose}
+      handleTransaction={mockHandleTransaction}
     />);
 }
 
 describe('<TransactionDialog />', () => {
   const sampleCategories = generate.categories;
+  let dateInput: HTMLElement;
+  let amountInput: HTMLElement;
+  let labelInput: HTMLElement;
+  let addButton: HTMLElement;
 
   describe('validations', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       renderWithProps('expense', sampleCategories, null);
+      const inputs = await screen.findAllByRole('textbox');
+      dateInput = inputs[0];
+      amountInput = inputs[1];
+      labelInput = inputs[2];
+      addButton = await screen.findByRole('button', { name: 'Add' });
     })
 
     it('disables add button if there is no amount', () => {
-      const addButton = screen.getByRole('button', { name: 'Add' });
       expect(addButton).toBeDisabled();
     })
 
     it('enables add button if amount is added', async () => {
-      const addButton = screen.getByRole('button', { name: 'Add' });
-
       await act(async () => {
-        const inputs = await screen.findAllByRole('textbox');
-        const amountInput = inputs[1];
         fireEvent.input(amountInput, { target: { value: '100' }});
       })
 
@@ -50,8 +52,7 @@ describe('<TransactionDialog />', () => {
 
     it('displays "Date is required" if date is not given', async () => {
       await act(async () => {
-        const inputs = await screen.findAllByRole('textbox');
-        userEvent.clear(inputs[0]);
+        userEvent.clear(dateInput);
       })
 
       expect(screen.getByText('Date is required')).toBeDefined();      
@@ -59,8 +60,10 @@ describe('<TransactionDialog />', () => {
 
     it('displays "Amount is required" if amount is not given', async () => {
       await act(async () => {
-        const inputs = await screen.findAllByRole('textbox');
-        userEvent.type(inputs[1], '1{backspace}');
+        fireEvent.input(amountInput, { target: { value: '100' }});
+        await waitFor(() => expect(amountInput).toHaveValue('100'));
+        fireEvent.input(amountInput, { target: { value: '' }});
+        await waitFor(() => expect(amountInput).toHaveValue(''));
       })
 
       expect(screen.getByText('Amount is required')).toBeDefined();
@@ -68,8 +71,13 @@ describe('<TransactionDialog />', () => {
   })
 
   describe('adding an expense', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       renderWithProps('expense', sampleCategories, null);
+      const inputs = await screen.findAllByRole('textbox');
+      dateInput = inputs[0];
+      amountInput = inputs[1];
+      labelInput = inputs[2];
+      addButton = await screen.findByRole('button', { name: 'Add' });
     })
 
     it('has correct title', () => {
@@ -77,35 +85,35 @@ describe('<TransactionDialog />', () => {
       expect(title).toBeDefined();
     })
 
-    it.skip('calls handleTransaction with created values when clicking Add', async () => {
+    it('calls handleTransaction with created values when clicking Add', async () => {
       const date = '04.04.2021';
+      const returnedDate = '2021-04-04';
       const amount = '32.12';
       const label = 'Test Label';
 
       await act(async () => {
-        const inputs = await screen.findAllByRole('textbox');
-        fireEvent.input(inputs[0], { target: { value: date }});
-        fireEvent.input(inputs[1], { target: { value: amount }});
-        fireEvent.input(inputs[2], { target: { value: label }});
+        fireEvent.input(dateInput, { target: { value: date }});
+        fireEvent.input(amountInput, { target: { value: amount }});
+        fireEvent.input(labelInput, { target: { value: label }});
+
+        await waitFor(() => expect(addButton).toBeEnabled());
+        userEvent.click(addButton);
       })
 
-      const addButton = await screen.findByRole('button', { name: 'Add' });
-      expect(addButton).toBeEnabled();
-
-      act (() => {
-        userEvent.click(addButton);
-      });
-
-      expect(fakeHandleTransaction).toHaveBeenCalledTimes(1);
-      expect(fakeHandleTransaction).toHaveBeenCalledWith({ date, amount, label });
+      expect(mockHandleTransaction).toBeCalledWith({ date: returnedDate, amount, label });
     })
   })
 
   describe('editing an expense', () => {
     const sampleTransaction: Transaction = { id: 1, categoryId: 2, amount: 14.22, date: '2020-10-15', label: 'TestLabel' }
 
-    beforeEach(() => {
+    beforeEach(async () => {
       renderWithProps('expense', sampleCategories, sampleTransaction);
+      const inputs = await screen.findAllByRole('textbox');
+      dateInput = inputs[0];
+      amountInput = inputs[1];
+      labelInput = inputs[2];
+      addButton = await screen.findByRole('button', { name: 'Add' });
     })
 
     it('has correct title', () => {
@@ -114,23 +122,23 @@ describe('<TransactionDialog />', () => {
     })
 
     it('has correct values', async () => {
-      const inputs = await screen.findAllByRole('textbox');
-      expect(inputs[0]).toHaveValue(format(new Date(sampleTransaction.date), 'dd.MM.yyyy'));
-      expect(inputs[1]).toHaveValue(sampleTransaction.amount.toString());
-      expect(inputs[2]).toHaveValue(sampleTransaction.label);
+      expect(dateInput).toHaveValue(format(new Date(sampleTransaction.date), 'dd.MM.yyyy'));
+      expect(amountInput).toHaveValue(sampleTransaction.amount.toString());
+      expect(labelInput).toHaveValue(sampleTransaction.label);
     })
   })
 
   describe('adding an income', () => {
-    let dialog: HTMLElement;
-    let inputs: HTMLElement[];
     let categoryInputs: HTMLElement[];
     
     beforeEach(async () => {
       renderWithProps('income', sampleCategories, null);
-      dialog = screen.getByRole('dialog');
-      inputs = await screen.findAllByRole('textbox');
+      const inputs = await screen.findAllByRole('textbox');
       categoryInputs = inputs.splice(3);
+      dateInput = inputs[0];
+      amountInput = inputs[1];
+      labelInput = inputs[2];
+      addButton = await screen.findByRole('button', { name: 'Add' });
     })
 
     it('has input for each category', async () => {
@@ -141,15 +149,15 @@ describe('<TransactionDialog />', () => {
 
     it('disables add button when sum of categories is not equal to amount', () => {
       act(() => {
-        fireEvent.input(inputs[1], { target: { value: '1500' }})
+        fireEvent.input(amountInput, { target: { value: '1500' }})
       });
 
-      expect(screen.getByRole('button', { name: 'Add' })).toBeDisabled();
+      expect(addButton).toBeDisabled();
     })
 
     it('enables add button when sum of categories is equal to amount', async () => {
       await act(async () => {
-        fireEvent.input(inputs[1], { target: { value: '1500' }})
+        fireEvent.input(amountInput, { target: { value: '1500' }})
         fireEvent.input(categoryInputs[0], { target: { value: '500' }});
         fireEvent.input(categoryInputs[1], { target: { value: '200' }});
         fireEvent.input(categoryInputs[2], { target: { value: '700' }});
@@ -157,12 +165,12 @@ describe('<TransactionDialog />', () => {
         await waitFor(() => { setTimeout(() => {}, 1000)});
       });
 
-      expect(inputs[1]).toHaveValue('1500');
+      expect(amountInput).toHaveValue('1500');
       expect(categoryInputs[0]).toHaveValue('500');
       expect(categoryInputs[1]).toHaveValue('200');
       expect(categoryInputs[2]).toHaveValue('700');
       expect(categoryInputs[3]).toHaveValue('100');
-      expect(screen.getByRole('button', { name: 'Add' })).toBeEnabled();
+      expect(addButton).toBeEnabled();
     })
   })
 

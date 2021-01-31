@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { Button } from '@material-ui/core'
-import TransactionDialog, { AddTransactionFormValues } from './TransactionDialog'
+import TransactionDialog, { TransactionFormValues } from './TransactionDialog'
 import TransactionTable from './TransactionTable'
 import { Category, NewTransaction, Transaction } from '../../../../shared/types'
 import { useDispatch } from 'react-redux'
 import { updateTransaction, postTransaction, deleteTransaction } from '../../../slices/transactions'
-import { format } from 'date-fns'
 
 interface Props {
   categories: Category[];
@@ -28,11 +27,13 @@ const TransactionContainer = ({ categories, selectedCategory, transactions }: Pr
     setSelectedTransaction(null);
   }
 
-  function handleTransaction  (values: AddTransactionFormValues) {
+  function handleTransaction  (values: TransactionFormValues) {
+    console.log('values: ', values);
+
     if (transactionToEdit) {
       dispatch(updateTransaction({
         id: transactionToEdit.id,
-        date: format(values.date, 'yyyy-MM-dd'),
+        date: values.date,
         label: values.label,
         amount: Number(parseFloat(values.amount)),
         categoryId: transactionToEdit.categoryId
@@ -42,7 +43,7 @@ const TransactionContainer = ({ categories, selectedCategory, transactions }: Pr
     }
 
     const newTransaction: NewTransaction = {
-      date: format(values.date, 'yyyy-MM-dd'),
+      date: values.date,
       label: values.label,
       amount: Number.parseFloat(values.amount),
       categoryId: selectedCategory.id,

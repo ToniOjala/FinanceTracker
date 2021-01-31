@@ -4,7 +4,7 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/picker
 import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import { Controller, useForm } from 'react-hook-form';
 import DateFnsUtils from '@date-io/date-fns';
-import { startOfMonth, endOfMonth, parseISO } from 'date-fns';
+import { startOfMonth, endOfMonth, parseISO, format } from 'date-fns';
 import { selectDate } from '../../../slices/dateSelection';
 import { useSelector } from 'react-redux';
 import { Category, KeyNumberPairs, Transaction } from '../../../../shared/types';
@@ -16,11 +16,11 @@ interface Props {
   categories: Category[];
   transactionToEdit: Transaction | null;
   handleClose: () => void;
-  handleTransaction: (newTransaction: AddTransactionFormValues) => void;
+  handleTransaction: (newTransaction: TransactionFormValues) => void;
 }
 
-export interface AddTransactionFormValues {
-  date: Date;
+export interface TransactionFormValues {
+  date: string;
   amount: string;
   label?: string;
   balanceAdditions: KeyNumberPairs;
@@ -28,8 +28,11 @@ export interface AddTransactionFormValues {
 
 const TransactionDialog = ({ isOpen, transactionType, categories, transactionToEdit, handleClose, handleTransaction }: Props): JSX.Element => {
   const [sumOfBalances, setSumOfBalances] = useState(0);
-  const { errors, control, handleSubmit, formState, setValue, watch } = useForm<AddTransactionFormValues>({ mode: 'onChange' });
+  const { errors, control, handleSubmit, formState, setValue, watch } = useForm<TransactionFormValues>({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
+  const onSubmit = (values: TransactionFormValues) => {
+    handleTransaction({ ...values, date: format(new Date(values.date), 'yyyy-MM-dd') });
+  }
   const selectedDate = useSelector(selectDate);
   const watchAmount = watch('amount', '0');
   const watchBalanceAdditions = watch('balanceAdditions', {});
@@ -44,7 +47,7 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
 
   return (
     <Dialog open={isOpen} onClose={() => handleClose}>
-      <form data-testid="transaction-form" onSubmit={handleSubmit(handleTransaction)} >
+      <form data-testid="transaction-form" onSubmit={handleSubmit(onSubmit)} >
         <DialogTitle>{transactionToEdit ? 'Edit Transaction' : 'Add Transaction'}</DialogTitle>
         <DialogContent>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>

@@ -1,14 +1,14 @@
 import { Box, makeStyles, Paper, TextField, Typography } from '@material-ui/core'
 import React from 'react'
 import { Control, Controller, DeepMap, FieldError } from 'react-hook-form';
-import { AddTransactionFormValues } from './TransactionDialog';
+import { TransactionFormValues } from './TransactionDialog';
 import { Category } from '../../../../shared/types'
 
 interface Props {
   categories: Category[];
   amount: number;
-  control: Control<AddTransactionFormValues>;
-  errors: DeepMap<AddTransactionFormValues, FieldError>;
+  control: Control<TransactionFormValues>;
+  errors: DeepMap<TransactionFormValues, FieldError>;
 }
 
 const useStyles = makeStyles({
