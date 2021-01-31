@@ -51,9 +51,11 @@
 | 22.01.21 | 2 | E2E-testien kanssa taistelua. Eteen tulee aina uusia virheitä, kun aiemmat saa korjattua.
 | 23.01.21 | 1 | E2E-testien poisto, testaus strategioiden opiskelua ja miettimistä
 | 24.01.21 | 4 | Testausframeworkin vaihto mochaan, integraatiotestien kirjoittamista tietokannan rajapintaan
-| 25.01.21 | 2 | Testien kirjoitusta
-| 26.01.21 | 3 | Testien kirjoitusta
-| 27.01.21 | 1 | Testien kirjoitusta
-| 28.01.21 | 1 | Testien kirjoitusta
-| yht   | 133   | | 
+| 25.01.21 | 2 | React-testien kirjoitusta
+| 26.01.21 | 3 | React-testien kirjoitusta
+| 27.01.21 | 1 | React-testien kirjoitusta
+| 28.01.21 | 1 | React-testien kirjoitusta
+| 30.01.21 | 2 | React-testien kirjoitusta<br>Mochan vaihto Jestiin, koska Mocha aiheutti liikaa ongelmia react-hook-formin kanssa
+| 31.01.21 | 4 | React-testien kirjoitusta
+| yht   | 139   | | 
 
