@@ -1,3 +1,4 @@
+import { BudgetsByCategory } from '../../react/types';
 import { BalanceLog, Category, NewBalanceLog, NewBudget, NewTransaction, Transaction } from '../../shared/types';
 import transactionData from '../sampleData/transactionData.json';
 
@@ -76,6 +77,13 @@ const budgets: NewBudget[] = [
   }
 ]
 
+const budgetsByCategory: BudgetsByCategory = {
+  '1': 0,
+  '2': 300,
+  '3': 100,
+  '4': 0
+}
+
 const categories: Category[] = [
   {
     id: 1,
@@ -115,5 +123,6 @@ export const generate = {
   transactions,
   transactionsOfCategory,
   budgets,
+  budgetsByCategory,
   categories,
 }

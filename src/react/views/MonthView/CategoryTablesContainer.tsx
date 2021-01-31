@@ -63,6 +63,7 @@ const CategoryTablesContainer = ({ selectCategory, selectedCategory, transaction
         categories={incomeCategories}
         selectedCategory={selectedCategory}
         transactions={transactions}
+        budgets={budgets}
         selectCategory={selectCategory}
       />
       <CategoryTable
@@ -71,6 +72,7 @@ const CategoryTablesContainer = ({ selectCategory, selectedCategory, transaction
         categories={expenseCategories}
         selectedCategory={selectedCategory}
         transactions={transactions}
+        budgets={budgets}
         selectCategory={selectCategory}
       />
       <Button onClick={openBudgetDialog}>Set Budgets</Button>
