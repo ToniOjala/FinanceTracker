@@ -12,7 +12,7 @@ import BalancesList from './BalancesList';
 
 interface Props {
   isOpen: boolean;
-  transactionType: string;
+  transactionType: 'income' | 'expense';
   categories: Category[];
   transactionToEdit: Transaction | null;
   handleClose: () => void;
@@ -44,8 +44,8 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
 
   return (
     <Dialog open={isOpen} onClose={() => handleClose}>
-      <form onSubmit={handleSubmit(handleTransaction)}>
-        <DialogTitle>Add Transaction</DialogTitle>
+      <form data-testid="transaction-form" onSubmit={handleSubmit(handleTransaction)} >
+        <DialogTitle>{transactionToEdit ? 'Edit Transaction' : 'Add Transaction'}</DialogTitle>
         <DialogContent>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Controller
@@ -91,7 +91,6 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
             error={errors.label && true}
             helperText={errors.label?.message}
             fullWidth
-            required
           />
           {transactionType === 'income' && 
             <BalancesList
