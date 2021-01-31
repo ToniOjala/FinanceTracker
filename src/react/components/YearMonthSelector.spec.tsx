@@ -1,7 +1,6 @@
 import React from 'react';
 import YearMonthSelector from './YearMonthSelector';
 import { render, RenderResult } from '../../__tests__/utils/react';
-import { expect } from 'chai';
 
 function renderWithProps(selectedDate: string, dateSelectionStatus: string) {
   return render(<YearMonthSelector selectedDate={selectedDate} dateSelectionStatus={dateSelectionStatus} />);
@@ -11,39 +10,39 @@ describe('<YearMonthSelector />', () => {
   let component: RenderResult;
   
   it('returns null if dateSelectionStatus is hidden', () => {
-    component = renderWithProps('2020-12-12', 'hidden');
-    expect(component.container.firstChild).to.be.null;
+    component = renderWithProps('2020-12-12', 'hidden').element;
+    expect(component.container.firstChild).toBeNull();
   })
 
   describe('dateSelectionStatus is month', () => {
     it('returns month and year picker', () => {
-      component = renderWithProps('2020-12-12', 'month');
+      component = renderWithProps('2020-12-12', 'month').element;
       const label = component.getByText('Month/Year');
-      expect(label).to.exist;
+      expect(label).toBeDefined();
       const picker = component.getByRole('textbox');
-      expect(picker).to.exist;
+      expect(picker).toBeDefined();
     })
 
     it('has correct value', () => {
-      component = renderWithProps('2020-12-12', 'month');
+      component = renderWithProps('2020-12-12', 'month').element;
       const picker = component.getByRole('textbox');
-      expect(picker.getAttribute('value')?.valueOf()).equal('December 2020');
+      expect(picker).toHaveValue('December 2020');
     })
   })
 
   describe('dateSelectionStatus is year', () => {
     it('returns year picker', () => {
-      component = renderWithProps('2020-12-12', 'year');
+      component = renderWithProps('2020-12-12', 'year').element;
       const label = component.getByText('Year');
-      expect(label).to.exist;
+      expect(label).toBeDefined();
       const picker = component.getByRole('textbox');
-      expect(picker).to.exist;
+      expect(picker).toBeDefined();
     })
 
     it('has correct value', () => {
-      component = renderWithProps('2020-12-12', 'year');
+      component = renderWithProps('2020-12-12', 'year').element;
       const picker = component.getByRole('textbox');
-      expect(picker.getAttribute('value')?.valueOf()).equal('2020');
+      expect(picker).toHaveValue('2020');
     })
   })
 })

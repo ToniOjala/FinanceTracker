@@ -1,16 +1,14 @@
 import { fireEvent, render, screen } from '../../../../__tests__/utils/react';
 import React from 'react';
-import sinon from 'sinon';
 import { Transaction } from '../../../../shared/types';
 import { generate } from '../../../../__tests__/utils/generate';
 import TransactionTable from './TransactionTable';
-import { expect } from 'chai';
 import { format } from 'date-fns';
 
-let fakeSelectTransaction = sinon.fake();
+let fakeSelectTransaction = jest.fn();
 
 function renderWithProps(transactions: Transaction[], title: string, selectedTransaction: Transaction | null) {
-  fakeSelectTransaction = sinon.fake();
+  fakeSelectTransaction = jest.fn();
   return render(
     <TransactionTable
       transactions={transactions}
@@ -31,7 +29,7 @@ describe('<TransactionTable />', () => {
   
     it('shows correct title', () => {
       const dialogTitle = screen.queryByText(title);
-      expect(dialogTitle).to.exist;
+      expect(dialogTitle).toBeDefined();
     })
   
     it('renders a row for each transaction', () => {
@@ -40,7 +38,7 @@ describe('<TransactionTable />', () => {
         const row = transaction.label != null
           ? screen.getByRole('row', { name: `${date} ${transaction.label} ${transaction.amount}`})
           : screen.getByRole('row', { name: `${date} ${transaction.amount}`});
-        expect(row).to.exist;
+        expect(row).toBeDefined();
       }
     })
   
@@ -50,7 +48,8 @@ describe('<TransactionTable />', () => {
       const row = screen.getByRole('row', { name: `${date} ${transaction.label} ${transaction.amount}`});
       fireEvent.click(row);
   
-      expect(fakeSelectTransaction.calledOnceWith(transaction));
+      expect(fakeSelectTransaction).toHaveBeenCalledTimes(1);
+      expect(fakeSelectTransaction).toHaveBeenCalledWith(transaction);
     })
   })
 
@@ -61,7 +60,7 @@ describe('<TransactionTable />', () => {
       renderWithProps(sampleTransactions, title, transaction);
   
       const row = screen.getByRole('row', { name: `${date} ${transaction.label} ${transaction.amount}`});
-      expect(row.classList.toString()).to.include('Mui-selected');
+      expect(row).toHaveClass('Mui-selected');
     })
   })
 })

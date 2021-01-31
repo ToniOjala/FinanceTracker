@@ -1,19 +1,16 @@
 import React from 'react';
 import AddBalanceDialog from './AddBalanceDialog';
-import { act, fireEvent, render, screen, waitFor } from '../../../../__tests__/utils/react';
-import userEvent from '@testing-library/user-event';
-import { expect } from 'chai';
-import sinon from 'sinon';
+import { render, screen } from '../../../../__tests__/utils/react';
 
 import 'mutationobserver-shim';
 global.MutationObserver = window.MutationObserver;
 
-let fakeHandleClose = sinon.fake();
-let fakeHandleAddToBalance = sinon.fake();
+let fakeHandleClose = jest.fn();
+let fakeHandleAddToBalance = jest.fn();
 
 function renderWithProps(isOpen: boolean, categoryName: string) {
-  fakeHandleClose = sinon.fake();
-  fakeHandleAddToBalance = sinon.fake();
+  fakeHandleClose = jest.fn();
+  fakeHandleAddToBalance = jest.fn();
   return render(
     <AddBalanceDialog
       isOpen={isOpen}
@@ -30,6 +27,6 @@ describe('<AddBalanceDialog />', () => {
 
   it('shows category name in title', () => {
     const title = screen.queryByText('Add Balance to TestCategory');
-    expect(title).to.exist;
+    expect(title).toBeDefined();
   })
 })

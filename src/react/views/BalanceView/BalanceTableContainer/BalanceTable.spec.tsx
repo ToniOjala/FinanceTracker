@@ -1,16 +1,14 @@
 import React from 'react';
 import BalanceTable from './BalanceTable'
 import { fireEvent, render, screen } from '../../../../__tests__/utils/react';
-import { expect } from 'chai';
 import { Category } from '../../../../shared/types';
 import { generate } from '../../../../__tests__/utils/generate';
-import sinon from 'sinon';
 import { roundToDecimals } from '../../../utils/round';
 
-let fakeSelectCategory = sinon.fake();
+let fakeSelectCategory = jest.fn();
 
 function renderWithProps(categories: Category[], selectedCategory: Category | null) {
-  fakeSelectCategory = sinon.fake();
+  fakeSelectCategory = jest.fn();
   return render(
     <BalanceTable
       className="test"
@@ -31,16 +29,16 @@ describe('<BalanceTable />', () => {
     for(const category of sampleCategories) {
       const textCell = screen.queryByText(category.name);
       const valueCell = screen.queryByText(roundToDecimals(category.balance, 2));
-      expect(textCell).to.exist;
-      expect(valueCell).to.exist;
+      expect(textCell).toBeDefined();
+      expect(valueCell).toBeDefined();
     }
   })
 
   it('selectCategory gets called if row is clicked', () => {
     const row = screen.getByRole('row', { name: 'Test Category 1 592.94'});
     fireEvent.click(row);
-    expect(fakeSelectCategory.callCount).equal(1);
-    expect(fakeSelectCategory.calledOnceWith(sampleCategories[0]));
+    expect(fakeSelectCategory).toHaveBeenCalledTimes(1);
+    expect(fakeSelectCategory).toHaveBeenCalledWith(sampleCategories[0]);
   })
 
 })

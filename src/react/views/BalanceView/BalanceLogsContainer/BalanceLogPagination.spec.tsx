@@ -1,13 +1,11 @@
 import React from 'react';
 import BalanceLogPagination from './BalanceLogPagination';
 import { fireEvent, render, screen } from '../../../../__tests__/utils/react';
-import { expect } from 'chai';
-import sinon from 'sinon';
 
-let fakeOnChange = sinon.fake();
+let fakeOnChange = jest.fn();
 
 function renderWithProps(count: number) {
-  fakeOnChange = sinon.fake();
+  fakeOnChange = jest.fn();
   return render(
     <BalanceLogPagination
       balanceLogCount={count}
@@ -37,15 +35,15 @@ describe('<BalanceLogPagination />', () => {
     })
 
     it('there is only one page', () => {
-      expect(firstPage).to.exist;
-      expect(secondPage).to.not.exist;
-      expect(thirdPage).to.not.exist;
+      expect(firstPage).toBeDefined();
+      expect(secondPage).toBeNull();
+      expect(thirdPage).toBeNull();
     })
 
     it('buttons are disabled', () => {  
-      expect(prevButton.classList.contains('Mui-disabled')).to.be.true;
-      expect(firstPage?.classList.contains('Mui-disabled')).to.be.true;
-      expect(nextButton.classList.contains('Mui-disabled')).to.be.true;
+      expect(prevButton.classList.contains('Mui-disabled')).toBeTruthy();
+      expect(firstPage?.classList.contains('Mui-disabled')).toBeTruthy();
+      expect(nextButton.classList.contains('Mui-disabled')).toBeTruthy();
     })
   })
 
@@ -56,23 +54,23 @@ describe('<BalanceLogPagination />', () => {
     })
 
     it('there are two pages', () => {
-      expect(firstPage).to.exist;
-      expect(secondPage).to.exist;
-      expect(thirdPage).to.not.exist;
+      expect(firstPage).toBeDefined();
+      expect(secondPage).toBeDefined();
+      expect(thirdPage).toBeNull();
     })
 
     it('1, 2 and -> should be enabled and <- disabled', () => {
-      expect(prevButton.classList.contains('Mui-disabled')).to.be.true;
-      expect(firstPage?.classList.contains('Mui-disabled')).to.be.false;
-      expect(secondPage?.classList.contains('Mui-disabled')).to.be.false;
-      expect(nextButton.classList.contains('Mui-disabled')).to.be.false;
+      expect(prevButton.classList.contains('Mui-disabled')).toBeTruthy();
+      expect(firstPage?.classList.contains('Mui-disabled')).toBeFalsy();
+      expect(secondPage?.classList.contains('Mui-disabled')).toBeFalsy();
+      expect(nextButton.classList.contains('Mui-disabled')).toBeFalsy();
     })
 
     it('<- should be enabled and -> disabled when clicked to the next page', () => {
       fireEvent.click(nextButton);
-      expect(fakeOnChange.callCount).equal(1);
-      expect(prevButton.classList.contains('Mui-disabled')).to.be.false;
-      expect(nextButton.classList.contains('Mui-disabled')).to.be.true;
+      expect(fakeOnChange).toHaveBeenCalledTimes(1);
+      expect(prevButton.classList.contains('Mui-disabled')).toBeFalsy();
+      expect(nextButton.classList.contains('Mui-disabled')).toBeTruthy();
     })
   })
 
@@ -83,24 +81,24 @@ describe('<BalanceLogPagination />', () => {
     })
 
     it('there are three pages', () => {
-      expect(firstPage).to.exist;
-      expect(secondPage).to.exist;
-      expect(thirdPage).to.exist;
-      expect(screen.queryByText('4')).to.not.exist;
+      expect(firstPage).toBeDefined();
+      expect(secondPage).toBeDefined();
+      expect(thirdPage).toBeDefined();
+      expect(screen.queryByText('4')).toBeNull();
     })
 
     it('both <- and -> should be enabled when clicked to the next page', () => {
       fireEvent.click(nextButton);
-      expect(fakeOnChange.callCount).equal(1);
-      expect(prevButton.classList.contains('Mui-disabled')).to.be.false;
-      expect(nextButton.classList.contains('Mui-disabled')).to.be.false;
+      expect(fakeOnChange).toHaveBeenCalledTimes(1);
+      expect(prevButton.classList.contains('Mui-disabled')).toBeFalsy();
+      expect(nextButton.classList.contains('Mui-disabled')).toBeFalsy();
     })
 
     it('<- should be enabled and -> disabled when clicked to the third page', () => {
       thirdPage && fireEvent.click(thirdPage);
-      expect(fakeOnChange.callCount).equal(1);
-      expect(prevButton.classList.contains('Mui-disabled')).to.be.false;
-      expect(nextButton.classList.contains('Mui-disabled')).to.be.true;
+      expect(fakeOnChange).toHaveBeenCalledTimes(1);
+      expect(prevButton.classList.contains('Mui-disabled')).toBeFalsy();
+      expect(nextButton.classList.contains('Mui-disabled')).toBeTruthy();
     })
   })
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import BalanceLogList from './BalanceLogList'
 import { render, screen } from '../../../../__tests__/utils/react';
-import { expect } from 'chai';
 import { BalanceLog } from '../../../../shared/types';
 import { generate } from '../../../../__tests__/utils/generate';
 import { format } from 'date-fns';
@@ -16,7 +15,7 @@ describe('<BalanceLogList />', () => {
   it('Indicates balance log inavailability when given no logs', () => {
     renderWithProps([] as BalanceLog[])
     const element = screen.getByText('No logs available');
-    expect(element).to.exist;
+    expect(element).toBeDefined();
   })
 
   it('shows logs when given a list of balance logs', () => {
@@ -24,7 +23,7 @@ describe('<BalanceLogList />', () => {
     for (const log of sampleLogs) {
       const text = `${format(new Date(log.date), 'dd.MM.yy')} ${log.amount}`;
       const element = screen.getByText(text);
-      expect(element).to.exist;
+      expect(element).toBeDefined();
     }
   })
 })
