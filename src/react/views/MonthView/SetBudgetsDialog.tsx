@@ -21,9 +21,11 @@ const SetBudgetsDialog = ({ isOpen, incomeCategories, expenseCategories, budgets
   const { errors, control, handleSubmit, formState } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
 
+  const onSubmit = (data: UnprocessedBudgets) => handleSetBudgets(data);
+
   return (
     <Dialog maxWidth='xs' open={isOpen} onClose={() => handleClose}>
-      <form onSubmit={handleSubmit(handleSetBudgets)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle>Set Budgets</DialogTitle>
         <DialogContent>
           <Typography variant="h6">Income</Typography>
