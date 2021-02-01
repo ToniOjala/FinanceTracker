@@ -32,7 +32,7 @@ const CategoryDialog = ({ isOpen, categoryToEdit, handleClose, handleCategory }:
   return (
     <Dialog open={isOpen}>
       <form onSubmit={handleSubmit(handleCategory)}>
-        <DialogTitle>Add new category</DialogTitle>
+        <DialogTitle>{categoryToEdit ? 'Edit Category' : 'Add Category'}</DialogTitle>
         <DialogContent>
           <Controller
             as={TextField}
@@ -42,7 +42,6 @@ const CategoryDialog = ({ isOpen, categoryToEdit, handleClose, handleCategory }:
             margin="normal"
             name="name"
             label="Name"
-            id="categoryDialog_name"
             error={errors.name && true}
             helperText={errors.name?.message}
             fullWidth
@@ -56,7 +55,6 @@ const CategoryDialog = ({ isOpen, categoryToEdit, handleClose, handleCategory }:
             margin="normal"
             name="type"
             label="Type"
-            id="categoryDialog_type"
             fullWidth
             select
           >
@@ -66,7 +64,6 @@ const CategoryDialog = ({ isOpen, categoryToEdit, handleClose, handleCategory }:
         <DialogActions>
           <Button
             color="secondary"
-            id="categoryDialog_cancel"
             onClick={handleClose}
           >
             Cancel
@@ -74,7 +71,6 @@ const CategoryDialog = ({ isOpen, categoryToEdit, handleClose, handleCategory }:
           <Button 
             type="submit"
             color="primary"
-            id="categoryDialog_add"
             disabled={!isDirty || !isValid}
           >
             Add
