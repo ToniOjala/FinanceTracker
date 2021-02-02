@@ -29,9 +29,11 @@ const CategoryDialog = ({ isOpen, categoryToEdit, handleClose, handleCategory }:
   const { errors, control, handleSubmit, formState } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
 
+  const onSubmit = (values: CategoryDialogValues) => handleCategory(values);
+
   return (
     <Dialog open={isOpen}>
-      <form onSubmit={handleSubmit(handleCategory)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle>{categoryToEdit ? 'Edit Category' : 'Add Category'}</DialogTitle>
         <DialogContent>
           <Controller

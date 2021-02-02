@@ -47,6 +47,37 @@ describe('<CategoryDialog />', () => {
       expect(nameInput).not.toHaveValue();
       expect(typeInput).toBeDefined();
     })
+
+    it('disables add button when name is empty', () => {
+      expect(nameInput).not.toHaveValue();
+      expect(addButton).toBeDisabled();
+    })
+
+    it('enables add button when name is given a value', async () => {
+      await act(async () => {
+        fireEvent.input(nameInput, { target: { value: 'a' }});
+      })
+
+      await waitFor(() => expect(addButton).toBeEnabled());
+    })
+
+    it('handles form submission correctly', async () => {
+      await act(async () => {
+        fireEvent.input(nameInput, { target: { value: 'Category Numero Uno' }});
+        await waitFor(() => expect(addButton).toBeEnabled());
+        userEvent.click(addButton);
+      })
+
+      expect(mockHandleCategory).toBeCalledWith({ name: 'Category Numero Uno', type: 'expense' });
+    })
+
+    it('handles closing dialog correctly', async () => {
+      await act(async () => {
+        userEvent.click(cancelButton);
+      })
+
+      expect(mockHandleClose).toBeCalled();
+    })
   })
 
   describe('is editing category', () => {
