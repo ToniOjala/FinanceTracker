@@ -5,8 +5,6 @@ import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import { Controller, useForm } from 'react-hook-form';
 import DateFnsUtils from '@date-io/date-fns';
 import { startOfMonth, endOfMonth, parseISO, format } from 'date-fns';
-import { selectDate } from '../../../slices/dateSelection';
-import { useSelector } from 'react-redux';
 import { Category, KeyNumberPairs, Transaction } from '../../../../shared/types';
 import BalancesList from './BalancesList';
 
@@ -15,6 +13,7 @@ interface Props {
   transactionType: 'income' | 'expense';
   categories: Category[];
   transactionToEdit: Transaction | null;
+  selectedDate: string;
   handleClose: () => void;
   handleTransaction: (newTransaction: TransactionFormValues) => void;
 }
@@ -26,14 +25,13 @@ export interface TransactionFormValues {
   balanceAdditions: KeyNumberPairs;
 }
 
-const TransactionDialog = ({ isOpen, transactionType, categories, transactionToEdit, handleClose, handleTransaction }: Props): JSX.Element => {
+const TransactionDialog = ({ isOpen, transactionType, categories, transactionToEdit, selectedDate, handleClose, handleTransaction }: Props): JSX.Element => {
   const [sumOfBalances, setSumOfBalances] = useState(0);
   const { errors, control, handleSubmit, formState, setValue, watch } = useForm<TransactionFormValues>({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
   const onSubmit = (values: TransactionFormValues) => {
     handleTransaction({ ...values, date: format(new Date(values.date), 'yyyy-MM-dd') });
   }
-  const selectedDate = useSelector(selectDate);
   const watchAmount = watch('amount', '0');
   const watchBalanceAdditions = watch('balanceAdditions', {});
 

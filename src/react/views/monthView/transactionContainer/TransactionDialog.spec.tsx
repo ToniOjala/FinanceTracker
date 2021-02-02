@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen, waitFor } from '../../../../__tests__/utils/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { Category, Transaction } from '../../../../shared/types';
@@ -16,6 +16,7 @@ function renderWithProps(transactionType: 'income' | 'expense', categories: Cate
       transactionType={transactionType}
       categories={categories}
       transactionToEdit={transactionToEdit}
+      selectedDate="2020-10-12"
       handleClose={mockHandleClose}
       handleTransaction={mockHandleTransaction}
     />);

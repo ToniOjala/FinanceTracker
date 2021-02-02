@@ -3,8 +3,9 @@ import { Button } from '@material-ui/core'
 import TransactionDialog, { TransactionFormValues } from './TransactionDialog'
 import TransactionTable from './TransactionTable'
 import { Category, NewTransaction, Transaction } from '../../../../shared/types'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { updateTransaction, postTransaction, deleteTransaction } from '../../../slices/transactions'
+import { selectDate } from '../../../slices/dateSelection'
 
 interface Props {
   categories: Category[];
@@ -18,6 +19,7 @@ const TransactionContainer = ({ categories, selectedCategory, transactions }: Pr
   const [transactionToEdit, setTransactionToEdit] = useState<Transaction | null>(null);
 
   const dispatch = useDispatch();
+  const selectedDate = useSelector(selectDate);
 
   function openDialog () { setIsDialogOpen(true); }
   
@@ -105,6 +107,7 @@ const TransactionContainer = ({ categories, selectedCategory, transactions }: Pr
         transactionType={selectedCategory.type}
         categories={categories}
         transactionToEdit={transactionToEdit}
+        selectedDate={selectedDate}
         handleClose={closeDialog}
         handleTransaction={handleTransaction}
       />
