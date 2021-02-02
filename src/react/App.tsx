@@ -2,12 +2,12 @@ import { CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SideNav from './components/SideNav';
-import BalanceView from './views/BalanceView';
-import MonthView from './views/MonthView';
+import BalanceView from './views/balanceView/BalanceView';
+import MonthView from './views/monthView/MonthView';
+import YearView from './views/yearView/YearView';
+import SettingsView from './views/settingsView/SettingsView';
 import YearMonthSelector from './components/YearMonthSelector';
-import YearView from './views/YearView';
 import { theme } from './theme';
-import SettingsView from './views/SettingsView';
 import { useSelector } from 'react-redux';
 import { selectDate, selectDateSelectionStatus } from './slices/dateSelection';
 

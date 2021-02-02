@@ -1,8 +1,8 @@
 import { Box, createStyles, makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { Category } from '../../../shared/types';
-import BalanceTableContainer from './BalanceTableContainer';
-import BalanceLogsContainer from './BalanceLogsContainer';
+import BalanceTableContainer from './balanceTableContainer/BalanceTableContainer';
+import BalanceLogsContainer from './balanceLogsContainer/BalanceLogsContainer';
 import { setDateSelectionStatus } from '../../slices/dateSelection';
 import { useDispatch } from 'react-redux';
 import { fetchCategories } from '../../slices/categories';

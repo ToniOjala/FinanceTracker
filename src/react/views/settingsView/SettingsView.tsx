@@ -2,7 +2,7 @@ import { Box, makeStyles } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { setDateSelectionStatus } from '../../slices/dateSelection';
-import CategorySettingsContainer from './CategorySettingsContainer';
+import CategorySettingsContainer from './categorySettingsContainer/CategorySettingsContainer';
 
 const useStyles = makeStyles({
   root: {

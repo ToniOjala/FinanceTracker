@@ -7,7 +7,7 @@ import { fetchCategories, selectCategories } from '../../slices/categories';
 import { fetchTransactionsOfMonth, selectTransactions } from '../../slices/transactions';
 import { selectDate, selectYearAndMonth, setDateSelectionStatus } from '../../slices/dateSelection';
 import { fetchLatestBudgets } from '../../slices/budgets';
-import TransactionContainer from './transactionsContainer/TransactionContainer';
+import TransactionContainer from './transactionContainer/TransactionContainer';
 
 const useStyles = makeStyles({
   categories: {
