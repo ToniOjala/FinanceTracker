@@ -58,6 +58,6 @@
 | 30.01.21 | 2 | React-testien kirjoitusta<br>Mochan vaihto Jestiin, koska Mocha aiheutti liikaa ongelmia react-hook-formin kanssa
 | 31.01.21 | 4 | React-testien kirjoitusta
 | 01.02.21 | 1.5 | React-testien kirjoitusta
-| 02.02.21 | 1.5 | React-testien kirjoitusta, refaktorointia
-| yht   | 142   | | 
+| 02.02.21 | 2.5 | React-testien kirjoitusta, refaktorointia
+| yht   | 143   | | 
 
