@@ -1,4 +1,4 @@
-import { BudgetsByCategory } from '../../react/types';
+import { BudgetsByCategory, YearlyData } from '../../react/types';
 import { BalanceLog, Category, NewBalanceLog, NewBudget, NewTransaction, Transaction } from '../../shared/types';
 import transactionData from '../sampleData/transactionData.json';
 
@@ -52,6 +52,18 @@ function transactionsOfCategory(categoryId: number, amount?: number): Transactio
   }
 
   return transactions;
+}
+
+function yearlyData(categories: Category[]): YearlyData {
+  const data = {} as YearlyData;
+  let values: number[] = [];
+
+  for(const category of categories) {
+    for(let i = 0; i < 12; i++) values[i] = Math.floor(Math.random() * 1000);
+    data[category.name] = values;
+  }
+
+  return data;
 }
 
 const budgets: NewBudget[] = [
@@ -122,6 +134,7 @@ export const generate = {
   newTransactions,
   transactions,
   transactionsOfCategory,
+  yearlyData,
   budgets,
   budgetsByCategory,
   categories,

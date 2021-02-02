@@ -1,10 +1,9 @@
 import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import React from 'react'
-import { useSelector } from 'react-redux';
-import { selectYearlyData } from '../../slices/transactions';
 import { Category } from '../../../shared/types';
 import { roundToDecimals } from '../../utils/round';
 import { months } from './constants'
+import { YearlyData } from '../../types';
 
 const useStyles = makeStyles({
   categoryCell: {
@@ -17,11 +16,11 @@ const useStyles = makeStyles({
 
 interface Props {
   title: string,
-  categories: Category[]
+  categories: Category[],
+  yearlyData: YearlyData
 }
 
-const CategoryTable = ({ title, categories }: Props): JSX.Element | null => {
-  const yearlyData = useSelector(selectYearlyData);
+const CategoryTable = ({ title, categories, yearlyData }: Props): JSX.Element | null => {
   const classes = useStyles();
 
   if (!yearlyData || !categories) return null;
