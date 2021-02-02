@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '../../../../__tests__/utils/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { Transaction } from '../../../../shared/types';
 import { generate } from '../../../../__tests__/utils/generate';
