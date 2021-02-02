@@ -1,4 +1,4 @@
-import { makeStyles, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Button } from '@material-ui/core'
+import { makeStyles, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel } from '@material-ui/core'
 import React from 'react'
 import { Category } from '../../../../shared/types'
 
@@ -26,10 +26,7 @@ const CategoryTable = ({ className, categories, selectedCategory, selectCategory
       className={className}
       component={Card}
     >
-      <Table
-        id="settings_categoryTable"
-        size="small"
-      >
+      <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell className={classes.headerCell}>Category</TableCell>
@@ -42,8 +39,6 @@ const CategoryTable = ({ className, categories, selectedCategory, selectCategory
           {categories.map(category => (
             <TableRow
                 key={category.name}
-                id={`settings_${category.name.toLowerCase()}_row`}
-                className="settings_categoryTableRow"
                 hover 
                 selected={selectedCategory === category}
                 onClick={() => selectCategory(category)}
