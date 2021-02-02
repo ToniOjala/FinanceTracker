@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   transactions: transactionReducer,
   budgets: budgetReducer,
   dateSelection: dateSelectionReducer,
-  balanceLog: balanceLogReducer
+  balanceLogs: balanceLogReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

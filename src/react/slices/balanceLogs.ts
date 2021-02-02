@@ -55,5 +55,5 @@ export const saveBalanceLog = (balanceLog: NewBalanceLog): AppThunk => async dis
   }
 }
 
-export const selectBalanceLogs = (state: RootState): BalanceLog[] => state.balanceLog.logs;
-export const selectBalanceLogCount = (state: RootState): number => state.balanceLog.count;
+export const selectBalanceLogs = (state: RootState): BalanceLog[] => state.balanceLogs.logs;
+export const selectBalanceLogCount = (state: RootState): number => state.balanceLogs.count;
