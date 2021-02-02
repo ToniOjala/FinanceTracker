@@ -2,7 +2,7 @@ import { Box, makeStyles } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Category, Transaction } from '../../../shared/types';
-import CategoryTablesContainer from './CategoryTablesContainer';
+import MonthTablesContainer from './MonthTablesContainer';
 import { fetchCategories, selectCategories } from '../../slices/categories';
 import { fetchTransactionsOfMonth, selectTransactions } from '../../slices/transactions';
 import { selectDate, selectYearAndMonth, setDateSelectionStatus } from '../../slices/dateSelection';
@@ -49,7 +49,7 @@ const MonthView = (): JSX.Element | null => {
   return (
     <Box display="flex">
       <Box className={classes.categories}>
-        <CategoryTablesContainer
+        <MonthTablesContainer
           selectCategory={setSelectedCategory}
           selectedCategory={selectedCategory}
           transactions={transactions}

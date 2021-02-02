@@ -27,11 +27,11 @@ interface Props {
   selectCategory: (category: Category) => void
 }
 
-const CategoryTable = ({ className, title, categories, selectedCategory, transactions, budgets, selectCategory }: Props): JSX.Element | null => {
+const MonthTable = ({ className, title, categories, selectedCategory, transactions, budgets, selectCategory }: Props): JSX.Element | null => {
   const classes = useStyles();
 
   return (
-    <Card data-testid='root' className={className}>
+    <Card className={className}>
       <Typography variant="h5" className={classes.title}>{title}</Typography>
       <TableContainer>
         <Table>
@@ -62,4 +62,4 @@ const CategoryTable = ({ className, title, categories, selectedCategory, transac
   )
 }
 
-export default CategoryTable;
+export default MonthTable;

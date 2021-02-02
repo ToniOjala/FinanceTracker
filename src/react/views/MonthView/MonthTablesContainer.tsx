@@ -6,7 +6,7 @@ import { selectExpenseCategories, selectIncomeCategories } from '../../slices/ca
 import { selectDate } from '../../slices/dateSelection'
 import { Category, NewBudget, Transaction } from '../../../shared/types'
 import SetBudgetsDialog, { UnprocessedBudgets } from './SetBudgetsDialog'
-import CategoryTable from './CategoryTable'
+import MonthTable from './MonthTable'
 
 const useStyles = makeStyles({
   table: {
@@ -21,7 +21,7 @@ interface CategoriesCardProps {
   transactions: Transaction[]
 }
 
-const CategoryTablesContainer = ({ selectCategory, selectedCategory, transactions }: CategoriesCardProps): JSX.Element => {
+const MonthTablesContainer = ({ selectCategory, selectedCategory, transactions }: CategoriesCardProps): JSX.Element => {
   const [isBudgetDialogOpen, setIsBudgetDialogOpen] = useState(false);
   
   const incomeCategories = useSelector(selectIncomeCategories);
@@ -57,7 +57,7 @@ const CategoryTablesContainer = ({ selectCategory, selectedCategory, transaction
 
   return (
     <>
-      <CategoryTable
+      <MonthTable
         className={classes.table}
         title="Incomes"
         categories={incomeCategories}
@@ -66,7 +66,7 @@ const CategoryTablesContainer = ({ selectCategory, selectedCategory, transaction
         budgets={budgets}
         selectCategory={selectCategory}
       />
-      <CategoryTable
+      <MonthTable
         className={classes.table}
         title="Expenses"
         categories={expenseCategories}
@@ -88,4 +88,4 @@ const CategoryTablesContainer = ({ selectCategory, selectedCategory, transaction
   )
 }
 
-export default CategoryTablesContainer
+export default MonthTablesContainer

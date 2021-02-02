@@ -1,7 +1,7 @@
 import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 import { generate } from '../../../__tests__/utils/generate';
-import CategoryTable from './CategoryTable';
+import MonthTable from './MonthTable';
 import { sumOfCategoryTransactions } from './utils';
 import userEvent from '@testing-library/user-event';
 
@@ -11,7 +11,7 @@ const sampleBudgets = generate.budgetsByCategory;
 const mockSelectCategory = jest.fn();
 
 function renderWithProps() {
-  return render(<CategoryTable
+  return render(<MonthTable
     className="testClass"
     title="Test Title"
     categories={sampleCategories}
