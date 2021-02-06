@@ -11,10 +11,10 @@ import BalanceTable from './BalanceTable'
 interface Props {
   classes: Record<'tableContainer' | 'title' | 'table', string>
   selectedCategory: Category | null;
-  setSelectedCategory: (category: Category) => void;
+  selectCategory: (category: Category) => void;
 }
 
-const BalanceTableContainer = ({ classes, selectedCategory, setSelectedCategory }: Props) => {
+const BalanceTableContainer = ({ classes, selectedCategory, selectCategory }: Props) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const BalanceTableContainer = ({ classes, selectedCategory, setSelectedCategory 
         className={classes.table}
         categories={categories}
         selectedCategory={selectedCategory}
-        selectCategory={setSelectedCategory}
+        selectCategory={selectCategory}
       />
       <Button
         disabled={!selectedCategory}

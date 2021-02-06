@@ -52,7 +52,7 @@ const BalanceView = (): JSX.Element => {
       <BalanceTableContainer
         classes={classes}
         selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
+        selectCategory={setSelectedCategory}
       />
       <BalanceLogsContainer
         classes={classes}
