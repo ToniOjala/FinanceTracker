@@ -3,6 +3,8 @@ import React from 'react';
 import CategorySettingsContainer from './CategorySettingsContainer';
 import userEvent from '@testing-library/user-event';
 import { generate } from '../../../../__tests__/utils/generate';
+import { postCategory, updateCategory } from '../../../slices/categories';
+import { Category } from '../../../../shared/types';
 
 function renderComponent(): TestStore {
   return render(<CategorySettingsContainer />).store
@@ -51,7 +53,7 @@ describe('<CategorySettingsContainer />', () => {
       userEvent.click(addButton)
     });
 
-    expect(store.dispatch).toHaveBeenCalled();
+    expect(store.dispatch.mock.calls[0][0].toString()).toBe(postCategory({} as Category).toString());
   })
 
   it('dispatches an action when a category is removed', async () => {
@@ -64,7 +66,7 @@ describe('<CategorySettingsContainer />', () => {
       userEvent.click(removeButton);
     })
 
-    expect(store.dispatch).toHaveBeenCalled();
+    expect(store.dispatch.mock.calls[0][0].toString()).toBe(updateCategory({} as Category).toString());
   })
 
   it('dispatches an action when a category is edited', async () => {
@@ -88,6 +90,7 @@ describe('<CategorySettingsContainer />', () => {
     })
 
     expect(store.dispatch).toHaveBeenCalled();
+    expect(store.dispatch.mock.calls[0][0].toString()).toBe(updateCategory({} as Category).toString());
   })
 
 })
