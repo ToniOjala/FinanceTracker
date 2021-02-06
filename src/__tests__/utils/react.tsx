@@ -1,12 +1,30 @@
 import React, { ComponentType } from 'react';
 import { render, RenderResult } from '@testing-library/react';
-import { configureStore } from '@reduxjs/toolkit';
+import { CombinedState, configureStore } from '@reduxjs/toolkit';
 import rootReducer from '../../react/rootReducer';
 import { Provider } from 'react-redux';
 import { generate } from './generate';
+import { BudgetsByCategory, YearlyData } from '../../react/types';
+import { BalanceLog, Category, Transaction } from '../../shared/types';
 
 interface Props {
   children: JSX.Element;
+}
+
+interface State {
+  categories: Category[];
+  transactions: {
+    transactions: Transaction[];
+    yearlyData: YearlyData;
+  },
+  budgets: BudgetsByCategory;
+  dateSelection: {
+    selectedDate: string;
+  },
+  balanceLogs: {
+    logs: BalanceLog[];
+    count: number;
+  }
 }
 
 const initialState = {
@@ -25,7 +43,7 @@ const initialState = {
   }
 }
 
-const store = configureStore({ reducer: rootReducer, preloadedState: initialState });
+const store = { ...configureStore({ reducer: rootReducer, preloadedState: initialState }), dispatch: jest.fn() };
 
 const AllProviders = ({ children }: Props) => {
   return (
@@ -35,8 +53,13 @@ const AllProviders = ({ children }: Props) => {
   )
 }
 
+export interface TestStore {
+  dispatch: jest.Mock;
+  getState(): CombinedState<State>;
+}
+
 interface CustomRenderResult {
-  store: typeof store;
+  store: TestStore;
   element: RenderResult;
 }
 
