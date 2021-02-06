@@ -1,20 +1,20 @@
 import React from 'react';
 import { render, TestStore } from '../../../__tests__/utils/react';
 import { setDateSelectionStatus } from '../../slices/dateSelection';
-import SettingsView from './SettingsView';
+import YearView from './YearView';
 
 function renderComponent(): TestStore {
-  return render(<SettingsView />).store
+  return render(<YearView />).store
 }
 
 let store: TestStore;
 
-describe('<SettingsView />', () => {
+describe('<YearView />', () => {
   beforeEach(() => {
     store = renderComponent();
   })
 
-  it('dispatches action to hide date selector', () => {
-    expect(store.dispatch).toHaveBeenCalledWith(setDateSelectionStatus('hidden'));
+  it('dispatches action to show year selector', () => {
+    expect(store.dispatch).toHaveBeenCalledWith(setDateSelectionStatus('year'));
   })
 })
