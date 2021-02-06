@@ -3,8 +3,12 @@ import React from 'react';
 import CategorySettingsContainer from './CategorySettingsContainer';
 import userEvent from '@testing-library/user-event';
 import { generate } from '../../../../__tests__/utils/generate';
-import { postCategory, updateCategory } from '../../../slices/categories';
-import { Category } from '../../../../shared/types';
+import * as actions from '../../../slices/categories';
+import { NewCategory } from '../../../../shared/types';
+import format from 'date-fns/format';
+
+const spyPostCategory = jest.spyOn(actions, 'postCategory');
+const spyUpdateCategory = jest.spyOn(actions, 'updateCategory');
 
 function renderComponent(): TestStore {
   return render(<CategorySettingsContainer />).store
@@ -12,6 +16,9 @@ function renderComponent(): TestStore {
 
 let store: TestStore;
 const sampleCategories = generate.categories;
+const sampleNewCategory: NewCategory = {
+   name: 'New Category', type: 'expense', balance: 0, created: format(new Date(), 'yyyy')
+}
 
 describe('<CategorySettingsContainer />', () => {
   let editButton: HTMLElement;
@@ -53,7 +60,7 @@ describe('<CategorySettingsContainer />', () => {
       userEvent.click(addButton)
     });
 
-    expect(store.dispatch.mock.calls[0][0].toString()).toBe(postCategory({} as Category).toString());
+    expect(spyPostCategory).toHaveBeenCalledWith(sampleNewCategory);
   })
 
   it('dispatches an action when a category is removed', async () => {
@@ -66,7 +73,7 @@ describe('<CategorySettingsContainer />', () => {
       userEvent.click(removeButton);
     })
 
-    expect(store.dispatch.mock.calls[0][0].toString()).toBe(updateCategory({} as Category).toString());
+    expect(spyUpdateCategory).toHaveBeenCalledWith({ ...sampleCategories[2], removed: format(new Date(), 'yyyy')});
   })
 
   it('dispatches an action when a category is edited', async () => {
@@ -89,8 +96,7 @@ describe('<CategorySettingsContainer />', () => {
       userEvent.click(addButton);
     })
 
-    expect(store.dispatch).toHaveBeenCalled();
-    expect(store.dispatch.mock.calls[0][0].toString()).toBe(updateCategory({} as Category).toString());
+    expect(spyUpdateCategory).toHaveBeenCalledWith({ ...sampleCategories[2], name: 'Edited Category' });
   })
 
 })

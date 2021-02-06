@@ -3,11 +3,15 @@ import React from 'react';
 import BalanceTableContainer from './BalanceTableContainer';
 import userEvent from '@testing-library/user-event';
 import { generate } from '../../../../__tests__/utils/generate';
-import { updateCategory } from '../../../slices/categories';
-import { Category, NewBalanceLog } from '../../../../shared/types';
-import { saveBalanceLog } from '../../../slices/balanceLogs';
+import * as categoryActions from '../../../slices/categories';
+import * as balanceLogActions from '../../../slices/balanceLogs';
+import { Category } from '../../../../shared/types';
+import format from 'date-fns/format';
 
+const spyUpdateCategory = jest.spyOn(categoryActions, 'updateCategory');
+const spySaveBalanceLog = jest.spyOn(balanceLogActions, 'saveBalanceLog');
 const mockSelectCategory = jest.fn();
+
 
 const classes: Record<'table' | 'tableContainer' | 'title', string> = { table: '', tableContainer: '', title: '' };
 
@@ -62,8 +66,8 @@ describe('<BalanceTableContainer />', () => {
         userEvent.click(addButton);
       });
 
-      expect(store.dispatch.mock.calls[0][0].toString()).toBe(updateCategory({} as Category).toString());
-      expect(store.dispatch.mock.calls[1][0].toString()).toBe(saveBalanceLog({} as NewBalanceLog).toString());
+      expect(spyUpdateCategory).toHaveBeenCalledWith({ ...sampleCategories[1], balance: sampleCategories[1].balance + 100 });
+      expect(spySaveBalanceLog).toHaveBeenCalledWith({ categoryId: sampleCategories[1].id, amount: 100, date: format(new Date(), 'yyyy-MM-dd')});
     })
   })
 

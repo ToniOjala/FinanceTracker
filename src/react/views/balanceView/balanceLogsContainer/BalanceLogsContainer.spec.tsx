@@ -3,7 +3,10 @@ import React from 'react';
 import BalanceLogsContainer from './BalanceLogsContainer';
 import { generate } from '../../../../__tests__/utils/generate';
 import { Category } from '../../../../shared/types';
-import { fetchBalanceLogs, fetchBalanceLogCount } from '../../../slices/balanceLogs';
+import * as actions from '../../../slices/balanceLogs';
+
+const spyFetchBalanceLogs = jest.spyOn(actions, 'fetchBalanceLogs');
+const spyFetchBalanceLogCount = jest.spyOn(actions, 'fetchBalanceLogCount');
 
 const classes: Record<'logsContainer' | 'title' | 'list', string> = { logsContainer: '', title: '', list: '' };
 
@@ -37,8 +40,8 @@ describe('<BalanceLogsContainer />', () => {
     })
 
     it('dispatches actions to fetch balance logs', () => {
-      expect(store.dispatch.mock.calls[0][0].toString()).toBe(fetchBalanceLogs(1, 1).toString());
-      expect(store.dispatch.mock.calls[1][0].toString()).toBe(fetchBalanceLogCount(1).toString());
+      expect(spyFetchBalanceLogs).toHaveBeenCalledWith(sampleCategory.id, 1);
+      expect(spyFetchBalanceLogCount).toHaveBeenCalledWith(sampleCategory.id);
     })
   })
 })
