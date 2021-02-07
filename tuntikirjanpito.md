@@ -59,5 +59,7 @@
 | 31.01.21 | 4 | React-testien kirjoitusta
 | 01.02.21 | 1.5 | React-testien kirjoitusta
 | 02.02.21 | 2.5 | React-testien kirjoitusta, refaktorointia
-| yht   | 143   | | 
+| 06.02.21 | 3.5 | React-testien kirjoitusta
+| 07.02.21 | 2.5 | React-testien kirjoitusta
+| yht   | 149   | | 
 
