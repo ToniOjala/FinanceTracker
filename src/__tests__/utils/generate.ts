@@ -93,7 +93,9 @@ const budgetsByCategory: BudgetsByCategory = {
   '1': 0,
   '2': 300,
   '3': 100,
-  '4': 0
+  '4': 0,
+  'income': 0,
+  'expense': 400
 }
 
 const categories: Category[] = [

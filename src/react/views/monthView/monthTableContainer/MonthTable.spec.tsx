@@ -2,7 +2,7 @@ import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 import { generate } from '../../../../__tests__/utils/generate';
 import MonthTable from './MonthTable';
-import { sumOfCategoryTransactions } from '../utils';
+import { sumOfCategoryTransactions, sumOfTransactions } from '../utils';
 import userEvent from '@testing-library/user-event';
 
 const sampleCategories = generate.categories;
@@ -40,10 +40,19 @@ describe('<CategoryTable />', () => {
     }
   })
 
+  it('renders a "total" row', async () => {
+    const row = await screen.findByRole('row', { name: RegExp('Total', 'i')});
+    expect(row).toBeDefined();
+  })
+
+  it('"total" row has correct value', async () => {
+    const values = `Total ${sampleBudgets['expense']}.00 ${sumOfTransactions(sampleTransactions)}`
+    const row = await screen.findByRole('row', { name: values });
+  })
+
   it('renders the correct budgets and amounts', async () => {
     for (const category of sampleCategories) {
       const values = `${category.name} ${sampleBudgets[category.id]}.00 ${sumOfCategoryTransactions(category, sampleTransactions)}`;
-
       const row = await screen.findByRole('row', { name: values });
       expect(row).toBeDefined();
     }

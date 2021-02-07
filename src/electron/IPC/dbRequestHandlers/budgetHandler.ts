@@ -24,14 +24,19 @@ export function handleBudgetRequest(method: string, data?: KeyValuePair, query?:
 function handleGetLatest(date: string): KeyValuePair {
   const latestBudgetPerCategory: KeyValuePair = {};
   const categories = categoryService.getCategories();
+  let incomeTotal = 0;
+  let expenseTotal = 0;
   for (const category of categories) {
     try {
       const budget = budgetService.getLatestBudget(category.id, date);
+      category.type === 'income' ? incomeTotal += budget.amount : expenseTotal += budget.amount;
       latestBudgetPerCategory[category.id] = budget.amount || 0;
     } catch (error) {
       latestBudgetPerCategory[category.id] = 0;
     }
   }
+  latestBudgetPerCategory['income'] = incomeTotal;
+  latestBudgetPerCategory['expense'] = expenseTotal;
   return latestBudgetPerCategory;
 }
 

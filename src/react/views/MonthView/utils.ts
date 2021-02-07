@@ -11,3 +11,13 @@ export const sumOfCategoryTransactions = (category: Category, transactions: Tran
 
   return roundToDecimals(sum, 2);
 }
+
+export const sumOfTransactions = (transactions: Transaction[]): string => {
+  let sum = 0;
+
+  transactions.forEach(tr => {
+    sum += tr.amount;
+  });
+
+  return roundToDecimals(sum, 2);
+}

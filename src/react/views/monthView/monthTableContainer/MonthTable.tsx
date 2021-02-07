@@ -1,9 +1,9 @@
 import { Card, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Category, Transaction } from '../../../../shared/types'
 import { BudgetsByCategory } from '../../../types'
 import { roundToDecimals } from '../../../utils/round'
-import { sumOfCategoryTransactions } from '../utils'
+import { sumOfCategoryTransactions, sumOfTransactions } from '../utils'
 
 const useStyles = makeStyles({
   title: {
@@ -45,16 +45,26 @@ const MonthTable = ({ className, title, categories, selectedCategory, transactio
           <TableBody>
             {categories.map(category => (
               <TableRow
-                  key={category.name}
-                  hover 
-                  selected={selectedCategory === category}
-                  onClick={() => selectCategory(category)}
-                >
+                key={category.name}
+                hover 
+                selected={selectedCategory === category}
+                onClick={() => selectCategory(category)}
+              >
                 <TableCell>{category.name}</TableCell>
                 <TableCell>{roundToDecimals(budgets[category.id], 2)}</TableCell>
                 <TableCell>{sumOfCategoryTransactions(category, transactions)}</TableCell>
               </TableRow>
             ))}
+            <TableRow>
+              <TableCell>Total</TableCell>
+              <TableCell>
+                {title === 'Incomes'
+                  ? roundToDecimals(budgets['income'], 2) 
+                  : roundToDecimals(budgets['expense'], 2)
+                }
+                </TableCell>
+              <TableCell>{sumOfTransactions(transactions)}</TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
