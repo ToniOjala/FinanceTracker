@@ -3,23 +3,22 @@ import { Button } from '@material-ui/core'
 import TransactionDialog, { TransactionFormValues } from './TransactionDialog'
 import TransactionTable from './TransactionTable'
 import { Category, NewTransaction, Transaction } from '../../../../shared/types'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { updateTransaction, postTransaction, deleteTransaction } from '../../../slices/transactions'
-import { selectDate } from '../../../slices/dateSelection'
 
 interface Props {
-  categories: Category[];
+  selectedDate: string;
   selectedCategory: Category;
+  categories: Category[];
   transactions: Transaction[];
 }
 
-const TransactionContainer = ({ categories, selectedCategory, transactions }: Props) => {
+const TransactionContainer = ({selectedDate, selectedCategory, categories, transactions }: Props) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
   const [transactionToEdit, setTransactionToEdit] = useState<Transaction | null>(null);
 
   const dispatch = useDispatch();
-  const selectedDate = useSelector(selectDate);
 
   function openDialog () { setIsDialogOpen(true); }
   
@@ -30,8 +29,6 @@ const TransactionContainer = ({ categories, selectedCategory, transactions }: Pr
   }
 
   function handleTransaction  (values: TransactionFormValues) {
-    console.log('values: ', values);
-
     if (transactionToEdit) {
       dispatch(updateTransaction({
         id: transactionToEdit.id,
@@ -86,7 +83,7 @@ const TransactionContainer = ({ categories, selectedCategory, transactions }: Pr
         disabled={!selectedCategory.name}
         onClick={openDialog}
       >
-        Add
+        New
       </Button>
       <Button 
         disabled={!selectedTransaction}

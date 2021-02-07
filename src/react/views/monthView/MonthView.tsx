@@ -61,8 +61,9 @@ const MonthView = (): JSX.Element | null => {
       </Box>
       <Box className={classes.transactions}>
         <TransactionContainer
-          categories={categories}
+          selectedDate={selectedDate}
           selectedCategory={selectedCategory}
+          categories={categories}
           transactions={transactionsOfCategory}
         />
       </Box>
