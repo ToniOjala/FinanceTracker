@@ -1,7 +1,7 @@
 import React from 'react';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import SetBudgetsDialog, { UnprocessedBudgets } from './SetBudgetsDialog';
-import { generate } from '../../../__tests__/utils/generate';
+import { generate } from '../../../../__tests__/utils/generate';
 import userEvent from '@testing-library/user-event';
 
 const mockHandleSetBudgets = jest.fn();

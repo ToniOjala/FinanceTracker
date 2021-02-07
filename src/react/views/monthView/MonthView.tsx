@@ -2,11 +2,11 @@ import { Box, makeStyles } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Category, Transaction } from '../../../shared/types';
-import MonthTablesContainer from './MonthTablesContainer';
+import MonthTableContainer from './monthTableContainer/MonthTableContainer';
 import { fetchCategories, selectCategories } from '../../slices/categories';
 import { fetchTransactionsOfMonth, selectTransactions } from '../../slices/transactions';
 import { selectDate, selectYearAndMonth, setDateSelectionStatus } from '../../slices/dateSelection';
-import { fetchLatestBudgets } from '../../slices/budgets';
+import { fetchLatestBudgets, selectBudgets } from '../../slices/budgets';
 import TransactionContainer from './transactionContainer/TransactionContainer';
 
 const useStyles = makeStyles({
@@ -29,6 +29,7 @@ const MonthView = (): JSX.Element | null => {
   
   const transactions = useSelector(selectTransactions);
   const categories = useSelector(selectCategories);
+  const budgets = useSelector(selectBudgets)
   const [year, month] = useSelector(selectYearAndMonth);
   const selectedDate = useSelector(selectDate);
 
@@ -49,10 +50,13 @@ const MonthView = (): JSX.Element | null => {
   return (
     <Box display="flex">
       <Box className={classes.categories}>
-        <MonthTablesContainer
+        <MonthTableContainer
           selectCategory={setSelectedCategory}
           selectedCategory={selectedCategory}
+          selectedDate={selectedDate}
+          categories={categories}
           transactions={transactions}
+          budgets={budgets}
         />
       </Box>
       <Box className={classes.transactions}>

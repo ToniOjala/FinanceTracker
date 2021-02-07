@@ -1,9 +1,9 @@
 import { Card, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import React from 'react'
-import { Category, Transaction } from '../../../shared/types'
-import { BudgetsByCategory } from '../../types'
-import { roundToDecimals } from '../../utils/round'
-import { sumOfCategoryTransactions } from './utils'
+import { Category, Transaction } from '../../../../shared/types'
+import { BudgetsByCategory } from '../../../types'
+import { roundToDecimals } from '../../../utils/round'
+import { sumOfCategoryTransactions } from '../utils'
 
 const useStyles = makeStyles({
   title: {

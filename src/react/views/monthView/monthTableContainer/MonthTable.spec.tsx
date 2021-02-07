@@ -1,8 +1,8 @@
 import React from 'react';
 import { act, render, screen } from '@testing-library/react';
-import { generate } from '../../../__tests__/utils/generate';
+import { generate } from '../../../../__tests__/utils/generate';
 import MonthTable from './MonthTable';
-import { sumOfCategoryTransactions } from './utils';
+import { sumOfCategoryTransactions } from '../utils';
 import userEvent from '@testing-library/user-event';
 
 const sampleCategories = generate.categories;

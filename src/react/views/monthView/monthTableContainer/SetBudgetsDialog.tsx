@@ -1,8 +1,8 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@material-ui/core';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Category } from '../../../shared/types';
-import { BudgetsByCategory } from '../../types';
+import { Category } from '../../../../shared/types';
+import { BudgetsByCategory } from '../../../types';
 
 export interface UnprocessedBudgets {
   [key: string]: string
