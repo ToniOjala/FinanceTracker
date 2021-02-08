@@ -61,5 +61,6 @@
 | 02.02.21 | 2.5 | React-testien kirjoitusta, refaktorointia
 | 06.02.21 | 3.5 | React-testien kirjoitusta
 | 07.02.21 | 2.5 | React-testien kirjoitusta
-| yht   | 149   | | 
+| 08.02.21 | 2 | Frontendin koodausta: [#20](https://github.com/ToniOjala/FinanceTracker/issues/20), [#21](https://github.com/ToniOjala/FinanceTracker/issues/21), [#22](https://github.com/ToniOjala/FinanceTracker/issues/22)
+| yht   | 151   | | 
 
