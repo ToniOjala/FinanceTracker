@@ -25,16 +25,23 @@ describe('<BalanceTable />', () => {
     renderWithProps(sampleCategories, null);
   })
 
-  it('has a row for each category', () => {
+  it('renders a row with correct value for each category', () => {
     for(const category of sampleCategories) {
       const textCell = screen.queryByText(category.name);
       const valueCell = screen.queryByText(roundToDecimals(category.balance, 2));
-      expect(textCell).toBeDefined();
-      expect(valueCell).toBeDefined();
+      expect(textCell).not.toBeNull();
+      expect(valueCell).not.toBeNull();
     }
   })
 
-  it('selectCategory gets called if row is clicked', () => {
+  it('renders a "total" row with correct value', () => {
+    const totalTextCell = screen.queryByText('Total');
+    const totalValueCell = screen.queryByText(roundToDecimals(sampleCategories.reduce((acc, curr) => acc += curr.balance, 0), 2));
+    expect(totalTextCell).not.toBeNull();
+    expect(totalValueCell).not.toBeNull();
+  })
+
+  it('calls selectCategory if row is clicked', () => {
     const row = screen.getByRole('row', { name: 'Test Category 1 592.94'});
     fireEvent.click(row);
     expect(fakeSelectCategory).toHaveBeenCalledTimes(1);

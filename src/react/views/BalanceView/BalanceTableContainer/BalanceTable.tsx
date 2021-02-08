@@ -1,5 +1,5 @@
 import { makeStyles, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Category } from '../../../../shared/types'
 import { roundToDecimals } from '../../../utils/round'
 
@@ -20,7 +20,12 @@ interface Props {
 }
 
 const BalanceTable = ({ className, categories, selectedCategory, selectCategory }: Props): JSX.Element | null => {
+  const [total, setTotal] = useState(0);
   const classes = useStyles();  
+
+  useEffect(() => {
+    setTotal(categories.reduce((acc, curr) => acc += curr.balance, 0));
+  }, [categories])
 
   return (
     <TableContainer
@@ -46,6 +51,10 @@ const BalanceTable = ({ className, categories, selectedCategory, selectCategory 
               <TableCell>{roundToDecimals(category.balance, 2)}</TableCell>
             </TableRow>
           ))}
+          <TableRow>
+            <TableCell>Total</TableCell>
+            <TableCell>{total && roundToDecimals(total, 2)}</TableCell>
+          </TableRow>
         </TableBody>
       </Table>
     </TableContainer>
