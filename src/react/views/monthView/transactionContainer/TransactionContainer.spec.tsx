@@ -1,6 +1,6 @@
 import React from 'react';
 import TransactionContainer from './TransactionContainer';
-import { render, screen, act, waitFor, TestStore, fireEvent } from '../../../../__tests__/utils/react';
+import { render, screen, act, TestStore, fireEvent, waitFor } from '../../../../__tests__/utils/react';
 import userEvent from '@testing-library/user-event';
 import * as actions from '../../../slices/transactions';
 import { Category, NewTransaction } from '../../../../shared/types';
@@ -84,28 +84,70 @@ describe('<TransactionContainer />', () => {
       const row = await screen.findByRole('row', { name: `${date} ${sampleTransactions[3].label} ${sampleTransactions[3].amount}`})
       expect(row).toBeDefined();
 
-      act(() => userEvent.click(row));
+      await act(async () => userEvent.click(row));
 
       expect(removeButton).toBeEnabled();
       expect(editButton).toBeEnabled();
     })
 
-    it('dispatches action when new transaction is added', async () => {
-      act(() => userEvent.click(newButton));
+    it('closes dialog if "Add Multiple" is unchecked', async () => {
+      await act(async () => userEvent.click(newButton));
+      expect(screen.queryByRole('dialog')).not.toBeNull();
 
+      const inputs = await screen.findAllByRole('textbox');
+      const addButton = await screen.findByRole('button', { name: 'Add' });
+      const addMultipleCheckbox = await screen.findByRole('checkbox');
+
+      expect(addMultipleCheckbox).not.toBeChecked();
+
+      await act(async () => { fireEvent.input(inputs[1], { target: { value: sampleNewTransaction.amount.toString() }}) });
+      expect(inputs[1]).toHaveValue(sampleNewTransaction.amount.toString());
+
+      await act(async () => { fireEvent.input(inputs[2], { target: { value: sampleNewTransaction.label }}) });
+      expect(inputs[2]).toHaveValue(sampleNewTransaction.label);
+      expect(addButton).toBeEnabled();
+      
+      await act(async () => userEvent.click(addButton));
+      await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull(), { timeout: 2000 });
+    })
+
+    it('leaves dialog open if "Add Multiple" is checked', async () => {
+      await act(async () => userEvent.click(newButton));
+      expect(screen.queryByRole('dialog')).not.toBeNull();
+
+      const inputs = await screen.findAllByRole('textbox');
+      const addButton = await screen.findByRole('button', { name: 'Add' });
+      const addMultipleCheckbox = await screen.findByRole('checkbox');
+
+      await act(async () => userEvent.click(addMultipleCheckbox));
+      expect(addMultipleCheckbox).toBeChecked();
+
+      await act(async () => { fireEvent.input(inputs[1], { target: { value: sampleNewTransaction.amount.toString() }}) });
+      expect(inputs[1]).toHaveValue(sampleNewTransaction.amount.toString());
+
+      await act(async () => { fireEvent.input(inputs[2], { target: { value: sampleNewTransaction.label }}) });
+      expect(inputs[2]).toHaveValue(sampleNewTransaction.label);
+      expect(addButton).toBeEnabled();
+      
+      await act(async () => userEvent.click(addButton));
+      expect(screen.queryByRole('dialog')).not.toBeNull();
+    })
+
+    it('dispatches action when new transaction is added', async () => {
+      await act(async () => userEvent.click(newButton));
       expect(screen.queryByRole('dialog')).not.toBeNull();
 
       const inputs = await screen.findAllByRole('textbox');
       const addButton = await screen.findByRole('button', { name: 'Add' });
 
-      await act(async () => {
-        fireEvent.input(inputs[1], { target: { value: sampleNewTransaction.amount.toString() }});
-        await waitFor(() => expect(inputs[1]).toHaveValue(sampleNewTransaction.amount.toString()));
-        fireEvent.input(inputs[2], { target: { value: sampleNewTransaction.label }});
-        await waitFor(() => expect(inputs[2]).toHaveValue(sampleNewTransaction.label));
-        userEvent.click(addButton);
-      })
+      await act(async () => { fireEvent.input(inputs[1], { target: { value: sampleNewTransaction.amount.toString() }}) });
+      expect(inputs[1]).toHaveValue(sampleNewTransaction.amount.toString());
 
+      await act(async () => { fireEvent.input(inputs[2], { target: { value: sampleNewTransaction.label }}) });
+      expect(inputs[2]).toHaveValue(sampleNewTransaction.label);
+      expect(addButton).toBeEnabled();
+      
+      await act(async () => userEvent.click(addButton));
       expect(spyPostTransaction).toHaveBeenCalledWith(sampleNewTransaction);
     })
 
@@ -114,21 +156,21 @@ describe('<TransactionContainer />', () => {
       const row = await screen.findByRole('row', { name: `${date} ${sampleTransactions[3].label} ${sampleTransactions[3].amount}`})
       expect(row).toBeDefined();
 
-      act(() => userEvent.click(row));
+      await act(async () => userEvent.click(row));
       expect(editButton).toBeEnabled();
-      act(() => userEvent.click(editButton));
+      await act(async () => userEvent.click(editButton));
 
       const inputs = await screen.findAllByRole('textbox');
       const addButton = await screen.findByRole('button', { name: 'Add' });
 
-      await act(async () => {
-        fireEvent.input(inputs[1], { target: { value: sampleNewTransaction.amount.toString() }});
-        await waitFor(() => expect(inputs[1]).toHaveValue(sampleNewTransaction.amount.toString()));
-        fireEvent.input(inputs[2], { target: { value: sampleNewTransaction.label }});
-        await waitFor(() => expect(inputs[2]).toHaveValue(sampleNewTransaction.label));
-        userEvent.click(addButton);
-      })
+      await act(async () => { fireEvent.input(inputs[1], { target: { value: sampleNewTransaction.amount.toString() }}) });
+      expect(inputs[1]).toHaveValue(sampleNewTransaction.amount.toString());
 
+      await act(async () => { fireEvent.input(inputs[2], { target: { value: sampleNewTransaction.label }}) });
+      expect(inputs[2]).toHaveValue(sampleNewTransaction.label);
+      expect(addButton).toBeEnabled();
+      
+      await act(async () => userEvent.click(addButton));
       expect(spyUpdateTransaction).toHaveBeenCalledWith({ 
         ...sampleTransactions[3], 
         amount: sampleNewTransaction.amount, 
@@ -141,9 +183,9 @@ describe('<TransactionContainer />', () => {
       const row = await screen.findByRole('row', { name: `${date} ${sampleTransactions[3].label} ${sampleTransactions[3].amount}`})
       expect(row).toBeDefined();
 
-      act(() => userEvent.click(row));
+      await act(async () => userEvent.click(row));
       expect(removeButton).toBeEnabled();
-      act(() => userEvent.click(removeButton));
+      await act(async () => userEvent.click(removeButton));
 
       expect(spyDeleteTransaction).toHaveBeenCalledWith(sampleTransactions[3]);
     })

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, TextField } from '@material-ui/core'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import { Controller, useForm } from 'react-hook-form';
@@ -15,7 +15,7 @@ interface Props {
   transactionToEdit: Transaction | null;
   selectedDate: string;
   handleClose: () => void;
-  handleTransaction: (newTransaction: TransactionFormValues) => void;
+  handleTransaction: (newTransaction: TransactionFormValues, close: boolean) => void;
 }
 
 export interface TransactionFormValues {
@@ -26,11 +26,13 @@ export interface TransactionFormValues {
 }
 
 const TransactionDialog = ({ isOpen, transactionType, categories, transactionToEdit, selectedDate, handleClose, handleTransaction }: Props): JSX.Element => {
+  const [addMultiple, setAddMultiple] = useState(false);
   const [sumOfBalances, setSumOfBalances] = useState(0);
-  const { errors, control, handleSubmit, formState, setValue, watch } = useForm<TransactionFormValues>({ mode: 'onChange' });
+  const { errors, control, handleSubmit, formState, setValue, watch, reset } = useForm<TransactionFormValues>({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
   const onSubmit = (values: TransactionFormValues) => {
-    handleTransaction({ ...values, date: format(new Date(values.date), 'yyyy-MM-dd') });
+    handleTransaction({ ...values, date: format(new Date(values.date), 'yyyy-MM-dd') }, !addMultiple);
+    reset();
   }
   const watchAmount = watch('amount', '0');
   const watchBalanceAdditions = watch('balanceAdditions', {});
@@ -42,6 +44,10 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
     }
     setSumOfBalances(total);
   }, [watchBalanceAdditions])
+
+  function handleAddMultipleChange(event: ChangeEvent<HTMLInputElement>) {
+    setAddMultiple(event.currentTarget.checked);
+  }
 
   return (
     <Dialog open={isOpen} onClose={() => handleClose}>
@@ -103,6 +109,12 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
           }
         </DialogContent>
         <DialogActions>
+          {transactionToEdit === null && 
+            <FormControlLabel
+              control={<Checkbox checked={addMultiple} onChange={handleAddMultipleChange} name="addMultipleCheckBox" />}
+              label="Add Multiple"
+            />
+          }
           <Button
             color="secondary"
             onClick={handleClose}

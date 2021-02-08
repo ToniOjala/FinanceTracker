@@ -86,6 +86,11 @@ describe('<TransactionDialog />', () => {
       expect(title).toBeDefined();
     })
 
+    it('shows "Add Multiple" checkbox', () => {
+      const addMultiple = screen.queryByRole('checkbox');
+      expect(addMultiple).not.toBeNull();
+    })
+
     it('calls handleTransaction with created values when clicking Add', async () => {
       const date = '04.04.2021';
       const returnedDate = '2021-04-04';
@@ -101,7 +106,7 @@ describe('<TransactionDialog />', () => {
         userEvent.click(addButton);
       })
 
-      expect(mockHandleTransaction).toBeCalledWith({ date: returnedDate, amount, label });
+      expect(mockHandleTransaction).toBeCalledWith({ date: returnedDate, amount, label }, true);
     })
   })
 
@@ -120,6 +125,11 @@ describe('<TransactionDialog />', () => {
     it('has correct title', () => {
       const title = screen.getByRole('heading', {name: 'Edit Transaction' });
       expect(title).toBeDefined();
+    })
+
+    it('hides "Add Multiple" checkbox', () => {
+      const addMultiple = screen.queryByRole('checkbox');
+      expect(addMultiple).toBeNull();
     })
 
     it('has correct values', async () => {

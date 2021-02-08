@@ -28,7 +28,7 @@ const TransactionContainer = ({selectedDate, selectedCategory, categories, trans
     setSelectedTransaction(null);
   }
 
-  function handleTransaction  (values: TransactionFormValues) {
+  function handleTransaction  (values: TransactionFormValues, closesDialog: boolean) {
     if (transactionToEdit) {
       dispatch(updateTransaction({
         id: transactionToEdit.id,
@@ -56,7 +56,7 @@ const TransactionContainer = ({selectedDate, selectedCategory, categories, trans
     }
 
     dispatch(postTransaction(newTransaction));
-    closeDialog();
+    if (closesDialog) closeDialog();
   }
 
   function editTransaction () {
