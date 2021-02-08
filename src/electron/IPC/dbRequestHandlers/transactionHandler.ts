@@ -41,14 +41,26 @@ function handleGetMany(year: number, month: number): Transaction[] {
 function handleYearlyData(year: number): KeyValuePair {
   const yearlyData: KeyValuePair = {};
   const categories = categoryService.getCategories();
+  const expenseTotal = new Array<number>(13).fill(0); 
+  const incomeTotal = new Array<number>(13).fill(0);
   for (const category of categories) {
-    const months = new Array<number>(12);
+    const months = new Array<number>(13);
+    months[12] = 0;
     for (let month = 0; month < 12; month++) {
       const monthlyTransactions = transactionService.getTransactionsOfMonthAndCategory(year, month+1, category.id);
       months[month] = monthlyTransactions?.reduce((acc, tran) => acc + tran.amount, 0);
+      months[12] += months[month];
+      category.type === 'expense' 
+        ? expenseTotal[month] += months[month]
+        : incomeTotal[month] += months[month]
     }
+    category.type === 'expense'
+      ? expenseTotal[12] += months[12]
+      : incomeTotal[12] += months[12];
     yearlyData[category.name] = months;
   }
+  yearlyData['expenseTotal'] = expenseTotal;
+  yearlyData['incomeTotal'] = incomeTotal;
   return yearlyData;
 }
 

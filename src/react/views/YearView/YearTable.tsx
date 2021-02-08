@@ -15,19 +15,19 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-  title: string,
+  title: 'Income' | 'Expense',
   categories: Category[],
   yearlyData: YearlyData
 }
 
-const CategoryTable = ({ title, categories, yearlyData }: Props): JSX.Element | null => {
+const YearTable = ({ title, categories, yearlyData }: Props): JSX.Element | null => {
   const classes = useStyles();
 
   if (!yearlyData || !categories) return null;
 
   return (
     <TableContainer>
-      <Table>
+      <Table data-testid="table">
         <TableHead>
           <TableRow>
             <TableCell className={classes.categoryCell}>{title}</TableCell>
@@ -45,10 +45,18 @@ const CategoryTable = ({ title, categories, yearlyData }: Props): JSX.Element | 
               )}
             </TableRow>
           ))}
+          <TableRow hover>
+            <TableCell>Total</TableCell>
+            {months.map((monthName, index) => 
+              title === 'Expense' 
+                ? <TableCell key={`ExpenseTotal_${index}`}>{yearlyData.expenseTotal && roundToDecimals(yearlyData.expenseTotal[index], 2)}</TableCell>
+                : <TableCell key={`IncomeTotal_${index}`}>{yearlyData.incomeTotal && roundToDecimals(yearlyData.incomeTotal[index], 2)}</TableCell>
+            )}
+          </TableRow>
         </TableBody>
       </Table>
     </TableContainer>
   )
 }
 
-export default CategoryTable
+export default YearTable

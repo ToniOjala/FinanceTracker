@@ -56,10 +56,21 @@ function transactionsOfCategory(categoryId: number, amount?: number): Transactio
 
 function yearlyData(categories: Category[]): YearlyData {
   const data = {} as YearlyData;
-  let values: number[] = [];
+  data['expenseTotal'] = new Array<number>(13).fill(0);
+  data['incomeTotal'] = new Array<number>(13).fill(0);
+  let values = new Array<number>(13).fill(0);
 
   for(const category of categories) {
-    for(let i = 0; i < 12; i++) values[i] = Math.floor(Math.random() * 1000);
+    for(let i = 0; i < 12; i++) {
+      values[i] = Math.floor(Math.random() * 1000);
+      values[12] += values[i];
+      category.type === 'expense'
+        ? data['expenseTotal'][i] += values[i]
+        : data['incomeTotal'][i] += values[i];
+    }
+    category.type === 'expense'
+      ? data['expenseTotal'][12] += values[12]
+      : data['incomeTotal'][12] += values[12];
     data[category.name] = values;
   }
 
