@@ -2,7 +2,7 @@ import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 import { generate } from '../../../../__tests__/utils/generate';
 import MonthTable from './MonthTable';
-import { sumOfCategoryTransactions, sumOfTransactions } from '../utils';
+import { sumOfTransactionsInCategories, sumOfTransactionsInCategory } from '../utils';
 import userEvent from '@testing-library/user-event';
 
 const sampleCategories = generate.categories;
@@ -12,8 +12,7 @@ const mockSelectCategory = jest.fn();
 
 function renderWithProps() {
   return render(<MonthTable
-    className="testClass"
-    title="Test Title"
+    title="Expense"
     categories={sampleCategories}
     selectedCategory={sampleCategories[2]}
     transactions={sampleTransactions}
@@ -29,7 +28,7 @@ describe('<CategoryTable />', () => {
   })
 
   it('renders the given title', async () => {
-    const title = await screen.findByRole('heading', { name: 'Test Title' });
+    const title = await screen.findByRole('heading', { name: 'Expense' });
     expect(title).toBeDefined();
   })
 
@@ -46,13 +45,13 @@ describe('<CategoryTable />', () => {
   })
 
   it('"total" row has correct value', async () => {
-    const values = `Total ${sampleBudgets['expense']}.00 ${sumOfTransactions(sampleTransactions)}`
+    const values = `Total ${sampleBudgets['expense']}.00 ${sumOfTransactionsInCategories(sampleCategories, sampleTransactions)}`
     const row = await screen.findByRole('row', { name: values });
   })
 
   it('renders the correct budgets and amounts', async () => {
     for (const category of sampleCategories) {
-      const values = `${category.name} ${sampleBudgets[category.id]}.00 ${sumOfCategoryTransactions(category, sampleTransactions)}`;
+      const values = `${category.name} ${sampleBudgets[category.id]}.00 ${sumOfTransactionsInCategory(category, sampleTransactions)}`;
       const row = await screen.findByRole('row', { name: values });
       expect(row).toBeDefined();
     }

@@ -1,4 +1,4 @@
-import { Button, makeStyles } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { saveBudgets } from '../../../slices/budgets'
@@ -6,13 +6,6 @@ import { Category, NewBudget, Transaction } from '../../../../shared/types'
 import SetBudgetsDialog, { UnprocessedBudgets } from './SetBudgetsDialog'
 import MonthTable from './MonthTable'
 import { BudgetsByCategory } from '../../../types'
-
-const useStyles = makeStyles({
-  table: {
-    padding: '20px',
-    marginBottom: '20px'
-  }
-})
 
 interface Props {
   selectCategory: (category: Category) => void;
@@ -27,12 +20,11 @@ const MonthTableContainer = ({ selectCategory, selectedCategory, selectedDate, c
   const [isBudgetDialogOpen, setIsBudgetDialogOpen] = useState(false);
 
   const dispatch = useDispatch();
-  const classes = useStyles();
 
   const openBudgetDialog = () => setIsBudgetDialogOpen(true);
   
-  const closeDialogs = () => {
-    setIsBudgetDialogOpen(false);
+    const closeDialogs = () => {
+      setIsBudgetDialogOpen(false);
   }
 
   const setBudgets = (budgets: UnprocessedBudgets) => {
@@ -55,8 +47,7 @@ const MonthTableContainer = ({ selectCategory, selectedCategory, selectedDate, c
   return (
     <>
       <MonthTable
-        className={classes.table}
-        title="Incomes"
+        title="Income"
         categories={categories.filter(c => c.type === 'income')}
         selectedCategory={selectedCategory}
         transactions={transactions}
@@ -64,8 +55,7 @@ const MonthTableContainer = ({ selectCategory, selectedCategory, selectedDate, c
         selectCategory={selectCategory}
       />
       <MonthTable
-        className={classes.table}
-        title="Expenses"
+        title="Expense"
         categories={categories.filter(c => c.type === 'expense')}
         selectedCategory={selectedCategory}
         transactions={transactions}

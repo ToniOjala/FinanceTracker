@@ -1,11 +1,16 @@
 import { Card, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Category, Transaction } from '../../../../shared/types'
 import { BudgetsByCategory } from '../../../types'
 import { roundToDecimals } from '../../../utils/round'
-import { sumOfCategoryTransactions, sumOfTransactions } from '../utils'
+import { sumOfTransactionsInCategories, sumOfTransactionsInCategory } from '../utils'
 
 const useStyles = makeStyles({
+  root: {
+    padding: '20px',
+    marginBottom: '20px',
+    maxWidth: '800px'
+  },
   title: {
     marginBottom: '20px'
   },
@@ -18,8 +23,7 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-  className: string,
-  title: string,
+  title: 'Income' | 'Expense',
   categories: Category[],
   selectedCategory: Category,
   transactions: Transaction[],
@@ -27,14 +31,14 @@ interface Props {
   selectCategory: (category: Category) => void
 }
 
-const MonthTable = ({ className, title, categories, selectedCategory, transactions, budgets, selectCategory }: Props): JSX.Element | null => {
+const MonthTable = ({ title, categories, selectedCategory, transactions, budgets, selectCategory }: Props): JSX.Element | null => {
   const classes = useStyles();
 
   return (
-    <Card className={className}>
+    <Card className={classes.root}>
       <Typography variant="h5" className={classes.title}>{title}</Typography>
       <TableContainer>
-        <Table>
+        <Table size="small">
           <TableHead>
             <TableRow>
               <TableCell className={classes.headerCell}>Category</TableCell>
@@ -52,18 +56,15 @@ const MonthTable = ({ className, title, categories, selectedCategory, transactio
               >
                 <TableCell>{category.name}</TableCell>
                 <TableCell>{roundToDecimals(budgets[category.id], 2)}</TableCell>
-                <TableCell>{sumOfCategoryTransactions(category, transactions)}</TableCell>
+                <TableCell>{sumOfTransactionsInCategory(category, transactions)}</TableCell>
               </TableRow>
             ))}
             <TableRow>
               <TableCell>Total</TableCell>
               <TableCell>
-                {title === 'Incomes'
-                  ? roundToDecimals(budgets['income'], 2) 
-                  : roundToDecimals(budgets['expense'], 2)
-                }
+                {title === 'Income' ? roundToDecimals(budgets['income'], 2) : roundToDecimals(budgets['expense'], 2)}
                 </TableCell>
-              <TableCell>{sumOfTransactions(transactions)}</TableCell>
+              <TableCell>{sumOfTransactionsInCategories(categories, transactions)}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
