@@ -14,9 +14,10 @@ import { selectDate, selectDateSelectionStatus } from './slices/dateSelection';
 const useStyles = makeStyles({
   root: {
     display: 'flex',
+    width: '100%'
   },
   content: {
-    flexGrow: 1,
+    width: '100%'
   }
 })
 

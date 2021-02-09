@@ -9,7 +9,6 @@ const useStyles = makeStyles({
   root: {
     padding: '20px',
     marginBottom: '20px',
-    maxWidth: '800px'
   },
   title: {
     marginBottom: '20px'

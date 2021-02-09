@@ -29,7 +29,7 @@ const TransactionTable = ({ transactions, title, selectedTransaction, selectTran
       <Card className={classes.root}>
         <Typography variant="h6">{title}</Typography>
         <TableContainer className={classes.table}>
-          <Table>
+          <Table size="small">
             <TableHead>
               <TableRow>
                 <TableCell>Date</TableCell>

@@ -1,4 +1,4 @@
-import { Box, makeStyles } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Category, Transaction } from '../../../shared/types';
@@ -9,22 +9,10 @@ import { selectDate, selectYearAndMonth, setDateSelectionStatus } from '../../sl
 import { fetchLatestBudgets, selectBudgets } from '../../slices/budgets';
 import TransactionContainer from './transactionContainer/TransactionContainer';
 
-const useStyles = makeStyles({
-  categories: {
-    width: '70%',
-    margin: '20px'
-  },
-  transactions: {
-    width: '30%',
-    margin: '20px 20px 20px 0'
-  }
-})
-
 const MonthView = (): JSX.Element | null => {
   const [selectedCategory, setSelectedCategory] = useState<Category>({} as Category);
   const [transactionsOfCategory, setTransactionsOfCategory] = useState<Transaction[]>([]);
   
-  const classes = useStyles();
   const dispatch = useDispatch();
   
   const transactions = useSelector(selectTransactions);
@@ -48,26 +36,26 @@ const MonthView = (): JSX.Element | null => {
   }, [selectedCategory, transactions])
 
   return (
-    <Box display="flex">
-      <Box className={classes.categories}>
-        <MonthTableContainer
-          selectCategory={setSelectedCategory}
-          selectedCategory={selectedCategory}
-          selectedDate={selectedDate}
-          categories={categories}
-          transactions={transactions}
-          budgets={budgets}
-        />
-      </Box>
-      <Box className={classes.transactions}>
-        <TransactionContainer
-          selectedDate={selectedDate}
-          selectedCategory={selectedCategory}
-          categories={categories}
-          transactions={transactionsOfCategory}
-        />
-      </Box>
-    </Box>
+      <Grid container spacing={6} justify="center" style={{ width: '100%', margin: 0 }}>
+        <Grid item xs={12} md={6} xl={5}>
+          <MonthTableContainer
+            selectCategory={setSelectedCategory}
+            selectedCategory={selectedCategory}
+            selectedDate={selectedDate}
+            categories={categories}
+            transactions={transactions}
+            budgets={budgets}
+          />
+        </Grid>
+        <Grid item xs={12} md={4} xl={3}>
+          <TransactionContainer
+            selectedDate={selectedDate}
+            selectedCategory={selectedCategory}
+            categories={categories}
+            transactions={transactionsOfCategory}
+          />
+        </Grid>
+      </Grid>
   )
 }
 
