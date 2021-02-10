@@ -23,11 +23,11 @@ const YearView = (): JSX.Element => {
 
   return (
     <Grid
+      style={{ width: '100%', margin: 0 }}
       container
       spacing={6}
       direction="column"
       alignContent="center"
-      style={{ width: '100%', margin: 0 }}
     >
       <Grid item>
         <YearTable

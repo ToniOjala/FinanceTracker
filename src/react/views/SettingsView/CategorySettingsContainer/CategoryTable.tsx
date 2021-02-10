@@ -3,6 +3,9 @@ import React from 'react'
 import { Category } from '../../../../shared/types'
 
 const useStyles = makeStyles({
+  root: {
+    margin: '20px 0',
+  },
   headerCell: {
     width: '28%',
   },
@@ -12,18 +15,17 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-  className: string;
   categories: Category[];
   selectedCategory: Category | null;
   selectCategory: (category: Category) => void;
 }
 
-const CategoryTable = ({ className, categories, selectedCategory, selectCategory }: Props): JSX.Element | null => {
+const CategoryTable = ({ categories, selectedCategory, selectCategory }: Props): JSX.Element | null => {
   const classes = useStyles();
 
   return (
     <TableContainer
-      className={className}
+      className={classes.root}
       component={Card}
     >
       <Table size="small">

@@ -1,4 +1,4 @@
-import { Box, makeStyles } from '@material-ui/core'
+import { Grid, makeStyles } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { setDateSelectionStatus } from '../../slices/dateSelection';
@@ -6,12 +6,9 @@ import CategorySettingsContainer from './categorySettingsContainer/CategorySetti
 
 const useStyles = makeStyles({
   root: {
-    margin: '20px'
+    width: '100%',
+    margin: 0,
   },
-  table: {
-    padding: '10px',
-    margin: '20px 0 20px 0',
-  }
 });
 
 const SettingsView = () => {
@@ -23,13 +20,17 @@ const SettingsView = () => {
   }, []);
 
   return (
-    <Box 
+    <Grid
       className={classes.root}
-      display="flex"
-      flexDirection="column"
+      container
+      spacing={6}
+      direction="row"
+      justify="center"
     >
-      <CategorySettingsContainer />
-    </Box>
+      <Grid item xs={12} md={8} lg={7} xl={6}>
+        <CategorySettingsContainer />
+      </Grid>
+    </Grid>
   )
 }
 

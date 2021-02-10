@@ -7,14 +7,6 @@ import { postCategory, selectCategories, updateCategory } from '../../../slices/
 import CategoryDialog, { CategoryDialogValues } from './CategoryDialog';
 import CategoryTable from './CategoryTable'
 
-const useStyles = makeStyles({
-  table: {
-    width: '70%',
-    padding: '10px',
-    margin: '20px 0 20px 0',
-  }
-});
-
 const CategorySettingsContainer = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
@@ -22,7 +14,6 @@ const CategorySettingsContainer = () => {
 
   const categories = useSelector(selectCategories);
   const dispatch = useDispatch();
-  const classes = useStyles();
 
   const openDialog = () => setIsDialogOpen(true);
 
@@ -67,7 +58,6 @@ const CategorySettingsContainer = () => {
     <>
       <Typography variant="h5">Categories</Typography>
       <CategoryTable
-        className={classes.table}
         categories={categories}
         selectedCategory={selectedCategory}
         selectCategory={setSelectedCategory}
