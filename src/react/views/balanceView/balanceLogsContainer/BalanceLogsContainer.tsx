@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core'
+import { makeStyles, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Category } from '../../../../shared/types'
@@ -6,14 +6,20 @@ import { fetchBalanceLogs, selectBalanceLogs, selectBalanceLogCount, fetchBalanc
 import BalanceLogList from './BalanceLogList'
 import BalanceLogPagination from './BalanceLogPagination'
 
+const useStyles = makeStyles((theme) => ({
+  title: {
+    margin: theme.spacing(0, 0, 2),
+  },
+}))
+
 interface Props {
-  classes: Record<'logsContainer' | 'title' | 'list', string>
   category: Category | null;
 }
 
-const BalanceLogsContainer = ({ classes, category }: Props): JSX.Element | null => {
+const BalanceLogsContainer = ({ category }: Props): JSX.Element | null => {
   const [currentPage, setCurrentPage] = useState(1);
 
+  const classes = useStyles();
   const dispatch = useDispatch();
   const balanceLogs = useSelector(selectBalanceLogs);
   const balanceLogCount = useSelector(selectBalanceLogCount);
@@ -30,15 +36,14 @@ const BalanceLogsContainer = ({ classes, category }: Props): JSX.Element | null 
   }
 
   return (
-    <div className={classes.logsContainer}>
+    <div>
       <Typography 
         variant="h6"
         className={classes.title}
       >
         Logs
       </Typography>
-      <BalanceLogList
-        className={classes.list}
+      <BalanceLogList 
         balanceLogs={balanceLogs}
       />
       <BalanceLogPagination

@@ -4,6 +4,9 @@ import { Category } from '../../../../shared/types'
 import { roundToDecimals } from '../../../utils/round'
 
 const useStyles = makeStyles({
+  root: {
+    marginBottom: '20px',
+  },
   headerCell: {
     width: '28%',
   },
@@ -13,13 +16,12 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-  className: string,
   categories: Category[],
   selectedCategory: Category | null;
   selectCategory: (category: Category) => void;
 }
 
-const BalanceTable = ({ className, categories, selectedCategory, selectCategory }: Props): JSX.Element | null => {
+const BalanceTable = ({ categories, selectedCategory, selectCategory }: Props): JSX.Element | null => {
   const [total, setTotal] = useState(0);
   const classes = useStyles();  
 
@@ -28,11 +30,8 @@ const BalanceTable = ({ className, categories, selectedCategory, selectCategory 
   }, [categories])
 
   return (
-    <TableContainer
-      className={className}
-      component={Card}
-    >
-      <Table>
+    <TableContainer className={classes.root} component={Card}>
+      <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell className={classes.headerCell}>Category</TableCell>
