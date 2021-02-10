@@ -1,3 +1,4 @@
+import { Grid } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectExpenseCategories, selectIncomeCategories } from '../../slices/categories'
@@ -21,18 +22,28 @@ const YearView = (): JSX.Element => {
   }, [year]);
 
   return (
-    <>
-      <YearTable
-        title="Income"
-        categories={incomeCategories}
-        yearlyData={yearlyData}
-      />
-      <YearTable
-        title="Expense"
-        categories={expenseCategories}
-        yearlyData={yearlyData}
-      />
-    </>
+    <Grid
+      container
+      spacing={6}
+      direction="column"
+      alignContent="center"
+      style={{ width: '100%', margin: 0 }}
+    >
+      <Grid item>
+        <YearTable
+          title="Income"
+          categories={incomeCategories}
+          yearlyData={yearlyData}
+        />
+      </Grid>
+      <Grid item>
+        <YearTable
+          title="Expense"
+          categories={expenseCategories}
+          yearlyData={yearlyData}
+        />
+      </Grid>
+    </Grid>
   )
 }
 
