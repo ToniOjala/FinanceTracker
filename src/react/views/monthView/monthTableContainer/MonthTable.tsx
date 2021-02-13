@@ -30,8 +30,6 @@ const useStyles = makeStyles(theme => ({
   totalRow: {
     borderTop: '2px solid',
     borderColor: theme.palette.text.secondary,
-    width: '100%',
-    paddingTop: '2px'
   }
 }))
 

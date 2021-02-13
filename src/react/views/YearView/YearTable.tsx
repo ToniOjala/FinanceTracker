@@ -5,23 +5,29 @@ import { roundToDecimals } from '../../utils/round';
 import { months } from './constants'
 import { YearlyData } from '../../types';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    padding: '20px',
     maxWidth: '1400px'
   },
   title: {
-    marginBottom: '20px'
+    padding: '20px',
+    backgroundColor: theme.palette.primary.dark,
+  },
+  table: {
+    padding: '20px',
   },
   categoryCell: {
     width: '10%',
-    color: '#AAAAAA',
+    color: theme.palette.text.secondary,
   },
   monthCell: {
     width: '7.5%',
-    color: '#AAAAAA',
+    color: theme.palette.text.secondary,
+  },
+  darkerRow: {
+    backgroundColor: theme.palette.background.default,
   }
-})
+}))
 
 interface Props {
   title: 'Income' | 'Expense',
@@ -37,7 +43,7 @@ const YearTable = ({ title, categories, yearlyData }: Props): JSX.Element | null
   return (
     <Card className={classes.root}>
       <Typography variant="h6" className={classes.title}>{title}</Typography>
-      <TableContainer>
+      <TableContainer className={classes.table}>
         <Table size="small">
           <TableHead>
             <TableRow>
@@ -48,8 +54,8 @@ const YearTable = ({ title, categories, yearlyData }: Props): JSX.Element | null
             </TableRow>
           </TableHead>
           <TableBody>
-            {categories.map(category => (
-              <TableRow key={category.name} hover>
+            {categories.map((category, index) => (
+              <TableRow key={category.name} className={index % 2 === 0 ? classes.darkerRow : ''} hover>
                 <TableCell>{category.name}</TableCell>
                 {yearlyData[category.name]?.map((monthlyValues, index) => 
                   <TableCell key={`${category.name}_${index}`}>{roundToDecimals(monthlyValues, 2)}</TableCell>
