@@ -3,26 +3,29 @@ import React, { useEffect, useState } from 'react'
 import { Category } from '../../../../shared/types'
 import { roundToDecimals } from '../../../utils/round'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    padding: '20px',
     marginBottom: '20px',
   },
   title: {
-    marginBottom: '20px',
+    padding: '20px',
+    backgroundColor: theme.palette.primary.dark,
+  },
+  table: {
+    padding: '20px',
   },
   headerCell: {
     width: '28%',
-    color: '#aaaaaa'
+    color: theme.palette.text.secondary,
   },
   valueCell: {
     width: '24%',
-    color: '#aaaaaa'
+    color: theme.palette.text.secondary,
   },
   darkerRow: {
-    backgroundColor: '#2B2B2B',
-  }
-})
+    backgroundColor: theme.palette.background.default,
+  },
+}))
 
 interface Props {
   categories: Category[],
@@ -39,35 +42,37 @@ const BalanceTable = ({ categories, selectedCategory, selectCategory }: Props): 
   }, [categories])
 
   return (
-    <TableContainer className={classes.root} component={Card}>
+    <Card className={classes.root}>
       <Typography variant="h6" className={classes.title}>Balances</Typography>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell className={classes.headerCell}>Category</TableCell>
-            <TableCell className={classes.valueCell}>Balance</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {categories.map((category, index) => (
-            <TableRow
-              className={index % 2 === 0 ? classes.darkerRow: ''}
-              key={category.name}
-              hover
-              selected={category.id === selectedCategory?.id}
-              onClick={() => selectCategory(category)}
-            >
-              <TableCell>{category.name}</TableCell>
-              <TableCell>{roundToDecimals(category.balance, 2)}</TableCell>
+      <TableContainer className={classes.table}>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell className={classes.headerCell}>Category</TableCell>
+              <TableCell className={classes.valueCell}>Balance</TableCell>
             </TableRow>
-          ))}
-          <TableRow className={categories.length % 2 === 0 ? classes.darkerRow : ''}>
-            <TableCell>Total</TableCell>
-            <TableCell>{total && roundToDecimals(total, 2)}</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {categories.map((category, index) => (
+              <TableRow
+                className={index % 2 === 0 ? classes.darkerRow: ''}
+                key={category.name}
+                hover
+                selected={category.id === selectedCategory?.id}
+                onClick={() => selectCategory(category)}
+              >
+                <TableCell>{category.name}</TableCell>
+                <TableCell>{roundToDecimals(category.balance, 2)}</TableCell>
+              </TableRow>
+            ))}
+            <TableRow className={categories.length % 2 === 0 ? classes.darkerRow : ''}>
+              <TableCell>Total</TableCell>
+              <TableCell>{total && roundToDecimals(total, 2)}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Card>
   )
 }
 
