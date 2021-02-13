@@ -1,4 +1,4 @@
-import { makeStyles, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Typography } from '@material-ui/core'
+import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Typography } from '@material-ui/core'
 import React from 'react'
 import { Category } from '../../../../shared/types'
 
@@ -36,7 +36,7 @@ const CategoryTable = ({ categories, selectedCategory, selectCategory }: Props):
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Paper className={classes.root} elevation={6}>
       <Typography variant="h6" className={classes.title}>Categories</Typography>
       <TableContainer className={classes.table}>
         <Table size="small">
@@ -66,7 +66,7 @@ const CategoryTable = ({ categories, selectedCategory, selectCategory }: Props):
           </TableBody>
         </Table>
       </TableContainer>
-    </Card>
+    </Paper>
   )
 }
 

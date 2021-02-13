@@ -1,4 +1,4 @@
-import { Card, Divider, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
+import { Paper, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import React from 'react'
 import { Category, Transaction } from '../../../../shared/types'
 import { BudgetsByCategory } from '../../../types'
@@ -27,10 +27,6 @@ const useStyles = makeStyles(theme => ({
   darkerRow: {
     backgroundColor: theme.palette.background.default,
   },
-  totalRow: {
-    borderTop: '2px solid',
-    borderColor: theme.palette.text.secondary,
-  }
 }))
 
 interface Props {
@@ -46,7 +42,7 @@ const MonthTable = ({ title, categories, selectedCategory, transactions, budgets
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Paper className={classes.root} elevation={6}>
       <Typography variant="h6" className={classes.title}>{title}</Typography>
       <TableContainer className={classes.table}>
         <Table size="small">
@@ -71,7 +67,7 @@ const MonthTable = ({ title, categories, selectedCategory, transactions, budgets
                 <TableCell>{sumOfTransactionsInCategory(category, transactions)}</TableCell>
               </TableRow>
             ))}
-            <TableRow className={classes.totalRow}>
+            <TableRow>
               <TableCell>Total</TableCell>
               <TableCell>
                 {title === 'Income' ? roundToDecimals(budgets['income'], 2) : roundToDecimals(budgets['expense'], 2)}
@@ -81,7 +77,7 @@ const MonthTable = ({ title, categories, selectedCategory, transactions, budgets
           </TableBody>
         </Table>
       </TableContainer>
-    </Card>
+    </Paper>
   )
 }
 

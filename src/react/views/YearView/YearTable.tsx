@@ -1,4 +1,4 @@
-import { Card, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
+import { Paper, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import React from 'react'
 import { Category } from '../../../shared/types';
 import { roundToDecimals } from '../../utils/round';
@@ -41,7 +41,7 @@ const YearTable = ({ title, categories, yearlyData }: Props): JSX.Element | null
   if (!yearlyData || !categories) return null;
 
   return (
-    <Card className={classes.root}>
+    <Paper className={classes.root} elevation={6}>
       <Typography variant="h6" className={classes.title}>{title}</Typography>
       <TableContainer className={classes.table}>
         <Table size="small">
@@ -73,7 +73,7 @@ const YearTable = ({ title, categories, yearlyData }: Props): JSX.Element | null
           </TableBody>
         </Table>
       </TableContainer>
-    </Card>
+    </Paper>
   )
 }
 

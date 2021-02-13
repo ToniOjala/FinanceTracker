@@ -1,4 +1,4 @@
-import { Card, List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from '@material-ui/core'
+import { Paper, List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { format } from 'date-fns';
@@ -38,7 +38,7 @@ const BalanceLogList = ({ balanceLogs }: Props) => {
   }
 
   return (
-    <Card className={classes.root}>
+    <Paper className={classes.root} elevation={6}>
       <Typography variant="h6" className={classes.title}>Logs</Typography>
       <List className={classes.list} dense>
         {balanceLogs.length === 0 &&
@@ -58,7 +58,7 @@ const BalanceLogList = ({ balanceLogs }: Props) => {
           </ListItem>,
         )}
       </List>
-    </Card>
+    </Paper>
   )
 }
 

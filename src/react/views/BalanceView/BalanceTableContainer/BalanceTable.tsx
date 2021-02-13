@@ -1,4 +1,4 @@
-import { makeStyles, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
+import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { Category } from '../../../../shared/types'
 import { roundToDecimals } from '../../../utils/round'
@@ -42,7 +42,7 @@ const BalanceTable = ({ categories, selectedCategory, selectCategory }: Props): 
   }, [categories])
 
   return (
-    <Card className={classes.root}>
+    <Paper className={classes.root} elevation={6}>
       <Typography variant="h6" className={classes.title}>Balances</Typography>
       <TableContainer className={classes.table}>
         <Table size="small">
@@ -72,7 +72,7 @@ const BalanceTable = ({ categories, selectedCategory, selectCategory }: Props): 
           </TableBody>
         </Table>
       </TableContainer>
-    </Card>
+    </Paper>
   )
 }
 

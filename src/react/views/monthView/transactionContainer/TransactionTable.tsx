@@ -1,4 +1,4 @@
-import { Card, makeStyles, Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Typography } from '@material-ui/core';
+import { Card, makeStyles, Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Typography, Paper } from '@material-ui/core';
 import React from 'react';
 import { Transaction } from '../../../../shared/types';
 import { format } from 'date-fns';
@@ -34,7 +34,7 @@ const TransactionTable = ({ transactions, title, selectedTransaction, selectTran
 
   return (
     <>
-      <Card className={classes.root}>
+      <Paper className={classes.root} elevation={6}>
         <Typography variant="h6" className={classes.title}>{title}</Typography>
         <TableContainer className={classes.table}>
           <Table size="small">
@@ -64,7 +64,7 @@ const TransactionTable = ({ transactions, title, selectedTransaction, selectTran
             </TableBody>
           </Table>
         </TableContainer>
-      </Card>
+      </Paper>
     </>
   )
 }
