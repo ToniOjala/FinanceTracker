@@ -64,5 +64,6 @@
 | 08.02.21 | 2 | Frontendin koodausta: [#20](https://github.com/ToniOjala/FinanceTracker/issues/20), [#21](https://github.com/ToniOjala/FinanceTracker/issues/21), [#22](https://github.com/ToniOjala/FinanceTracker/issues/22)
 | 09.02.21 | 1.5 | Käyttöliittymän kaunistamista
 | 10.02.21 | 1 | Käyttöliittymän kaunistamista
-| yht   | 153.5   | | 
+| 13.02.21 | 2 | Käyttöliittymän kaunistamista
+| yht   | 155.5   | | 
 
