@@ -56,7 +56,6 @@ const CategorySettingsContainer = () => {
 
   return (
     <>
-      <Typography variant="h6">Categories</Typography>
       <CategoryTable
         categories={categories}
         selectedCategory={selectedCategory}
