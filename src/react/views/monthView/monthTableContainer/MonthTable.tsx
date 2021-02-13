@@ -1,25 +1,39 @@
-import { Card, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
+import { Card, Divider, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import React from 'react'
 import { Category, Transaction } from '../../../../shared/types'
 import { BudgetsByCategory } from '../../../types'
 import { roundToDecimals } from '../../../utils/round'
 import { sumOfTransactionsInCategories, sumOfTransactionsInCategory } from '../utils'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    padding: '20px',
     marginBottom: '20px',
   },
   title: {
-    marginBottom: '20px'
+    padding: '20px',
+    backgroundColor: theme.palette.primary.dark,
+  },
+  body: {
+    padding: '20px',
   },
   headerCell: {
     width: '28%',
+    color: theme.palette.text.secondary,
   },
   valueCell: {
     width: '24%',
+    color: theme.palette.text.secondary,
+  },
+  darkerRow: {
+    backgroundColor: theme.palette.background.default,
+  },
+  totalRow: {
+    borderTop: '2px solid',
+    borderColor: theme.palette.text.secondary,
+    width: '100%',
+    paddingTop: '2px'
   }
-})
+}))
 
 interface Props {
   title: 'Income' | 'Expense',
@@ -35,8 +49,8 @@ const MonthTable = ({ title, categories, selectedCategory, transactions, budgets
 
   return (
     <Card className={classes.root}>
-      <Typography variant="h5" className={classes.title}>{title}</Typography>
-      <TableContainer>
+      <Typography variant="h6" className={classes.title}>{title}</Typography>
+      <TableContainer className={classes.body}>
         <Table size="small">
           <TableHead>
             <TableRow>
@@ -46,8 +60,9 @@ const MonthTable = ({ title, categories, selectedCategory, transactions, budgets
             </TableRow>
           </TableHead>
           <TableBody>
-            {categories.map(category => (
+            {categories.map((category, index) => (
               <TableRow
+                className={index % 2 === 0 ? classes.darkerRow : ''}
                 key={category.name}
                 hover 
                 selected={selectedCategory === category}
@@ -58,7 +73,7 @@ const MonthTable = ({ title, categories, selectedCategory, transactions, budgets
                 <TableCell>{sumOfTransactionsInCategory(category, transactions)}</TableCell>
               </TableRow>
             ))}
-            <TableRow>
+            <TableRow className={classes.totalRow}>
               <TableCell>Total</TableCell>
               <TableCell>
                 {title === 'Income' ? roundToDecimals(budgets['income'], 2) : roundToDecimals(budgets['expense'], 2)}
