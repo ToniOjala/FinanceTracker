@@ -7,11 +7,14 @@ import { BalanceLog } from '../../../../shared/types'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.background.paper,
     marginBottom: '20px',
   },
   title: {
-    margin: '20px',
+    padding: '20px',
+    backgroundColor: theme.palette.primary.dark,
+  },
+  list: {
+    padding: '20px',
   },
   addIcon: {
     color: theme.palette.primary.main,
@@ -37,7 +40,7 @@ const BalanceLogList = ({ balanceLogs }: Props) => {
   return (
     <Card className={classes.root}>
       <Typography variant="h6" className={classes.title}>Logs</Typography>
-      <List dense>
+      <List className={classes.list} dense>
         {balanceLogs.length === 0 &&
           <ListItem>
             <ListItemText primary="No logs available" />
