@@ -3,19 +3,24 @@ import React from 'react';
 import { Transaction } from '../../../../shared/types';
 import { format } from 'date-fns';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    padding: '20px',
     marginBottom: '20px',
   },
-  table: {
-    marginTop: '20px',
-    marginBottom: '20px'
+  title: {
+    padding: '20px', 
+    backgroundColor: theme.palette.primary.dark,
   },
-  headCell: {
-    color: '#AAAAAA'
+  table: {
+    padding: '20px',
+  },
+  headerCell: {
+    color: theme.palette.text.secondary
+  },
+  darkerRow: {
+    backgroundColor: theme.palette.background.default,
   }
-})
+}))
 
 interface Props {
   transactions: Transaction[];
@@ -30,19 +35,20 @@ const TransactionTable = ({ transactions, title, selectedTransaction, selectTran
   return (
     <>
       <Card className={classes.root}>
-        <Typography variant="h6">{title}</Typography>
+        <Typography variant="h6" className={classes.title}>{title}</Typography>
         <TableContainer className={classes.table}>
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell className={classes.headCell}>Date</TableCell>
-                <TableCell className={classes.headCell}>Label</TableCell>
-                <TableCell className={classes.headCell}>Amount</TableCell>
+                <TableCell className={classes.headerCell}>Date</TableCell>
+                <TableCell className={classes.headerCell}>Label</TableCell>
+                <TableCell className={classes.headerCell}>Amount</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {transactions.map(transaction => (
+              {transactions.map((transaction, index) => (
                 <TableRow
+                  className={index % 2 === 0 ? classes.darkerRow : ''}
                   key={transaction.id}
                   hover
                   selected={transaction === selectedTransaction}

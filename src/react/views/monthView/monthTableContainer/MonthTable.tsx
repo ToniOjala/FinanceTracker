@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     padding: '20px',
     backgroundColor: theme.palette.primary.dark,
   },
-  body: {
+  table: {
     padding: '20px',
   },
   headerCell: {
@@ -50,7 +50,7 @@ const MonthTable = ({ title, categories, selectedCategory, transactions, budgets
   return (
     <Card className={classes.root}>
       <Typography variant="h6" className={classes.title}>{title}</Typography>
-      <TableContainer className={classes.body}>
+      <TableContainer className={classes.table}>
         <Table size="small">
           <TableHead>
             <TableRow>
