@@ -15,9 +15,11 @@ const useStyles = makeStyles({
   },
   categoryCell: {
     width: '10%',
+    color: '#AAAAAA',
   },
   monthCell: {
     width: '7.5%',
+    color: '#AAAAAA',
   }
 })
 
@@ -34,7 +36,7 @@ const YearTable = ({ title, categories, yearlyData }: Props): JSX.Element | null
 
   return (
     <Card className={classes.root}>
-      <Typography variant="h5" className={classes.title}>{title}</Typography>
+      <Typography variant="h6" className={classes.title}>{title}</Typography>
       <TableContainer>
         <Table size="small">
           <TableHead>

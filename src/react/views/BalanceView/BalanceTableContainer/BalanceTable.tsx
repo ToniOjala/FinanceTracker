@@ -1,17 +1,26 @@
-import { makeStyles, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
+import { makeStyles, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { Category } from '../../../../shared/types'
 import { roundToDecimals } from '../../../utils/round'
 
 const useStyles = makeStyles({
   root: {
+    padding: '20px',
+    marginBottom: '20px',
+  },
+  title: {
     marginBottom: '20px',
   },
   headerCell: {
     width: '28%',
+    color: '#aaaaaa'
   },
   valueCell: {
     width: '24%',
+    color: '#aaaaaa'
+  },
+  darkerRow: {
+    backgroundColor: '#2B2B2B',
   }
 })
 
@@ -31,6 +40,7 @@ const BalanceTable = ({ categories, selectedCategory, selectCategory }: Props): 
 
   return (
     <TableContainer className={classes.root} component={Card}>
+      <Typography variant="h6" className={classes.title}>Balances</Typography>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -39,18 +49,19 @@ const BalanceTable = ({ categories, selectedCategory, selectCategory }: Props): 
           </TableRow>
         </TableHead>
         <TableBody>
-          {categories.map(category => (
+          {categories.map((category, index) => (
             <TableRow
-                key={category.name}
-                hover
-                selected={category.id === selectedCategory?.id}
-                onClick={() => selectCategory(category)}
-              >
+              className={index % 2 === 0 ? classes.darkerRow: ''}
+              key={category.name}
+              hover
+              selected={category.id === selectedCategory?.id}
+              onClick={() => selectCategory(category)}
+            >
               <TableCell>{category.name}</TableCell>
               <TableCell>{roundToDecimals(category.balance, 2)}</TableCell>
             </TableRow>
           ))}
-          <TableRow>
+          <TableRow className={categories.length % 2 === 0 ? classes.darkerRow : ''}>
             <TableCell>Total</TableCell>
             <TableCell>{total && roundToDecimals(total, 2)}</TableCell>
           </TableRow>

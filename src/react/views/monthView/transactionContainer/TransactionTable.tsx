@@ -11,6 +11,9 @@ const useStyles = makeStyles({
   table: {
     marginTop: '20px',
     marginBottom: '20px'
+  },
+  headCell: {
+    color: '#AAAAAA'
   }
 })
 
@@ -32,9 +35,9 @@ const TransactionTable = ({ transactions, title, selectedTransaction, selectTran
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>Date</TableCell>
-                <TableCell>Label</TableCell>
-                <TableCell>Amount</TableCell>
+                <TableCell className={classes.headCell}>Date</TableCell>
+                <TableCell className={classes.headCell}>Label</TableCell>
+                <TableCell className={classes.headCell}>Amount</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

@@ -44,7 +44,6 @@ const BalanceTableContainer = ({ selectedCategory, selectCategory }: Props) => {
 
   return (
     <div>
-      <Typography variant="h6" className={classes.title}>Balances</Typography>
       <BalanceTable
         categories={categories}
         selectedCategory={selectedCategory}
