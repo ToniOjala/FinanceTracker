@@ -5,19 +5,32 @@ export const theme = createMuiTheme({
     type: 'dark',
     primary: {
       light: '#CBD0C9',
-      main: '#69927B',
+      main: '#66B088',
+      dark: '#1B2034',
+    },
+    secondary: {
+      main: '#F48BB1',
+    },
+    text: {
+      primary: '#eeeeee',
+      secondary: '#9495C2',
     },
     background: {
-      paper: '#424242',
-      default: '#303030'
-    }
+      paper: '#303859',
+      default: '#242A43',
+    },
   },
   overrides: {
     MuiTableRow: {
       root: {
         "&$selected, &$selected:hover": {
-          backgroundColor: '#69927B',
+          backgroundColor: '#66B088',
         },
+      }
+    },
+    MuiTableCell: {
+      root: {
+        borderBottom: 'none',
       }
     }
   }
