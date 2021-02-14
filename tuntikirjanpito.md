@@ -65,6 +65,6 @@
 | 09.02.21 | 1.5 | Käyttöliittymän kaunistamista
 | 10.02.21 | 1 | Käyttöliittymän kaunistamista
 | 13.02.21 | 2 | Käyttöliittymän kaunistamista
-| 14.02.21 | 2.5 | Käyttöliittymän kaunistamista
-| yht   | 158   | | 
+| 14.02.21 | 3.5 | Käyttöliittymän kaunistamista
+| yht   | 159   | | 
 
