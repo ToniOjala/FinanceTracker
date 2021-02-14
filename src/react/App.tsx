@@ -10,6 +10,7 @@ import YearMonthSelector from './components/YearMonthSelector';
 import { theme } from './theme';
 import { useSelector } from 'react-redux';
 import { selectDate, selectDateSelectionStatus } from './slices/dateSelection';
+import TitleBar from './components/TitleBar';
 
 const useStyles = makeStyles({
   root: {
@@ -31,6 +32,7 @@ const App = (): JSX.Element | null => {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
+        <TitleBar />
         <Router>
           <SideNav />
           <main className={classes.content}>

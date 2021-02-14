@@ -20,6 +20,10 @@ export const theme = createMuiTheme({
       default: '#242A43',
     },
   },
+  zIndex: {
+    drawer: 1,
+    appBar: 2,
+  },
   overrides: {
     MuiTableRow: {
       root: {

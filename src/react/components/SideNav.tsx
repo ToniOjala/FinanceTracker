@@ -1,4 +1,4 @@
-import { Box, Button, Drawer, makeStyles, Typography } from '@material-ui/core'
+import { Box, Button, Drawer, makeStyles, Typography, Toolbar } from '@material-ui/core'
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import BalancesIcon from './icons/BalancesIcon';
@@ -63,6 +63,7 @@ const SideNav = (): JSX.Element => {
       classes={{ paper: classes.drawerPaper}}
       anchor="left"
     >
+      <Toolbar variant="dense" />
       {buttons.map(button => (
         <NavLink to={button.link} className={classes.link} activeClassName={classes.activeLink}>
           <Button className={classes.button}>

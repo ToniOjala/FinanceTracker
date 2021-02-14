@@ -8,9 +8,14 @@ console.log('process.env.DEPLOY_ENV = ', process.env.DEPLOY_ENV);
 
 app.on('ready', () => {
   let mainWindow: Electron.BrowserWindow | null = new BrowserWindow({
-    width: 2060,
-    height: 1140,
+    width: 1680,
+    height: 1050,
+    minWidth: 600,
+    minHeight: 600,
     title: 'Finance Tracker',
+    frame: false,
+    center: true,
+    resizable: true,
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
