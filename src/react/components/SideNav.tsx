@@ -5,7 +5,7 @@ import { BalancesIcon, MonthIcon, SettingsIcon, YearIcon } from './icons';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: 100,
+    width: 80,
     flexShrink: 0,
     textDecoration: 'none',
     textAlign: 'center',

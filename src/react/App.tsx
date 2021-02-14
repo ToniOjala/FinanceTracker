@@ -1,4 +1,4 @@
-import { CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
+import { CssBaseline, makeStyles, ThemeProvider, Toolbar } from '@material-ui/core';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SideNav from './components/SideNav';
@@ -11,6 +11,7 @@ import { theme } from './theme';
 import { useSelector } from 'react-redux';
 import { selectDate, selectDateSelectionStatus } from './slices/dateSelection';
 import TitleBar from './components/TitleBar';
+import './App.css';
 
 const useStyles = makeStyles({
   root: {
@@ -18,8 +19,8 @@ const useStyles = makeStyles({
     width: '100%'
   },
   content: {
-    width: '100%'
-  }
+    width: '100%',
+  },
 })
 
 const App = (): JSX.Element | null => {

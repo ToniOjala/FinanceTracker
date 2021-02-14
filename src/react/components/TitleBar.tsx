@@ -33,7 +33,7 @@ const TitleBar = () => {
   const close = () => window.close();
 
   return (
-    <AppBar position="fixed" className={classes.titleBar}>
+    <AppBar position="fixed" elevation={0} className={classes.titleBar}>
       <Toolbar id="titlebar" variant="dense" className={classes.toolBar}>
         <Typography variant="subtitle1">Finance Tracker</Typography>
         <div>
