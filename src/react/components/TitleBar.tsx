@@ -1,10 +1,7 @@
 import { AppBar, IconButton, makeStyles, Toolbar, Typography } from '@material-ui/core'
 import React, { useState } from 'react'
 import { remote } from 'electron'
-import MinimizeIcon from './icons/MinimizeIcon'
-import MaximizeIcon from './icons/MaximizeIcon'
-import CloseIcon from './icons/CloseIcon'
-import UnmaximizeIcon from './icons/UnmaximizeIcon'
+import { MinimizeIcon, MaximizeIcon, CloseIcon, UnmaximizeIcon } from './icons'
 
 const window = remote.getCurrentWindow();
 

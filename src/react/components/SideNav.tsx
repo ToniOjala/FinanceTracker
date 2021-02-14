@@ -1,10 +1,7 @@
 import { Box, Button, Drawer, makeStyles, Typography, Toolbar } from '@material-ui/core'
 import React from 'react'
 import { NavLink } from 'react-router-dom';
-import BalancesIcon from './icons/BalancesIcon';
-import MonthIcon from './icons/MonthIcon';
-import SettingsIcon from './icons/SettingsIcon';
-import YearIcon from './icons/YearIcon';
+import { BalancesIcon, MonthIcon, SettingsIcon, YearIcon } from './icons';
 
 const useStyles = makeStyles(theme => ({
   root: {
