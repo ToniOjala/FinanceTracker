@@ -2,11 +2,13 @@ import { AppBar, IconButton, makeStyles, Toolbar, Typography } from '@material-u
 import React, { useState } from 'react'
 import { remote } from 'electron'
 import { MinimizeIcon, MaximizeIcon, CloseIcon, UnmaximizeIcon } from './icons'
+import './TitleBar.css'
 
 const window = remote.getCurrentWindow();
 
 const useStyles = makeStyles(theme => ({
   titleBar: {
+    padding: '2px',
     backgroundColor: theme.palette.primary.dark,
     color: theme.palette.text.primary,
   },
@@ -32,7 +34,7 @@ const TitleBar = () => {
 
   return (
     <AppBar position="fixed" className={classes.titleBar}>
-      <Toolbar variant="dense" className={classes.toolBar}>
+      <Toolbar id="titlebar" variant="dense" className={classes.toolBar}>
         <Typography variant="subtitle1">Finance Tracker</Typography>
         <div>
           <IconButton onClick={minimize}><MinimizeIcon /></IconButton>

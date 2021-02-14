@@ -17,6 +17,10 @@ const config: webpack.Configuration = {
         exclude: /node_modules/,
         use: 'ts-loader',
       },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader']
+      }
     ],
   },
   devServer: {
