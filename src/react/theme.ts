@@ -9,11 +9,11 @@ export const theme = createMuiTheme({
       dark: '#1B2034',
     },
     secondary: {
-      main: '#F48BB1',
+      main: '#FF5D73',
     },
     text: {
       primary: '#eeeeee',
-      secondary: '#888AB4',
+      secondary: '#8E90B8',
     },
     background: {
       paper: '#2E3554',
@@ -24,7 +24,7 @@ export const theme = createMuiTheme({
     MuiTableRow: {
       root: {
         "&$selected, &$selected:hover": {
-          backgroundColor: '#66B088',
+          backgroundColor: '#66B088BB',
         },
       }
     },
