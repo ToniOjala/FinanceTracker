@@ -13,10 +13,10 @@ export const theme = createMuiTheme({
     },
     text: {
       primary: '#eeeeee',
-      secondary: '#9495C2',
+      secondary: '#888AB4',
     },
     background: {
-      paper: '#303859',
+      paper: '#2E3554',
       default: '#242A43',
     },
   },
