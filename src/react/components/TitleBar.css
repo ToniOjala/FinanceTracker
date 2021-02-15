@@ -5,3 +5,7 @@
 #titlebar button {
   -webkit-app-region: no-drag;
 }
+
+#titlebar input {
+  -webkit-app-region: no-drag;
+}

@@ -8,9 +8,12 @@ import { setSelectedDate } from '../slices/dateSelection';
 
 const useStyles = makeStyles({
   root: {
-    marginTop: '10px',
-    marginLeft: "70%"
+    padding: 0,
+    marginRight: '50px'
   },
+  input: {
+    padding: '10px 0 10px 10px',
+  }
 })
 
 interface Props {
@@ -36,8 +39,9 @@ const YearMonthSelector = ({ selectedDate, dateSelectionStatus }: Props): JSX.El
           <DatePicker
             className={classes.root}
             variant="inline"
+            inputVariant="outlined"
+            inputProps={{ className: classes.input }}
             views={["month", "year"]}
-            label="Month/Year"
             format="MMMM yyyy"
             value={selectedDate}
             onChange={handleChange}
@@ -51,8 +55,9 @@ const YearMonthSelector = ({ selectedDate, dateSelectionStatus }: Props): JSX.El
           <DatePicker
             className={classes.root}
             variant="inline"
+            inputVariant="outlined"
+            inputProps={{ className: classes.input }}
             views={["year"]}
-            label="Year"
             format="yyyy"
             value={selectedDate}
             onChange={handleChange}
