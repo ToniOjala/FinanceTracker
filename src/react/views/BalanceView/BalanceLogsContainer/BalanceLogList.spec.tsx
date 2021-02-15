@@ -21,9 +21,13 @@ describe('<BalanceLogList />', () => {
   it('shows logs when given a list of balance logs', () => {
     renderWithProps(sampleLogs);
     for (const log of sampleLogs) {
-      const text = `${format(new Date(log.date), 'dd.MM.yy')} ${log.amount}`;
-      const element = screen.getByText(text);
-      expect(element).toBeDefined();
+      const date = format(new Date(log.date), 'dd.MM.yy');
+      const dateText = screen.getByText(date);
+      const amount = log.amount.toString();
+      const amountText = screen.getByText(amount);
+      
+      expect(dateText).toBeDefined();
+      expect(amountText).toBeDefined();
     }
   })
 })

@@ -14,14 +14,20 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.dark,
   },
   list: {
-    padding: '20px',
+    padding: 0,
   },
   addIcon: {
     color: theme.palette.primary.main,
   },
   removeIcon: {
-    color: 'red',
-  }
+    color: theme.palette.secondary.main,
+  },
+  listItem: {
+    padding: '5px 0 5px 20px',
+  },
+  darkerListItem: {
+    backgroundColor: theme.palette.background.default,
+  },
 }));
 
 interface Props {
@@ -32,29 +38,25 @@ const BalanceLogList = ({ balanceLogs }: Props) => {
 
   const classes = useStyles();
 
-  function generateText(balanceLog: BalanceLog) {
-    const date = format(new Date(balanceLog.date), 'dd.MM.yy');
-    return `${date} ${balanceLog.amount}`;
-  }
-
   return (
     <Paper className={classes.root} elevation={6}>
       <Typography variant="h6" className={classes.title}>Logs</Typography>
       <List className={classes.list} dense>
         {balanceLogs.length === 0 &&
-          <ListItem>
+          <ListItem className={classes.listItem}>
             <ListItemText primary="No logs available" />
-          </ListItem>
+          </ListItem> 
         }
-        {balanceLogs.map(bl => 
-          <ListItem key={bl.id}>
+        {balanceLogs.map((bl, index) => 
+          <ListItem className={`${classes.listItem} ${index % 2 === 1 && classes.darkerListItem}`} key={bl.id}>
             <ListItemIcon>
               {bl.amount > 0 ? <AddIcon className={classes.addIcon} /> : <RemoveIcon className={classes.removeIcon} />}
             </ListItemIcon>
             <ListItemText
-              primary={generateText(bl)}
+              primary={format(new Date(bl.date), 'dd.MM.yy')}
               secondary={bl.label}
             />
+            <ListItemText primary={bl.amount} primaryTypographyProps={{ variant: "h6" }} />
           </ListItem>,
         )}
       </List>
