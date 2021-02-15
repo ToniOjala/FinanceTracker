@@ -9,10 +9,11 @@ import { setSelectedDate } from '../slices/dateSelection';
 const useStyles = makeStyles({
   root: {
     padding: 0,
+    marginTop: '4px',
     marginRight: '50px'
   },
   input: {
-    padding: '10px 0 10px 10px',
+    padding: '8px 0 8px 8px',
   }
 })
 
