@@ -6,7 +6,7 @@ import { generate } from '../../../../__tests__/utils/generate';
 import { format } from 'date-fns';
 
 function renderWithProps(balanceLogs: BalanceLog[]) {
-  return render(<BalanceLogList className="test" balanceLogs={balanceLogs} />);
+  return render(<BalanceLogList balanceLogs={balanceLogs} />);
 }
 
 describe('<BalanceLogList />', () => {

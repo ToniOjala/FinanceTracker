@@ -17,8 +17,6 @@ describe('<YearMonthSelector />', () => {
   describe('dateSelectionStatus is month', () => {
     it('returns month and year picker', () => {
       component = renderWithProps('2020-12-12', 'month').element;
-      const label = component.getByText('Month/Year');
-      expect(label).toBeDefined();
       const picker = component.getByRole('textbox');
       expect(picker).toBeDefined();
     })
@@ -33,8 +31,6 @@ describe('<YearMonthSelector />', () => {
   describe('dateSelectionStatus is year', () => {
     it('returns year picker', () => {
       component = renderWithProps('2020-12-12', 'year').element;
-      const label = component.getByText('Year');
-      expect(label).toBeDefined();
       const picker = component.getByRole('textbox');
       expect(picker).toBeDefined();
     })

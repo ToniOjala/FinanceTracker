@@ -3,8 +3,7 @@ import MonthTableContainer from './MonthTableContainer';
 import { act, fireEvent, render, screen, TestStore, waitFor } from '../../../../__tests__/utils/react';
 import userEvent from '@testing-library/user-event';
 import * as actions from '../../../slices/budgets';
-import { Category, Transaction } from '../../../../shared/types';
-import { BudgetsByCategory } from '../../../types';
+import { Category } from '../../../../shared/types';
 import { generate } from '../../../../__tests__/utils/generate';
 
 const mockSelectCategory = jest.fn();

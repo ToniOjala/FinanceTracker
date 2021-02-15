@@ -12,13 +12,9 @@ const spyUpdateCategory = jest.spyOn(categoryActions, 'updateCategory');
 const spySaveBalanceLog = jest.spyOn(balanceLogActions, 'saveBalanceLog');
 const mockSelectCategory = jest.fn();
 
-
-const classes: Record<'table' | 'tableContainer' | 'title', string> = { table: '', tableContainer: '', title: '' };
-
 function renderWithProps(selectedCategory: Category | null): TestStore {
   return render(
     <BalanceTableContainer
-      classes={classes}
       selectedCategory={selectedCategory}
       selectCategory={mockSelectCategory}
     />).store

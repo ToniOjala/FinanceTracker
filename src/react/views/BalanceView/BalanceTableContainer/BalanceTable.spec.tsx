@@ -11,7 +11,6 @@ function renderWithProps(categories: Category[], selectedCategory: Category | nu
   fakeSelectCategory = jest.fn();
   return render(
     <BalanceTable
-      className="test"
       categories={categories}
       selectedCategory={selectedCategory}
       selectCategory={fakeSelectCategory}

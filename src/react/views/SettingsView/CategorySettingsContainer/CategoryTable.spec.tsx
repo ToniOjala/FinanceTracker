@@ -12,7 +12,6 @@ const selectedCategory = sampleCategories[2];
 function renderComponent() {
   return render(
     <CategoryTable
-      className="test"
       categories={sampleCategories}
       selectedCategory={selectedCategory}
       selectCategory={mockSelectCategory}

@@ -62,7 +62,7 @@ const SideNav = (): JSX.Element => {
     >
       <Toolbar variant="dense" />
       {buttons.map(button => (
-        <NavLink to={button.link} className={classes.link} activeClassName={classes.activeLink}>
+        <NavLink key={button.title} to={button.link} className={classes.link} activeClassName={classes.activeLink}>
           <Button className={classes.button}>
             <Box display="flex" flexDirection="column" alignItems="center" justifyItems="space-between">
               {button.icon}
