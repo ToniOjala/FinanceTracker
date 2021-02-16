@@ -66,5 +66,7 @@
 | 10.02.21 | 1 | Käyttöliittymän kaunistamista
 | 13.02.21 | 2 | Käyttöliittymän kaunistamista
 | 14.02.21 | 3.5 | Käyttöliittymän kaunistamista
-| yht   | 159   | | 
+| 15.02.21 | 2 | Käyttöliittymän kaunistamista, julkaisukuntoon valmistelua
+| 16.02.21 | 0.5 | Julkaisukuntoon valmistelua
+| yht   | 161.5   | | 
 
