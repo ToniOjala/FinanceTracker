@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "description": "A personal finance tracking application",
   "main": "app/electron-main.js",
+  "build": {
+    "extraFiles": [
+      "database"
+    ]
+  },
   "scripts": {
     "build:renderer:prod": "cross-env NODE_ENV=production webpack --config webpack-renderer.config.ts --mode production",
     "build:electron-main:dev": "cross-env NODE_ENV=development webpack --config webpack-electron.config.ts --mode development",

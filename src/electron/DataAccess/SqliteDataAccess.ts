@@ -1,5 +1,7 @@
 import sqliteDB from 'better-sqlite3';
 import path from 'path';
+import fs from 'fs';
+import { app } from 'electron';
 
 export default class SqliteDataAccess {
   private databasePath: string;
@@ -7,7 +9,13 @@ export default class SqliteDataAccess {
 
   constructor() {
     this.databasePath = path.resolve('./src/__tests__/test.db');
-    if (process.env.DEPLOY_ENV === 'development') this.databasePath = process.env.DATABASE_PATH || '';
+    if (process.env.NODE_ENV === 'production') this.databasePath = path.join(app.getAppPath(), '..', '..', 'database', 'db.db');
+    else if (process.env.DEPLOY_ENV === 'development') this.databasePath = process.env.DATABASE_PATH || '';
+    
+    fs.writeFile('databasepath.txt', this.databasePath, (err) => {
+      if (err) throw err;
+    });
+
     if (!this.databasePath) throw new Error('Path for database was not defined');
   }
 
