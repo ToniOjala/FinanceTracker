@@ -32,8 +32,6 @@ interface Props {
 const TransactionTable = ({ transactions, title, selectedTransaction, selectTransaction }: Props): JSX.Element | null => {
   const classes = useStyles();
 
-  console.log('transactions: ', transactions);
-
   return (
     <>
       <Paper className={classes.root} elevation={6}>
