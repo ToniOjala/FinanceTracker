@@ -2,6 +2,7 @@ import { Category, Transaction } from "../../../shared/types";
 import { roundToDecimals } from "../../utils/round";
 
 export const sumOfTransactionsInCategory = (category: Category, transactions: Transaction[]): string => {
+  if (!category || !transactions || transactions.length === 0) return '0.00';
   const transOfCategory = transactions?.filter(tr => tr.categoryId === category.id);
   let sum = 0;
 
@@ -13,6 +14,7 @@ export const sumOfTransactionsInCategory = (category: Category, transactions: Tr
 }
 
 export const sumOfTransactionsInCategories = (categories: Category[], transactions: Transaction[]): string => {
+  if(!categories || !transactions || categories.length === 0 || transactions.length === 0) return '0.00';
   let sum = 0;
   const categoryIds = categories.map(c => c.id);
 

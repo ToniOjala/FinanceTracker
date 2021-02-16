@@ -32,6 +32,8 @@ interface Props {
 const TransactionTable = ({ transactions, title, selectedTransaction, selectTransaction }: Props): JSX.Element | null => {
   const classes = useStyles();
 
+  console.log('transactions: ', transactions);
+
   return (
     <>
       <Paper className={classes.root} elevation={6}>
@@ -55,7 +57,7 @@ const TransactionTable = ({ transactions, title, selectedTransaction, selectTran
                   onClick={() => selectTransaction(transaction)}
                 >
                   <TableCell component="th" scope="row">
-                    {format(new Date(transaction.date), 'dd.MM.yy')}
+                    {transaction.date && format(new Date(transaction.date), 'dd.MM.yy')}
                   </TableCell>
                   <TableCell>{transaction.label}</TableCell>
                   <TableCell>{transaction.amount}</TableCell>
