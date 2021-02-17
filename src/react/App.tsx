@@ -9,6 +9,7 @@ import SettingsView from './views/settingsView/SettingsView';
 import { theme } from './theme';
 import TitleBar from './components/TitleBar';
 import './App.css';
+import RecurringView from './views/recurringView/RecurringView';
   
 const useStyles = makeStyles({
   root: {
@@ -32,18 +33,11 @@ const App = (): JSX.Element | null => {
           <SideNav />
           <main className={classes.content}>
             <Switch>
-              <Route path="/settings">
-                <SettingsView />
-              </Route>
-              <Route path="/balance">
-                <BalanceView />
-              </Route>
-              <Route path="/year">
-                <YearView />
-              </Route>
-              <Route path="/">
-                <MonthView />
-              </Route>
+              <Route path="/year" component={YearView} />
+              <Route path="/recurring" component={RecurringView} />
+              <Route path="/balance" component={BalanceView} />
+              <Route path="/settings" component={SettingsView} />
+              <Route path="/" component={MonthView} />
             </Switch>
           </main>
         </Router>

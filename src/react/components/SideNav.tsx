@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 interface NavButton {
   link: string;
   title: string;
-  icon: JSX.Element;
+  icon: JSX.Element | null;
 }
 
 const SideNav = (): JSX.Element => {
@@ -49,6 +49,7 @@ const SideNav = (): JSX.Element => {
   const buttons: NavButton[] = [
     { link: '/month', title: 'Month', icon: <MonthIcon /> },
     { link: '/year', title: 'Year', icon: <YearIcon /> },
+    { link: '/recurring', title: 'Recurring', icon: null },
     { link: '/balance', title: 'Balances', icon: <BalancesIcon /> },
     { link: '/settings', title: 'Settings', icon: <SettingsIcon /> },
   ]
