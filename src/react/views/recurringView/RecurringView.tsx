@@ -1,7 +1,8 @@
 import { Grid, IconButton, makeStyles, Typography } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AddIcon } from '../../components/icons'
-import RecurringTransactionCard from './RecurringTransactionCard'
+import RecurringExpenseCard from './RecurringExpenseCard'
+import RecurringExpenseDialog from './RecurringExpenseDialog'
 
 const useStyles = makeStyles({
   container: {
@@ -12,8 +13,8 @@ const useStyles = makeStyles({
   }
 })
 
-export interface RecurringTransaction {
-  title: string;
+export interface RecurringExpense {
+  name: string;
   amount: number;
   recurs: 'monthly' | 'yearly';
   day: number;
@@ -21,16 +22,16 @@ export interface RecurringTransaction {
   notifyDaysBefore: number;
 }
 
-const monthlyRecurringTransactions: RecurringTransaction[] = [
+const monthly: RecurringExpense[] = [
   {
-    title: 'Netflix',
+    name: 'Netflix',
     amount: 12.99,
     recurs: 'monthly',
     day: 1,
     notifyDaysBefore: 5
   },
   {
-    title: 'Spotify',
+    name: 'Spotify',
     amount: 8.49,
     recurs: 'monthly',
     day: 15,
@@ -38,40 +39,75 @@ const monthlyRecurringTransactions: RecurringTransaction[] = [
   },
 ]
 
-const yearlyRecurringTransactions: RecurringTransaction[] = [
+const yearly: RecurringExpense[] = [
   {
-    title: 'Notion',
+    name: 'Notion',
     amount: 49.99,
     recurs: 'yearly',
     day: 1,
     month: 6,
     notifyDaysBefore: 35,
-  }
+  },
 ]
 
 const RecurringView = () => {
+  const [monthlyRecurringExpenses, setMonthlyRecurringExpenses] = useState(monthly);
+  const [yearlyRecurringExpenses, setYearlyRecurringExpenses] = useState(yearly);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [recurs, setRecurs] = useState<'monthly' | 'yearly'>('monthly');
+
   const classes = useStyles();
+
+  const openDialog = (recurs: 'monthly' | 'yearly') => {
+    setRecurs(recurs);
+    setIsDialogOpen(true);
+  }
+  const closeDialog = () => setIsDialogOpen(false);
+
+  function handleNewExpense(newExpense: RecurringExpense) {
+    if (recurs === 'monthly') setMonthlyRecurringExpenses([ ...monthlyRecurringExpenses, newExpense ]);
+    else setYearlyRecurringExpenses([ ...yearlyRecurringExpenses, newExpense ]);
+    closeDialog();
+  }
 
   return (
     <Grid container style={{ paddingTop: '24px' }} justify="space-around">
-      <Grid container direction="column" xs={5}>
+      <Grid container item direction="column" xs={5}>
         <Grid className={classes.title} container alignItems="center">
           <Typography variant="h6">Monthly Recurring</Typography>
-          <IconButton style={{ marginLeft: '10px' }}color="primary"><AddIcon /></IconButton>
+          <IconButton
+            style={{ marginLeft: '10px' }}
+            color="primary"
+            onClick={() => openDialog('monthly')}
+          >
+            <AddIcon />
+          </IconButton>
         </Grid>
-        {monthlyRecurringTransactions.map(tr => (
-          <RecurringTransactionCard transaction={tr} />
+        {monthlyRecurringExpenses.map(exp => (
+          <RecurringExpenseCard expense={exp} />
         ))}
       </Grid>
-      <Grid container direction="column" xs={5}>
+      <Grid container item direction="column" xs={5}>
         <Grid className={classes.title} container alignItems="center">
           <Typography variant="h6">Yearly Recurring</Typography>
-          <IconButton style={{ marginLeft: '10px' }}color="primary"><AddIcon /></IconButton>
+          <IconButton
+            style={{ marginLeft: '10px' }}
+            color="primary"
+            onClick={() => openDialog('yearly')}
+          >
+            <AddIcon />
+          </IconButton>
         </Grid>
-        {yearlyRecurringTransactions.map(tr => (
-          <RecurringTransactionCard transaction={tr} />
+        {yearlyRecurringExpenses.map(expense => (
+          <RecurringExpenseCard expense={expense} />
         ))}
       </Grid>
+      <RecurringExpenseDialog
+        isOpen={isDialogOpen}
+        recurs={recurs}
+        handleClose={closeDialog}
+        handleNewExpense={handleNewExpense}
+      />
     </Grid>
   )
 }
