@@ -68,7 +68,7 @@
 | 14.02.21 | 3.5 | Käyttöliittymän kaunistamista
 | 15.02.21 | 2 | Käyttöliittymän kaunistamista, julkaisukuntoon valmistelua
 | 16.02.21 | 1 | Julkaisukuntoon valmistelua
-| 17.02.21 | 1 | Toistuvien kulujen lisäystä
-| 18.02.21 | 1 | Toistuvien kulujen lisäystä
+| 17.02.21 | 1 | [Toistuvien kulujen](https://github.com/ToniOjala/FinanceTracker/issues/24) lisäystä
+| 18.02.21 | 1 | [Toistuvien kulujen](https://github.com/ToniOjala/FinanceTracker/issues/24) lisäystä
 | yht   | 164   | | 
 
