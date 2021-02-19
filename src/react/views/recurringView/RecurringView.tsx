@@ -1,5 +1,5 @@
 import { Grid, IconButton, makeStyles, Typography } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { AddIcon } from '../../components/icons'
 import RecurringExpenseCard from './RecurringExpenseCard'
 import RecurringExpenseDialog from './RecurringExpenseDialog'
@@ -59,11 +59,15 @@ const RecurringView = () => {
 
   const classes = useStyles();
 
-  const openDialog = (recurs: 'monthly' | 'yearly') => {
+  function openDialog (recurs: 'monthly' | 'yearly') {
     setRecurs(recurs);
     setIsDialogOpen(true);
   }
-  const closeDialog = () => setIsDialogOpen(false);
+
+  function closeDialog () {
+    setIsDialogOpen(false);
+    setExpenseToEdit(null);
+  }
 
   function addExpense(newExpense: RecurringExpense) {
     if (recurs === 'monthly') setMonthlyRecurringExpenses([ ...monthlyRecurringExpenses, newExpense ]);
@@ -78,7 +82,6 @@ const RecurringView = () => {
   }
 
   function updateExpense(expense: RecurringExpense) {
-    console.log('expense: ', expense);
     setIsDialogOpen(false);
     if (expense.recurs === 'monthly') {
       setMonthlyRecurringExpenses(monthlyRecurringExpenses.map(exp => {
