@@ -6,8 +6,10 @@ import { RecurringExpense } from './RecurringView';
 interface Props {
   isOpen: boolean;
   recurs: 'monthly' | 'yearly';
+  expenseToEdit: RecurringExpense | null;
   handleClose: () => void;
-  handleNewExpense: (newExpense: RecurringExpense) => void;
+  addExpense: (expense: RecurringExpense) => void;
+  updateExpense: (expense: RecurringExpense) => void;
 }
 
 interface RecurringExpenseFormValues {
@@ -18,36 +20,48 @@ interface RecurringExpenseFormValues {
   notifyDaysBefore: number;
 }
 
-const RecurringExpenseDialog = ({ isOpen, recurs, handleClose, handleNewExpense }: Props) => {
+const RecurringExpenseDialog = ({ isOpen, recurs, expenseToEdit, handleClose, addExpense, updateExpense }: Props) => {
   const { errors, control, formState, handleSubmit, reset } = useForm<RecurringExpenseFormValues>({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
   const onSubmit = (values: RecurringExpenseFormValues) => {
-    handleNewExpense({
-      name: values.name,
-      amount: Number(values.amount),
-      day: Number(values.day),
-      month: Number(values.month),
-      recurs,
-      notifyDaysBefore: Number(values.notifyDaysBefore)
-    });
+    if (expenseToEdit) {
+      updateExpense({
+        name: values.name,
+        amount: Number(values.amount),
+        day: Number(values.day),
+        month: Number(values.month),
+        recurs,
+        notifyDaysBefore: Number(values.notifyDaysBefore)
+      })
+    } else {
+      addExpense({
+        name: values.name,
+        amount: Number(values.amount),
+        day: Number(values.day),
+        month: Number(values.month),
+        recurs,
+        notifyDaysBefore: Number(values.notifyDaysBefore)
+      });
+    }
     reset();
   }
 
   return (
     <Dialog open={isOpen} onClose={() => handleClose}>
       <form onSubmit={handleSubmit(onSubmit)} >
-        <DialogTitle>{`Add ${recurs.charAt(0).toUpperCase() + recurs.substr(1)} Recurring Transaction`}</DialogTitle>
+        <DialogTitle>{expenseToEdit ? 'Edit Recurring Expense' : 'Add Recurring Expense'}</DialogTitle>
         <DialogContent>
           <Controller 
             as={TextField}
             control={control}
             rules={{required: 'Name is required'}}
-            defaultValue={''}
+            defaultValue={expenseToEdit?.name || ''}
             margin="normal"
             name="name"
             label="Name"
             error={errors.name && true}
             helperText={errors.name?.message}
+            disabled={expenseToEdit !== null}
             fullWidth
             required
           />
@@ -55,7 +69,7 @@ const RecurringExpenseDialog = ({ isOpen, recurs, handleClose, handleNewExpense 
             as={TextField}
             control={control}
             rules={{required: 'Amount is required'}}
-            defaultValue={''}
+            defaultValue={expenseToEdit?.amount || ''}
             margin="normal"
             name="amount"
             label="Amount"
@@ -68,7 +82,7 @@ const RecurringExpenseDialog = ({ isOpen, recurs, handleClose, handleNewExpense 
             as={TextField}
             control={control}
             rules={{ min: 1, max: 30 }}
-            defaultValue={1}
+            defaultValue={expenseToEdit?.day || 1}
             margin="normal"
             name="day"
             label="Day of Month"
@@ -81,7 +95,7 @@ const RecurringExpenseDialog = ({ isOpen, recurs, handleClose, handleNewExpense 
               as={TextField}
               control={control}
               rules={{ min: 1, max: 12 }}
-              defaultValue={1}
+              defaultValue={expenseToEdit?.month || 1}
               margin="normal"
               name="month"
               label="Month of Year"
@@ -93,7 +107,7 @@ const RecurringExpenseDialog = ({ isOpen, recurs, handleClose, handleNewExpense 
           <Controller
             as={TextField}
             control={control}
-            defaultValue={0}
+            defaultValue={expenseToEdit?.notifyDaysBefore || 0}
             margin="normal"
             name="notifyDaysBefore"
             label="Notify Days Before"
@@ -112,7 +126,7 @@ const RecurringExpenseDialog = ({ isOpen, recurs, handleClose, handleNewExpense 
             color="primary"
             disabled={!isDirty || !isValid}
           >
-            Add
+            {expenseToEdit ? 'Edit' : 'Add'}
           </Button>
         </DialogActions>
       </form>

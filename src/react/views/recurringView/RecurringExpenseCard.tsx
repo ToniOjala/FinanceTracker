@@ -23,10 +23,11 @@ const useStyles = makeStyles(theme => ({
 
 interface Props {
   expense: RecurringExpense;
+  editExpense: (expense: RecurringExpense) => void;
   removeExpense: (expense: RecurringExpense) => void;
 }
 
-const RecurringExpenseCard = ({ expense, removeExpense }: Props) => {
+const RecurringExpenseCard = ({ expense, editExpense, removeExpense }: Props) => {
   const classes = useStyles();
   
   return (
@@ -45,7 +46,12 @@ const RecurringExpenseCard = ({ expense, removeExpense }: Props) => {
           { expense.recurs === 'yearly' && <Typography variant="body1">Occurs on {expense.day}.{expense.day} of each year</Typography>}
         </Grid>
         <Grid item xs={4} container justify="flex-end">
-          <IconButton className={classes.editButton}><EditIcon /></IconButton>
+          <IconButton
+            className={classes.editButton}
+            onClick={() => editExpense(expense)} 
+          >
+            <EditIcon />
+          </IconButton>
           <IconButton 
             color="secondary"
             onClick={() => removeExpense(expense)}

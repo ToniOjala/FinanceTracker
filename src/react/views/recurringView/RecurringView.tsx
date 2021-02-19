@@ -53,6 +53,7 @@ const yearly: RecurringExpense[] = [
 const RecurringView = () => {
   const [monthlyRecurringExpenses, setMonthlyRecurringExpenses] = useState(monthly);
   const [yearlyRecurringExpenses, setYearlyRecurringExpenses] = useState(yearly);
+  const [expenseToEdit, setExpenseToEdit] = useState<RecurringExpense | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [recurs, setRecurs] = useState<'monthly' | 'yearly'>('monthly');
 
@@ -64,10 +65,32 @@ const RecurringView = () => {
   }
   const closeDialog = () => setIsDialogOpen(false);
 
-  function addNewExpense(newExpense: RecurringExpense) {
+  function addExpense(newExpense: RecurringExpense) {
     if (recurs === 'monthly') setMonthlyRecurringExpenses([ ...monthlyRecurringExpenses, newExpense ]);
     else setYearlyRecurringExpenses([ ...yearlyRecurringExpenses, newExpense ]);
     closeDialog();
+  }
+
+  function editExpense(expense: RecurringExpense) {
+    setExpenseToEdit(expense);
+    setIsDialogOpen(true);
+  }
+
+  function updateExpense(expense: RecurringExpense) {
+    console.log('expense: ', expense);
+    setIsDialogOpen(false);
+    setExpenseToEdit(null);
+    if (expense.recurs === 'monthly') {
+      setMonthlyRecurringExpenses(monthlyRecurringExpenses.map(exp => {
+        if (exp.name === expense.name) return expense;
+        else return exp;
+      }))
+    } else {
+      setYearlyRecurringExpenses(yearlyRecurringExpenses.map(exp => {
+        if (exp.name === expense.name) return expense;
+        else return exp;
+      }))
+    }
   }
 
   function removeExpense(expense: RecurringExpense) {
@@ -94,7 +117,11 @@ const RecurringView = () => {
           </IconButton>
         </Grid>
         {monthlyRecurringExpenses.map(exp => (
-          <RecurringExpenseCard expense={exp} removeExpense={removeExpense} />
+          <RecurringExpenseCard
+            expense={exp}
+            editExpense={editExpense}
+            removeExpense={removeExpense}
+          />
         ))}
       </Grid>
       <Grid container item direction="column" xs={5}>
@@ -109,14 +136,20 @@ const RecurringView = () => {
           </IconButton>
         </Grid>
         {yearlyRecurringExpenses.map(expense => (
-          <RecurringExpenseCard expense={expense} removeExpense={removeExpense} />
+          <RecurringExpenseCard
+            expense={expense}
+            editExpense={editExpense}
+            removeExpense={removeExpense}
+          />
         ))}
       </Grid>
       <RecurringExpenseDialog
         isOpen={isDialogOpen}
         recurs={recurs}
+        expenseToEdit={expenseToEdit}
         handleClose={closeDialog}
-        handleNewExpense={addNewExpense}
+        addExpense={addExpense}
+        updateExpense={updateExpense}
       />
     </Grid>
   )
