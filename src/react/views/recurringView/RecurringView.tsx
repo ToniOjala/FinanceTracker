@@ -73,13 +73,13 @@ const RecurringView = () => {
 
   function editExpense(expense: RecurringExpense) {
     setExpenseToEdit(expense);
+    setRecurs(expense.recurs);
     setIsDialogOpen(true);
   }
 
   function updateExpense(expense: RecurringExpense) {
     console.log('expense: ', expense);
     setIsDialogOpen(false);
-    setExpenseToEdit(null);
     if (expense.recurs === 'monthly') {
       setMonthlyRecurringExpenses(monthlyRecurringExpenses.map(exp => {
         if (exp.name === expense.name) return expense;
@@ -91,6 +91,7 @@ const RecurringView = () => {
         else return exp;
       }))
     }
+    setExpenseToEdit(null);
   }
 
   function removeExpense(expense: RecurringExpense) {
