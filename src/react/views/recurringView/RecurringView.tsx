@@ -64,10 +64,20 @@ const RecurringView = () => {
   }
   const closeDialog = () => setIsDialogOpen(false);
 
-  function handleNewExpense(newExpense: RecurringExpense) {
+  function addNewExpense(newExpense: RecurringExpense) {
     if (recurs === 'monthly') setMonthlyRecurringExpenses([ ...monthlyRecurringExpenses, newExpense ]);
     else setYearlyRecurringExpenses([ ...yearlyRecurringExpenses, newExpense ]);
     closeDialog();
+  }
+
+  function removeExpense(expense: RecurringExpense) {
+    if (expense.recurs === 'monthly') {
+      const filteredExpenses = monthlyRecurringExpenses.filter(exp => exp.name !== expense.name);
+      setMonthlyRecurringExpenses(filteredExpenses);
+    } else {
+      const filteredExpenses = yearlyRecurringExpenses.filter(exp => exp.name !== expense.name);
+      setYearlyRecurringExpenses(filteredExpenses);
+    }
   }
 
   return (
@@ -84,7 +94,7 @@ const RecurringView = () => {
           </IconButton>
         </Grid>
         {monthlyRecurringExpenses.map(exp => (
-          <RecurringExpenseCard expense={exp} />
+          <RecurringExpenseCard expense={exp} removeExpense={removeExpense} />
         ))}
       </Grid>
       <Grid container item direction="column" xs={5}>
@@ -99,14 +109,14 @@ const RecurringView = () => {
           </IconButton>
         </Grid>
         {yearlyRecurringExpenses.map(expense => (
-          <RecurringExpenseCard expense={expense} />
+          <RecurringExpenseCard expense={expense} removeExpense={removeExpense} />
         ))}
       </Grid>
       <RecurringExpenseDialog
         isOpen={isDialogOpen}
         recurs={recurs}
         handleClose={closeDialog}
-        handleNewExpense={handleNewExpense}
+        handleNewExpense={addNewExpense}
       />
     </Grid>
   )

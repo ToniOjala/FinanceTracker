@@ -23,9 +23,10 @@ const useStyles = makeStyles(theme => ({
 
 interface Props {
   expense: RecurringExpense;
+  removeExpense: (expense: RecurringExpense) => void;
 }
 
-const RecurringExpenseCard = ({ expense }: Props) => {
+const RecurringExpenseCard = ({ expense, removeExpense }: Props) => {
   const classes = useStyles();
   
   return (
@@ -45,7 +46,12 @@ const RecurringExpenseCard = ({ expense }: Props) => {
         </Grid>
         <Grid item xs={4} container justify="flex-end">
           <IconButton className={classes.editButton}><EditIcon /></IconButton>
-          <IconButton color="secondary"><DeleteIcon /></IconButton>
+          <IconButton 
+            color="secondary"
+            onClick={() => removeExpense(expense)}
+          >
+            <DeleteIcon />
+          </IconButton>
         </Grid>
       </Grid>
     </Paper>
