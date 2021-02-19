@@ -8,10 +8,10 @@ export function handleDatabaseRequest(table: DBTable, method: string, data?: Key
   try {
     let result: unknown;
 
-    if (table === DBTable.CATEGORIES) result = handleCategoryRequest(method, data);
-    if (table === DBTable.TRANSACTIONS) result = handleTransactionRequest(method, data, query);
-    if (table === DBTable.BUDGETS) result = handleBudgetRequest(method, data, query);
-    if (table === DBTable.BALANCELOGS) result = handleBalanceLogRequest(method, data, query);
+    if (table === 'categories') result = handleCategoryRequest(method, data);
+    if (table === 'transactions') result = handleTransactionRequest(method, data, query);
+    if (table === 'budgets') result = handleBudgetRequest(method, data, query);
+    if (table === 'balanceLogs') result = handleBalanceLogRequest(method, data, query);
 
     return result;
   } catch (error) {

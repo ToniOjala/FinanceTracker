@@ -1,7 +1,7 @@
-import { DBTable, KeyValuePair, NewTransaction, Transaction } from '../../shared/types';
+import { KeyValuePair, NewTransaction, Transaction } from '../../shared/types';
 import { deleteItem, getCustom, getMany, post, update } from './dbService';
 
-const table = DBTable.TRANSACTIONS;
+const table = 'transactions';
 
 export const getTransactionsOfMonth = (year: number, month: number): Promise<Transaction[]> => {
   return getMany<Transaction[]>(table, { year, month });

@@ -1,7 +1,7 @@
-import { DBTable, KeyValuePair, Budget, NewBudget } from '../../shared/types';
+import { KeyValuePair, Budget, NewBudget } from '../../shared/types';
 import { getCustom, postMany } from './dbService';
 
-const table = DBTable.BUDGETS;
+const table = 'budgets';
 
 export const getLatestBudgets = (date: string): Promise<KeyValuePair> => {
   return getCustom<KeyValuePair>(table, 'getLatest', { date });

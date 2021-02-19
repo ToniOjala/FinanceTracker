@@ -1,7 +1,7 @@
-import { DBTable, Category, NewCategory } from '../../shared/types';
+import { Category, NewCategory } from '../../shared/types';
 import { getMany, post, update } from './dbService';
 
-const table = DBTable.CATEGORIES;
+const table = 'categories';
 
 export function getCategories(): Promise<Category[]> {
   return getMany<Category[]>(table);

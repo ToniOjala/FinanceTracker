@@ -1,7 +1,7 @@
-import { DBTable, BalanceLog, NewBalanceLog } from '../../shared/types';
+import { BalanceLog, NewBalanceLog } from '../../shared/types';
 import { getMany, post, update, deleteItem, getCustom } from './dbService';
 
-const table = DBTable.BALANCELOGS;
+const table = 'balanceLogs';
 
 export function getBalanceLogs(categoryId: number, page: number): Promise<BalanceLog[]> {
   return getMany<BalanceLog[]>(table, { categoryId, page });

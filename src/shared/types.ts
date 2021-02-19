@@ -40,13 +40,13 @@ export interface BalanceLog {
 }
 export type NewBalanceLog = Omit<BalanceLog, 'id'>
 
-export enum DBTable {
-  CATEGORIES = 'categories',
-  TRANSACTIONS = 'transactions',
-  BUDGETS = 'budgets',
-  BALANCELOGS = 'balanceLogs'
-}
-
+export type DBTable =
+    'categories' 
+  | 'transactions' 
+  | 'budgets'
+  | 'balanceLogs'
+  | 'recurringExpenses';
+  
 export interface DBRequestParams {
   table: DBTable;
   method: string;
