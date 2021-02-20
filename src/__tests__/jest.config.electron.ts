@@ -117,16 +117,16 @@ export default {
   // rootDir: undefined,
 
   // A list of paths to directories that Jest should use to search for files in
-  roots: ["<rootDir>/src"],
+  // roots: ["<rootDir>/src"],
 
   // Allows you to use a custom runner instead of Jest's default test runner
-  // runner: "jest-runner",
+  runner: "@jest-runner/electron/main",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
   // setupFiles: [],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: ["./src/setupTests.ts"],
+  // setupFilesAfterEnv: ["./src/setupTests.ts"],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,
@@ -135,7 +135,7 @@ export default {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  // testEnvironment: "jest-environment-jsdom",
+  testEnvironment: "node",
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -145,7 +145,8 @@ export default {
 
   // The glob patterns Jest uses to detect test files
   testMatch: [
-    "**/react/**/*+(spec|test).[tj]s?(x)",
+    "**/__tests__/**/*.(spec|test).ts",
+    // "**/?(*.)+(spec|test).[tj]s?(x)"
   ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped

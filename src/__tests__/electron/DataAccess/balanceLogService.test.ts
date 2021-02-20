@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import BalanceLogService from "../../../electron/DataAccess/services/balanceLogService";
 import CategoryService from "../../../electron/DataAccess/services/categoryService";
 import TransactionService from "../../../electron/DataAccess/services/transactionService";
@@ -13,7 +12,7 @@ describe('balanceLogService', () => {
   const transactionService = new TransactionService();
   const sampleBalanceLogs = generate.balanceLogs();
 
-  before(() => {
+  beforeAll(() => {
     for(const category of generate.categories) {
       categoryService.saveCategory(category);
     }
@@ -23,7 +22,7 @@ describe('balanceLogService', () => {
     }
   })
 
-  after(() => {
+  afterAll(() => {
     clearTables('balanceLogs', 'transactions', 'categories');
   })
 
@@ -34,17 +33,17 @@ describe('balanceLogService', () => {
 
     it('getBalanceLog returns undefined', () => {
       const balanceLog = balanceLogService.getBalanceLog(2);
-      expect(balanceLog).to.be.undefined;
+      expect(balanceLog).toBeUndefined();
     })
 
     it('getBalanceLogs returns empty array', () => {
       const balancelogs = balanceLogService.getBalanceLogs(1, 1);
-      expect(balancelogs.length).equal(0);
+      expect(balancelogs.length).toBe(0);
     })
 
     it('getBalanceLogCount is zero', () => {
       const balanceLogCount = balanceLogService.getCountOfBalanceLogs(1);
-      expect(balanceLogCount).equal(0);
+      expect(balanceLogCount).toBe(0);
     })
 
     it('saveBalanceLog works', () => {
@@ -63,7 +62,7 @@ describe('balanceLogService', () => {
   })
 
   describe('DB has existing balance logs', () => {
-    before(() => {
+    beforeAll(() => {
       for(const balanceLog of sampleBalanceLogs) {
         balanceLogService.saveBalanceLog(balanceLog);
       }
@@ -77,7 +76,7 @@ describe('balanceLogService', () => {
 
     it('getBalanceLogs returns correct balance logs', () => {
       const balanceLogs = balanceLogService.getBalanceLogs(2, 2);
-      expect(balanceLogs.length).equal(5);
+      expect(balanceLogs.length).toBe(10);
       
       for(const balanceLog of balanceLogs) {
         verifyBalanceLogEquality(balanceLog, sampleBalanceLogs[balanceLog.id - 1]);
@@ -86,16 +85,16 @@ describe('balanceLogService', () => {
 
     it('getCountOfBalanceLogs returns correct value', () => {
       let count = balanceLogService.getCountOfBalanceLogs(1);
-      expect(count).equal(26);
+      expect(count).toBe(26);
 
       count = balanceLogService.getCountOfBalanceLogs(2);
-      expect(count).equal(25);
+      expect(count).toBe(25);
 
       count = balanceLogService.getCountOfBalanceLogs(3);
-      expect(count).equal(22);
+      expect(count).toBe(22);
       
       count = balanceLogService.getCountOfBalanceLogs(4);
-      expect(count).equal(27);
+      expect(count).toBe(27);
     })
 
     it('saveBalanceLog works', () => {
@@ -114,28 +113,28 @@ describe('balanceLogService', () => {
 
     it('deleteBalanceLogs works', () => {
       const balanceLog = balanceLogService.getBalanceLog(1);
-      expect(balanceLog).to.exist;
+      expect(balanceLog).toBeDefined();
 
       if (balanceLog.transactionId) balanceLogService.deleteBalanceLogs(balanceLog.transactionId);
 
       const deletedBalanceLog = balanceLogService.getBalanceLog(1);
-      expect(deletedBalanceLog).to.not.exist;
+      expect(deletedBalanceLog).not.toBeDefined();
     })
 
     it('updateBalanceLog works', () => {
       const amount = 3030.12;
       const date = '2020-12-12';      
       const balanceLog = balanceLogService.getBalanceLog(2);
-      expect(balanceLog).to.exist;
-      expect(balanceLog.amount).to.not.equal(amount);
-      expect(balanceLog.date).to.not.equal(date);
+      expect(balanceLog).toBeDefined();
+      expect(balanceLog.amount).not.toBe(amount);
+      expect(balanceLog.date).not.toBe(date);
 
       if (balanceLog.transactionId) balanceLogService.updateBalanceLog(balanceLog.transactionId, amount, date);
 
       const updatedBalanceLog = balanceLogService.getBalanceLog(2);
-      expect(updatedBalanceLog).to.exist;
-      expect(updatedBalanceLog.amount).equal(amount);
-      expect(updatedBalanceLog.date).equal(date);
+      expect(updatedBalanceLog).toBeDefined();
+      expect(updatedBalanceLog.amount).toBe(amount);
+      expect(updatedBalanceLog.date).toBe(date);
     })
   })
 

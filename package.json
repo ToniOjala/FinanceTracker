@@ -26,7 +26,7 @@
     "start": "npm run build:electron-main:dev && concurrently \"cross-env npm run start:renderer\" \"npm run start:run-electron\" -n renderer,electron",
     "test:unit": "jest",
     "test:unit:watch": "jest --watch",
-    "test:integration": "set DEPLOY_ENV=test && electron-mocha -r ts-node/register src/__tests__/**/*.test.ts"
+    "test:integration": "jest --config=src/__tests__/jest.config.electron.ts"
   },
   "author": "Toni Ojala",
   "license": "ISC",
@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@hookform/devtools": "^2.2.1",
+    "@jest-runner/electron": "^3.0.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.2",
