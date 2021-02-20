@@ -1,4 +1,4 @@
-import { BalanceLog, Budget, Category, NewBalanceLog, NewBudget, NewCategory, NewRecurringExpense, NewTransaction, RecurringExpense, Transaction } from "../../shared/types"
+import { BalanceLog, Budget, Category, NewBalanceLog, NewBudget, NewCategory, NewNotification, NewRecurringExpense, NewTransaction, Notification, RecurringExpense, Transaction } from "../../shared/types"
 
 export function verifyCategoryEquality(categoryA: Category, categoryB: Category | NewCategory) {
   expect(categoryA.name).toBe(categoryB.name);
@@ -36,4 +36,12 @@ export function verifyRecurringExpenseEquality(expenseA: RecurringExpense, expen
   expect(expenseA.day).toEqual(expenseB.day);
   expect(expenseA.month).toEqual(expenseB.month);
   expect(expenseA.notifyDaysBefore).toEqual(expenseB.notifyDaysBefore);
+}
+
+export function verifyNotificationEquality(notificationA: Notification, notificationB: Notification | NewNotification) {
+  if ('id' in notificationB) expect(notificationA.id === notificationB.id);
+  expect(notificationA.message).toEqual(notificationB.message);
+  expect(notificationA.expiresOn).toEqual(notificationB.expiresOn);
+  if ('read' in notificationB && notificationB.read === true) expect(notificationA.read).toBeTruthy();
+  else expect(notificationA.read).toBeFalsy();
 }

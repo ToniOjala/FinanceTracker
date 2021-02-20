@@ -51,6 +51,14 @@ export interface RecurringExpense {
 }
 export type NewRecurringExpense = Omit<RecurringExpense, 'id'>
 
+export interface Notification {
+  id: number;
+  message: string;
+  read: boolean;
+  expiresOn: string;
+}
+export type NewNotification = Omit<Notification, 'id' | 'read'>
+
 export type DBTable =
     'categories' 
   | 'transactions' 
