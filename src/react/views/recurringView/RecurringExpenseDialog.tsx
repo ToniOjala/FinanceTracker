@@ -1,14 +1,14 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, TextField } from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core'
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { RecurringExpense } from './RecurringView';
+import { NewRecurringExpense, RecurringExpense } from '../../../shared/types';
 
 interface Props {
   isOpen: boolean;
   recurs: 'monthly' | 'yearly';
   expenseToEdit: RecurringExpense | null;
   handleClose: () => void;
-  addExpense: (expense: RecurringExpense) => void;
+  addExpense: (expense: NewRecurringExpense) => void;
   updateExpense: (expense: RecurringExpense) => void;
 }
 
@@ -26,6 +26,7 @@ const RecurringExpenseDialog = ({ isOpen, recurs, expenseToEdit, handleClose, ad
   const onSubmit = (values: RecurringExpenseFormValues) => {
     if (expenseToEdit) {
       updateExpense({
+        id: expenseToEdit.id,
         name: values.name,
         amount: Number(values.amount),
         day: Number(values.day),

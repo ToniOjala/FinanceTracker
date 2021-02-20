@@ -1,7 +1,7 @@
 import { Grid, IconButton, makeStyles, Paper, Typography } from '@material-ui/core'
 import React from 'react'
+import { RecurringExpense } from '../../../shared/types'
 import { AlarmIcon, DeleteIcon, EditIcon } from '../../components/icons'
-import { RecurringExpense } from './RecurringView'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -43,7 +43,7 @@ const RecurringExpenseCard = ({ expense, editExpense, removeExpense }: Props) =>
         <Grid item xs={5} container direction="column" justify="space-around">
           <Typography variant="body1">{expense.amount} / {expense.recurs}</Typography>
           { expense.recurs === 'monthly' && <Typography variant="body1">Occurs on {expense.day}. of each month</Typography>}
-          { expense.recurs === 'yearly' && <Typography variant="body1">Occurs on {expense.day}.{expense.day} of each year</Typography>}
+          { expense.recurs === 'yearly' && <Typography variant="body1">Occurs on {expense.day}.{expense.month}. of each year</Typography>}
         </Grid>
         <Grid item xs={4} container justify="flex-end">
           <IconButton
