@@ -40,6 +40,17 @@ export interface BalanceLog {
 }
 export type NewBalanceLog = Omit<BalanceLog, 'id'>
 
+export interface RecurringExpense {
+  id: number;
+  name: string;
+  amount: number;
+  recurs: 'monthly' | 'yearly';
+  day: number;
+  month?: number;
+  notifyDaysBefore: number;
+}
+export type NewRecurringExpense = Omit<RecurringExpense, 'id'>
+
 export type DBTable =
     'categories' 
   | 'transactions' 

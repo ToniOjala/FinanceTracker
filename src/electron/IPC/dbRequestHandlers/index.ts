@@ -2,6 +2,7 @@ import { handleCategoryRequest } from './categoryHandler';
 import { handleTransactionRequest } from './transactionHandler';
 import { handleBudgetRequest } from './budgetHandler';
 import { handleBalanceLogRequest } from './balanceLogHandler';
+import { handleRecurringExpenseRequest } from './recurringExpenseHandler';
 import { DBTable, KeyValuePair } from '../../../shared/types';
 
 export function handleDatabaseRequest(table: DBTable, method: string, data?: KeyValuePair, query?: KeyValuePair) {
@@ -12,6 +13,7 @@ export function handleDatabaseRequest(table: DBTable, method: string, data?: Key
     if (table === 'transactions') result = handleTransactionRequest(method, data, query);
     if (table === 'budgets') result = handleBudgetRequest(method, data, query);
     if (table === 'balanceLogs') result = handleBalanceLogRequest(method, data, query);
+    if (table === 'recurringExpenses') result = handleRecurringExpenseRequest(method, data);
 
     return result;
   } catch (error) {

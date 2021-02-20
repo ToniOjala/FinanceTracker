@@ -1,5 +1,5 @@
 import { BudgetsByCategory, YearlyData } from '../../react/types';
-import { BalanceLog, Category, NewBalanceLog, NewBudget, NewTransaction, Transaction } from '../../shared/types';
+import { BalanceLog, Category, NewBalanceLog, NewBudget, NewTransaction, RecurringExpense, Transaction } from '../../shared/types';
 import transactionData from '../sampleData/transactionData.json';
 
 function balanceLogs(amount: number = 100): NewBalanceLog[] {
@@ -141,6 +141,43 @@ const categories: Category[] = [
   }
 ]
 
+const recurringExpenses: RecurringExpense[] = [
+  {
+    id: 1,
+    name: 'MonthlyExpense #1',
+    amount: 12.99,
+    recurs: 'monthly',
+    day: 1,
+    notifyDaysBefore: 5
+  },
+  {
+    id: 2,
+    name: 'MonthlyExpense #2',
+    amount: 8.49,
+    recurs: 'monthly',
+    day: 15,
+    notifyDaysBefore: 1,
+  },
+  {
+    id: 3,
+    name: 'YearlyExpense #1',
+    amount: 49.99,
+    recurs: 'yearly',
+    day: 1,
+    month: 6,
+    notifyDaysBefore: 35,
+  },
+  {
+    id: 4,
+    name: 'YearlyExpense #2',
+    amount: 150,
+    recurs: 'yearly',
+    day: 15,
+    month: 3,
+    notifyDaysBefore: 0,
+  }
+]
+
 export const generate = {
   balanceLogs,
   balanceLogsWithIds,
@@ -151,4 +188,5 @@ export const generate = {
   budgets,
   budgetsByCategory,
   categories,
+  recurringExpenses
 }
