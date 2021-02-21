@@ -49,9 +49,7 @@ export const postRecurringExpense = (expense: NewRecurringExpense): AppThunk => 
 
 export const updateRecurringExpense = (expense: RecurringExpense): AppThunk => async dispatch => {
   try {
-    console.log('updating expense: ', expense);
     const updatedExpense = await updateRecurringExpenseInDB(expense);
-    console.log(updatedExpense);
     dispatch(replaceRecurringExpense(updatedExpense));
   } catch (error) {
     console.error('Error while updating recurring expense', error);
@@ -60,7 +58,6 @@ export const updateRecurringExpense = (expense: RecurringExpense): AppThunk => a
 
 export const deleteRecurringExpense = (expense: RecurringExpense): AppThunk => async dispatch => {
   try {
-    console.log('deleting expense: ', expense);
     const deleted = await deleteRecurringExpenseFromDB(expense);
     if (deleted) dispatch(removeRecurringExpense(expense));
   } catch (error) {
