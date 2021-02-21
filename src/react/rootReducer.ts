@@ -5,6 +5,7 @@ import budgetReducer from './slices/budgets';
 import dateSelectionReducer from './slices/dateSelection';
 import balanceLogReducer from './slices/balanceLogs';
 import recurringExpenseReducer from './slices/recurringExpenses';
+import notificationReducer from './slices/notifications';
 
 const rootReducer = combineReducers({
   categories: categoryReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   dateSelection: dateSelectionReducer,
   balanceLogs: balanceLogReducer,
   recurringExpenses: recurringExpenseReducer,
+  notifications: notificationReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
