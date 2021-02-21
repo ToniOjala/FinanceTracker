@@ -41,7 +41,6 @@ export function verifyRecurringExpenseEquality(expenseA: RecurringExpense, expen
 export function verifyNotificationEquality(notificationA: Notification, notificationB: Notification | NewNotification) {
   if ('id' in notificationB) expect(notificationA.id === notificationB.id);
   expect(notificationA.message).toEqual(notificationB.message);
-  expect(notificationA.expiresOn).toEqual(notificationB.expiresOn);
   if ('read' in notificationB && notificationB.read === true) expect(notificationA.read).toBeTruthy();
   else expect(notificationA.read).toBeFalsy();
 }

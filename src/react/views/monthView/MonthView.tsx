@@ -8,6 +8,7 @@ import { fetchTransactionsOfMonth, selectTransactions } from '../../slices/trans
 import { selectDate, selectYearAndMonth, setDateSelectionStatus } from '../../slices/dateSelection';
 import { fetchLatestBudgets, selectBudgets } from '../../slices/budgets';
 import TransactionContainer from './transactionContainer/TransactionContainer';
+import { fetchNotifications, selectNotifications } from '../../slices/notifications';
 
 const MonthView = (): JSX.Element | null => {
   const [selectedCategory, setSelectedCategory] = useState<Category>({} as Category);
@@ -20,10 +21,12 @@ const MonthView = (): JSX.Element | null => {
   const budgets = useSelector(selectBudgets)
   const [year, month] = useSelector(selectYearAndMonth);
   const selectedDate = useSelector(selectDate);
+  const notifications = useSelector(selectNotifications);
 
   useEffect(() => {
     dispatch(setDateSelectionStatus('month'));
     dispatch(fetchCategories());
+    dispatch(fetchNotifications());
   }, [])
 
   useEffect(() => {
@@ -35,27 +38,31 @@ const MonthView = (): JSX.Element | null => {
     setTransactionsOfCategory(transactions?.filter(tr => tr.categoryId === selectedCategory?.id));
   }, [selectedCategory, transactions])
 
+  useEffect(() => {
+    console.log('notifications: ', notifications);
+  }, [notifications])
+
   return (
-      <Grid container spacing={6} justify="center" style={{ width: '100%', margin: 0 }}>
-        <Grid item xs={12} md={6} xl={5}>
-          <MonthTableContainer
-            selectCategory={setSelectedCategory}
-            selectedCategory={selectedCategory}
-            selectedDate={selectedDate}
-            categories={categories}
-            transactions={transactions}
-            budgets={budgets}
-          />
-        </Grid>
-        <Grid item xs={12} md={4} xl={3}>
-          <TransactionContainer
-            selectedDate={selectedDate}
-            selectedCategory={selectedCategory}
-            categories={categories}
-            transactions={transactionsOfCategory}
-          />
-        </Grid>
+    <Grid container spacing={6} justify="center" style={{ width: '100%', margin: 0 }}>
+      <Grid item xs={12} md={6} xl={5}>
+        <MonthTableContainer
+          selectCategory={setSelectedCategory}
+          selectedCategory={selectedCategory}
+          selectedDate={selectedDate}
+          categories={categories}
+          transactions={transactions}
+          budgets={budgets}
+        />
       </Grid>
+      <Grid item xs={12} md={4} xl={3}>
+        <TransactionContainer
+          selectedDate={selectedDate}
+          selectedCategory={selectedCategory}
+          categories={categories}
+          transactions={transactionsOfCategory}
+        />
+      </Grid>
+    </Grid>
   )
 }
 

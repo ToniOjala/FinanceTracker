@@ -1,7 +1,9 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import url from 'url';
+import RecurringExpenseService from './DataAccess/services/recurringExpenseService';
 import { DatabaseChannel } from './IPC/DatabaseChannel';
+import { processRecurringExpenses } from './RecurringExpenseProcessing';
 
 console.log('process.env.NODE_ENV = ', process.env.NODE_ENV);
 console.log('process.env.DEPLOY_ENV = ', process.env.DEPLOY_ENV);
@@ -23,6 +25,8 @@ app.on('ready', () => {
       worldSafeExecuteJavaScript: true,
     },
   });
+
+  processRecurringExpenses(new Date());
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.loadURL(`http://localhost:4000`);

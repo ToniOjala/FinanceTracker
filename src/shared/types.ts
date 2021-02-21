@@ -55,7 +55,6 @@ export interface Notification {
   id: number;
   message: string;
   read: boolean;
-  expiresOn: string;
 }
 export type NewNotification = Omit<Notification, 'id' | 'read'>
 

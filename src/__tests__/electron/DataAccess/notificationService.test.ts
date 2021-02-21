@@ -27,7 +27,6 @@ describe('notificationService', () => {
     it('saveNotification creates a new row in table', () => {
       const notification: NewNotification = {
         message: 'This is a test message',
-        expiresOn: '2020-10-12',
       }
 
       const id = notificationService.saveNotification(notification);
@@ -64,7 +63,6 @@ describe('notificationService', () => {
     it('saveNotification creates a new row in table', () => {
       const notification: NewNotification = {
         message: 'This is a test message',
-        expiresOn: '2020-10-12',
       }
 
       const id = notificationService.saveNotification(notification);

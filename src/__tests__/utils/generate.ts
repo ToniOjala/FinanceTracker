@@ -183,25 +183,21 @@ const notifications: Notification[] = [
     id: 1,
     message: 'This is the test message number 1',
     read: false,
-    expiresOn: '2020-12-19'
   },
   {
     id: 2,
     message: 'This is the test message number 2',
     read: false,
-    expiresOn: '2021-01-08'
   },
   {
     id: 3,
     message: 'This is the test message number 3',
     read: false,
-    expiresOn: '2020-11-28'
   },
   {
     id: 4,
     message: 'This is the test message number 4',
     read: false,
-    expiresOn: '2021-02-19'
   }
 ]
 
