@@ -1,12 +1,19 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles, MenuItem, Select, TextField } from '@material-ui/core'
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { NewRecurringExpense, RecurringExpense } from '../../../shared/types';
+import { Category, NewRecurringExpense, RecurringExpense } from '../../../shared/types';
+
+const useStyles = makeStyles({
+  menuPaper: {
+    maxHeight: '200px',
+  }
+})
 
 interface Props {
   isOpen: boolean;
   recurs: 'monthly' | 'yearly';
   expenseToEdit: RecurringExpense | null;
+  categories: Category[];
   handleClose: () => void;
   addExpense: (expense: NewRecurringExpense) => void;
   updateExpense: (expense: RecurringExpense) => void;
@@ -15,18 +22,20 @@ interface Props {
 interface RecurringExpenseFormValues {
   name: string;
   amount: number;
+  category: number;
   day: number;
   month?: number;
   notifyDaysBefore: number;
 }
 
-const RecurringExpenseDialog = ({ isOpen, recurs, expenseToEdit, handleClose, addExpense, updateExpense }: Props) => {
+const RecurringExpenseDialog = ({ isOpen, recurs, expenseToEdit, categories, handleClose, addExpense, updateExpense }: Props) => {
   const { errors, control, formState, handleSubmit, reset } = useForm<RecurringExpenseFormValues>({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
   const onSubmit = (values: RecurringExpenseFormValues) => {
     if (expenseToEdit) {
       updateExpense({
         id: expenseToEdit.id,
+        categoryId: values.category,
         name: values.name,
         amount: Number(values.amount),
         day: Number(values.day),
@@ -36,6 +45,7 @@ const RecurringExpenseDialog = ({ isOpen, recurs, expenseToEdit, handleClose, ad
       })
     } else {
       addExpense({
+        categoryId: values.category,
         name: values.name,
         amount: Number(values.amount),
         day: Number(values.day),
@@ -46,6 +56,8 @@ const RecurringExpenseDialog = ({ isOpen, recurs, expenseToEdit, handleClose, ad
     }
     reset();
   }
+
+  const classes = useStyles();
 
   return (
     <Dialog open={isOpen} onClose={() => handleClose}>
@@ -79,6 +91,20 @@ const RecurringExpenseDialog = ({ isOpen, recurs, expenseToEdit, handleClose, ad
             fullWidth
             required
           />
+          <Controller
+            as={Select}
+            control={control}
+            rules={{required: 'Category is required'}}
+            defaultValue={categories[0]?.id}
+            name="category"
+            label="Category"
+            error={errors.category && true}
+            fullWidth
+            required
+            MenuProps={{ classes: { paper: classes.menuPaper } }}
+          >
+            {categories.map(cat => <MenuItem key={cat.name} value={cat.id}>{cat.name}</MenuItem>)}
+          </Controller>
           <Controller
             as={TextField}
             control={control}

@@ -17,13 +17,13 @@ export default class RecurringExpenseService {
   }
 
   saveRecurringExpense(expense: NewRecurringExpense): number {
-    const sql = 'INSERT INTO recurringExpenses (name, amount, recurs, day, month, notifyDaysBefore) VALUES (?, ?, ?, ?, ?, ?)';
-    return this.db.run(sql, [expense.name, expense.amount, expense.recurs, expense.day, expense.month, expense.notifyDaysBefore]);
+    const sql = 'INSERT INTO recurringExpenses (categoryId, name, amount, recurs, day, month, notifyDaysBefore) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    return this.db.run(sql, [expense.categoryId, expense.name, expense.amount, expense.recurs, expense.day, expense.month, expense.notifyDaysBefore]);
   }
 
   updateRecurringExpense(expense: RecurringExpense): void {
-    const sql = 'UPDATE recurringExpenses SET amount = ?, day = ?, month = ?, notifyDaysBefore = ? WHERE id = ?';
-    this.db.run(sql, [expense.amount, expense.day, expense.month, expense.notifyDaysBefore, expense.id]);
+    const sql = 'UPDATE recurringExpenses SET categoryId = ?, amount = ?, day = ?, month = ?, notifyDaysBefore = ? WHERE id = ?';
+    this.db.run(sql, [expense.categoryId, expense.amount, expense.day, expense.month, expense.notifyDaysBefore, expense.id]);
   }
 
   deleteRecurringExpense(expense: RecurringExpense): void {

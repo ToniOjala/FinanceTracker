@@ -24,6 +24,7 @@ describe('recurringExpenseService', () => {
 
     it('saveRecurringExpense adds a row to table', () => {
       const expense: NewRecurringExpense = {
+        categoryId: 2,
         name: 'Test',
         amount: 30.00,
         recurs: 'monthly',
@@ -66,6 +67,7 @@ describe('recurringExpenseService', () => {
 
     it('saveRecurringExpense adds a row to table', () => {
       const expense: NewRecurringExpense = {
+        categoryId: 2,
         name: 'Test',
         amount: 30.00,
         recurs: 'monthly',
@@ -83,6 +85,7 @@ describe('recurringExpenseService', () => {
     it('updateRecurringExpense updates a row in table', () => {
       const expense: RecurringExpense = {
         id: 1,
+        categoryId: 3,
         name: 'MonthlyExpense #1',
         amount: 30.00,
         recurs: 'monthly',

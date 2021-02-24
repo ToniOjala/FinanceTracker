@@ -144,6 +144,7 @@ const categories: Category[] = [
 const recurringExpenses: RecurringExpense[] = [
   {
     id: 1,
+    categoryId: 2,
     name: 'MonthlyExpense #1',
     amount: 12.99,
     recurs: 'monthly',
@@ -152,6 +153,7 @@ const recurringExpenses: RecurringExpense[] = [
   },
   {
     id: 2,
+    categoryId: 2,
     name: 'MonthlyExpense #2',
     amount: 8.49,
     recurs: 'monthly',
@@ -160,6 +162,7 @@ const recurringExpenses: RecurringExpense[] = [
   },
   {
     id: 3,
+    categoryId: 3,
     name: 'YearlyExpense #1',
     amount: 49.99,
     recurs: 'yearly',
@@ -169,6 +172,7 @@ const recurringExpenses: RecurringExpense[] = [
   },
   {
     id: 4,
+    categoryId: 4,
     name: 'YearlyExpense #2',
     amount: 150,
     recurs: 'yearly',

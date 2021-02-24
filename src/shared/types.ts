@@ -42,6 +42,7 @@ export type NewBalanceLog = Omit<BalanceLog, 'id'>
 
 export interface RecurringExpense {
   id: number;
+  categoryId: number;
   name: string;
   amount: number;
   recurs: 'monthly' | 'yearly';

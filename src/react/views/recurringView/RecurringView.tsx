@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NewRecurringExpense, RecurringExpense } from '../../../shared/types'
 import { AddIcon } from '../../components/icons'
+import { selectExpenseCategories } from '../../slices/categories'
 import { deleteRecurringExpense, fetchRecurringExpenses, postRecurringExpense, selectMonthlyRecurringExpenses, selectYearlyRecurringExpenses, updateRecurringExpense } from '../../slices/recurringExpenses'
 import RecurringExpenseCard from './RecurringExpenseCard'
 import RecurringExpenseDialog from './RecurringExpenseDialog'
@@ -25,6 +26,7 @@ const RecurringView = () => {
   const dispatch = useDispatch();
   const monthlyRecurring = useSelector(selectMonthlyRecurringExpenses);
   const yearlyRecurring = useSelector(selectYearlyRecurringExpenses);
+  const expenseCategories = useSelector(selectExpenseCategories);
 
   useEffect(() => {
     dispatch(fetchRecurringExpenses());
@@ -107,6 +109,7 @@ const RecurringView = () => {
         isOpen={isDialogOpen}
         recurs={recurs}
         expenseToEdit={expenseToEdit}
+        categories={expenseCategories}
         handleClose={closeDialog}
         addExpense={addExpense}
         updateExpense={updateExpense}
