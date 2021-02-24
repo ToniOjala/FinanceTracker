@@ -71,6 +71,7 @@
 | 17.02.21 | 1 | [Toistuvien kulujen](https://github.com/ToniOjala/FinanceTracker/issues/24) lisäystä
 | 18.02.21 | 1 | [Toistuvien kulujen](https://github.com/ToniOjala/FinanceTracker/issues/24) lisäystä
 | 20.02.21 | 3 | [Toistuvien kulujen](https://github.com/ToniOjala/FinanceTracker/issues/24) lisäystä, [muistutusten](https://github.com/ToniOjala/FinanceTracker/issues/25) lisäystä, integraatiotestien siirto Jestille
-| 21.02.21 | 2 | [Toistuvien kulujen](https://github.com/ToniOjala/FinanceTracker/issues/24) lisäystä ja [muistutusten](https://github.com/ToniOjala/FinanceTracker/issues/25) lisäystä
-| yht   | 169   | | 
+| 21.02.21 | 2 | [Toistuvien kulujen](https://github.com/ToniOjala/FinanceTracker/issues/24) ja [muistutusten](https://github.com/ToniOjala/FinanceTracker/issues/25) lisäystä
+| 24.02.21 | 1.5 | [Toistuvien kulujen](https://github.com/ToniOjala/FinanceTracker/issues/24) ja [muistutusten](https://github.com/ToniOjala/FinanceTracker/issues/25) lisäystä
+| yht   | 170.5   | | 
 
