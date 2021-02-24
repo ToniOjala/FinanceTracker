@@ -3,6 +3,7 @@ import { NewNotification } from "../shared/types";
 import ApplicationService from "./DataAccess/services/applicationService";
 import NotificationService from "./DataAccess/services/notificationService";
 import RecurringExpenseService from "./DataAccess/services/recurringExpenseService"
+import TransactionService from "./DataAccess/services/transactionService";
 
 export function processRecurringExpenses(date: Date) {
   const applicationService = new ApplicationService();
@@ -12,6 +13,7 @@ export function processRecurringExpenses(date: Date) {
   if (lastOpened === today) return;
   const lastOpenedDate = new Date(lastOpened);
 
+  const transactionService = new TransactionService();
   const recurringExpenseService = new RecurringExpenseService();
   const notificationService = new NotificationService();
   const recurringExpenses = recurringExpenseService.getRecurringExpenses();
@@ -25,6 +27,13 @@ export function processRecurringExpenses(date: Date) {
     let notification = {} as NewNotification;
 
     if (format(expenseDate, 'yyyy-MM-dd') === today) {
+      transactionService.saveTransaction({
+        categoryId: expense.categoryId,
+        amount: expense.amount,
+        label: expense.name,
+        type: 'expense',
+        date: today
+      })
       notification.message = `Recurring expense '${expense.name}' was added today`;
     }
     else if (format(notifyDate, 'yyyy-MM-dd') === today) {

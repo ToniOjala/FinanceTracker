@@ -1,7 +1,8 @@
+import { format } from 'date-fns';
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import url from 'url';
-import RecurringExpenseService from './DataAccess/services/recurringExpenseService';
+import ApplicationService from './DataAccess/services/applicationService';
 import { DatabaseChannel } from './IPC/DatabaseChannel';
 import { processRecurringExpenses } from './RecurringExpenseProcessing';
 
@@ -27,6 +28,7 @@ app.on('ready', () => {
   });
 
   processRecurringExpenses(new Date());
+  setLastOpenedToNow();
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.loadURL(`http://localhost:4000`);
@@ -47,3 +49,7 @@ app.on('ready', () => {
 ipcMain.on('database', (event, request) => new DatabaseChannel().handle(event, request));
 
 app.allowRendererProcessReuse = true;
+
+function setLastOpenedToNow() {
+  new ApplicationService().setLastOpened(format(new Date(), 'yyyy-MM-dd'));
+}
