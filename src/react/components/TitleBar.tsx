@@ -6,6 +6,8 @@ import './TitleBar.css'
 import YearMonthSelector from './YearMonthSelector'
 import { useSelector } from 'react-redux'
 import { selectDate, selectDateSelectionStatus } from '../slices/dateSelection'
+import { selectNotifications } from '../slices/notifications';
+import Notifications from './Notifications'
 
 const window = remote.getCurrentWindow();
 
@@ -19,8 +21,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  button: {
-    padding: '2px',
+  actions: {
+    display: 'flex',
   }
 }))
 
@@ -30,6 +32,7 @@ const TitleBar = () => {
   const classes = useStyles();
   const selectedDate = useSelector(selectDate);
   const dateSelectionStatus = useSelector(selectDateSelectionStatus);
+  const notifications = useSelector(selectNotifications);
 
   const minimize = () => window.minimize();
   const toggleMaximize = () => {
@@ -42,8 +45,9 @@ const TitleBar = () => {
     <AppBar position="fixed" elevation={0} className={classes.titleBar}>
       <Toolbar id="titlebar" variant="dense" className={classes.toolBar}>
         <Typography variant="subtitle1">Finance Tracker</Typography>
-        <div>
+        <div className={classes.actions}>
           <YearMonthSelector selectedDate={selectedDate} dateSelectionStatus={dateSelectionStatus} />
+          <Notifications notifications={notifications} />
           <IconButton onClick={minimize}><MinimizeIcon /></IconButton>
           <IconButton onClick={toggleMaximize}>{isMaximized ? <UnmaximizeIcon /> : <MaximizeIcon />}</IconButton>
           <IconButton onClick={close}><CloseIcon /></IconButton>

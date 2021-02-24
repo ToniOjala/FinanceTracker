@@ -8,7 +8,7 @@ import { fetchTransactionsOfMonth, selectTransactions } from '../../slices/trans
 import { selectDate, selectYearAndMonth, setDateSelectionStatus } from '../../slices/dateSelection';
 import { fetchLatestBudgets, selectBudgets } from '../../slices/budgets';
 import TransactionContainer from './transactionContainer/TransactionContainer';
-import { fetchNotifications, selectNotifications } from '../../slices/notifications';
+import { fetchNotifications } from '../../slices/notifications';
 
 const MonthView = (): JSX.Element | null => {
   const [selectedCategory, setSelectedCategory] = useState<Category>({} as Category);
@@ -21,7 +21,6 @@ const MonthView = (): JSX.Element | null => {
   const budgets = useSelector(selectBudgets)
   const [year, month] = useSelector(selectYearAndMonth);
   const selectedDate = useSelector(selectDate);
-  const notifications = useSelector(selectNotifications);
 
   useEffect(() => {
     dispatch(setDateSelectionStatus('month'));
@@ -37,10 +36,6 @@ const MonthView = (): JSX.Element | null => {
   useEffect(() => {
     setTransactionsOfCategory(transactions?.filter(tr => tr.categoryId === selectedCategory?.id));
   }, [selectedCategory, transactions])
-
-  useEffect(() => {
-    console.log('notifications: ', notifications);
-  }, [notifications])
 
   return (
     <Grid container spacing={6} justify="center" style={{ width: '100%', margin: 0 }}>

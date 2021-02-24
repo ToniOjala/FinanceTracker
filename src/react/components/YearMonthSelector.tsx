@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   root: {
     padding: 0,
     marginTop: '4px',
-    marginRight: '50px'
+    marginRight: '25px'
   },
   input: {
     padding: '8px 0 8px 8px',
