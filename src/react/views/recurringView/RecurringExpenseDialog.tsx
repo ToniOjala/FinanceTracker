@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles, MenuItem, Select, TextField } from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, InputLabel, makeStyles, MenuItem, Select, TextField } from '@material-ui/core'
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Category, NewRecurringExpense, RecurringExpense } from '../../../shared/types';
@@ -6,6 +6,12 @@ import { Category, NewRecurringExpense, RecurringExpense } from '../../../shared
 const useStyles = makeStyles({
   menuPaper: {
     maxHeight: '200px',
+  },
+  select: {
+    marginBottom: '8px',
+  },
+  selectLabel: {
+    marginTop: '16px',
   }
 })
 
@@ -91,11 +97,13 @@ const RecurringExpenseDialog = ({ isOpen, recurs, expenseToEdit, categories, han
             fullWidth
             required
           />
+          <InputLabel className={classes.selectLabel} shrink>Category</InputLabel>
           <Controller
+            className={classes.select}
             as={Select}
             control={control}
             rules={{required: 'Category is required'}}
-            defaultValue={categories[0]?.id}
+            defaultValue={expenseToEdit?.categoryId || categories[0]?.id}
             name="category"
             label="Category"
             error={errors.category && true}
