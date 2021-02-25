@@ -4,6 +4,7 @@ import path from 'path';
 import url from 'url';
 import ApplicationService from './DataAccess/services/applicationService';
 import { DatabaseChannel } from './IPC/DatabaseChannel';
+import { processNotifications } from './NotificationProcessing';
 import { processRecurringExpenses } from './RecurringExpenseProcessing';
 
 console.log('process.env.NODE_ENV = ', process.env.NODE_ENV);
@@ -27,6 +28,7 @@ app.on('ready', () => {
     },
   });
 
+  processNotifications();
   processRecurringExpenses(new Date());
   setLastOpenedToNow();
 
