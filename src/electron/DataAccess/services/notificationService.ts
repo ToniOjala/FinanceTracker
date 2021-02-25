@@ -19,8 +19,8 @@ export default class NotificationService {
   }
 
   saveNotification(notification: NewNotification): number {
-    const sql = 'INSERT INTO notifications (message, read) VALUES (?, false)';
-    return this.db.run(sql, [notification.message]);
+    const sql = 'INSERT INTO notifications (message, date, read) VALUES (?, ?, false)';
+    return this.db.run(sql, [notification.message, notification.date]);
   }
 
   updateNotification(id: number): void {

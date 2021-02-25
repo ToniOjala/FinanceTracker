@@ -1,5 +1,5 @@
 import NotificationService from '../../../electron/DataAccess/services/notificationService';
-import { NewNotification, Notification } from '../../../shared/types';
+import { NewNotification } from '../../../shared/types';
 import { clearTables } from '../../utils/database';
 import { generate } from '../../utils/generate';
 import { verifyNotificationEquality } from '../../utils/verification';
@@ -27,6 +27,7 @@ describe('notificationService', () => {
     it('saveNotification creates a new row in table', () => {
       const notification: NewNotification = {
         message: 'This is a test message',
+        date: '2021-02-25',
       }
 
       const id = notificationService.saveNotification(notification);
@@ -63,6 +64,7 @@ describe('notificationService', () => {
     it('saveNotification creates a new row in table', () => {
       const notification: NewNotification = {
         message: 'This is a test message',
+        date: '2021-02-25',
       }
 
       const id = notificationService.saveNotification(notification);

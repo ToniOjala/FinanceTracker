@@ -187,21 +187,25 @@ const notifications: Notification[] = [
     id: 1,
     message: 'This is the test message number 1',
     read: false,
+    date: '2020-12-14'
   },
   {
     id: 2,
     message: 'This is the test message number 2',
     read: false,
+    date: '2021-01-04'
   },
   {
     id: 3,
     message: 'This is the test message number 3',
     read: false,
+    date: '2021-02-02'
   },
   {
     id: 4,
     message: 'This is the test message number 4',
     read: false,
+    date: '2021-02-20'
   }
 ]
 

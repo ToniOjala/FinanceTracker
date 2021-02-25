@@ -56,6 +56,7 @@ export interface Notification {
   id: number;
   message: string;
   read: boolean;
+  date: string;
 }
 export type NewNotification = Omit<Notification, 'id' | 'read'>
 
