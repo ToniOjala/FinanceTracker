@@ -3,10 +3,11 @@ import React, { useState } from 'react'
 import { remote } from 'electron'
 import { MinimizeIcon, MaximizeIcon, CloseIcon, UnmaximizeIcon } from './icons'
 import './TitleBar.css'
+import { Notification } from '../../shared/types';
 import YearMonthSelector from './YearMonthSelector'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectDate, selectDateSelectionStatus } from '../slices/dateSelection'
-import { selectNotifications } from '../slices/notifications';
+import { selectNotifications, updateNotification } from '../slices/notifications';
 import Notifications from './Notifications'
 
 const window = remote.getCurrentWindow();
@@ -33,6 +34,7 @@ const TitleBar = () => {
   const selectedDate = useSelector(selectDate);
   const dateSelectionStatus = useSelector(selectDateSelectionStatus);
   const notifications = useSelector(selectNotifications);
+  const dispatch = useDispatch();
 
   const minimize = () => window.minimize();
   const toggleMaximize = () => {
@@ -41,13 +43,17 @@ const TitleBar = () => {
   }
   const close = () => window.close();
 
+  function markNotificationRead(notification: Notification) {
+    dispatch(updateNotification({ ...notification, read: true }));
+  }
+
   return (
     <AppBar position="fixed" elevation={0} className={classes.titleBar}>
       <Toolbar id="titlebar" variant="dense" className={classes.toolBar}>
         <Typography variant="subtitle1">Finance Tracker</Typography>
         <div className={classes.actions}>
           <YearMonthSelector selectedDate={selectedDate} dateSelectionStatus={dateSelectionStatus} />
-          <Notifications notifications={notifications} />
+          <Notifications notifications={notifications} markNotificationRead={markNotificationRead} />
           <IconButton onClick={minimize}><MinimizeIcon /></IconButton>
           <IconButton onClick={toggleMaximize}>{isMaximized ? <UnmaximizeIcon /> : <MaximizeIcon />}</IconButton>
           <IconButton onClick={close}><CloseIcon /></IconButton>
