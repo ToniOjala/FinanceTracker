@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, TextField } from '@material-ui/core';
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Category, CategoryType } from '../../../../shared/types';
 
@@ -11,6 +11,7 @@ export interface CategoryDialogValues {
 interface AddCategoryProps {
   isOpen: boolean;
   categoryToEdit: Category | null;
+  categories: Category[];
   handleClose: () => void;
   handleCategory: (category: CategoryDialogValues) => void;
 }
@@ -25,11 +26,21 @@ const typeOptions: TypeOption[] = [
   { value: 'income', label: 'Income' }
 ]
 
-const CategoryDialog = ({ isOpen, categoryToEdit, handleClose, handleCategory }: AddCategoryProps): JSX.Element => {
-  const { errors, control, handleSubmit, formState } = useForm({ mode: 'onChange' });
+const CategoryDialog = ({ isOpen, categoryToEdit, categories, handleClose, handleCategory }: AddCategoryProps): JSX.Element => {
+  const { errors, control, formState, handleSubmit, watch, setError } = useForm({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
 
   const onSubmit = (values: CategoryDialogValues) => handleCategory(values);
+
+  const watchName = watch('name', '');
+  const nameExists = (): boolean => {
+    const exists = categories.map(cat => cat.name).includes(watchName);
+    if (exists) setError('name', {
+      type: 'manual',
+      message: 'This name is used already'
+    })
+    return exists;
+  };
 
   return (
     <Dialog open={isOpen}>
@@ -73,7 +84,7 @@ const CategoryDialog = ({ isOpen, categoryToEdit, handleClose, handleCategory }:
           <Button 
             type="submit"
             color="primary"
-            disabled={!isDirty || !isValid}
+            disabled={!isDirty || !isValid || nameExists()}
           >
             Add
           </Button>

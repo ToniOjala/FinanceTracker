@@ -83,6 +83,7 @@ const CategorySettingsContainer = () => {
       <CategoryDialog
         isOpen={isDialogOpen}
         categoryToEdit={categoryToEdit}
+        categories={categories}
         handleClose={closeDialog}
         handleCategory={handleCategory}
       />
