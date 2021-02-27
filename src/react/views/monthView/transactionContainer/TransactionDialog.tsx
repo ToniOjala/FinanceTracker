@@ -79,6 +79,7 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
             as={TextField}
             control={control}
             rules={{required: 'Amount is required'}}
+            type="number"
             defaultValue={transactionToEdit?.amount || ''}
             margin="normal"
             name="amount"
