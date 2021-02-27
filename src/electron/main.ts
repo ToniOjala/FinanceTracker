@@ -45,6 +45,19 @@ app.on('ready', () => {
     );
   }
 
+  // Create listener that will handle the white screen issue
+  mainWindow.webContents.on('did-fail-load', () => {
+  if (process.env.NODE_ENV === 'production') {
+    mainWindow?.loadURL(
+      url.format({
+        pathname: path.join(app.getAppPath(), '/app/index.html'),
+        protocol: 'file:',
+        slashes: true,
+      })
+    );
+  }
+  })
+
   mainWindow.on('closed', () => mainWindow = null);
 });
 
