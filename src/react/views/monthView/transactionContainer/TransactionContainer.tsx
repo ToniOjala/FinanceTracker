@@ -102,7 +102,7 @@ const TransactionContainer = ({selectedDate, selectedCategory, categories, trans
       <TransactionDialog
         isOpen={isDialogOpen}
         transactionType={selectedCategory.type}
-        categories={categories}
+        categories={categories.filter(cat => cat.type === 'expense')}
         transactionToEdit={transactionToEdit}
         selectedDate={selectedDate}
         handleClose={closeDialog}
