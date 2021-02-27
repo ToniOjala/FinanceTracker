@@ -4,8 +4,8 @@ import path from 'path';
 import url from 'url';
 import ApplicationService from './DataAccess/services/applicationService';
 import { DatabaseChannel } from './IPC/DatabaseChannel';
-import { processNotifications } from './NotificationProcessing';
-import { processRecurringExpenses } from './RecurringExpenseProcessing';
+import { processNotifications } from './processNotifications';
+import { processRecurringExpenses } from './processRecurringExpenses';
 
 console.log('process.env.NODE_ENV = ', process.env.NODE_ENV);
 console.log('process.env.DEPLOY_ENV = ', process.env.DEPLOY_ENV);
