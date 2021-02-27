@@ -13,6 +13,11 @@ export default class TransactionService {
     return this.db.get(sql, id);
   }
 
+  getTransactions(): Transaction[] {
+    const sql = 'SELECT * FROM transactions';
+    return this.db.getMany<Transaction>(sql);
+  }
+
   getTransactionsOfMonth(year: number, month: number): Transaction[] {
     const date = (month >= 10) ? `${year}-${month}-01` : `${year}-0${month}-01`;
     const sql = `SELECT * FROM transactions WHERE date BETWEEN date(?) AND date(?, '+1 month', '-1 day')`;

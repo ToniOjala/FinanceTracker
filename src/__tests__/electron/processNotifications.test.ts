@@ -1,11 +1,11 @@
 import { format } from "date-fns";
 import { sub } from "date-fns";
 import NotificationService from "../../electron/DataAccess/services/notificationService";
-import { processNotifications } from '../../electron/NotificationProcessing';
+import { processNotifications } from '../../electron/processNotifications';
 import { clearTables } from '../utils/database';
 import { NewNotification } from "../../shared/types";
 
-describe('notificationProcessing', () => {
+describe('processNotifications', () => {
   const newNotifications: NewNotification[] = [
     {
       message: 'abc',

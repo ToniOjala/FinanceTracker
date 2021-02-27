@@ -1,5 +1,5 @@
 import { BudgetsByCategory, YearlyData } from '../../react/types';
-import { BalanceLog, Category, NewBalanceLog, NewBudget, NewTransaction, Notification, RecurringExpense, Transaction } from '../../shared/types';
+import { BalanceLog, Category, NewBalanceLog, NewBudget, NewRecurringExpense, NewTransaction, Notification, RecurringExpense, Transaction } from '../../shared/types';
 import transactionData from '../sampleData/transactionData.json';
 
 function balanceLogs(amount: number = 100): NewBalanceLog[] {
@@ -182,6 +182,97 @@ const recurringExpenses: RecurringExpense[] = [
   }
 ]
 
+const monthlyRecurringExpenses: NewRecurringExpense[] = [
+  {
+    categoryId: 2,
+    name: 'Monthly Recurring Expense #1',
+    amount: 1,
+    recurs: 'monthly',
+    day: 25,
+    notifyDaysBefore: 1,
+  },
+  {
+    categoryId: 3,
+    name: 'Monthly Recurring Expense #2',
+    amount: 2,
+    recurs: 'monthly',
+    day: 28,
+    notifyDaysBefore: 3,
+  },
+  {
+    categoryId: 2,
+    name: 'Monthly Recurring Expense #3',
+    amount: 3,
+    recurs: 'monthly',
+    day: 22,
+    notifyDaysBefore: 10,
+  },
+  {
+    categoryId: 3,
+    name: 'Monthly Recurring Expense #4',
+    amount: 4,
+    recurs: 'monthly',
+    day: 28,
+    notifyDaysBefore: 4,
+  },
+  {
+    categoryId: 4,
+    name: 'Monthly Recurring Expense #5',
+    amount: 5,
+    recurs: 'monthly',
+    day: 12,
+    notifyDaysBefore: 2,
+  },
+]
+
+const yearlyRecurringExpenses: NewRecurringExpense[] = [
+  {
+    categoryId: 3,
+    name: 'Yearly Recurring Expense #1',
+    amount: 1,
+    recurs: 'yearly',
+    day: 25,
+    month: 2,
+    notifyDaysBefore: 1,
+  },
+  {
+    categoryId: 4,
+    name: 'Yearly Recurring Expense #2',
+    amount: 2,
+    recurs: 'yearly',
+    day: 28,
+    month: 2,
+    notifyDaysBefore: 3,
+  },
+  {
+    categoryId: 4,
+    name: 'Yearly Recurring Expense #3',
+    amount: 3,
+    recurs: 'yearly',
+    day: 22,
+    month: 2,
+    notifyDaysBefore: 10,
+  },
+  {
+    categoryId: 2,
+    name: 'Yearly Recurring Expense #4',
+    amount: 4,
+    recurs: 'yearly',
+    day: 28,
+    month: 2,
+    notifyDaysBefore: 4,
+  },
+  {
+    categoryId: 3,
+    name: 'Yearly Recurring Expense #5',
+    amount: 5,
+    recurs: 'yearly',
+    day: 28,
+    month: 3,
+    notifyDaysBefore: 4,
+  },
+]
+
 const notifications: Notification[] = [
   {
     id: 1,
@@ -220,5 +311,7 @@ export const generate = {
   budgetsByCategory,
   categories,
   recurringExpenses,
+  monthlyRecurringExpenses,
+  yearlyRecurringExpenses,
   notifications
 }
