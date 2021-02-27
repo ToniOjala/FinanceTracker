@@ -1,7 +1,7 @@
 import { Box, Button, Drawer, makeStyles, Typography, Toolbar } from '@material-ui/core'
 import React from 'react'
 import { NavLink } from 'react-router-dom';
-import { BalancesIcon, MonthIcon, SettingsIcon, YearIcon } from './icons';
+import { BalancesIcon, MonthIcon, RecurringIcon, SettingsIcon, YearIcon } from './icons';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -49,7 +49,7 @@ const SideNav = (): JSX.Element => {
   const buttons: NavButton[] = [
     { link: '/month', title: 'Month', icon: <MonthIcon /> },
     { link: '/year', title: 'Year', icon: <YearIcon /> },
-    { link: '/recurring', title: 'Recurring', icon: null },
+    { link: '/recurring', title: 'Recurring', icon: <RecurringIcon /> },
     { link: '/balance', title: 'Balances', icon: <BalancesIcon /> },
     { link: '/settings', title: 'Settings', icon: <SettingsIcon /> },
   ]

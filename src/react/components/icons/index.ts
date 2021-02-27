@@ -7,6 +7,7 @@ import EditIcon from './EditIcon'
 import MaximizeIcon from './MaximizeIcon'
 import MinimizeIcon from './MinimizeIcon'
 import MonthIcon from './MonthIcon'
+import RecurringIcon from './RecurringIcon'
 import SettingsIcon from './SettingsIcon'
 import UnmaximizeIcon from './UnmaximizeIcon'
 import YearIcon from './YearIcon'
@@ -21,6 +22,7 @@ export {
   MaximizeIcon,
   MinimizeIcon,
   MonthIcon,
+  RecurringIcon,
   SettingsIcon,
   UnmaximizeIcon,
   YearIcon
