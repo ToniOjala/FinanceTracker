@@ -55,7 +55,7 @@ export type NewRecurringExpense = Omit<RecurringExpense, 'id'>
 export interface Notification {
   id: number;
   message: string;
-  read: boolean;
+  read: number;
   date: string;
 }
 export type NewNotification = Omit<Notification, 'id' | 'read'>

@@ -3,6 +3,7 @@ import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
 import { BalanceLog, NewBalanceLog } from '../../shared/types';
 import { getBalanceLogCount, getBalanceLogs, postBalanceLog } from '../services/balanceLogService';
+import { isBalanceLog } from '../utils/verify';
 
 const initialState = {
   logs: [] as BalanceLog[],
@@ -30,7 +31,8 @@ export default balanceLogSlice.reducer;
 
 export const fetchBalanceLogs = (categoryId: number, page: number): AppThunk => async dispatch => {
   try {
-    const balanceLogs = await getBalanceLogs(categoryId, page);
+    let balanceLogs = await getBalanceLogs(categoryId, page);
+    balanceLogs = balanceLogs.filter(bl => isBalanceLog(bl));
     dispatch(setBalanceLogs(balanceLogs));
   } catch (error) {
     console.error('Error while fetcing balance logs: ', error)

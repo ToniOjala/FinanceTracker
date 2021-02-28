@@ -44,7 +44,7 @@ const TitleBar = () => {
   const close = () => window.close();
 
   function markNotificationRead(notification: Notification) {
-    dispatch(updateNotification({ ...notification, read: true }));
+    dispatch(updateNotification({ ...notification, read: 1 }));
   }
 
   return (

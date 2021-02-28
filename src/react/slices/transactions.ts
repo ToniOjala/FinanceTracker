@@ -5,6 +5,7 @@ import { getYearlyData, getTransactionsOfMonth, saveTransaction, deleteTransacti
 import { RootState } from "../rootReducer";
 import { NewTransaction, Transaction } from "../../shared/types";
 import { YearlyData } from "../types";
+import { isTransaction } from "../utils/verify";
 
 const initialState = {
   transactions: [] as Transaction[],
@@ -41,7 +42,8 @@ export default transactionSlice.reducer;
 
 export const fetchTransactionsOfMonth = (year: number, month: number): AppThunk => async dispatch => {
   try {
-    const transactions = await getTransactionsOfMonth(year, month);
+    let transactions = await getTransactionsOfMonth(year, month);
+    transactions = transactions.filter(tr => isTransaction(tr));
     dispatch(setTransactions(transactions));
   } catch (error) {
     console.error('Error while fetching transactions: ', error);

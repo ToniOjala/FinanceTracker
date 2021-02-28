@@ -3,6 +3,7 @@ import { Notification } from "../../shared/types";
 import { RootState } from "../rootReducer";
 import { getNotifications, updateNotificationInDB } from '../services/notificationService';
 import { AppThunk } from "../store";
+import { isNotification } from "../utils/verify";
 
 const notificationSlice = createSlice({
   name: 'notification',
@@ -25,8 +26,9 @@ export default notificationSlice.reducer;
 
 export const fetchNotifications = (): AppThunk => async dispatch => {
   try {
-    const notifications = await getNotifications();
-    dispatch(setNotifications(notifications));
+    let notifications = await getNotifications();
+    notifications = notifications.filter(n => isNotification(n))
+    if (notifications && notifications.length > 0) dispatch(setNotifications(notifications));
   } catch (error) {
     console.error('Error while fetching notifications: ', error);
   }

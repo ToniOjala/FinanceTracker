@@ -3,6 +3,7 @@ import { NewRecurringExpense, RecurringExpense } from "../../shared/types";
 import { RootState } from "../rootReducer";
 import { deleteRecurringExpenseFromDB, getRecurringExpenses, saveRecurringExpense, updateRecurringExpenseInDB } from "../services/recurringExpenseService";
 import { AppThunk } from "../store";
+import { isRecurringExpense } from "../utils/verify";
 
 const recurringExpenseSlice = createSlice({
   name: 'recurringExpense',
@@ -31,7 +32,8 @@ export default recurringExpenseSlice.reducer;
 
 export const fetchRecurringExpenses = (): AppThunk => async dispatch => {
   try {
-    const expenses = await getRecurringExpenses();
+    let expenses = await getRecurringExpenses();
+    expenses = expenses.filter(exp => isRecurringExpense(exp));
     dispatch(setRecurringExpenses(expenses));
   } catch (error) {
     console.error('Error while fetching recurring expenses: ', error);

@@ -5,6 +5,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { makeStyles } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { setSelectedDate } from '../slices/dateSelection';
+import { format } from 'date-fns';
 
 const useStyles = makeStyles({
   root: {
@@ -28,7 +29,10 @@ const YearMonthSelector = ({ selectedDate, dateSelectionStatus }: Props): JSX.El
 
   const handleChange = (date: ParsableDate) => {
     const dateString = date?.toLocaleString();
-    if (dateString) dispatch(setSelectedDate(dateString));
+    if (dateString) {
+      const d = format(new Date(dateString), 'yyyy-MM-dd');
+      dispatch(setSelectedDate(d));
+    }
   }
 
   if (dateSelectionStatus === 'hidden') return null;

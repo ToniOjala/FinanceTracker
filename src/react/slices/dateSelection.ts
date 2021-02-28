@@ -2,6 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { format, getMonth, getYear } from 'date-fns';
 import { RootState } from "../rootReducer";
+import { isDateString } from "../utils/verify";
 
 type ComponentStatus = 'month' | 'year' | 'hidden'
 
@@ -15,8 +16,10 @@ const dateSelectionSlice = createSlice({
   initialState: initialState,
   reducers: {
     setSelectedDate: (state, action) => {
-      const selectedDate = format(new Date(action.payload).setDate(1), 'yyyy-MM-dd');
-      state.selectedDate = selectedDate;
+      if (isDateString(action.payload)) {
+        const selectedDate = `${(action.payload as string).substr(0, 8)}01`
+        state.selectedDate = selectedDate;
+      }
     },
     setDateSelectionStatus: (state, action) => { state.componentStatus = action.payload },
   }

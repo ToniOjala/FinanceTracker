@@ -3,6 +3,7 @@ import { RootState } from '../rootReducer';
 import { AppThunk } from '../store';
 import { getCategories, saveCategory, updateCategoryInDB } from '../services/categoryService';
 import { Category, CategoryType, NewCategory } from '../../shared/types';
+import { isCategory } from '../utils/verify';
 
 const categorySlice = createSlice({
   name: 'category',
@@ -29,6 +30,7 @@ export default categorySlice.reducer;
 export const fetchCategories = (): AppThunk => async dispatch => {
   try {
     let categories = await getCategories();
+    categories = categories.filter(cat => isCategory(cat));
     dispatch(setCategories(categories));
   } catch (error) {
     console.error('Error while fetcing categories: ', error);

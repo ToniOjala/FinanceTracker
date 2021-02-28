@@ -8,7 +8,7 @@ import { fetchTransactionsOfMonth, selectTransactions } from '../../slices/trans
 import { selectDate, selectYearAndMonth, setDateSelectionStatus } from '../../slices/dateSelection';
 import { fetchLatestBudgets, selectBudgets } from '../../slices/budgets';
 import TransactionContainer from './transactionContainer/TransactionContainer';
-import { fetchNotifications } from '../../slices/notifications';
+import { fetchNotifications, selectNotifications } from '../../slices/notifications';
 
 const MonthView = (): JSX.Element | null => {
   const [selectedCategory, setSelectedCategory] = useState<Category>({} as Category);
@@ -21,16 +21,17 @@ const MonthView = (): JSX.Element | null => {
   const budgets = useSelector(selectBudgets)
   const [year, month] = useSelector(selectYearAndMonth);
   const selectedDate = useSelector(selectDate);
+  const notifications = useSelector(selectNotifications);
 
   useEffect(() => {
     dispatch(setDateSelectionStatus('month'));
-    dispatch(fetchCategories());
-    dispatch(fetchNotifications());
+    if (!categories || categories.length === 0) dispatch(fetchCategories());
+    if (!notifications || notifications.length === 0) dispatch(fetchNotifications());
   }, [])
 
   useEffect(() => {
-    dispatch(fetchTransactionsOfMonth(year, month));
-    dispatch(fetchLatestBudgets(selectedDate));
+    if (!transactions || transactions.length === 0) dispatch(fetchTransactionsOfMonth(year, month));
+    if (!budgets) dispatch(fetchLatestBudgets(selectedDate));
   }, [selectedDate])
 
   useEffect(() => {

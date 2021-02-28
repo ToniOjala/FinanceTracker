@@ -3,6 +3,7 @@ import { formatRelative } from 'date-fns'
 import { formatDistanceToNowStrict } from 'date-fns/esm'
 import React, { useEffect, useState } from 'react'
 import { Notification } from '../../shared/types'
+import { isDateString } from '../utils/verify'
 import { AlarmIcon } from './icons'
 
 const useStyles = makeStyles(theme => ({
@@ -23,7 +24,7 @@ interface Props {
   markNotificationRead: (notification: Notification) => void;
 }
 
-const Notifications = ({ notifications, markNotificationRead }: Props) => {
+const Notifications = ({ notifications, markNotificationRead }: Props): JSX.Element | null => {
   const [anchorElement, setAnchorElement] = useState<HTMLButtonElement | null>(null);
   const [numUnread, setNumUnread] = useState(0);
 
@@ -36,9 +37,13 @@ const Notifications = ({ notifications, markNotificationRead }: Props) => {
   }, [notifications])
 
   function getRelativeFormat(date: string) {
-    const relativeSplit = formatRelative(new Date(date), new Date(), { weekStartsOn: 1 }).split(' ');
-    if (relativeSplit[1] === 'at') return relativeSplit[0];
-    return formatDistanceToNowStrict(new Date(date)) + ' ago';
+    if (isDateString(date)) {
+      const relativeSplit = formatRelative(new Date(date), new Date(), { weekStartsOn: 1 }).split(' ');
+      if (relativeSplit[1] === 'at') return relativeSplit[0];
+      return formatDistanceToNowStrict(new Date(date)) + ' ago';
+    }
+
+    return '';
   }
 
   function open(event: React.MouseEvent<HTMLButtonElement>) {
@@ -50,6 +55,8 @@ const Notifications = ({ notifications, markNotificationRead }: Props) => {
   }
 
   const classes = useStyles();
+
+  if (!notifications || notifications.length === 0) return null;
   
   return (
     <div className={classes.root}>
