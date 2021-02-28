@@ -9,7 +9,7 @@ Harjoitustyön palautusta varten tehty julkaisu löytyy [täältä](https://gith
 Sovellus on työkalu henkilökohtaisten tulojen ja menojen seurantaan. Alkuun päästääkseen pitää luoda Settings-välilehdellä uusia tulo- ja menokategorioita. Settings-välilehdellä on
 myös mahdollista poistaa/muokata kategorioita.
 
-Tämän jälkeen on mahdollista lisätä kategorioille tuloja ja menoja Month-välilehdellä: Income- ja Expense-taulukoissa näkyviä kategorioita pystyy valitsemaan, jolloin kolmannessa taulukossa näytetään valitulle kategoriolle lisätyt tapahtumat ja taulukon alla olevasta New - napista voi lisätä uusia tapahtumia. Valitsemalla tapahtuman voi sen myös poistaa tai muokata Month-välilehti aukeaa automaattisesti nykyiseen kuukauteen ja vuoteen. Kuukauden ja vuoden voi vaihtaa klikkaamalla sovelluksen yläpalkissa näytettävää kuukautta ja vuotta.
+Tämän jälkeen on mahdollista lisätä kategorioille tuloja ja menoja Month-välilehdellä: Income- ja Expense-taulukoissa näkyviä kategorioita pystyy valitsemaan, jolloin kolmannessa taulukossa näytetään valitulle kategoriolle lisätyt tapahtumat ja taulukon alla olevasta New - napista voi lisätä uusia tapahtumia. Valitsemalla tapahtuman voi sen myös poistaa tai muokata. Month-välilehti aukeaa automaattisesti nykyiseen kuukauteen ja vuoteen. Tämän voi vaihtaa klikkaamalla sovelluksen yläpalkissa näytettävää kuukautta ja vuotta.
 
 Year-välilehdellä näytetään kokonaisen vuoden tapahtumien yhteissummat kategorioittain. Vuoden voi vaihtaa yläpalkista.
 
