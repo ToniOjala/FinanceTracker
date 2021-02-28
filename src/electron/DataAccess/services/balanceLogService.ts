@@ -18,6 +18,11 @@ export default class BalanceLogService {
     return this.db.getMany<BalanceLog>(sql, [categoryId, page - 1]);
   }
 
+  getBalanceLogsOfTransaction(transactionId: number): BalanceLog[] {
+    const sql = 'SELECT * FROM balanceLogs WHERE transactionId = ?';
+    return this.db.getMany<BalanceLog>(sql, transactionId);
+  }
+
   getCountOfBalanceLogs(categoryId: number): number {
     const sql = 'SELECT COUNT(id) as count FROM balanceLogs WHERE categoryId = ?';
     const data: { count: number } = this.db.get(sql, categoryId);

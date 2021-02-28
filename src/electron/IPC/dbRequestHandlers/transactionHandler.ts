@@ -1,4 +1,4 @@
-import { Transaction, KeyValuePair, NewTransaction } from "../../../shared/types";
+import { Transaction, KeyValuePair, NewTransaction, BalanceAdditions } from "../../../shared/types";
 import BalanceLogService from "../../DataAccess/services/balanceLogService";
 import CategoryService from "../../DataAccess/services/categoryService";
 import TransactionService from "../../DataAccess/services/transactionService";
@@ -68,19 +68,19 @@ function handlePost(newTransaction: NewTransaction): Transaction {
   const id = transactionService.saveTransaction(newTransaction);
   const savedTransaction = transactionService.getTransaction(id);
   if (savedTransaction && newTransaction.type === 'expense') handleExpense(savedTransaction);
-  if (savedTransaction && newTransaction.type === 'income') handleIncome(newTransaction)
+  if (savedTransaction && newTransaction.type === 'income') handleIncome(savedTransaction, newTransaction.balanceAdditions)
   return savedTransaction;
 }
 
-function handleIncome(transaction: NewTransaction) {
+function handleIncome(transaction: Transaction, balanceAdditions: BalanceAdditions | undefined) {
   const categories = categoryService.getCategories();
   for(const category of categories) {
-    if (transaction[category.name]) {
-      categoryService.addToBalanceOfCategory(category.id, Number(transaction[category.name]));
+    if (balanceAdditions && balanceAdditions[category.name]) {
+      categoryService.addToBalanceOfCategory(category.id, Number(balanceAdditions[category.name]));
       balanceLogService.saveBalanceLog({
         categoryId: category.id,
         transactionId: Number(transaction.id),
-        amount: Number(transaction[category.name]),
+        amount: Number(balanceAdditions[category.name]),
         date: transaction.date,
         label: transaction.label
       });
@@ -101,7 +101,15 @@ function handleExpense(transaction: Transaction) {
 }
 
 function handleDelete(transaction: Transaction): boolean {
-  categoryService.addToBalanceOfCategory(transaction.categoryId, transaction.amount);
+  const category = categoryService.getCategory(transaction.categoryId);
+  if (category.type === 'expense') {
+    categoryService.addToBalanceOfCategory(transaction.categoryId, transaction.amount);
+  }
+  else {
+    const balanceLogs = balanceLogService.getBalanceLogsOfTransaction(transaction.id);
+    balanceLogs.forEach(bl => categoryService.addToBalanceOfCategory(bl.categoryId, -bl.amount));
+  }
+
   balanceLogService.deleteBalanceLogs(transaction.id);
   transactionService.deleteTransaction(transaction);
   const deletedTransaction = transactionService.getTransaction(transaction.id);

@@ -50,9 +50,7 @@ const TransactionContainer = ({selectedDate, selectedCategory, categories, trans
     }
 
     if (selectedCategory.type === 'income') {
-      for (const category in values.balanceAdditions) {
-        newTransaction[category] = values.balanceAdditions[category];
-      }
+      newTransaction.balanceAdditions = values.balanceAdditions;
     }
 
     dispatch(postTransaction(newTransaction));

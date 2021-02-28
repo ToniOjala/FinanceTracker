@@ -10,6 +10,7 @@ export interface Category {
 }
 export type NewCategory = Omit<Category, 'id' | 'removed'>
 
+export type BalanceAdditions = { [categoryName: string]: string | number | undefined };
 export interface Transaction {
   id: number;
   amount: number;
@@ -19,7 +20,7 @@ export interface Transaction {
 }
 export interface NewTransaction extends Omit<Transaction, 'id'> {
   type: 'income' | 'expense';
-  [categoryName: string]: string | number | undefined;
+  balanceAdditions?: BalanceAdditions;
 }
 
 export interface Budget {
