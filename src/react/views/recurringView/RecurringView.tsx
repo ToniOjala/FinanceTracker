@@ -31,7 +31,7 @@ const RecurringView = () => {
 
   useEffect(() => {
     dispatch(setDateSelectionStatus('hidden'));
-    if (!monthlyRecurring && !yearlyRecurring || [...monthlyRecurring, ...yearlyRecurring].length === 0) dispatch(fetchRecurringExpenses());
+    dispatch(fetchRecurringExpenses());
   }, [])
 
   function openDialog (recurs: 'monthly' | 'yearly') {
