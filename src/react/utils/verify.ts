@@ -45,7 +45,7 @@ export function isRecurringExpense(data: any): data is RecurringExpense {
   else if (data.amount === null || data.amount === undefined || typeof data.amount !== 'number') return false;
   else if (!data.recurs || (data.recurs !== 'monthly' && data.recurs !== 'yearly')) return false;
   else if (!data.day || typeof data.day !== 'number') return false;
-  else if (!data.notifyDaysBefore || typeof data.notifyDaysBefore !== 'number') return false;
+  else if (data.notifyDaysBefore === null || data.notifyDaysBefore === undefined || typeof data.notifyDaysBefore !== 'number') return false;
   return true;
 }
 
