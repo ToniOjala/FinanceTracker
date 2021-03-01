@@ -30,8 +30,8 @@ const MonthView = (): JSX.Element | null => {
   }, [])
 
   useEffect(() => {
-    if (!transactions || transactions.length === 0) dispatch(fetchTransactionsOfMonth(year, month));
-    if (!budgets) dispatch(fetchLatestBudgets(selectedDate));
+    dispatch(fetchTransactionsOfMonth(year, month));
+    dispatch(fetchLatestBudgets(selectedDate));
   }, [selectedDate])
 
   useEffect(() => {
