@@ -4,7 +4,7 @@ An Electron application being developed for the Full Stack Open course project a
 
 ## Käyttöohjeet
 
-Harjoitustyön palautusta varten tehty julkaisu löytyy [täältä](https://github.com/ToniOjala/FinanceTracker/releases/tag/0.5.0). Työaikakirjanpito on [täällä](https://github.com/ToniOjala/FinanceTracker/blob/master/tuntikirjanpito.md)
+Harjoitustyön palautusta varten tehty julkaisu löytyy [täältä](https://github.com/ToniOjala/FinanceTracker/releases/tag/0.5.4). Työaikakirjanpito on [täällä](https://github.com/ToniOjala/FinanceTracker/blob/master/tuntikirjanpito.md)
 
 Sovellus on työkalu henkilökohtaisten tulojen ja menojen seurantaan. Alkuun päästääkseen pitää luoda Settings-välilehdellä uusia tulo- ja menokategorioita. Settings-välilehdellä on
 myös mahdollista poistaa/muokata kategorioita.
