@@ -4,13 +4,14 @@ import { IpcRequest } from '../../shared/types';
 export function send<T>(channel: string, request: IpcRequest): Promise<T> {
   const ipcRenderer = initializeIpcRenderer();
 
-  request.responseChannel = `${channel}_response_${new Date().getTime()}`,
+  request.responseChannel = `${channel}_response_${Math.floor(Math.random() * 10000)}`,
   
-  console.log('request: ', request);
   ipcRenderer.send(channel, request);
 
   return new Promise(resolve => {
-    ipcRenderer.once(request.responseChannel || '', (event, response) => resolve(response.result));
+    ipcRenderer.once(request.responseChannel || '', (event, response) => {
+      resolve(response.result);
+    });
   });
 }
 

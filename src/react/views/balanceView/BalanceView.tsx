@@ -4,8 +4,7 @@ import { Category } from '../../../shared/types';
 import BalanceTableContainer from './balanceTableContainer/BalanceTableContainer';
 import BalanceLogsContainer from './balanceLogsContainer/BalanceLogsContainer';
 import { setDateSelectionStatus } from '../../slices/dateSelection';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories, selectCategories } from '../../slices/categories';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => 
   createStyles({
@@ -20,11 +19,9 @@ const BalanceView = (): JSX.Element => {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const categories = useSelector(selectCategories);
 
   useEffect(() => {
     dispatch(setDateSelectionStatus('hidden'));
-    if (!categories || categories.length !== 0) dispatch(fetchCategories());
   }, []);
 
   return (

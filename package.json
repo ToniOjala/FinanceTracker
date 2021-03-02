@@ -1,6 +1,6 @@
 {
   "name": "finance-tracker",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "A personal finance tracking application",
   "main": "app/electron-main.js",
   "build": {

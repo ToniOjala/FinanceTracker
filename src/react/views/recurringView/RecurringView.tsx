@@ -5,7 +5,7 @@ import { NewRecurringExpense, RecurringExpense } from '../../../shared/types'
 import { AddIcon } from '../../components/icons'
 import { selectExpenseCategories } from '../../slices/categories'
 import { setDateSelectionStatus } from '../../slices/dateSelection'
-import { deleteRecurringExpense, fetchRecurringExpenses, postRecurringExpense, selectMonthlyRecurringExpenses, selectYearlyRecurringExpenses, updateRecurringExpense } from '../../slices/recurringExpenses'
+import { deleteRecurringExpense, postRecurringExpense, selectMonthlyRecurringExpenses, selectYearlyRecurringExpenses, updateRecurringExpense } from '../../slices/recurringExpenses'
 import RecurringExpenseCard from './RecurringExpenseCard'
 import RecurringExpenseDialog from './RecurringExpenseDialog'
 
@@ -31,7 +31,6 @@ const RecurringView = () => {
 
   useEffect(() => {
     dispatch(setDateSelectionStatus('hidden'));
-    dispatch(fetchRecurringExpenses());
   }, [])
 
   function openDialog (recurs: 'monthly' | 'yearly') {

@@ -1,14 +1,13 @@
 import { Grid } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, batch } from 'react-redux';
 import { Category, Transaction } from '../../../shared/types';
 import MonthTableContainer from './monthTableContainer/MonthTableContainer';
-import { fetchCategories, selectCategories } from '../../slices/categories';
+import { selectCategories } from '../../slices/categories';
 import { fetchTransactionsOfMonth, selectTransactions } from '../../slices/transactions';
 import { selectDate, selectYearAndMonth, setDateSelectionStatus } from '../../slices/dateSelection';
 import { fetchLatestBudgets, selectBudgets } from '../../slices/budgets';
 import TransactionContainer from './transactionContainer/TransactionContainer';
-import { fetchNotifications, selectNotifications } from '../../slices/notifications';
 
 const MonthView = (): JSX.Element | null => {
   const [selectedCategory, setSelectedCategory] = useState<Category>({} as Category);
@@ -21,17 +20,16 @@ const MonthView = (): JSX.Element | null => {
   const budgets = useSelector(selectBudgets)
   const [year, month] = useSelector(selectYearAndMonth);
   const selectedDate = useSelector(selectDate);
-  const notifications = useSelector(selectNotifications);
 
   useEffect(() => {
     dispatch(setDateSelectionStatus('month'));
-    if (!categories || categories.length === 0) dispatch(fetchCategories());
-    if (!notifications || notifications.length === 0) dispatch(fetchNotifications());
   }, [])
 
   useEffect(() => {
-    dispatch(fetchTransactionsOfMonth(year, month));
-    dispatch(fetchLatestBudgets(selectedDate));
+    batch(() => {
+      dispatch(fetchTransactionsOfMonth(year, month));
+      dispatch(fetchLatestBudgets(selectedDate));
+    })
   }, [selectedDate])
 
   useEffect(() => {

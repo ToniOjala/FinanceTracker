@@ -1,4 +1,4 @@
-import { Button, makeStyles, Theme, Typography } from '@material-ui/core'
+import { Button, makeStyles, Theme } from '@material-ui/core'
 import { format } from 'date-fns'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,13 +7,6 @@ import { saveBalanceLog } from '../../../slices/balanceLogs'
 import { selectExpenseCategories, updateCategory } from '../../../slices/categories'
 import AddBalanceDialog from './AddBalanceDialog'
 import BalanceTable from './BalanceTable'
-
-const useStyles = makeStyles((theme: Theme) => ({
-  title: {
-    margin: theme.spacing(0, 0, 2),
-  },
-}))
-
 interface Props {
   selectedCategory: Category | null;
   selectCategory: (category: Category) => void;
@@ -22,7 +15,6 @@ interface Props {
 const BalanceTableContainer = ({ selectedCategory, selectCategory }: Props) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const classes = useStyles();
   const dispatch = useDispatch();
   const categories = useSelector(selectExpenseCategories);
 
