@@ -37,7 +37,9 @@ interface RecurringExpenseFormValues {
 const RecurringExpenseDialog = ({ isOpen, recurs, expenseToEdit, categories, handleClose, addExpense, updateExpense }: Props) => {
   const { errors, control, formState, handleSubmit, reset } = useForm<RecurringExpenseFormValues>({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
-  const onSubmit = (values: RecurringExpenseFormValues) => {
+  const classes = useStyles();
+
+  function onSubmit (values: RecurringExpenseFormValues) {
     if (expenseToEdit) {
       updateExpense({
         id: expenseToEdit.id,
@@ -62,8 +64,6 @@ const RecurringExpenseDialog = ({ isOpen, recurs, expenseToEdit, categories, han
     }
     reset();
   }
-
-  const classes = useStyles();
 
   return (
     <Dialog open={isOpen} onClose={() => handleClose}>

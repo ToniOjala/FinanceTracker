@@ -14,6 +14,8 @@ const useStyles = makeStyles({
     paddingTop: '24px',
   },
   title: {
+    display: 'flex',
+    alignItems: 'center',
     marginBottom: '24px',
   }
 })
@@ -40,7 +42,9 @@ const RecurringView = () => {
 
   function closeDialog () {
     setIsDialogOpen(false);
-    setExpenseToEdit(null);
+    setTimeout(() => {
+      setExpenseToEdit(null);
+    }, 300)
   }
 
   function addExpense(newExpense: NewRecurringExpense) {
@@ -65,9 +69,9 @@ const RecurringView = () => {
   }
 
   return (
-    <Grid container style={{ paddingTop: '24px' }} justify="space-around">
-      <Grid container item direction="column" xs={5}>
-        <Grid className={classes.title} container alignItems="center">
+    <Grid container style={{ padding: '24px 32px' }} justify="space-around">
+      <Grid container item direction="column" sm={12} md={5} xl={4}>
+        <div className={classes.title}>
           <Typography variant="h6">Monthly Recurring</Typography>
           <IconButton
             style={{ marginLeft: '10px' }}
@@ -76,7 +80,7 @@ const RecurringView = () => {
           >
             <AddIcon />
           </IconButton>
-        </Grid>
+        </div>
         {monthlyRecurring.map(expense => (
           <RecurringExpenseCard
             key={expense.id}
@@ -86,8 +90,8 @@ const RecurringView = () => {
           />
         ))}
       </Grid>
-      <Grid container item direction="column" xs={5}>
-        <Grid className={classes.title} container alignItems="center">
+      <Grid container item direction="column" sm={12} md={5} xl={4}>
+        <div className={classes.title}>
           <Typography variant="h6">Yearly Recurring</Typography>
           <IconButton
             style={{ marginLeft: '10px' }}
@@ -96,7 +100,7 @@ const RecurringView = () => {
           >
             <AddIcon />
           </IconButton>
-        </Grid>
+        </div>
         {yearlyRecurring.map(expense => (
           <RecurringExpenseCard
             key={expense.id}
