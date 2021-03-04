@@ -19,8 +19,10 @@ const CategorySettingsContainer = () => {
 
   const closeDialog = () => {
     setSelectedCategory(null);
-    setCategoryToEdit(null);
     setIsDialogOpen(false);
+    setTimeout(() => {
+      setCategoryToEdit(null);
+    }, 300)
   }
 
   const handleCategory = (values: CategoryDialogValues) => {

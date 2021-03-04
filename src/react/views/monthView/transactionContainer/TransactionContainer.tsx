@@ -24,8 +24,10 @@ const TransactionContainer = ({selectedDate, selectedCategory, categories, trans
   
   function closeDialog () {
     setIsDialogOpen(false);
-    setTransactionToEdit(null);
     setSelectedTransaction(null);
+    setTimeout(() => {
+      setTransactionToEdit(null);
+    }, 300)
   }
 
   function handleTransaction  (values: TransactionFormValues, closesDialog: boolean) {
