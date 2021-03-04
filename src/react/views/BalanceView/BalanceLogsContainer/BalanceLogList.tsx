@@ -1,9 +1,10 @@
-import { Paper, List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from '@material-ui/core'
+import { Paper, List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography, Grid } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { format } from 'date-fns';
 import React from 'react'
 import { BalanceLog } from '../../../../shared/types'
+import { roundToDecimals } from '../../../utils/round';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,14 +50,22 @@ const BalanceLogList = ({ balanceLogs }: Props) => {
         }
         {balanceLogs.map((bl, index) => 
           <ListItem className={`${classes.listItem} ${index % 2 === 1 && classes.darkerListItem}`} key={bl.id}>
-            <ListItemIcon>
-              {bl.amount > 0 ? <AddIcon className={classes.addIcon} /> : <RemoveIcon className={classes.removeIcon} />}
-            </ListItemIcon>
-            <ListItemText
-              primary={format(new Date(bl.date), 'dd.MM.yy')}
-              secondary={bl.label}
-            />
-            <ListItemText primary={bl.amount} primaryTypographyProps={{ variant: "h6" }} />
+            <Grid container alignItems="center">
+              <Grid item xs={1}>
+                <ListItemIcon>
+                  {bl.amount > 0 ? <AddIcon className={classes.addIcon} /> : <RemoveIcon className={classes.removeIcon} />}
+                </ListItemIcon>
+              </Grid>
+              <Grid item xs={7}>
+                <ListItemText
+                  primary={format(new Date(bl.date), 'dd.MM.yy')}
+                  secondary={bl.label}
+                />
+              </Grid>
+              <Grid item xs={4} style={{ textAlign: 'center' }}>
+                <ListItemText primary={roundToDecimals(bl.amount, 2)} primaryTypographyProps={{ variant: "h6" }} />
+              </Grid>
+            </Grid>
           </ListItem>,
         )}
       </List>

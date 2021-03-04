@@ -7,6 +7,8 @@ interface Props {
 }
 
 const BalanceLogPagination = ({ balanceLogCount, onChange }: Props) => {
+  if (balanceLogCount < 11) return null;
+
   return (
     <Pagination
       disabled={balanceLogCount <= 10}

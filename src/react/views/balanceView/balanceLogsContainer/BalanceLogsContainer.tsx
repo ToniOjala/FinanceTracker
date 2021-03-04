@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Category } from '../../../../shared/types'
-import { fetchBalanceLogs, selectBalanceLogs, selectBalanceLogCount, fetchBalanceLogCount } from '../../../slices/balanceLogs'
+import { fetchBalanceLogs, selectBalanceLogs, selectBalanceLogCount, fetchBalanceLogCount, clearBalanceLogs } from '../../../slices/balanceLogs'
 import BalanceLogList from './BalanceLogList'
 import BalanceLogPagination from './BalanceLogPagination'
 
@@ -20,6 +20,8 @@ const BalanceLogsContainer = ({ category }: Props): JSX.Element | null => {
     if (category) {
       dispatch(fetchBalanceLogs(category.id, currentPage))
       dispatch(fetchBalanceLogCount(category.id));
+    } else {
+      dispatch(clearBalanceLogs());
     }
   }, [category, currentPage]);
 

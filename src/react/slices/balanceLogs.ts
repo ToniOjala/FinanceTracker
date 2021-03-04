@@ -22,11 +22,14 @@ const balanceLogSlice = createSlice({
     },
     addBalanceLog: (state, action) => {
       state.logs.push(action.payload);
+    },
+    clearBalanceLogs: (state) => {
+      state.logs = [] as BalanceLog[];
     }
   }
 })
 
-export const { setBalanceLogs, setCount, addBalanceLog } = balanceLogSlice.actions;
+export const { setBalanceLogs, setCount, addBalanceLog, clearBalanceLogs } = balanceLogSlice.actions;
 export default balanceLogSlice.reducer;
 
 export const fetchBalanceLogs = (categoryId: number, page: number): AppThunk => async dispatch => {

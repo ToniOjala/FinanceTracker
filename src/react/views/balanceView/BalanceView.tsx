@@ -38,7 +38,7 @@ const BalanceView = (): JSX.Element => {
           selectCategory={setSelectedCategory}
         />
       </Grid>
-      <Grid item xs={12} md={5} xl={3}>
+      <Grid item xs={12} md={4} xl={3}>
         <BalanceLogsContainer category={selectedCategory} />
       </Grid>
     </Grid>
