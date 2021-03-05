@@ -1,7 +1,7 @@
 import { Grid, IconButton, makeStyles, Paper, Typography } from '@material-ui/core'
 import React from 'react'
 import { RecurringExpense } from '../../../shared/types'
-import { AlarmIcon, DeleteIcon, EditIcon } from '../../components/icons'
+import CustomIcon from '../../components/CustomIcon'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -45,7 +45,7 @@ const RecurringExpenseCard = ({ expense, editExpense, removeExpense }: Props) =>
         <Grid item container xs={3} md={4} direction="column" justify="space-between">
           <Typography variant="h5">{expense.name}</Typography>
           <div className={classes.alarm}>
-            <AlarmIcon />
+            <CustomIcon icon="alarm" />
             <Typography className={classes.alarmText} variant="caption">{expense.notifyDaysBefore}</Typography>
           </div>
         </Grid>
@@ -59,13 +59,13 @@ const RecurringExpenseCard = ({ expense, editExpense, removeExpense }: Props) =>
             className={classes.editButton}
             onClick={() => editExpense(expense)} 
           >
-            <EditIcon />
+            <CustomIcon icon="edit" />
           </IconButton>
           <IconButton 
             color="secondary"
             onClick={() => removeExpense(expense)}
           >
-            <DeleteIcon />
+            <CustomIcon icon="delete" />
           </IconButton>
         </Grid>
       </Grid>

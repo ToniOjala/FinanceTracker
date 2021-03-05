@@ -4,7 +4,7 @@ import { formatDistanceToNowStrict } from 'date-fns/esm'
 import React, { useEffect, useState } from 'react'
 import { Notification } from '../../shared/types'
 import { isDateString } from '../utils/verify'
-import { AlarmIcon } from './icons'
+import CustomIcon from './CustomIcon';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -61,7 +61,7 @@ const Notifications = ({ notifications, markNotificationRead }: Props): JSX.Elem
   return (
     <div className={classes.root}>
       <IconButton onClick={open}>
-        <Badge badgeContent={numUnread} color="error"><AlarmIcon /></Badge>
+        <Badge badgeContent={numUnread} color="error"><CustomIcon icon="alarm" /></Badge>
       </IconButton>
       <Popover
         open={anchorElement !== null}

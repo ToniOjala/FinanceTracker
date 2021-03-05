@@ -1,5 +1,5 @@
 import { Paper, List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography, Grid } from '@material-ui/core'
-import { PlusIcon, MinusIcon } from '../../../components/icons';
+import CustomIcon from '../../../components/CustomIcon';
 import { format } from 'date-fns';
 import React from 'react'
 import { BalanceLog } from '../../../../shared/types'
@@ -46,7 +46,7 @@ const BalanceLogList = ({ balanceLogs }: Props) => {
             <Grid container alignItems="center">
               <Grid item xs={1}>
                 <ListItemIcon>
-                  {bl.amount > 0 ? <PlusIcon color="primary" /> : <MinusIcon color="secondary" />}
+                  {bl.amount > 0 ? <CustomIcon icon="plus" color="primary" /> : <CustomIcon icon="minus" color="secondary" />}
                 </ListItemIcon>
               </Grid>
               <Grid item xs={7}>

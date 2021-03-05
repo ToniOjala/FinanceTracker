@@ -1,4 +1,4 @@
-import { Card, makeStyles, Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Typography, Paper } from '@material-ui/core';
+import { makeStyles, Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Typography, Paper } from '@material-ui/core';
 import React from 'react';
 import { Transaction } from '../../../../shared/types';
 import { format } from 'date-fns';

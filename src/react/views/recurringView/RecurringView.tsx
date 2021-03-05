@@ -2,7 +2,7 @@ import { Grid, IconButton, makeStyles, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NewRecurringExpense, RecurringExpense } from '../../../shared/types'
-import { AddIcon } from '../../components/icons'
+import CustomIcon from '../../components/CustomIcon'
 import { selectExpenseCategories } from '../../slices/categories'
 import { setDateSelectionStatus } from '../../slices/dateSelection'
 import { deleteRecurringExpense, postRecurringExpense, selectMonthlyRecurringExpenses, selectYearlyRecurringExpenses, updateRecurringExpense } from '../../slices/recurringExpenses'
@@ -78,7 +78,7 @@ const RecurringView = () => {
             color="primary"
             onClick={() => openDialog('monthly')}
           >
-            <AddIcon />
+            <CustomIcon icon="add" size="large" />
           </IconButton>
         </div>
         {monthlyRecurring.map(expense => (
@@ -98,7 +98,7 @@ const RecurringView = () => {
             color="primary"
             onClick={() => openDialog('yearly')}
           >
-            <AddIcon />
+            <CustomIcon icon="add" size="large" />
           </IconButton>
         </div>
         {yearlyRecurring.map(expense => (

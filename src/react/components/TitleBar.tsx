@@ -1,7 +1,7 @@
 import { AppBar, IconButton, makeStyles, Toolbar, Typography } from '@material-ui/core'
 import React, { useState } from 'react'
 import { remote } from 'electron'
-import { MinimizeIcon, MaximizeIcon, CloseIcon, UnmaximizeIcon } from './icons'
+import CustomIcon from './CustomIcon';
 import './TitleBar.css'
 import { Notification } from '../../shared/types';
 import YearMonthSelector from './YearMonthSelector'
@@ -54,9 +54,9 @@ const TitleBar = () => {
         <div className={classes.actions}>
           <YearMonthSelector selectedDate={selectedDate} dateSelectionStatus={dateSelectionStatus} />
           <Notifications notifications={notifications} markNotificationRead={markNotificationRead} />
-          <IconButton onClick={minimize}><MinimizeIcon /></IconButton>
-          <IconButton onClick={toggleMaximize}>{isMaximized ? <UnmaximizeIcon /> : <MaximizeIcon />}</IconButton>
-          <IconButton onClick={close}><CloseIcon /></IconButton>
+          <IconButton onClick={minimize}><CustomIcon icon="minimize" /></IconButton>
+          <IconButton onClick={toggleMaximize}>{isMaximized ? <CustomIcon icon="unmaximize" /> : <CustomIcon icon="maximize" />}</IconButton>
+          <IconButton onClick={close}><CustomIcon icon="close" /></IconButton>
         </div>
       </Toolbar>
     </AppBar>
