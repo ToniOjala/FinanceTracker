@@ -53,7 +53,7 @@ const MonthView = (): JSX.Element | null => {
           selectedDate={selectedDate}
           selectedCategory={selectedCategory}
           categories={categories}
-          transactions={transactionsOfCategory}
+          transactions={transactionsOfCategory.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())}
         />
       </Grid>
     </Grid>
