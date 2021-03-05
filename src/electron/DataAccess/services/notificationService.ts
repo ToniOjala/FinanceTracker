@@ -14,7 +14,7 @@ export default class NotificationService {
   }
 
   getNotifications(): Notification[] {
-    const notifications: Notification[] = this.db.getMany<Notification>('SELECT * FROM notifications');
+    const notifications: Notification[] = this.db.getMany<Notification>('SELECT * FROM notifications ORDER BY date DESC');
     return notifications;
   }
 
