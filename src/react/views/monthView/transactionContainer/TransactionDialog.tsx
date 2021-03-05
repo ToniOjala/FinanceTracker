@@ -31,8 +31,10 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
   const { errors, control, handleSubmit, formState, setValue, watch, reset } = useForm<TransactionFormValues>({ mode: 'onChange' });
   const { isValid, isDirty } = formState;
   const onSubmit = (values: TransactionFormValues) => {
+    const date = values.date;
     handleTransaction({ ...values, date: format(new Date(values.date), 'yyyy-MM-dd') }, !addMultiple);
     reset();
+    if (addMultiple) setValue('date', date);
   }
   const watchAmount = watch('amount', '0');
   const watchBalanceAdditions = watch('balanceAdditions', {});
