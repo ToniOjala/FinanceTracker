@@ -1,12 +1,13 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, TextField } from '@material-ui/core'
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Grid, IconButton, TextField } from '@material-ui/core'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import { Controller, useForm } from 'react-hook-form';
 import DateFnsUtils from '@date-io/date-fns';
-import { startOfMonth, endOfMonth, parseISO, format } from 'date-fns';
+import { startOfMonth, endOfMonth, parseISO, format, add, sub, isLastDayOfMonth, isFirstDayOfMonth } from 'date-fns';
 import { Category, KeyNumberPairs, Transaction } from '../../../../shared/types';
 import BalancesList from './BalancesList';
+import CustomIcon from '../../../components/CustomIcon';
 
 interface Props {
   isOpen: boolean;
@@ -37,6 +38,7 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
     if (addMultiple) setValue('date', date);
   }
   const watchAmount = watch('amount', '0');
+  const watchDate = watch('date', '');
   const watchBalanceAdditions = watch('balanceAdditions', {});
 
   useEffect(() => {
@@ -47,36 +49,54 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
     setSumOfBalances(total);
   }, [watchBalanceAdditions])
 
+  function increaseDate() {
+    const date = new Date(watchDate); 
+    if (isLastDayOfMonth(date) === false) setValue('date', format(add(date, { days: 1 }), 'yyyy-MM-dd' ));
+  }
+
+  function decreaseDate() {
+    const date = new Date(watchDate);
+    if (isFirstDayOfMonth(date) === false) setValue('date', format(sub(date, { days: 1 }), 'yyyy-MM-dd' ));
+  }
+
   function handleAddMultipleChange(event: ChangeEvent<HTMLInputElement>) {
     setAddMultiple(event.currentTarget.checked);
   }
 
   return (
-    <Dialog open={isOpen} onClose={() => handleClose}>
+    <Dialog open={isOpen} maxWidth="xs" onClose={() => handleClose}>
       <form data-testid="transaction-form" onSubmit={handleSubmit(onSubmit)} >
         <DialogTitle>{transactionToEdit ? 'Edit Transaction' : 'Add Transaction'}</DialogTitle>
         <DialogContent>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Controller
-              as={KeyboardDatePicker}
-              control={control}
-              rules={{required: 'Date is required'}}
-              margin="normal"
-              name="date"
-              label="Date"
-              defaultValue={transactionToEdit && parseISO(transactionToEdit.date) || parseISO(selectedDate)}
-              value=''
-              format="dd.MM.yyyy"
-              onChange={(date: ParsableDate) => setValue('date', date)}
-              error={errors.date && true}
-              helperText={errors.date?.message}
-              minDate={startOfMonth(new Date(selectedDate))}
-              maxDate={endOfMonth(new Date(selectedDate))}
-              fullWidth
-              required
-              autoOk
-            />
-          </MuiPickersUtilsProvider>
+          <Grid container justify="space-between" alignItems="center">
+            <Grid item xs={10}>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <Controller
+                as={KeyboardDatePicker}
+                control={control}
+                rules={{required: 'Date is required'}}
+                margin="normal"
+                name="date"
+                label="Date"
+                defaultValue={transactionToEdit && parseISO(transactionToEdit.date) || parseISO(selectedDate)}
+                value=''
+                format="dd.MM.yyyy"
+                onChange={(date: ParsableDate) => setValue('date', date)}
+                error={errors.date && true}
+                helperText={errors.date?.message}
+                minDate={startOfMonth(new Date(selectedDate))}
+                maxDate={endOfMonth(new Date(selectedDate))}
+                fullWidth
+                required
+                autoOk
+              />
+            </MuiPickersUtilsProvider>
+            </Grid>
+            <Grid item container direction="column" xs={1}>
+              <IconButton size="small" onClick={increaseDate}><CustomIcon icon="up" size="small" /></IconButton>
+              <IconButton size="small" onClick={decreaseDate}><CustomIcon icon="down" size="small" /></IconButton>
+            </Grid>
+          </Grid>
           <Controller 
             as={TextField}
             control={control}
