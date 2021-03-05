@@ -1,6 +1,5 @@
 import { Paper, List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography, Grid } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
+import { PlusIcon, MinusIcon } from '../../../components/icons';
 import { format } from 'date-fns';
 import React from 'react'
 import { BalanceLog } from '../../../../shared/types'
@@ -16,12 +15,6 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     padding: 0,
-  },
-  addIcon: {
-    color: theme.palette.primary.main,
-  },
-  removeIcon: {
-    color: theme.palette.secondary.main,
   },
   listItem: {
     padding: '5px 0 5px 20px',
@@ -53,7 +46,7 @@ const BalanceLogList = ({ balanceLogs }: Props) => {
             <Grid container alignItems="center">
               <Grid item xs={1}>
                 <ListItemIcon>
-                  {bl.amount > 0 ? <AddIcon className={classes.addIcon} /> : <RemoveIcon className={classes.removeIcon} />}
+                  {bl.amount > 0 ? <PlusIcon color="primary" /> : <MinusIcon color="secondary" />}
                 </ListItemIcon>
               </Grid>
               <Grid item xs={7}>
