@@ -29,10 +29,15 @@ export interface TransactionFormValues {
 const TransactionDialog = ({ isOpen, transactionType, categories, transactionToEdit, selectedDate, handleClose, handleTransaction }: Props): JSX.Element => {
   const [addMultiple, setAddMultiple] = useState(false);
   const [sumOfBalances, setSumOfBalances] = useState(0);
-  const { errors, control, handleSubmit, formState, setValue, watch, reset } = useForm<TransactionFormValues>({ mode: 'onChange' });
+  const { errors, control, handleSubmit, formState, setValue, watch, reset } = useForm<TransactionFormValues>({ mode: 'onBlur' });
   const { isValid, isDirty } = formState;
+  
   const onSubmit = (values: TransactionFormValues) => {
     const date = values.date;
+    if (values.amount.includes(',')) {
+      const splitAmount = values.amount.split(',');
+      values.amount = `${splitAmount[0]}.${splitAmount[1]}`;
+    }
     handleTransaction({ ...values, date: format(new Date(values.date), 'yyyy-MM-dd') }, !addMultiple);
     reset();
     if (addMultiple) setValue('date', date);
@@ -100,8 +105,7 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
           <Controller 
             as={TextField}
             control={control}
-            rules={{required: 'Amount is required'}}
-            type="number"
+            rules={{required: 'Amount is required', pattern: /^[-]?\d{1,2}((\.|\,)\d{1,2})?$/ }}
             defaultValue={transactionToEdit?.amount || ''}
             margin="normal"
             name="amount"
