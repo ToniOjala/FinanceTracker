@@ -31,7 +31,7 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
   const [sumOfBalances, setSumOfBalances] = useState(0);
   const { errors, control, handleSubmit, formState, setValue, watch, reset } = useForm<TransactionFormValues>({ mode: 'onBlur' });
   const { isValid, isDirty } = formState;
-  
+
   const onSubmit = (values: TransactionFormValues) => {
     const date = values.date;
     if (values.amount.includes(',')) {
@@ -98,8 +98,8 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
             </MuiPickersUtilsProvider>
             </Grid>
             <Grid item container direction="column" xs={1}>
-              <IconButton size="small" onClick={increaseDate}><CustomIcon icon="up" size="small" /></IconButton>
-              <IconButton size="small" onClick={decreaseDate}><CustomIcon icon="down" size="small" /></IconButton>
+              <IconButton size="small" onClick={increaseDate}><CustomIcon icon="arrowUp" size="small" /></IconButton>
+              <IconButton size="small" onClick={decreaseDate}><CustomIcon icon="arrowDown" size="small" /></IconButton>
             </Grid>
           </Grid>
           <Controller 
