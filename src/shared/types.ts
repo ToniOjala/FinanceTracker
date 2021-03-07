@@ -61,6 +61,14 @@ export interface Notification {
 }
 export type NewNotification = Omit<Notification, 'id' | 'read'>
 
+export interface Label {
+  id: number;
+  categoryId: number;
+  name: string;
+  lastUsed: string;
+}
+export type NewLabel = Omit<Label, 'id'>
+
 export type DBTable =
     'categories' 
   | 'transactions' 

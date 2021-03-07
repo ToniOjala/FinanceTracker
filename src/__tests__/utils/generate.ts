@@ -1,5 +1,5 @@
 import { BudgetsByCategory, YearlyData } from '../../react/types';
-import { BalanceLog, Category, NewBalanceLog, NewBudget, NewRecurringExpense, NewTransaction, Notification, RecurringExpense, Transaction } from '../../shared/types';
+import { BalanceLog, Category, Label, NewBalanceLog, NewBudget, NewRecurringExpense, NewTransaction, Notification, RecurringExpense, Transaction } from '../../shared/types';
 import transactionData from '../sampleData/transactionData.json';
 
 function balanceLogs(amount: number = 100): NewBalanceLog[] {
@@ -277,27 +277,66 @@ const notifications: Notification[] = [
   {
     id: 1,
     message: 'This is the test message number 1',
-    read: false,
+    read: 0,
     date: '2020-12-14'
   },
   {
     id: 2,
     message: 'This is the test message number 2',
-    read: false,
+    read: 0,
     date: '2021-01-04'
   },
   {
     id: 3,
     message: 'This is the test message number 3',
-    read: false,
+    read: 0,
     date: '2021-02-02'
   },
   {
     id: 4,
     message: 'This is the test message number 4',
-    read: false,
+    read: 0,
     date: '2021-02-20'
   }
+]
+
+const labels: Label[] = [
+  {
+    id: 1,
+    categoryId: 1,
+    name: 'TestLabel #1',
+    lastUsed: '2020-12-02'
+  },
+  {
+    id: 2,
+    categoryId: 1,
+    name: 'TestLabel #2',
+    lastUsed: '2020-02-21'
+  },
+  {
+    id: 3,
+    categoryId: 2,
+    name: 'TestLabel #3',
+    lastUsed: '2020-04-28'
+  },
+  {
+    id: 4,
+    categoryId: 2,
+    name: 'TestLabel #4',
+    lastUsed: '2021-01-02'
+  },
+  {
+    id: 5,
+    categoryId: 2,
+    name: 'TestLabel #5',
+    lastUsed: '2020-01-31'
+  },
+  {
+    id: 6,
+    categoryId: 3,
+    name: 'TestLabel #6',
+    lastUsed: '2021-03-01'
+  },
 ]
 
 export const generate = {
@@ -313,5 +352,6 @@ export const generate = {
   recurringExpenses,
   monthlyRecurringExpenses,
   yearlyRecurringExpenses,
-  notifications
+  notifications,
+  labels
 }
