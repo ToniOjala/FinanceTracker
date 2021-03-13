@@ -28,6 +28,10 @@ export default class LabelService {
     return this.db.run(sql, [label.categoryId, label.name, label.lastUsed]);
   }
 
+  updateLabel(label: Label): void {
+    this.db.run('UPDATE labels SET lastUsed = ? WHERE ID = ?', [label.lastUsed, label.id]);
+  }
+
   deleteLabel(id: number): void {
     this.db.run('DELETE FROM labels WHERE id = ?', id);
   }

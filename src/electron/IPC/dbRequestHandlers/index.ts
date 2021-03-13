@@ -5,6 +5,7 @@ import { handleBalanceLogRequest } from './balanceLogHandler';
 import { handleRecurringExpenseRequest } from './recurringExpenseHandler';
 import { DBTable, KeyValuePair } from '../../../shared/types';
 import { handleNotificationRequest } from './notificationHandler';
+import { handleLabelRequest } from './labelHandler';
 
 export function handleDatabaseRequest(table: DBTable, method: string, data?: KeyValuePair, query?: KeyValuePair) {
   try {
@@ -16,6 +17,7 @@ export function handleDatabaseRequest(table: DBTable, method: string, data?: Key
     else if (table === 'balanceLogs') result = handleBalanceLogRequest(method, data, query);
     else if (table === 'recurringExpenses') result = handleRecurringExpenseRequest(method, data);
     else if (table === 'notifications') result = handleNotificationRequest(method, data);
+    else if (table === 'labels') result = handleLabelRequest(method, data, query);
 
     return result;
   } catch (error) {

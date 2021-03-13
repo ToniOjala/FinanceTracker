@@ -75,7 +75,8 @@ export type DBTable =
   | 'budgets'
   | 'balanceLogs'
   | 'recurringExpenses'
-  | 'notifications';
+  | 'notifications'
+  | 'labels';
   
 export interface DBRequestParams {
   table: DBTable;

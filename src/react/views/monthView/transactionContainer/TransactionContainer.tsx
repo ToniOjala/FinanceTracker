@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from '@material-ui/core'
 import TransactionDialog, { TransactionFormValues } from './TransactionDialog'
 import TransactionTable from './TransactionTable'
-import { Category, NewTransaction, Transaction } from '../../../../shared/types'
-import { useDispatch } from 'react-redux'
+import { Category, NewLabel, NewTransaction, Transaction } from '../../../../shared/types'
+import { useDispatch, useSelector } from 'react-redux'
 import { updateTransaction, postTransaction, deleteTransaction } from '../../../slices/transactions'
+import { fetchLabels, postLabel, selectLabels, updateLabel } from '../../../slices/labels'
+import { format } from 'date-fns'
 
 interface Props {
   selectedDate: string;
@@ -19,6 +21,11 @@ const TransactionContainer = ({selectedDate, selectedCategory, categories, trans
   const [transactionToEdit, setTransactionToEdit] = useState<Transaction | null>(null);
 
   const dispatch = useDispatch();
+  const labels = useSelector(selectLabels);
+
+  useEffect(() => {
+    dispatch(fetchLabels(selectedCategory.id))
+  }, [selectedCategory])
 
   function openDialog () { setIsDialogOpen(true); }
   
@@ -30,7 +37,24 @@ const TransactionContainer = ({selectedDate, selectedCategory, categories, trans
     }, 300)
   }
 
+  function handleLabel (labelName: string) {
+    const labelToUpdate = labels.find(l => l.name === labelName);
+    if (labelToUpdate) {
+      dispatch(updateLabel({ ...labelToUpdate, lastUsed: format(new Date(), 'yyyy-MM-dd') }));
+    }
+    else {
+      const newLabel: NewLabel = {
+        name: labelName,
+        categoryId: selectedCategory.id,
+        lastUsed: format(new Date(), 'yyyy-MM-dd')
+      }
+      dispatch(postLabel(newLabel));
+    }
+  }
+
   function handleTransaction  (values: TransactionFormValues, closesDialog: boolean) {
+    if (values.label) handleLabel(values.label);
+
     if (transactionToEdit) {
       dispatch(updateTransaction({
         id: transactionToEdit.id,
@@ -103,6 +127,7 @@ const TransactionContainer = ({selectedDate, selectedCategory, categories, trans
         isOpen={isDialogOpen}
         transactionType={selectedCategory.type}
         categories={categories.filter(cat => cat.type === 'expense')}
+        labels={labels}
         transactionToEdit={transactionToEdit}
         selectedDate={selectedDate}
         handleClose={closeDialog}

@@ -5,14 +5,16 @@ import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import { Controller, useForm } from 'react-hook-form';
 import DateFnsUtils from '@date-io/date-fns';
 import { startOfMonth, endOfMonth, parseISO, format, add, sub, isLastDayOfMonth, isFirstDayOfMonth } from 'date-fns';
-import { Category, KeyNumberPairs, Transaction } from '../../../../shared/types';
+import { Category, KeyNumberPairs, Label, Transaction } from '../../../../shared/types';
 import BalancesList from './BalancesList';
 import CustomIcon from '../../../components/CustomIcon';
+import AutoCompleteField from '../../../components/AutoCompleteField';
 
 interface Props {
   isOpen: boolean;
   transactionType: 'income' | 'expense';
   categories: Category[];
+  labels: Label[];
   transactionToEdit: Transaction | null;
   selectedDate: string;
   handleClose: () => void;
@@ -26,10 +28,10 @@ export interface TransactionFormValues {
   balanceAdditions: KeyNumberPairs;
 }
 
-const TransactionDialog = ({ isOpen, transactionType, categories, transactionToEdit, selectedDate, handleClose, handleTransaction }: Props): JSX.Element => {
+const TransactionDialog = ({ isOpen, transactionType, categories, labels, transactionToEdit, selectedDate, handleClose, handleTransaction }: Props): JSX.Element => {
   const [addMultiple, setAddMultiple] = useState(false);
   const [sumOfBalances, setSumOfBalances] = useState(0);
-  const { errors, control, handleSubmit, formState, setValue, watch, reset } = useForm<TransactionFormValues>({ mode: 'onBlur' });
+  const { errors, control, formState, handleSubmit, setValue, watch, reset, register } = useForm<TransactionFormValues>({ mode: 'onBlur' });
   const { isValid, isDirty } = formState;
 
   const onSubmit = (values: TransactionFormValues) => {
@@ -47,12 +49,21 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
   const watchBalanceAdditions = watch('balanceAdditions', {});
 
   useEffect(() => {
+    window.addEventListener('keypress', handleKeyPress);
+    return () => window.removeEventListener('keypress', handleKeyPress);
+  }, [])
+
+  useEffect(() => {
     let total = 0;
     for (const category of categories) {
       total += Number(watchBalanceAdditions[category.name]) || 0;
     }
     setSumOfBalances(total);
   }, [watchBalanceAdditions])
+
+  function handleKeyPress(event: KeyboardEvent) {
+    if (event.key === 'Enter') event.preventDefault();
+  }
 
   function increaseDate() {
     const date = new Date(watchDate); 
@@ -69,7 +80,7 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
   }
 
   return (
-    <Dialog open={isOpen} maxWidth="xs" onClose={() => handleClose}>
+    <Dialog open={isOpen} onClose={() => handleClose}>
       <form data-testid="transaction-form" onSubmit={handleSubmit(onSubmit)} >
         <DialogTitle>{transactionToEdit ? 'Edit Transaction' : 'Add Transaction'}</DialogTitle>
         <DialogContent>
@@ -105,7 +116,7 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
           <Controller 
             as={TextField}
             control={control}
-            rules={{required: 'Amount is required', pattern: /^[-]?\d{1,2}((\.|\,)\d{1,2})?$/ }}
+            rules={{required: 'Amount is required', pattern: /^[-]?\d*((\.|\,)\d{1,2})?$/ }}
             defaultValue={transactionToEdit?.amount || ''}
             margin="normal"
             name="amount"
@@ -115,16 +126,11 @@ const TransactionDialog = ({ isOpen, transactionType, categories, transactionToE
             fullWidth
             required
           />
-          <Controller 
-            as={TextField}
-            control={control}
-            defaultValue={transactionToEdit?.label || ''}
-            margin="normal"
+          <AutoCompleteField
             name="label"
             label="Label"
-            error={errors.label && true}
-            helperText={errors.label?.message}
-            fullWidth
+            options={labels.map(l => l.name)}
+            ref={register}
           />
           {transactionType === 'income' && 
             <BalancesList
