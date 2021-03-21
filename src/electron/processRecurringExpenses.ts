@@ -4,6 +4,8 @@ import ApplicationService from "./DataAccess/services/applicationService";
 import NotificationService from "./DataAccess/services/notificationService";
 import RecurringExpenseService from "./DataAccess/services/recurringExpenseService"
 import TransactionService from "./DataAccess/services/transactionService";
+import CategoryService from './DataAccess/services/categoryService';
+import BalanceLogService from './DataAccess/services/balanceLogService';
 
 export function processRecurringExpenses(date: Date) {
 
@@ -48,13 +50,19 @@ export function processRecurringExpenses(date: Date) {
 }
 
 function saveExpense (expense: RecurringExpense, date: string) {
-  const today = new Date();
-
-  new TransactionService().saveTransaction({
+  const transactionId = new TransactionService().saveTransaction({
     categoryId: expense.categoryId,
     amount: expense.amount,
     label: expense.name,
     type: 'expense',
     date
   })
+  new BalanceLogService().saveBalanceLog({
+    categoryId: expense.categoryId,
+    amount: -expense.amount,
+    label: expense.name,
+    transactionId, 
+    date
+  })
+  new CategoryService().addToBalanceOfCategory(expense.categoryId, -expense.amount);
 }
