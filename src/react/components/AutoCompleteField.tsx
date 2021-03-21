@@ -75,7 +75,6 @@ const AutoCompleteField = React.forwardRef<HTMLInputElement, Props>(({ name, lab
 
   function handleChange (event: React.ChangeEvent<HTMLInputElement>) {
     const eventValue = event.currentTarget.value;
-    console.log('event value: ', eventValue);
     prepareSuggestions(eventValue);
     setValue(event.currentTarget.value);
   }
@@ -91,7 +90,6 @@ const AutoCompleteField = React.forwardRef<HTMLInputElement, Props>(({ name, lab
   }
 
   function handleKeyPress (event: React.KeyboardEvent<HTMLInputElement>) {
-    console.log('handling key: ', event.key);
     if (event.key === 'Enter' && suggestions.length > 0) {
       setValue(suggestions[0]);
       setSuggestions([]);
