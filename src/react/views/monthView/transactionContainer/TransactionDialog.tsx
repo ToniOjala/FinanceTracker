@@ -4,7 +4,7 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/picker
 import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import { Controller, useForm } from 'react-hook-form';
 import DateFnsUtils from '@date-io/date-fns';
-import { startOfMonth, endOfMonth, parseISO, format, add, sub, isLastDayOfMonth, isFirstDayOfMonth } from 'date-fns';
+import { startOfMonth, endOfMonth, parseISO, add, sub, isLastDayOfMonth, isFirstDayOfMonth, formatISO } from 'date-fns';
 import { Category, KeyNumberPairs, Label, Transaction } from '../../../../shared/types';
 import BalancesList from './BalancesList';
 import CustomIcon from '../../../components/CustomIcon';
@@ -40,9 +40,9 @@ const TransactionDialog = ({ isOpen, transactionType, categories, labels, transa
       const splitAmount = values.amount.split(',');
       values.amount = `${splitAmount[0]}.${splitAmount[1]}`;
     }
-    handleTransaction({ ...values, date: format(new Date(values.date), 'yyyy-MM-dd') }, !addMultiple);
-    reset();
-    if (addMultiple) setValue('date', date);
+    handleTransaction({ ...values, date: formatISO(new Date(values.date)) }, !addMultiple);
+    if (addMultiple) reset({ date: date });
+    else reset({ date: formatISO(startOfMonth(new Date(date))) });
   }
   const watchAmount = watch('amount', '0');
   const watchDate = watch('date', '');
@@ -67,12 +67,12 @@ const TransactionDialog = ({ isOpen, transactionType, categories, labels, transa
 
   function increaseDate() {
     const date = new Date(watchDate); 
-    if (isLastDayOfMonth(date) === false) setValue('date', format(add(date, { days: 1 }), 'yyyy-MM-dd' ));
+    if (isLastDayOfMonth(date) === false) setValue('date', formatISO(add(date, { days: 1 })));
   }
 
   function decreaseDate() {
     const date = new Date(watchDate);
-    if (isFirstDayOfMonth(date) === false) setValue('date', format(sub(date, { days: 1 }), 'yyyy-MM-dd' ));
+    if (isFirstDayOfMonth(date) === false) setValue('date', formatISO(sub(date, { days: 1 })));
   }
 
   function handleAddMultipleChange(event: ChangeEvent<HTMLInputElement>) {
