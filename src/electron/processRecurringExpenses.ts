@@ -43,6 +43,7 @@ export function processRecurringExpenses(date: Date) {
     // Expense notification has been due since app was last opened
     else if (lastOpenedDate.getTime() < notifyDate.getTime() && notifyDate.getTime() < date.getTime()) {
       const daysSinceNotifyDate = Number(formatDistanceToNowStrict(notifyDate).charAt(0));
+      if (expense.notifyDaysBefore - daysSinceNotifyDate <= 0) return;
       const message = `Recurring expense '${expense.name}' will be added in ${expense.notifyDaysBefore - daysSinceNotifyDate} days`;
       notificationService.saveNotification({ message, date: today });
     }

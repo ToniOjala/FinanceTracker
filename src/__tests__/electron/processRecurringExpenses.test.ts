@@ -7,6 +7,8 @@ import { processRecurringExpenses } from '../../electron/processRecurringExpense
 import { clearTables } from '../utils/database';
 import { generate } from '../utils/generate';
 import { format, formatDistanceToNowStrict, set, sub } from "date-fns";
+import BalanceLogService from "../../electron/DataAccess/services/balanceLogService";
+import { NewRecurringExpense } from "../../shared/types";
 
 describe('processRecurringExpenses', () => {
   const recurringExpenseService = new RecurringExpenseService();
@@ -14,22 +16,22 @@ describe('processRecurringExpenses', () => {
   const notificationService = new NotificationService();
   const applicationService = new ApplicationService();
   const categoryService = new CategoryService();
+  const balanceLogService = new BalanceLogService();
 
   const dateString = '2021-02-25';
   const date = new Date(dateString);
 
   const sampleCategories = generate.categories;
 
-  beforeAll(() => {
-    applicationService.setLastOpened('2021-02-20')
-    sampleCategories.forEach(category => categoryService.saveCategory(category));
-  });
-  afterAll(() => clearTables('recurringExpenses', 'transactions', 'notifications', 'categories'));
+  beforeAll(() => applicationService.setLastOpened('2021-02-20'));
+  beforeEach(() => sampleCategories.forEach(category => categoryService.saveCategory(category)));
+  afterAll(() => clearTables('balanceLogs', 'recurringExpenses', 'transactions', 'notifications'));
+  afterEach(() => clearTables('categories'));
 
   describe('monthly recurring expenses', () => {
     const monthlyRecurringExpenses = generate.monthlyRecurringExpenses;
 
-    afterEach(() => clearTables('recurringExpenses', 'transactions', 'notifications'));
+    afterEach(() => clearTables('balanceLogs', 'recurringExpenses', 'transactions', 'notifications'));
 
     it('handles correctly an expense due on the day', () => {
       const expense = monthlyRecurringExpenses[0];
@@ -44,6 +46,19 @@ describe('processRecurringExpenses', () => {
       expect(tr.categoryId).toEqual(expense.categoryId);
       expect(tr.label).toEqual(expense.name);
       expect(tr.date).toEqual(dateString);
+
+      const balanceLogs = balanceLogService.getBalanceLogsOfTransaction(tr.id);
+      expect(balanceLogs).toHaveLength(1);
+      const bl = balanceLogs[0];
+      expect(bl.amount).toEqual(-expense.amount);
+      expect(bl.categoryId).toEqual(expense.categoryId);
+      expect(bl.label).toEqual(expense.name);
+      expect(bl.date).toEqual(dateString);
+
+      const category = categoryService.getCategory(tr.categoryId);
+      const sampleCategory = sampleCategories.find(c => c.id === category.id);
+      if (!sampleCategory) throw new Error('No such category exists');
+      expect(category.balance).toEqual(sampleCategory.balance - expense.amount);
 
       const notifications = notificationService.getNotifications();
       expect(notifications).toHaveLength(1);
@@ -82,6 +97,19 @@ describe('processRecurringExpenses', () => {
       expect(tr.categoryId).toEqual(expense.categoryId);
       expect(tr.label).toEqual(expense.name);
       expect(tr.date).toEqual(expenseDateString);
+
+      const balanceLogs = balanceLogService.getBalanceLogsOfTransaction(tr.id);
+      expect(balanceLogs).toHaveLength(1);
+      const bl = balanceLogs[0];
+      expect(bl.amount).toEqual(-expense.amount);
+      expect(bl.categoryId).toEqual(expense.categoryId);
+      expect(bl.label).toEqual(expense.name);
+      expect(bl.date).toEqual(expenseDateString);
+
+      const category = categoryService.getCategory(tr.categoryId);
+      const sampleCategory = sampleCategories.find(c => c.id === category.id);
+      if (!sampleCategory) throw new Error('No such category exists');
+      expect(category.balance).toEqual(sampleCategory.balance - expense.amount);
 
       const notifications = notificationService.getNotifications();
       expect(notifications).toHaveLength(1);
@@ -126,7 +154,7 @@ describe('processRecurringExpenses', () => {
   describe('yearly recurring expenses', () => {
     const yearlyRecurringExpenses = generate.yearlyRecurringExpenses;
     
-    afterEach(() => clearTables('recurringExpenses', 'transactions', 'notifications'));
+    afterEach(() => clearTables('balanceLogs', 'recurringExpenses', 'transactions', 'notifications'));
 
     it('handles correctly an expense due on the day', () => {
       const expense = yearlyRecurringExpenses[0];
@@ -141,6 +169,19 @@ describe('processRecurringExpenses', () => {
       expect(tr.categoryId).toEqual(expense.categoryId);
       expect(tr.label).toEqual(expense.name);
       expect(tr.date).toEqual(dateString);
+
+      const balanceLogs = balanceLogService.getBalanceLogsOfTransaction(tr.id);
+      expect(balanceLogs).toHaveLength(1);
+      const bl = balanceLogs[0];
+      expect(bl.amount).toEqual(-expense.amount);
+      expect(bl.categoryId).toEqual(expense.categoryId);
+      expect(bl.label).toEqual(expense.name);
+      expect(bl.date).toEqual(dateString);
+
+      const category = categoryService.getCategory(tr.categoryId);
+      const sampleCategory = sampleCategories.find(c => c.id === category.id);
+      if (!sampleCategory) throw new Error('No such category exists');
+      expect(category.balance).toEqual(sampleCategory.balance - expense.amount);
 
       const notifications = notificationService.getNotifications();
       expect(notifications).toHaveLength(1);
@@ -179,6 +220,19 @@ describe('processRecurringExpenses', () => {
       expect(tr.categoryId).toEqual(expense.categoryId);
       expect(tr.label).toEqual(expense.name);
       expect(tr.date).toEqual(expenseDateString);
+
+      const balanceLogs = balanceLogService.getBalanceLogsOfTransaction(tr.id);
+      expect(balanceLogs).toHaveLength(1);
+      const bl = balanceLogs[0];
+      expect(bl.amount).toEqual(-expense.amount);
+      expect(bl.categoryId).toEqual(expense.categoryId);
+      expect(bl.label).toEqual(expense.name);
+      expect(bl.date).toEqual(expenseDateString);
+
+      const category = categoryService.getCategory(tr.categoryId);
+      const sampleCategory = sampleCategories.find(c => c.id === category.id);
+      if (!sampleCategory) throw new Error('No such category exists');
+      expect(category.balance).toEqual(sampleCategory.balance - expense.amount);
 
       const notifications = notificationService.getNotifications();
       expect(notifications).toHaveLength(1);
