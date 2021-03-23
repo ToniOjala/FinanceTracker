@@ -36,12 +36,13 @@ const TransactionDialog = ({ isOpen, transactionType, categories, labels, transa
 
   const onSubmit = (values: TransactionFormValues) => {
     const date = values.date;
-    if (values.amount.includes(',')) {
+    if (typeof values.amount === 'string' && values.amount.includes(',')) {
       const splitAmount = values.amount.split(',');
       values.amount = `${splitAmount[0]}.${splitAmount[1]}`;
     }
     handleTransaction({ ...values, date: format(new Date(values.date), 'yyyy-MM-dd') }, !addMultiple);
     if (addMultiple) reset({ date: date });
+    else if (transactionToEdit) reset();
     else reset({ date: format(startOfMonth(new Date(date)), 'yyyy-MM-dd') });
   }
   const watchAmount = watch('amount', '0');
@@ -130,6 +131,7 @@ const TransactionDialog = ({ isOpen, transactionType, categories, labels, transa
             name="label"
             label="Label"
             options={labels.map(l => l.name)}
+            defaultValue={transactionToEdit?.label || ''}
             ref={register}
           />
           {transactionType === 'income' && 

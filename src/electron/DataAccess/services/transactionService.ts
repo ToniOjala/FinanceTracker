@@ -48,7 +48,7 @@ export default class TransactionService {
   }
 
   updateTransaction(transaction: Transaction): void {
-    const sql = 'UPDATE transactions SET amount = ?, date = ? WHERE id = ?';
-    this.db.run(sql, [transaction.amount, transaction.date, transaction.id]);
+    const sql = 'UPDATE transactions SET amount = ?, date = ?, label = ? WHERE id = ?';
+    this.db.run(sql, [transaction.amount, transaction.date, transaction.label, transaction.id]);
   }
 }

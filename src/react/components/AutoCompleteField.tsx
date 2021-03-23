@@ -64,9 +64,10 @@ interface Props {
   name: string;
   label: string;
   options: string[];
+  defaultValue?: string;
 }
 
-const AutoCompleteField = React.forwardRef<HTMLInputElement, Props>(({ name, label, options }, ref) => {
+const AutoCompleteField = React.forwardRef<HTMLInputElement, Props>(({ name, label, options, defaultValue }, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [value, setValue] = useState('');
@@ -128,7 +129,7 @@ const AutoCompleteField = React.forwardRef<HTMLInputElement, Props>(({ name, lab
 
   return (
     <div className={classes.autocompleteRoot}>
-      <span className={`${classes.autocompleteLabel} ${isFocused && classes.focusedLabel} ${(value.length > 0 || isFocused) && classes.transformedLabel}`}>{label}</span>
+      <span className={`${classes.autocompleteLabel} ${isFocused && classes.focusedLabel} ${(value.length > 0 || defaultValue || isFocused) && classes.transformedLabel}`}>{label}</span>
       <input
         className={classes.autocompleteInput}
         name={name}
@@ -137,7 +138,7 @@ const AutoCompleteField = React.forwardRef<HTMLInputElement, Props>(({ name, lab
         onFocus={handleFocus}
         onBlur={handleBlur}
         onKeyPress={handleKeyPress}
-        value={value}
+        value={value || defaultValue}
       />
       {listSuggestions()}
     </div>
