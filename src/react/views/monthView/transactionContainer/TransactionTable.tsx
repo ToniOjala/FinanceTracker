@@ -2,6 +2,7 @@ import { makeStyles, Table, TableCell, TableContainer, TableHead, TableBody, Tab
 import React from 'react';
 import { Transaction } from '../../../../shared/types';
 import { format } from 'date-fns';
+import { roundToDecimals } from '../../../utils/round';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -58,7 +59,7 @@ const TransactionTable = ({ transactions, title, selectedTransaction, selectTran
                     {transaction.date && format(new Date(transaction.date), 'dd.MM.yy')}
                   </TableCell>
                   <TableCell>{transaction.label}</TableCell>
-                  <TableCell>{transaction.amount}</TableCell>
+                  <TableCell>{roundToDecimals(transaction.amount, 2)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
