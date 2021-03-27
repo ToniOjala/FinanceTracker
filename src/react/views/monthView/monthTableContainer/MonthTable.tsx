@@ -1,9 +1,10 @@
 import { Paper, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Category, Transaction } from '../../../../shared/types'
 import { BudgetsByCategory } from '../../../types'
 import { roundToDecimals } from '../../../utils/round'
 import { sumOfTransactionsInCategories, sumOfTransactionsInCategory } from '../utils'
+import RatioBar from './RatioBar'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,6 +25,9 @@ const useStyles = makeStyles(theme => ({
     width: '24%',
     color: theme.palette.text.secondary,
   },
+  ratioCell: {
+    padding: '3px 12px 3px 8px',
+  },
   darkerRow: {
     backgroundColor: theme.palette.background.default,
   },
@@ -39,7 +43,16 @@ interface Props {
 }
 
 const MonthTable = ({ title, categories, selectedCategory, transactions, budgets, selectCategory }: Props): JSX.Element | null => {
+  const [sumsOfTransactions, setSumsOfTransactions] = useState<{[key: string]: string}>();
   const classes = useStyles();
+
+  useEffect(() => {
+    const sums: {[key: string]: string} = {};
+    categories.forEach(category => sums[category.name] = sumOfTransactionsInCategory(category, transactions));
+    setSumsOfTransactions(sums);
+  }, [categories, transactions])
+
+  if (!sumsOfTransactions) return null;
 
   return (
     <Paper className={classes.root} elevation={6}>
@@ -51,6 +64,7 @@ const MonthTable = ({ title, categories, selectedCategory, transactions, budgets
               <TableCell className={classes.headerCell}>Category</TableCell>
               <TableCell className={classes.valueCell}>Budgeted</TableCell>
               <TableCell className={classes.valueCell}>Real</TableCell>
+              <TableCell className={classes.valueCell}>Ratio</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -64,7 +78,9 @@ const MonthTable = ({ title, categories, selectedCategory, transactions, budgets
               >
                 <TableCell>{category.name}</TableCell>
                 <TableCell>{roundToDecimals(budgets[category.id], 2)}</TableCell>
-                <TableCell>{sumOfTransactionsInCategory(category, transactions)}</TableCell>
+                <TableCell>{sumsOfTransactions[category.name]}</TableCell>
+                <TableCell className={classes.ratioCell}><RatioBar ratio={Number(sumsOfTransactions[category.name]) / budgets[category.id] * 100} /></TableCell>
+                <TableCell></TableCell>
               </TableRow>
             ))}
             <TableRow>
