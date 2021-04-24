@@ -8,6 +8,7 @@ import { fetchTransactionsOfMonth, selectTransactions } from '../../slices/trans
 import { selectDate, selectYearAndMonth, setDateSelectionStatus } from '../../slices/dateSelection';
 import { fetchLatestBudgets, selectBudgets } from '../../slices/budgets';
 import TransactionContainer from './transactionContainer/TransactionContainer';
+import SummaryContainer from './summaryContainer/SummaryContainer';
 
 const MonthView = (): JSX.Element | null => {
   const [selectedCategory, setSelectedCategory] = useState<Category>({} as Category);
@@ -38,7 +39,13 @@ const MonthView = (): JSX.Element | null => {
 
   return (
     <Grid container spacing={6} justify="center" style={{ width: '100%', margin: 0 }}>
-      <Grid item xs={12} md={6} xl={5}>
+      <Grid item xs={12} md={3}>
+        <SummaryContainer
+          categories={categories}
+          transactions={transactions}
+        />
+      </Grid>
+      <Grid item xs={12} md={5}>
         <MonthTableContainer
           selectCategory={setSelectedCategory}
           selectedCategory={selectedCategory}
@@ -48,7 +55,7 @@ const MonthView = (): JSX.Element | null => {
           budgets={budgets}
         />
       </Grid>
-      <Grid item xs={12} md={4} xl={3}>
+      <Grid item xs={12} md={4}>
         <TransactionContainer
           selectedDate={selectedDate}
           selectedCategory={selectedCategory}

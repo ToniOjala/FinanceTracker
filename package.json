@@ -1,6 +1,6 @@
 {
   "name": "finance-tracker",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "description": "A personal finance tracking application",
   "main": "app/electron-main.js",
   "build": {
@@ -37,6 +37,7 @@
     "@material-ui/pickers": "^3.2.10",
     "@reduxjs/toolkit": "^1.5.0",
     "better-sqlite3": "^7.1.2",
+    "chart.js": "^2.9.4",
     "date-fns": "^2.16.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -51,6 +52,7 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.2",
     "@types/better-sqlite3": "^5.4.1",
+    "@types/chart.js": "^2.9.31",
     "@types/copy-webpack-plugin": "^6.4.0",
     "@types/dotenv-webpack": "^5.0.0",
     "@types/jest": "^26.0.20",
