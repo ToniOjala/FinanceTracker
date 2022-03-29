@@ -1,0 +1,139 @@
+@import '@fontsource/fira-mono';
+
+:root {
+	font-family: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	--font-mono: 'Fira Mono', monospace;
+	--pure-white: #ffffff;
+	--primary-color: #b9c6d2;
+	--secondary-color: #d0dde9;
+	--tertiary-color: #edf0f8;
+	--accent-color: #ff3e00;
+	--heading-color: rgba(0, 0, 0, 0.7);
+	--text-color: #444444;
+	--background-without-opacity: rgba(255, 255, 255, 0.7);
+	--column-width: 42rem;
+	--column-margin-top: 4rem;
+
+	--primary-light: #CBD0C9;
+	--primary-main: #66B088;
+	--primary-main-lighter: #9bafa5;
+	--primary-main-selection: #66B088BB;
+	--primary-main-transparent: #66B08818;
+	
+	--secondary-main: #FF5D73;
+
+	--text-primary: #EEEEEE;
+	--text-disabled: #BBBBBBAA;
+	--text-secondary: #8E90B8;
+
+	--background-lighter: #242A43;
+	--background-darker: #1B2034;
+	--background-paper: #2E3554;
+	--background-paper-hover: #515570;
+}
+
+body {
+	min-height: 100vh;
+	margin: 0;
+	background-color: var(--background-lighter);
+	color: var(--text-primary);
+}
+
+h1,
+h2,
+p {
+	font-weight: 400;
+}
+
+p {
+	line-height: 1.5;
+}
+
+a {
+	color: var(--text-primary);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+h1 {
+	font-size: 2rem;
+	margin-bottom: 0 0 1em 0;
+	text-align: center;
+}
+
+h2 {
+	font-size: 1rem;
+}
+
+input,
+button {
+	font-size: inherit;
+	font-family: inherit;
+}
+
+button:focus:not(:focus-visible) {
+	outline: none;
+}
+
+ /***** Tables *****/
+
+table {
+	width: 100%;
+	font-size: 0.95rem;
+	user-select: none;
+	padding: 24px 16px;
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+table .selected {
+	background-color: var(--primary-main-selection) !important;
+}
+
+th {
+	color: var(--text-secondary);
+	text-align: left;
+	padding: 8px;
+}
+
+tr:nth-child(even){
+	background-color: var(--background-lighter);
+}
+
+tr:hover:not(.header):not(.selected){
+	background-color: var(--background-paper-hover);	
+}
+
+td {
+	margin: 0;
+	padding: 8px;
+	border: none;
+	margin: none;
+}
+
+.table-action {
+	text-align: center;
+	background-color: transparent;
+	cursor: pointer;
+	padding: 0;
+}
+
+/***** Forms *****/
+
+.form-label {
+	color: var(--text-secondary);
+	font-size: 0.85rem;
+	margin-left: 5px;
+}
+
+
+
+@media (min-width: 720px) {
+	h1 {
+		font-size: 2.4rem;
+	}
+}
