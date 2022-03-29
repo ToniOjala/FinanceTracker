@@ -9,6 +9,7 @@ import { Category, KeyNumberPairs, Label, Transaction } from '../../../../shared
 import BalancesList from './BalancesList';
 import CustomIcon from '../../../components/CustomIcon';
 import AutoCompleteField from '../../../components/AutoCompleteField';
+import AmountField from '../../../components/AmountField';
 
 interface Props {
   isOpen: boolean;
@@ -31,7 +32,7 @@ export interface TransactionFormValues {
 const TransactionDialog = ({ isOpen, transactionType, categories, labels, transactionToEdit, selectedDate, handleClose, handleTransaction }: Props): JSX.Element => {
   const [addMultiple, setAddMultiple] = useState(false);
   const [sumOfBalances, setSumOfBalances] = useState(0);
-  const { errors, control, formState, handleSubmit, setValue, watch, reset, register } = useForm<TransactionFormValues>({ mode: 'onBlur' });
+  const { errors, control, formState, handleSubmit, setValue, watch, reset, register, getValues } = useForm<TransactionFormValues>({ mode: 'onBlur' });
   const { isValid, isDirty } = formState;
 
   const onSubmit = (values: TransactionFormValues) => {
@@ -45,7 +46,8 @@ const TransactionDialog = ({ isOpen, transactionType, categories, labels, transa
     else if (transactionToEdit) reset();
     else reset({ date: format(startOfMonth(new Date(date)), 'yyyy-MM-dd') });
   }
-  const watchAmount = watch('amount', '0');
+
+  const watchAmount = watch('amount');
   const watchDate = watch('date', '');
   const watchBalanceAdditions = watch('balanceAdditions', {});
 
@@ -115,16 +117,14 @@ const TransactionDialog = ({ isOpen, transactionType, categories, labels, transa
             </Grid>
           </Grid>
           <Controller 
-            as={TextField}
+            as={AmountField}
             control={control}
             rules={{required: 'Amount is required', pattern: /^[-]?\d*((\.|\,)\d{1,2})?$/ }}
             defaultValue={transactionToEdit?.amount || ''}
-            margin="normal"
             name="amount"
             label="Amount"
             error={errors.amount && true}
             helperText={errors.amount?.message}
-            fullWidth
             required
           />
           <AutoCompleteField

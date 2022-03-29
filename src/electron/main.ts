@@ -29,7 +29,7 @@ app.on('ready', () => {
   });
 
   processNotifications();
-  processRecurringExpenses(new Date());
+  processRecurringExpenses();
   setLastOpenedToNow();
 
   if (process.env.NODE_ENV === 'development') {

@@ -7,8 +7,9 @@ import TransactionService from "./DataAccess/services/transactionService";
 import CategoryService from './DataAccess/services/categoryService';
 import BalanceLogService from './DataAccess/services/balanceLogService';
 
-export function processRecurringExpenses(date: Date) {
+export function processRecurringExpenses() {
 
+  const date = new Date();
   const lastOpened = new ApplicationService().getLastOpened();
   const today = format(date, 'yyyy-MM-dd');
 

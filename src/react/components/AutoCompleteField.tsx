@@ -77,7 +77,7 @@ const AutoCompleteField = React.forwardRef<HTMLInputElement, Props>(({ name, lab
   function handleChange (event: React.ChangeEvent<HTMLInputElement>) {
     const eventValue = event.currentTarget.value;
     prepareSuggestions(eventValue);
-    setValue(event.currentTarget.value);
+    setValue(eventValue);
   }
 
   function handleFocus (event: React.FocusEvent<HTMLInputElement>) {
@@ -131,14 +131,14 @@ const AutoCompleteField = React.forwardRef<HTMLInputElement, Props>(({ name, lab
     <div className={classes.autocompleteRoot}>
       <span className={`${classes.autocompleteLabel} ${isFocused && classes.focusedLabel} ${(value.length > 0 || defaultValue || isFocused) && classes.transformedLabel}`}>{label}</span>
       <input
+        ref={ref}
         className={classes.autocompleteInput}
         name={name}
-        ref={ref}
+        value={value || defaultValue}
         onChange={handleChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onKeyPress={handleKeyPress}
-        value={value || defaultValue}
       />
       {listSuggestions()}
     </div>

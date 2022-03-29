@@ -7,7 +7,7 @@ main::-webkit-scrollbar {
   width: 20px;
 }
 main::-webkit-scrollbar-corner {
-  background: rgba(0,0,0,0);
+  background: rgba(255, 255, 255);
 }
 main::-webkit-scrollbar-thumb {
   background-color: #eee;
@@ -18,5 +18,5 @@ main::-webkit-scrollbar-thumb {
   min-height: 32px;
 }
 main::-webkit-scrollbar-track {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(255,255,255);
 }
