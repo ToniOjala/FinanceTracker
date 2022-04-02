@@ -18,7 +18,6 @@
 		label: '',
 		categoryId,
 	};
-	let selectedCategories: string[] = [''];
 	let categoryAmounts: number[] = [0];
 	let errors = { amount: '' };
 	let categoryErrors: string[] = [''];
@@ -39,6 +38,7 @@
 		for (let i = 0; i < categories.length; i++) {
 			let category = categories[i];
 			let amount = categoryAmounts[i];
+			if (amount == null || amount === 0 || Number(amount) === NaN) continue;
 			balanceAdditions[category.id] = Number(amount);
 		}
 
