@@ -36,6 +36,7 @@
   "dependencies": {
     "@fontsource/fira-mono": "^4.5.1",
     "@tauri-apps/api": "^1.0.0-beta.8",
+    "chartjs": "^0.3.24",
     "svelte-chartjs": "^1.1.3"
   }
 }
