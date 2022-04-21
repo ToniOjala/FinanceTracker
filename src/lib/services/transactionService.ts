@@ -24,7 +24,6 @@ export async function getTransactionsByMonth (year: number, month: number): Prom
 export async function getYearlyData (year: number): Promise<YearlyData> {
   try {
     const yearlyData: YearlyData = await sendDbRequest<YearlyData>(table, 'read_yearly_data', { year });
-    console.log('yearlyData', yearlyData);
     return yearlyData;
   } catch (error) {
     console.error(error);

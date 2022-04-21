@@ -11,5 +11,6 @@ export const months = [
   'October',
   'November',
   'December',
-  'Total'
 ]
+
+export const monthsWithTotal = [...months, 'Total'];

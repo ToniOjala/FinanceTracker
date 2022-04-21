@@ -1,5 +1,6 @@
 <script lang="ts">
 	import YearTable from '$lib/year/YearTable.svelte';
+	import YearChart from '$lib/year/YearChart.svelte';
 	import { categories, selectedDate } from '$lib/stores';
 	import { getYearlyData } from '$lib/services/transactionService';
 	import { getCategories } from '$lib/services/categoryService';
@@ -8,22 +9,26 @@
 	$: yearlyDataPromise = getYearlyData($selectedDate.getFullYear());	
 </script>
 
+{#await yearlyDataPromise}
+	<p>Loading</p>
+{:then yearlyData}
 <div class="container">
-	<div style="margin-bottom: 1.5rem">
-		<YearTable
-			title="Income"
-			categories={$categories.filter(c => c.ctype === 'income')}
-			{yearlyDataPromise}
-		/>
-	</div>
-	<div>
-		<YearTable
-			title="Expense"
-			categories={$categories.filter(c => c.ctype === 'expense')}
-			{yearlyDataPromise}
-		/>
-	</div>
+	<YearChart 
+		income={yearlyData['total_income'].splice(0, 12)}
+		expense={yearlyData['total_expense'].splice(0, 12)}
+	/>
+	<YearTable
+		title="Income"
+		categories={$categories.filter(c => c.ctype === 'income')}
+		{yearlyData}
+	/>
+	<YearTable
+		title="Expense"
+		categories={$categories.filter(c => c.ctype === 'expense')}
+		{yearlyData}
+	/>
 </div>
+{/await}
 
 <style>
 	.container {

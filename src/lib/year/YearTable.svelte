@@ -1,18 +1,15 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
 	import type { Category, YearlyData } from '../../types';
-	import { months } from '../../utils/constants';
+	import { monthsWithTotal as months } from '../../utils/constants';
 	import { roundToDecimals } from '../../utils/round';
 
 	export let title: 'Income' | 'Expense';
 	export let categories: Category[];
-	export let yearlyDataPromise: Promise<YearlyData>;
+	export let yearlyData: YearlyData;
 </script>
 
-{#await yearlyDataPromise}
-	<p>Loading</p>
-{:then yearlyData}
-<Card {title}>
+<Card {title} margin="0 0 1rem 0">
 	<table slot="content">
 		<tr class="header">
 			<th style="width: 10%">Category</th>
@@ -44,4 +41,3 @@
 		</tr>
 	</table>
 </Card>
-{/await}
