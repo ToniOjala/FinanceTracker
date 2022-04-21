@@ -81,7 +81,7 @@ fn read_yearly_data (db: &Connection, data: Option<String>) -> Result<String, Bo
   for category in categories {
     let mut month: Vec<f64> = vec![0.0; 13];
     let mut year_sum: f64 = 0.0;
-    for m in 0..11 {
+    for m in 0..12 {
       let transactions = Transaction::get_by_month_and_category(db, d.year, m + 1, category.id.unwrap())?;
       let month_sum: f64 = transactions.iter().fold(0.0, |acc, tr| acc + tr.amount);
       year_sum += month_sum;
