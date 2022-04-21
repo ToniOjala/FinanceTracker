@@ -13,7 +13,7 @@
 
 <style>
 	main {
-		background: linear-gradient(133deg, rgba(46,53,84,1) 0%, rgba(36,42,67,1) 20%, rgba(27,32,52,1) 100%);
+		background: linear-gradient(133deg, rgba(36,42,67,1) 0%, rgba(27,32,52,1) 100%);
 		flex: 1;
 		display: flex;
 		flex-direction: column;

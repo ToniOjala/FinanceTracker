@@ -26,7 +26,7 @@
 </script>
 
 <div class="container">
-	<Card title="Income" margin="0 0 24px 0">
+	<Card title="Income" margin="0 0 1rem 0">
 		<MonthTable
 			slot="content"
 			title="Income"

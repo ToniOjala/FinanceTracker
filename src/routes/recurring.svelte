@@ -54,10 +54,7 @@
 
 <div class="container">
 	<div class="column">
-		<div class="column-title">
-			<h2>Monthly Recurring</h2>
-		</div>
-		<Card width="100%">
+		<Card title="Monthly Recurring" width="100%">
 			<RecurringExpenseTable
 				slot="content"
 				expenses={monthlyRecurring}
@@ -75,10 +72,7 @@
 		</Card>
 	</div>
 	<div class="column">
-		<div class="column-title">
-			<h2>Yearly Recurring</h2>
-		</div>
-		<Card width="100%">
+		<Card title="Yearly Recurring" width="100%">
 			<RecurringExpenseTable
 				slot="content"
 				expenses={yearlyRecurring}
@@ -132,12 +126,5 @@
 		flex-direction: column;
 		width: 50%;
 		padding-right: 2.5%;
-	}
-	.column-title {
-		display: flex;
-		margin-bottom: 16px;
-	}
-	h2 {
-		font-size: 1.4rem;
 	}
 </style>

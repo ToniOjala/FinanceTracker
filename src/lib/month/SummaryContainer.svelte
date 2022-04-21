@@ -15,7 +15,7 @@
       }
     },
     layout: {
-      padding: 48,
+      padding: 16,
     },
     locale: 'fi-FI',
     plugins: {
@@ -24,6 +24,7 @@
       }
     },
     responsive: true,
+    aspectRatio: 1.2
   }
 
   $: income = transactions
@@ -58,30 +59,32 @@
 </script>
 
 <div class="summary-container">
-  <Card title="Summary">
+  <Card margin="0 0 1rem 0">
     <div slot="content" class="summary-content">
-      <div class="summary-cell">
-        <h3>Total Income</h3>
-        <span>{roundToDecimals(income, 2)}</span>
-      </div>
-      <div class="summary-cell summary-expense">
-        <h3>Total Expense</h3>
-        <span>{roundToDecimals(expense, 2)}</span>
-      </div>
-      <div class="summary-cell">
-        <h3>Balance</h3>
-        <span>{roundToDecimals(income - expense, 2)}</span>
-      </div>
+      <h3>Total Income</h3>
+      <span>{roundToDecimals(income, 2)}</span>
+    </div>
+  </Card>
+  <Card margin="0 0 1rem 0">
+    <div slot="content" class="summary-content">
+      <h3>Total Expense</h3>
+      <span>{roundToDecimals(expense, 2)}</span>
+    </div>
+  </Card>
+  <Card margin="0 0 1rem 0">
+    <div slot="content" class="summary-content">
+      <h3>Balance</h3>
+      <span>{roundToDecimals(income - expense, 2)}</span>
     </div>
   </Card>
   {#if income > 0}
-    <div class="space" />
-    <Card title="Income Spent">
-      <div class="income-spent" slot="content">
+    <Card>
+      <div slot="content" class="summary-content income-spent">
+        <h3>Income Spent</h3>
         <Doughnut data={chartData} options={chartOptions} />
           <span
             class="income-spent-percentage"
-            style="{incomeSpentPercentage < 100 ? 'left: 44.5%' : 'left: 43%'}"
+            style="{incomeSpentPercentage < 100 ? 'left: 44%' : 'left: 43%'}"
           >
             {incomeSpentPercentage}%
           </span>
@@ -91,9 +94,6 @@
 </div>
 
 <style>
-  .space {
-    margin-top: 1.5rem;
-  }
   .summary-container {
     width: 600px;
     margin-right: 2rem;
@@ -101,32 +101,25 @@
     flex-direction: column; 
   }
   .summary-content {
+    padding: 24px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
-  .summary-cell {
-    box-sizing: border-box;
-    width: 100%;
-    text-align: center;
-    padding: 16px;
-  }
-  .summary-expense {
-    background-color: var(--background-lighter);
-  }
   h3 {
     font-size: 1.3rem;
+    margin: 8px 0 16px 0;
   }
   span {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
   .income-spent {
     position: relative;
   }
   .income-spent-percentage {
     position: absolute;
-    top: 46%;
-    left: 44.5%;
+    top: 52.5%;
+    font-size: 1.5rem;
   }
 </style>
