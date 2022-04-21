@@ -14,8 +14,8 @@
 {:then yearlyData}
 <div class="container">
 	<YearChart 
-		income={yearlyData['total_income'].splice(0, 12)}
-		expense={yearlyData['total_expense'].splice(0, 12)}
+		income={yearlyData['total_income'].slice(0, 12)}
+		expense={yearlyData['total_expense'].slice(0, 12)}
 	/>
 	<YearTable
 		title="Income"
