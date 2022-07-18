@@ -15,8 +15,8 @@ export async function handleStartup(categories: Category[]): Promise<void> {
       lastOpened.getMonth() == today.getMonth() && 
       lastOpened.getFullYear() == today.getFullYear()) return;
 
-  await processNotifications();
   await processRecurringExpenses(categories, lastOpened);
+  await processNotifications();
   await updateLastOpenedDate(formatDate(new Date()));
 }
 
