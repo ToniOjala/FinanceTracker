@@ -28,7 +28,7 @@ pub struct DbRequest {
 }
 
 pub fn handle_request(request: DbRequest) -> Result<String, Box<dyn Error>> {
-  let db = Connection::open("./resources/db.db").expect("Not able to open database");
+  let db = Connection::open("../db/testdb.db").expect("Not able to open database");
   let result = match request.table.as_str() {
     "application" => handle_application_request(&db, request),
     "balanceLogs" => handle_balancelog_request(&db, request),
