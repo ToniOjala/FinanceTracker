@@ -41,7 +41,7 @@
       labels: ["Expense", "Income Left"],
       datasets: [
         {
-          data: [expense, income > 0 ? income - expense : 0],
+          data: [expense, income > 0 ? income - expense : 0.01],
           backgroundColor: ['#66B088', '#8E90B8'],
         }
       ]
@@ -50,7 +50,7 @@
       labels: ["Overspenditure", "Expense"],
       datasets: [
         {
-          data: [expense - income, expense],
+          data: [income > 0 ? expense - income : 0.01, income > 0 ? expense : 100],
           backgroundColor: ['#FF5D73', '#8E90B8'],
         }
       ]
@@ -64,8 +64,8 @@
     <div slot="content" class="summary-content">
       <SvgIcon icon="arrowUp2" color="#66B088" />
       <div>
-        <h3>Total Income</h3>
         <span>{roundToDecimals(income, 2)}</span>
+        <h3>Total Income</h3>
       </div>
     </div>
   </Card>
@@ -73,34 +73,38 @@
     <div slot="content" class="summary-content">
       <SvgIcon icon="arrowDown2" color="#FF5D73" />
       <div>
-        <h3>Total Expense</h3>
         <span>{roundToDecimals(expense, 2)}</span>
+        <h3>Total Expense</h3>
       </div>
     </div>
   </Card>
   <Card margin="0 0 1rem 0">
     <div slot="content" class="summary-content">
-      <SvgIcon icon="balances" color="#8E90B8" />
+      {#if (income - expense) >= 0}
+        <SvgIcon icon="arrowUp2" color="#66B088" />
+      {:else}
+        <SvgIcon icon="arrowDown2" color="#FF5D73" />
+      {/if}
       <div>
-        <h3>Balance</h3>
         <span>{roundToDecimals(income - expense, 2)}</span>
+        <h3>Balance</h3>
       </div>
     </div>
   </Card>
-  {#if income > 0}
-    <Card>
-      <div slot="content" class="summary-content income-spent">
-        <h3>Income Spent</h3>
-        <Doughnut data={chartData} options={chartOptions} />
-          <span
-            class="income-spent-percentage"
-            style="{incomeSpentPercentage < 100 ? 'left: 44%' : 'left: 43%'}"
-          >
+  <Card>
+    <div slot="content" class="income-spent">
+      <h3>Income Spent</h3>
+      <Doughnut data={chartData} options={chartOptions} />
+        <span
+          class="income-spent-percentage"
+          style="{incomeSpentPercentage < 100 ? 'left: 44%' : 'left: 43%'}"
+        >
+          {#if income > 0}
             {incomeSpentPercentage}%
-          </span>
-      </div>
-    </Card>
-  {/if}
+          {/if}
+        </span>
+    </div>
+  </Card>
 </div>
 
 <style>
@@ -111,7 +115,7 @@
     flex-direction: column; 
   }
   .summary-content {
-    padding: 16px 24px;
+    padding: 16px 36px;
     display: flex;
     align-items: center;
     justify-content: start;
@@ -124,19 +128,26 @@
     justify-content: center;
     margin: auto;
   }
-  h3 {
-    font-size: 1.3rem;
-    margin: 8px 0 16px 0;
+  .summary-content h3 {
+    color: var(--text-secondary);
+    font-size: .95rem;
+    letter-spacing: .03rem;
+    margin: 8px 0;
   }
-  span {
-    font-size: 1.1rem;
+  .summary-content span {
+    margin-top: 16px;
+    font-size: 1.4rem;
   }
   .income-spent {
     position: relative;
+    padding: 8px;
+  }
+  .income-spent h3 {
+    margin-left: 8px;
   }
   .income-spent-percentage {
     position: absolute;
-    top: 52.5%;
+    top: 54.5%;
     font-size: 1.5rem;
   }
 </style>
