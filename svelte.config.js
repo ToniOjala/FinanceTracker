@@ -13,10 +13,8 @@ const config = {
 			pages: 'build',
 			assets: 'build',
 			fallback: 'index.html',
-		}),
-		files: {
-			template: 'src/app.html',
-		}
+			prerender: { entries: [] }
+		})
 	}
 };
 
