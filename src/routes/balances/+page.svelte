@@ -2,11 +2,11 @@
 	import type { Category } from '$lib/types';
 	import { categories, balanceLogs } from '$lib/stores';
 	import Card from '$lib/components/Card.svelte';
-	import BalancesTable from '$lib/balances/BalancesTable.svelte';
-	import LogList from '$lib/balances/LogList.svelte';
-	import ModifyBalanceForm from '$lib/balances/ModifyBalanceForm.svelte';
-	import LogListPagination from '$lib/balances/LogListPagination.svelte';
 	import Modal from '$lib/components/Modal.svelte';
+	import BalancesTable from './BalancesTable.svelte';
+	import LogList from './LogList.svelte';
+	import ModifyBalanceForm from './ModifyBalanceForm.svelte';
+	import LogListPagination from './LogListPagination.svelte';
 	import {
 		getBalanceLogsByCategoryAndPage,
 		getCountOfBalanceLogs

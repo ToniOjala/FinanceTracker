@@ -38,7 +38,7 @@
 		for (let i = 0; i < categories.length; i++) {
 			let category = categories[i];
 			let amount = categoryAmounts[i];
-			if (amount == null || amount === 0 || Number(amount) === NaN) continue;
+			if (amount == null || amount === 0) continue;
 			balanceAdditions[category.id] = Number(amount);
 		}
 

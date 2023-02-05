@@ -2,11 +2,11 @@
 	import type { Category, NewCategory } from '$lib/types';
 	import { categories } from '$lib/stores';
 	import Card from '$lib/components/Card.svelte';
-	import CategoryTable from '$lib/settings/CategoryTable.svelte';
 	import IconButton from '$lib/components/IconButton.svelte';
 	import Modal from '$lib/components/Modal.svelte';
-	import RenameCategoryForm from '$lib/settings/RenameCategoryForm.svelte';
-	import RemoveCategoryForm from '$lib/settings/RemoveCategoryForm.svelte';
+	import CategoryTable from './CategoryTable.svelte';
+	import RenameCategoryForm from './RenameCategoryForm.svelte';
+	import RemoveCategoryForm from './RemoveCategoryForm.svelte';
 	import {
 		getCategories,
 		saveCategory,

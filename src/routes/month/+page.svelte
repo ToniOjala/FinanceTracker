@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { Category } from '$lib/types';
-	import SummaryContainer from '$lib/month/SummaryContainer.svelte';
-	import MonthTableContainer from '$lib/month/MonthTableContainer.svelte';
-	import TransactionContainer from '$lib/month/TransactionContainer.svelte';
 	import { getCategories } from '$lib/services/categoryService';
 	import { getTransactionsByMonth } from '$lib/services/transactionService';
 	import { getLatestBudgets } from '$lib/services/budgetService';
 	import { categories, transactions, selectedDate, budgets } from '$lib/stores';
 	import { handleStartup } from '$lib/startup';
-	import { formatDate, getEndOfMonth } from '../utils/dates';
+	import SummaryContainer from './SummaryContainer.svelte';
+	import MonthTableContainer from './MonthTableContainer.svelte';
+	import TransactionContainer from './TransactionContainer.svelte';
+	import { formatDate, getEndOfMonth } from '../../utils/dates';
 
 	let selectedCategory: Category = {} as Category;
 
