@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Header from '$lib/components/header/index.svelte';
-	import SideNav from '$lib/SideNav.svelte';
+	import SideNav from '$lib/components/SideNav.svelte';
 	import '../app.css';
 </script>
 
