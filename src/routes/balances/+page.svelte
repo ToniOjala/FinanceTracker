@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Category } from '../types';
+	import type { Category } from '../../types';
 	import { categories, balanceLogs } from '$lib/stores';
 	import Card from '$lib/components/Card.svelte';
 	import BalancesTable from '$lib/balances/BalancesTable.svelte';

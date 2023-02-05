@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Category, NewCategory } from '../types';
+	import type { Category, NewCategory } from '../../types';
 	import { categories } from '$lib/stores';
 	import Card from '$lib/components/Card.svelte';
 	import CategoryTable from '$lib/settings/CategoryTable.svelte';

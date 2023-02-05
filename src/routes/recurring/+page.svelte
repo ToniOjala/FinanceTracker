@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { NewRecurringExpense, RecurringExpense } from '../types';
+	import type { NewRecurringExpense, RecurringExpense } from '../../types';
 	import { categories, recurringExpenses } from '$lib/stores';
 	import { isNewRecurringExpense } from '$lib/typechecks';
 	import { getRecurringExpenses, saveRecurringExpense, updateRecurringExpense, deleteRecurringExpense } from '$lib/services/recurringExpenseService';
