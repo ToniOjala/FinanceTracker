@@ -4,31 +4,31 @@
 </script>
 
 <aside>
-	<a sveltekit:prefetch href="/">
-		<div class:active={$page.url.pathname === '/'}>
-			<SvgIcon color={$page.url.pathname === '/' ? '#66B088' : '#EEE'} icon="month" />
+	<a data-sveltekit-preload-data href="/">
+		<div class:active={$page.url.pathname === '/month'}>
+			<SvgIcon color={$page.url.pathname === '/month' ? '#66B088' : '#EEE'} icon="month" />
 			<div>MONTH</div>
 		</div>
 	</a>
-	<a sveltekit:prefetch href="/year">
+	<a data-sveltekit-preload-data href="/year">
 		<div class:active={$page.url.pathname === '/year'}>
 			<SvgIcon color={$page.url.pathname === '/year' ? '#66B088' : '#EEE'} icon="year" />
 			<div>YEAR</div>
 		</div>
 	</a>
-	<a sveltekit:prefetch href="/recurring">
+	<a data-sveltekit-preload-data href="/recurring">
 		<div class:active={$page.url.pathname === '/recurring'}>
 			<SvgIcon color={$page.url.pathname === '/recurring' ? '#66B088' : '#EEE'} icon="recurring" />
 			<div>RECURRING</div>
 		</div>
 	</a>
-	<a sveltekit:prefetch href="/balances">
+	<a data-sveltekit-preload-data href="/balances">
 		<div class:active={$page.url.pathname === '/balances'}>
 			<SvgIcon color={$page.url.pathname === '/balances' ? '#66B088' : '#EEE'} icon="balances" />
 			<div>BALANCES</div>
 		</div>
 	</a>
-	<a sveltekit:prefetch href="/settings">
+	<a data-sveltekit-preload-data href="/settings">
 		<div class:active={$page.url.pathname === '/settings'}>
 			<SvgIcon color={$page.url.pathname === '/settings' ? '#66B088' : '#EEE'} icon="settings2" />
 			<div>SETTINGS</div>
