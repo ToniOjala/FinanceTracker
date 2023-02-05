@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
-	import type { Category, YearlyData } from '../../types';
+	import type { Category, YearlyData } from '$lib/types';
 	import { monthsWithTotal as months } from '../../utils/constants';
 	import { roundToDecimals } from '../../utils/round';
 
@@ -30,11 +30,13 @@
 			{#each months as _, monthIndex}
 				{#if title === 'Expense'}
 					<td>
-						{yearlyData['total_expense'] && roundToDecimals(yearlyData['total_expense'][monthIndex], 2)}
+						{yearlyData['total_expense'] &&
+							roundToDecimals(yearlyData['total_expense'][monthIndex], 2)}
 					</td>
 				{:else}
 					<td>
-						{yearlyData['total_income'] && roundToDecimals(yearlyData['total_income'][monthIndex], 2)}
+						{yearlyData['total_income'] &&
+							roundToDecimals(yearlyData['total_income'][monthIndex], 2)}
 					</td>
 				{/if}
 			{/each}

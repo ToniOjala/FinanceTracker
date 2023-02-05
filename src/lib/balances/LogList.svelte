@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { BalanceLog } from '../../types';
+	import type { BalanceLog } from '$lib/types';
 	import SvgIcon from '$lib/components/SvgIcon.svelte';
 	import { formatDate } from '../../utils/dates';
 

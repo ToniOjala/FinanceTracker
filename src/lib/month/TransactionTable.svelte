@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DropDown from '$lib/components/DropDown.svelte';
 	import DropDownItem from '$lib/components/DropDownItem.svelte';
-	import type { Transaction } from '../../types';
+	import type { Transaction } from '$lib/types';
 	import { formatDateForDisplay } from '../../utils/dates';
 	import { roundToDecimals } from '../../utils/round';
 

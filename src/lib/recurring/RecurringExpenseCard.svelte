@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { RecurringExpense } from '../../types';
+	import type { RecurringExpense } from '$lib/types';
 	import Card from '$lib/components/Card.svelte';
 	import SvgIcon from '$lib/components/SvgIcon.svelte';
 	import IconButton from '$lib/components/IconButton.svelte';
@@ -28,8 +28,18 @@
 			{/if}
 		</div>
 		<div class="col3">
-			<IconButton icon="edit" size={24} color="var(--text-secondary)" on:click={() => editExpense(expense)} />
-			<IconButton icon="delete" size={24} color="var(--accent-color)" on:click={() => removeExpense(expense)} />
+			<IconButton
+				icon="edit"
+				size={24}
+				color="var(--text-secondary)"
+				on:click={() => editExpense(expense)}
+			/>
+			<IconButton
+				icon="delete"
+				size={24}
+				color="var(--accent-color)"
+				on:click={() => removeExpense(expense)}
+			/>
 		</div>
 	</div>
 </Card>

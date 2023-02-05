@@ -1,4 +1,12 @@
-import type { Category, Notification, Transaction, BalanceLog, BudgetsByCategory, YearlyData, RecurringExpense } from '../types'
+import type {
+	Category,
+	Notification,
+	Transaction,
+	BalanceLog,
+	BudgetsByCategory,
+	YearlyData,
+	RecurringExpense
+} from './types';
 import { writable } from 'svelte/store';
 
 export const selectedDate = writable(new Date());

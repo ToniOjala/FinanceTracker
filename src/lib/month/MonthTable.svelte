@@ -2,7 +2,7 @@
 	import DropDown from '$lib/components/DropDown.svelte';
 	import DropDownItem from '$lib/components/DropDownItem.svelte';
 	import RatioBar from './RatioBar.svelte';
-	import type { Category, Transaction, BudgetsByCategory } from '../../types';
+	import type { Category, Transaction, BudgetsByCategory } from '$lib/types';
 	import { roundToDecimals } from '../../utils/round';
 	import { sumOfTransactionsInCategory, sumOfTransactionsInCategories } from '../../utils/sums';
 
@@ -17,9 +17,9 @@
 	let sumOfTransactions: { [key: string]: string } = {};
 
 	$: {
-		categories.forEach(c => {
+		categories.forEach((c) => {
 			sumOfTransactions[c.name] = sumOfTransactionsInCategory(c, transactions);
-		})
+		});
 	}
 </script>
 
@@ -32,11 +32,18 @@
 		<th style="width: 12%; text-align: center;">Actions</th>
 	</tr>
 	{#each categories as category}
-		<tr class:selected={selectedCategory?.name == category.name} on:click={() => selectCategory(category)}>
+		<tr
+			class:selected={selectedCategory?.name == category.name}
+			on:click={() => selectCategory(category)}
+		>
 			<td>{category.name}</td>
 			<td>{roundToDecimals(budgets[category.id], 2)}</td>
 			<td>{sumOfTransactions[category.name]}</td>
-			<td><RatioBar ratio={Number(sumOfTransactions[category.name]) / budgets[category.id] * 100} /></td>
+			<td
+				><RatioBar
+					ratio={(Number(sumOfTransactions[category.name]) / budgets[category.id]) * 100}
+				/></td
+			>
 			<td class="table-action">
 				<DropDown text="...">
 					<DropDownItem text="Set Budget" on:click={() => setBudget()} />
@@ -47,10 +54,12 @@
 	<tr>
 		<td>Total</td>
 		<td>
-			{title === 'Income' ? roundToDecimals(budgets['income'], 2) : roundToDecimals(budgets['expense'], 2)}
+			{title === 'Income'
+				? roundToDecimals(budgets['income'], 2)
+				: roundToDecimals(budgets['expense'], 2)}
 		</td>
 		<td>{sumOfTransactionsInCategories(categories, transactions)}</td>
-		<td></td>
-		<td></td>
+		<td />
+		<td />
 	</tr>
 </table>

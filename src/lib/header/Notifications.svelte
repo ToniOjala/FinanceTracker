@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Notification } from 'src/types';
+	import type { Notification } from '$lib/types';
 	import SvgIcon from '$lib/components/SvgIcon.svelte';
 	import Badge from '$lib/components/Badge.svelte';
 	import clickOutside from '$lib/actions/clickOutside';
@@ -12,13 +12,15 @@
 
 	const toggleNotifications = () => (showNotifications = !showNotifications);
 
-	async function markAsRead (notification: Notification) {
+	async function markAsRead(notification: Notification) {
 		const updatedNotification = await markNotificationAsRead(notification);
-		const nots = $notifications.map(n => n.id === updatedNotification.id ? updatedNotification : n);
+		const nots = $notifications.map((n) =>
+			n.id === updatedNotification.id ? updatedNotification : n
+		);
 		notifications.set(nots);
 	}
 
-	$: numUnread = $notifications.filter(n => n.read === false).length;
+	$: numUnread = $notifications.filter((n) => n.read === false).length;
 </script>
 
 <div use:clickOutside={() => (showNotifications = false)} class="notifications">
@@ -30,7 +32,9 @@
 			{#each $notifications as notification}
 				<div class="dropdown-item">
 					<div class="dropdown-item-text">
-						<span class="dropdown-item-date">{getNotificationDate(new Date(notification.date))}</span>
+						<span class="dropdown-item-date"
+							>{getNotificationDate(new Date(notification.date))}</span
+						>
 						<span class:bold={notification.read == false}>{notification.message}</span>
 					</div>
 					<button on:click={() => markAsRead(notification)}>M</button>
@@ -105,7 +109,7 @@
 	}
 	button:hover {
 		cursor: pointer;
-		background-color: rgba(355, 355, 355, .1);
+		background-color: rgba(355, 355, 355, 0.1);
 	}
 	.divider {
 		border-top: 1px solid #cccccc44;

@@ -1,7 +1,11 @@
 <script lang="ts">
-	import type { Category, Label, NewTransaction, Transaction } from '../../types';
+	import type { Category, Label, NewTransaction, Transaction } from '$lib/types';
 	import { categories, transactions } from '$lib/stores';
-	import { saveTransaction, deleteTransaction, updateTransaction } from '$lib/services/transactionService';
+	import {
+		saveTransaction,
+		deleteTransaction,
+		updateTransaction
+	} from '$lib/services/transactionService';
 	import { getLabelsByCategory, saveLabel } from '$lib/services/labelService';
 	import TransactionTable from './TransactionTable.svelte';
 	import Card from '$lib/components/Card.svelte';
@@ -27,19 +31,18 @@
 		if (close) isExpenseDialogOpen = false;
 		if (isNewTransaction(expense)) {
 			const savedExpense = await saveTransaction(expense);
-			transactions.update(tr => tr.concat(savedExpense));
-		}
-		else {
+			transactions.update((tr) => tr.concat(savedExpense));
+		} else {
 			const updatedExpense = await updateTransaction(expense);
-			transactions.update(tr => tr.map(t => t.id === updatedExpense.id ? updatedExpense : t));
+			transactions.update((tr) => tr.map((t) => (t.id === updatedExpense.id ? updatedExpense : t)));
 		}
 
 		if (expense.label && expense.label.length > 0) {
 			const addedLabel = await saveLabel(expense as NewTransaction);
-			if (labels.find(l => l.name === addedLabel.name) === undefined) {
+			if (labels.find((l) => l.name === addedLabel.name) === undefined) {
 				labels.push(addedLabel);
 			} else {
-				labels = labels.map(l => l.name === addedLabel.name ? addedLabel : l);
+				labels = labels.map((l) => (l.name === addedLabel.name ? addedLabel : l));
 			}
 		}
 	}
@@ -47,9 +50,9 @@
 	async function handleIncome(newIncome: NewTransaction) {
 		isIncomeDialogOpen = false;
 		const savedIncome = await saveTransaction(newIncome);
-		transactions.update(tr => tr.concat(savedIncome));
+		transactions.update((tr) => tr.concat(savedIncome));
 	}
-	
+
 	function editTransaction(transaction: Transaction) {
 		expenseToEdit = transaction;
 		isExpenseDialogOpen = true;
@@ -57,14 +60,15 @@
 
 	async function removeTransaction(transaction: Transaction) {
 		await deleteTransaction(transaction);
-		transactions.update(tr => tr.filter(t => t.id !== transaction.id));
+		transactions.update((tr) => tr.filter((t) => t.id !== transaction.id));
 	}
 
 	function onExpenseDialogClosed() {
 		expenseToEdit = null;
 	}
 
-	$: if (selectedCategory.id != null) getLabelsByCategory(selectedCategory.id).then(fetchedLabels => labels = fetchedLabels);
+	$: if (selectedCategory.id != null)
+		getLabelsByCategory(selectedCategory.id).then((fetchedLabels) => (labels = fetchedLabels));
 </script>
 
 <div class="container">
@@ -80,17 +84,11 @@
 	</Card>
 	{#if selectedCategory.ctype === 'expense'}
 		<Modal
-			title={expenseToEdit ? "Edit Expense" : "Add Expense"}
+			title={expenseToEdit ? 'Edit Expense' : 'Add Expense'}
 			bind:isOpen={isExpenseDialogOpen}
 			onClose={onExpenseDialogClosed}
 		>
-			<IconButton
-				slot="trigger"
-				icon="plus"
-				size={20}
-			>
-				New
-			</IconButton>
+			<IconButton slot="trigger" icon="plus" size={20}>New</IconButton>
 			<ExpenseForm
 				slot="content"
 				categoryId={selectedCategory.id}
@@ -101,17 +99,11 @@
 		</Modal>
 	{:else}
 		<Modal title="Add Income" bind:isOpen={isIncomeDialogOpen}>
-			<IconButton
-				slot="trigger"
-				icon="plus"
-				size={20}
-			>
-				New
-			</IconButton>
+			<IconButton slot="trigger" icon="plus" size={20}>New</IconButton>
 			<IncomeForm
 				slot="content"
 				categoryId={selectedCategory.id}
-				categories={$categories.filter(c => c.ctype !== 'income')}
+				categories={$categories.filter((c) => c.ctype !== 'income')}
 				{handleIncome}
 			/>
 		</Modal>

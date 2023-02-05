@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Category, NewTransaction, BalanceAdditions } from '../../types';
+	import type { Category, NewTransaction, BalanceAdditions } from '$lib/types';
 	import AmountField from '$lib/components/AmountField.svelte';
 	import DatePicker from '$lib/components/DatePicker.svelte';
 	import { selectedDate } from '$lib/stores';
@@ -16,7 +16,7 @@
 		amount: 0,
 		date: $selectedDate,
 		label: '',
-		categoryId,
+		categoryId
 	};
 	let categoryAmounts: number[] = [0];
 	let errors = { amount: '' };
@@ -42,7 +42,14 @@
 			balanceAdditions[category.id] = Number(amount);
 		}
 
-		if (!errors.amount) handleIncome({ ...income, amount: Number(income.amount), date: formatDate(income.date), ctype: 'income', balanceAdditions });
+		if (!errors.amount)
+			handleIncome({
+				...income,
+				amount: Number(income.amount),
+				date: formatDate(income.date),
+				ctype: 'income',
+				balanceAdditions
+			});
 	}
 
 	function onDateChange(e: CustomEvent): void {
@@ -62,11 +69,16 @@
 	{#if page === 2}
 		<div class="category-grid" style="">
 			{#each categories as category, i}
-				<AmountField label={category.name} bind:value={categoryAmounts[i]} helperText={categoryErrors[i]} />
+				<AmountField
+					label={category.name}
+					bind:value={categoryAmounts[i]}
+					helperText={categoryErrors[i]}
+				/>
 			{/each}
 		</div>
 		<div>Income left to allocate: {roundToDecimals(income.amount - allocated, 2)}</div>
-		<Button margin="40px 0 0 0" type="submit" disabled={income.amount - allocated !== 0}>ADD</Button>
+		<Button margin="40px 0 0 0" type="submit" disabled={income.amount - allocated !== 0}>ADD</Button
+		>
 	{/if}
 </form>
 

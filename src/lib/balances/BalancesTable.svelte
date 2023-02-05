@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Category } from '../../types';
+	import type { Category } from '$lib/types';
 	import { sumOfCategoryBalances } from '../../utils/sums';
 	import { roundToDecimals } from '../../utils/round';
 	import DropDown from '$lib/components/DropDown.svelte';
@@ -18,7 +18,10 @@
 		<th style="width: 25%; text-align: center">Actions</th>
 	</tr>
 	{#each categories as category}
-		<tr class:selected={selectedCategory?.name == category.name} on:click={() => selectCategory(category)}>
+		<tr
+			class:selected={selectedCategory?.name == category.name}
+			on:click={() => selectCategory(category)}
+		>
 			<td>{category.name}</td>
 			<td>{roundToDecimals(category.balance, 2)}</td>
 			<td class="table-action">
@@ -31,6 +34,6 @@
 	<tr>
 		<td>Total</td>
 		<td>{sumOfCategoryBalances(categories)}</td>
-		<td></td>
+		<td />
 	</tr>
 </table>

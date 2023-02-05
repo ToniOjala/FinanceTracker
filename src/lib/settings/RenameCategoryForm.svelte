@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Category, NewCategory } from '../../types';
+	import type { Category, NewCategory } from '$lib/types';
 	import ChoiceChips from '$lib/components/ChoiceChips.svelte';
 	import TextField from '$lib/components/TextField.svelte';
 	import Button from '$lib/components/Button.svelte';
@@ -12,7 +12,7 @@
 		name: categoryToEdit?.name || '',
 		ctype: categoryToEdit?.ctype || 'expense',
 		balance: categoryToEdit?.balance || 0,
-		created: categoryToEdit?.created || new Date().getFullYear().toString(),
+		created: categoryToEdit?.created || new Date().getFullYear().toString()
 	} as Category;
 	let errors = { name: '' };
 

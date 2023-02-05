@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Transaction, NewTransaction, Label } from '../../types';
+	import type { Transaction, NewTransaction, Label } from '$lib/types';
 	import AmountField from '$lib/components/AmountField.svelte';
 	import DatePicker from '$lib/components/DatePicker.svelte';
 	import { formatDate } from '../../utils/dates';
@@ -19,13 +19,13 @@
 		amount: expenseToEdit?.amount || 0,
 		date: expenseToEdit?.date ? new Date(expenseToEdit?.date) : $selectedDate,
 		label: expenseToEdit?.label || '',
-		categoryId,
+		categoryId
 	};
 	let errors = { amount: '' };
 	let amountField: HTMLInputElement | undefined;
 	let addAnother = false;
 
-	$: options = labels.map(l => l.name);
+	$: options = labels.map((l) => l.name);
 
 	function handleKeyDown(event: KeyboardEvent) {
 		if (event.key === 'Enter') event.preventDefault();
@@ -36,14 +36,23 @@
 		if (isNaN(Number(expense.amount))) errors.amount = 'Amount should be a numeric value';
 		else errors.amount = '';
 
-		if (!errors.amount) handleExpense({ ...expense, amount: Number(expense.amount), date: formatDate(expense.date), ctype: 'expense' }, !addAnother);
+		if (!errors.amount)
+			handleExpense(
+				{
+					...expense,
+					amount: Number(expense.amount),
+					date: formatDate(expense.date),
+					ctype: 'expense'
+				},
+				!addAnother
+			);
 		if (addAnother) {
 			expense = {
 				id: null,
 				amount: 0,
 				date: expense.date,
 				label: '',
-				categoryId,
+				categoryId
 			};
 		}
 	}
@@ -62,9 +71,9 @@
 	<AmountField label="Amount" bind:value={expense.amount} helperText={errors?.amount} autoFocus />
 	<AutoCompleteField label="Label" bind:value={expense.label} {options} top={275} />
 	{#if expenseToEdit == null}
-		<Checkbox label="Add Another" bind:checked={addAnother} />	
+		<Checkbox label="Add Another" bind:checked={addAnother} />
 	{/if}
-	<Button margin="40px 0 0 0" type="submit">{expenseToEdit ? "EDIT" : "ADD"}</Button>
+	<Button margin="40px 0 0 0" type="submit">{expenseToEdit ? 'EDIT' : 'ADD'}</Button>
 </form>
 
 <style>

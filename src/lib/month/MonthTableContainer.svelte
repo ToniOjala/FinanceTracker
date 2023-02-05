@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Category, NewBudget } from '../../types';
+	import type { Category, NewBudget } from '$lib/types';
 	import { saveBudget } from '$lib/services/budgetService';
 	import MonthTable from './MonthTable.svelte';
 	import BudgetForm from './BudgetForm.svelte';
@@ -12,7 +12,7 @@
 
 	let isBudgetDialogOpen = false;
 
-	const setBudget = () => isBudgetDialogOpen = true;
+	const setBudget = () => (isBudgetDialogOpen = true);
 
 	async function handleBudget(budget: NewBudget) {
 		isBudgetDialogOpen = false;
@@ -51,11 +51,7 @@
 		/>
 	</Card>
 	<Modal title="Set Budget" bind:isOpen={isBudgetDialogOpen}>
-		<BudgetForm
-			slot="content"
-			categoryId={selectedCategory.id}
-			{handleBudget}
-		/>
+		<BudgetForm slot="content" categoryId={selectedCategory.id} {handleBudget} />
 	</Modal>
 </div>
 

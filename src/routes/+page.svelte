@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { Category } from '../types';
+	import type { Category } from '$lib/types';
 	import SummaryContainer from '$lib/month/SummaryContainer.svelte';
 	import MonthTableContainer from '$lib/month/MonthTableContainer.svelte';
 	import TransactionContainer from '$lib/month/TransactionContainer.svelte';
@@ -18,34 +18,31 @@
 	}
 
 	$: {
-  const year = $selectedDate.getFullYear();
-  const month = $selectedDate.getMonth() + 1;
-  getTransactionsByMonth(year, month).then(tr => transactions.set(tr));
-	getLatestBudgets(formatDate(getEndOfMonth(new Date(year, month-1, 1)))).then(b => budgets.set(b));
-	getCategories(year).then(c => categories.set(c));
-}
+		const year = $selectedDate.getFullYear();
+		const month = $selectedDate.getMonth() + 1;
+		getTransactionsByMonth(year, month).then((tr) => transactions.set(tr));
+		getLatestBudgets(formatDate(getEndOfMonth(new Date(year, month - 1, 1)))).then((b) =>
+			budgets.set(b)
+		);
+		getCategories(year).then((c) => categories.set(c));
+	}
 
 	onMount(async () => {
 		const cats = await getCategories($selectedDate.getFullYear());
 		categories.set(cats);
 
 		await handleStartup($categories);
-	})
+	});
 </script>
 
 <div class="container">
 	<SummaryContainer
-		incomeCategoryIds={$categories.filter(c => c.ctype === 'income').map(c => c.id)}
-		expenseCategoryIds={$categories.filter(c => c.ctype === 'expense').map(c => c.id)}
+		incomeCategoryIds={$categories.filter((c) => c.ctype === 'income').map((c) => c.id)}
+		expenseCategoryIds={$categories.filter((c) => c.ctype === 'expense').map((c) => c.id)}
 		transactions={$transactions}
 	/>
-	<MonthTableContainer
-		{selectedCategory}
-		{selectCategory}
-	/>
-	<TransactionContainer
-		{selectedCategory}
-	/>
+	<MonthTableContainer {selectedCategory} {selectCategory} />
+	<TransactionContainer {selectedCategory} />
 </div>
 
 <style>

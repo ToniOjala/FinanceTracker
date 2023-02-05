@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Category, NewRecurringExpense, RecurringExpense } from '../../types';
+	import type { Category, NewRecurringExpense, RecurringExpense } from '$lib/types';
 	import AmountField from '$lib/components/AmountField.svelte';
 	import DropDown from '$lib/components/DropDown.svelte';
 	import DropDownItem from '$lib/components/DropDownItem.svelte';
@@ -19,10 +19,10 @@
 		day: 0,
 		month: 0,
 		notifyDaysBefore: 0,
-		recurs,
+		recurs
 	};
 
-	$: selectedCategoryName = categories?.find(c => c.id === expense.categoryId)?.name || '';
+	$: selectedCategoryName = categories?.find((c) => c.id === expense.categoryId)?.name || '';
 
 	if (expenseToEdit) expense = expenseToEdit;
 
