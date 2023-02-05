@@ -1,13 +1,13 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import type { Transaction, NewTransaction, Label } from '$lib/types';
 	import AmountField from '$lib/components/AmountField.svelte';
 	import DatePicker from '$lib/components/DatePicker.svelte';
-	import { formatDate } from '../../utils/dates';
-	import { selectedDate } from '$lib/stores';
 	import Checkbox from '$lib/components/Checkbox.svelte';
 	import AutoCompleteField from '$lib/components/AutoCompleteField.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import { onMount } from 'svelte';
+	import { selectedDate } from '$lib/stores';
+	import { formatDate } from '$lib/utils/dates';
 
 	export let categoryId: number;
 	export let labels: Label[];

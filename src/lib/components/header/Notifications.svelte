@@ -1,12 +1,12 @@
 <script lang="ts">
+	import { slide } from 'svelte/transition';
 	import type { Notification } from '$lib/types';
+	import clickOutside from '$lib/actions/clickOutside';
 	import SvgIcon from '$lib/components/SvgIcon.svelte';
 	import Badge from '$lib/components/Badge.svelte';
-	import clickOutside from '$lib/actions/clickOutside';
-	import { notifications } from '$lib/stores';
-	import { slide } from 'svelte/transition';
-	import { getNotificationDate } from '../../utils/dates';
 	import { markNotificationAsRead } from '$lib/services/notificationService';
+	import { notifications } from '$lib/stores';
+	import { getNotificationDate } from '$lib/utils/dates';
 
 	let showNotifications = false;
 

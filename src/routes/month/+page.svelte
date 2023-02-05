@@ -6,10 +6,10 @@
 	import { getLatestBudgets } from '$lib/services/budgetService';
 	import { categories, transactions, selectedDate, budgets } from '$lib/stores';
 	import { handleStartup } from '$lib/startup';
+	import { formatDate, getEndOfMonth } from '$lib/utils/dates';
 	import SummaryContainer from './SummaryContainer.svelte';
 	import MonthTableContainer from './MonthTableContainer.svelte';
 	import TransactionContainer from './TransactionContainer.svelte';
-	import { formatDate, getEndOfMonth } from '../../utils/dates';
 
 	let selectedCategory: Category = {} as Category;
 

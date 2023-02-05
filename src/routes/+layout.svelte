@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Header from '$lib/header/index.svelte';
+	import Header from '$lib/components/header/index.svelte';
 	import SideNav from '$lib/SideNav.svelte';
 	import '../app.css';
 </script>
@@ -13,7 +13,7 @@
 
 <style>
 	main {
-		background: linear-gradient(133deg, rgba(36,42,67,1) 0%, rgba(27,32,52,1) 100%);
+		background: linear-gradient(133deg, rgba(36, 42, 67, 1) 0%, rgba(27, 32, 52, 1) 100%);
 		flex: 1;
 		display: flex;
 		flex-direction: column;

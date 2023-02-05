@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { Doughnut } from 'svelte-chartjs';
+	import type { Transaction } from '$lib/types';
 	import Card from '$lib/components/Card.svelte';
 	import SvgIcon from '$lib/components/SvgIcon.svelte';
-	import type { Transaction } from '$lib/types';
-	import { roundToDecimals, roundToDecimalsAsNumber } from '../../utils/round';
+	import { roundToDecimals, roundToDecimalsAsNumber } from '$lib/utils/round';
 
 	export let incomeCategoryIds: number[];
 	export let expenseCategoryIds: number[];

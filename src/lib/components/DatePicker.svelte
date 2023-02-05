@@ -6,8 +6,8 @@
 		getMonthName,
 		isFirstDayOfMonth,
 		isLastDayOfMonth,
-		removeDays,
-	} from '../../utils/dates';
+		removeDays
+	} from '$lib/utils/dates';
 	import Calendar from './Calendar.svelte';
 	import IconButton from './IconButton.svelte';
 

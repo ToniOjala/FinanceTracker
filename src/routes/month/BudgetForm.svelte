@@ -2,8 +2,8 @@
 	import type { NewBudget } from '$lib/types';
 	import AmountField from '$lib/components/AmountField.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import { formatDate, getEndOfMonth } from '../../utils/dates';
 	import { selectedDate } from '$lib/stores';
+	import { formatDate, getEndOfMonth } from '$lib/utils/dates';
 
 	export let categoryId: number;
 	export let handleBudget: (budget: NewBudget) => void;

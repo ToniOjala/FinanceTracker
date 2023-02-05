@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { roundToDecimals } from '../../utils/round';
+	import { roundToDecimals } from '$lib/utils/round';
 
 	export let label: string;
 	export let value: string | number;

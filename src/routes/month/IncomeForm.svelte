@@ -2,11 +2,11 @@
 	import type { Category, NewTransaction, BalanceAdditions } from '$lib/types';
 	import AmountField from '$lib/components/AmountField.svelte';
 	import DatePicker from '$lib/components/DatePicker.svelte';
-	import { selectedDate } from '$lib/stores';
-	import AutoCompleteField from '$lib/components/AutoCompleteField.svelte';
-	import { roundToDecimals } from '../../utils/round';
-	import { formatDate } from '../../utils/dates';
 	import Button from '$lib/components/Button.svelte';
+	import AutoCompleteField from '$lib/components/AutoCompleteField.svelte';
+	import { selectedDate } from '$lib/stores';
+	import { roundToDecimals } from '$lib/utils/round';
+	import { formatDate } from '$lib/utils/dates';
 
 	export let categoryId: number;
 	export let handleIncome: (newExpense: NewTransaction) => void;

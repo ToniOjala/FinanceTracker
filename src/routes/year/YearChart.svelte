@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
 	import Card from '$lib/components/Card.svelte';
-	import { months } from '../../utils/constants';
+	import { months } from '$lib/utils/constants';
 
 	export let income: number[];
 	export let expense: number[];

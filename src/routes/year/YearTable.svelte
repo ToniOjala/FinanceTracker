@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
 	import type { Category, YearlyData } from '$lib/types';
-	import { monthsWithTotal as months } from '../../utils/constants';
-	import { roundToDecimals } from '../../utils/round';
+	import { monthsWithTotal as months } from '$lib/utils/constants';
+	import { roundToDecimals } from '$lib/utils/round';
 
 	export let title: 'Income' | 'Expense';
 	export let categories: Category[];

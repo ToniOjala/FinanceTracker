@@ -1,10 +1,10 @@
 <script lang="ts">
+	import type { Category, Transaction, BudgetsByCategory } from '$lib/types';
 	import DropDown from '$lib/components/DropDown.svelte';
 	import DropDownItem from '$lib/components/DropDownItem.svelte';
+	import { roundToDecimals } from '$lib/utils/round';
+	import { sumOfTransactionsInCategory, sumOfTransactionsInCategories } from '$lib/utils/sums';
 	import RatioBar from './RatioBar.svelte';
-	import type { Category, Transaction, BudgetsByCategory } from '$lib/types';
-	import { roundToDecimals } from '../../utils/round';
-	import { sumOfTransactionsInCategory, sumOfTransactionsInCategories } from '../../utils/sums';
 
 	export let title: 'Income' | 'Expense';
 	export let categories: Category[];

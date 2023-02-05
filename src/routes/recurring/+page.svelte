@@ -12,8 +12,8 @@
 	import Card from '$lib/components/Card.svelte';
 	import IconButton from '$lib/components/IconButton.svelte';
 	import Modal from '$lib/components/Modal.svelte';
-	import RecurringExpenseForm from '$lib/recurring/RecurringExpenseForm.svelte';
-	import RecurringExpenseTable from '$lib/recurring/RecurringExpenseTable.svelte';
+	import RecurringExpenseForm from './RecurringExpenseForm.svelte';
+	import RecurringExpenseTable from './RecurringExpenseTable.svelte';
 
 	let isMonthlyRecurringDialogOpen = false;
 	let isYearlyRecurringDialogOpen = false;

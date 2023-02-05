@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { slide } from 'svelte/transition';
 	import SvgIcon from '$lib/components/SvgIcon.svelte';
 	import clickOutside from '$lib/actions/clickOutside';
 	import { selectedDate } from '$lib/stores';
-	import { getMonth, addMonths, removeMonths, setMonth } from '../../utils/dates';
-	import { slide } from 'svelte/transition';
+	import { getMonth, addMonths, removeMonths, setMonth } from '$lib/utils/dates';
 
 	const months = [
 		'January',
@@ -17,7 +17,7 @@
 		'September',
 		'October',
 		'November',
-		'December',
+		'December'
 	];
 	let monthsOpen = false;
 
@@ -40,7 +40,7 @@
 	function selectMonth(month: string) {
 		const newDate = setMonth(
 			$selectedDate,
-			months.findIndex((m) => m === month),
+			months.findIndex((m) => m === month)
 		);
 		selectedDate.set(newDate);
 	}
@@ -56,7 +56,10 @@
 	{#if monthsOpen}
 		<div transition:slide={{ duration: 300 }} class="dropdown">
 			{#each months as month}
-				<div class="dropdown-item {activeMonth === month && 'active'}" on:click={() => selectMonth(month)}>
+				<div
+					class="dropdown-item {activeMonth === month && 'active'}"
+					on:click={() => selectMonth(month)}
+				>
 					{month}
 				</div>
 			{/each}

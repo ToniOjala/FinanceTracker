@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { getDateRows } from '../../utils/dates';
+	import { getDateRows } from '$lib/utils/dates';
 
 	export let date: Date;
 	export let month: number;

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { RecurringExpense } from '$lib/types';
-	import { roundToDecimals } from '../../utils/round';
+	import { roundToDecimals } from '$lib/utils/round';
 	import DropDown from '$lib/components/DropDown.svelte';
 	import DropDownItem from '$lib/components/DropDownItem.svelte';
 

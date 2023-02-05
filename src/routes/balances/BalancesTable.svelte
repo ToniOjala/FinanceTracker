@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { Category } from '$lib/types';
-	import { sumOfCategoryBalances } from '../../utils/sums';
-	import { roundToDecimals } from '../../utils/round';
 	import DropDown from '$lib/components/DropDown.svelte';
 	import DropDownItem from '$lib/components/DropDownItem.svelte';
+	import { sumOfCategoryBalances } from '$lib/utils/sums';
+	import { roundToDecimals } from '$lib/utils/round';
 
 	export let categories: Category[];
 	export let selectedCategory: Category | undefined;

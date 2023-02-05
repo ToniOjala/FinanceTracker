@@ -6,7 +6,7 @@ import type {
 	NewTransaction,
 	RecurringExpense
 } from '$lib/types';
-import { formatDate, removeDays } from '../utils/dates';
+import { formatDate, removeDays } from './utils/dates';
 import { getLastOpenedDate, updateLastOpenedDate } from './services/applicationService';
 import {
 	deleteNotification,

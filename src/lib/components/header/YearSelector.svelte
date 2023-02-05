@@ -1,9 +1,9 @@
 <script lang="ts">
-	import SvgIcon from '$lib/components/SvgIcon.svelte';
-	import { getYear, setYear, addYears, removeYears } from '../../utils/dates';
-	import { selectedDate } from '$lib/stores';
-	import clickOutside from '$lib/actions/clickOutside';
 	import { slide } from 'svelte/transition';
+	import clickOutside from '$lib/actions/clickOutside';
+	import SvgIcon from '$lib/components/SvgIcon.svelte';
+	import { selectedDate } from '$lib/stores';
+	import { getYear, setYear, addYears, removeYears } from '$lib/utils/dates';
 
 	$: activeYear = Number(getYear($selectedDate));
 

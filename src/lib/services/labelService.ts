@@ -1,5 +1,5 @@
 import type { Label, NewLabel, NewTransaction } from '$lib/types';
-import { formatDate } from '../../utils/dates';
+import { formatDate } from '$lib/utils/dates';
 import { sendDbRequest } from './dbService';
 
 const table = 'labels';

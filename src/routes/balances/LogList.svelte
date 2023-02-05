@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { BalanceLog } from '$lib/types';
 	import SvgIcon from '$lib/components/SvgIcon.svelte';
-	import { formatDate } from '../../utils/dates';
+	import { formatDate } from '$lib/utils/dates';
 
 	export let balanceLogs: BalanceLog[];
 </script>
