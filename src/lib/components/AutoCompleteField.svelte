@@ -62,7 +62,13 @@
 
 <div class="container">
 	<span class="label">{label}</span>
-	<input type="text" bind:value on:focus={handleFocus} on:blur={handleBlur} on:keydown={handleKeyDown} />
+	<input
+		type="text"
+		bind:value
+		on:focus={handleFocus}
+		on:blur={handleBlur}
+		on:keydown={handleKeyDown}
+	/>
 	{#if suggestions.length > 0}
 		<ul class="list" transition:slide={{ duration: 300 }} style="top: {top}px">
 			{#each suggestions as suggestion, i}
@@ -71,6 +77,8 @@
 					class:selected-list-item={i === selectedIndex}
 					on:mouseover={() => handleMouseOver(i)}
 					on:mousedown={handleMouseDown}
+					on:focus={() => handleMouseOver(i)}
+					on:keypress={() => {}}
 				>
 					{suggestion}
 				</li>

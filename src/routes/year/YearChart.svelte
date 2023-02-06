@@ -7,7 +7,7 @@
 	export let income: number[];
 	export let expense: number[];
 
-	let ctx;
+	let ctx: any;
 
 	const chartData = {
 		labels: months,

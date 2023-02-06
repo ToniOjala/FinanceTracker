@@ -4,7 +4,7 @@
 </script>
 
 <aside>
-	<a data-sveltekit-preload-data href="/">
+	<a data-sveltekit-preload-data href="/month">
 		<div class:active={$page.url.pathname === '/month'}>
 			<SvgIcon color={$page.url.pathname === '/month' ? '#66B088' : '#EEE'} icon="month" />
 			<div>MONTH</div>

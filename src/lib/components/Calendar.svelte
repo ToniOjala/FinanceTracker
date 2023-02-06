@@ -27,6 +27,7 @@
 		{#each cells as cell}
 			<div
 				on:click={cell ? onChange.bind(this, cell) : () => {}}
+				on:keypress={() => {}}
 				class:cell={true}
 				class:highlight={cell}
 				class:selected={date.getDate() === cell}

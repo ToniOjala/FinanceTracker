@@ -24,6 +24,7 @@
 		class:active={showDropdown}
 		use:clickOutside={() => (showDropdown = false)}
 		on:click={toggle}
+		on:keypress={() => {}}
 	>
 		{text}
 	</div>

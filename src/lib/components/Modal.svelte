@@ -4,11 +4,11 @@
 
 	export let title = 'Dialog Title';
 	export let isOpen = false;
-	export let onClose: () => void | null = null; 	
+	export let onClose: (() => void) | null = null;
 
 	const open = () => (isOpen = true);
-	const close = () => { 
-		isOpen = false
+	const close = () => {
+		isOpen = false;
 		if (onClose != null) onClose();
 	};
 
@@ -17,12 +17,12 @@
 	}
 </script>
 
-<div on:click={open}>
+<div on:click={open} on:keypress={() => {}}>
 	<slot name="trigger" />
 </div>
 
 {#if isOpen}
-	<div class="modal" on:keydown={keyDown} tabindex={0} transition:fade={{ duration: 200 }}>
+	<div class="modal" on:keydown={keyDown} transition:fade={{ duration: 200 }}>
 		<div class="backdrop">
 			<div class="content-wrapper">
 				<div class="header">

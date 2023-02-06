@@ -36,10 +36,15 @@
 </script>
 
 <div class="selector">
-	<div class="arrow" on:click={decrementYear}>
+	<div class="arrow" on:click={decrementYear} on:keydown>
 		<SvgIcon icon="arrowLeftThin" size={24} color="#eee" />
 	</div>
-	<div use:clickOutside={() => (yearsOpen = false)} class="year box" on:click={toggleYears}>
+	<div
+		use:clickOutside={() => (yearsOpen = false)}
+		class="year box"
+		on:click={toggleYears}
+		on:keydown
+	>
 		{activeYear}
 	</div>
 	{#if yearsOpen}
@@ -49,13 +54,14 @@
 					bind:this={dropDownItem}
 					class="dropdown-item {activeYear == year + 2000 && 'active'}"
 					on:click={() => selectYear(year + 2000)}
+					on:keydown
 				>
 					{year + 2000}
 				</div>
 			{/each}
 		</div>
 	{/if}
-	<div class="arrow" on:click={incrementYear}>
+	<div class="arrow" on:click={incrementYear} on:keydown>
 		<SvgIcon icon="arrowRightThin" size={24} color="#eee" />
 	</div>
 </div>

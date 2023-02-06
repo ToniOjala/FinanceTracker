@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import {
 		addDays,
@@ -16,7 +16,7 @@
 	export let label = 'Date';
 	export let selected = new Date();
 
-	let date, month, year, showDatePicker;
+	let date: number, month: number, year: number, showDatePicker: boolean;
 
 	$: {
 		date = selected.getDate();
@@ -27,7 +27,7 @@
 	const open = () => (showDatePicker = true);
 	const close = () => (showDatePicker = false);
 
-	function onDateChange(d) {
+	function onDateChange(d: any) {
 		showDatePicker = false;
 		dispatch('datechange', d.detail);
 	}
@@ -44,7 +44,9 @@
 <div class="input-container">
 	<div class="input">
 		<span class="label">{label}</span>
-		<div class="date" on:click={open}>{formatDate(selected, 'dd.MM.yyyy')}</div>
+		<div class="date" on:click={open} on:keypress={() => {}}>
+			{formatDate(selected, 'dd.MM.yyyy')}
+		</div>
 	</div>
 	<div class="arrows">
 		<IconButton icon="arrowUp" size={12} on:click={increaseDate} />

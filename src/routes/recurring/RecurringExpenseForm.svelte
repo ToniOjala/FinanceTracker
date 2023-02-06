@@ -26,7 +26,7 @@
 
 	if (expenseToEdit) expense = expenseToEdit;
 
-	function selectCategory(category) {
+	function selectCategory(category: Category) {
 		expense.categoryId = category.id;
 	}
 

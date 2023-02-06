@@ -4,7 +4,6 @@
 	export let label: string;
 	export let value: string;
 	export let options: string[];
-	export let top: number;
 
 	let selectedIndex = 0;
 	let isOpen = false;
@@ -68,9 +67,10 @@
 					class:selected-list-item={i === selectedIndex}
 					on:mouseover={() => handleMouseOver(i)}
 					on:mousedown={handleMouseDown}
+					on:focus={() => handleMouseOver(i)}
 				>
 					{option}
-			</div>
+				</div>
 			{/each}
 		</div>
 	{/if}

@@ -2,7 +2,7 @@
 	export let text = 'Item';
 </script>
 
-<div on:click>{text}</div>
+<div on:click on:keypress>{text}</div>
 
 <style>
 	div {

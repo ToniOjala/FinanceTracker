@@ -47,10 +47,15 @@
 </script>
 
 <div class="selector">
-	<div class="arrow" on:click={decrementMonth}>
+	<div class="arrow" on:click={decrementMonth} on:keypress={() => {}}>
 		<SvgIcon icon="arrowLeftThin" size={24} color="#eee" />
 	</div>
-	<div use:clickOutside={() => (monthsOpen = false)} class="month box" on:click={toggleMonths}>
+	<div
+		use:clickOutside={() => (monthsOpen = false)}
+		class="month box"
+		on:click={toggleMonths}
+		on:keypress={() => {}}
+	>
 		{activeMonth}
 	</div>
 	{#if monthsOpen}
@@ -59,13 +64,14 @@
 				<div
 					class="dropdown-item {activeMonth === month && 'active'}"
 					on:click={() => selectMonth(month)}
+					on:keypress={() => {}}
 				>
 					{month}
 				</div>
 			{/each}
 		</div>
 	{/if}
-	<div class="arrow" on:click={incrementMonth}>
+	<div class="arrow" on:click={incrementMonth} on:keypress={() => {}}>
 		<SvgIcon icon="arrowRightThin" size={24} color="#eee" />
 	</div>
 </div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let type = 'button';
+	export let type: 'submit' | 'button' = 'button';
 	export let backgroundColor = 'var(--primary-main)';
 	export let color = '#111';
 	export let margin = '0 0 0 0';
@@ -10,8 +10,11 @@
 	{type}
 	{disabled}
 	on:click
-	style="background-color: {disabled ? '#66B08888' : backgroundColor}; color: {color}; margin: {margin}">
-	<slot></slot>
+	style="background-color: {disabled
+		? '#66B08888'
+		: backgroundColor}; color: {color}; margin: {margin}"
+>
+	<slot />
 </button>
 
 <style>
