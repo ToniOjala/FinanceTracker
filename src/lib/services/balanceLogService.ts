@@ -7,19 +7,11 @@ export async function getBalanceLogsByCategoryAndPage(
 	categoryId: number,
 	page: number
 ): Promise<BalanceLog[]> {
-	try {
-		const balanceLogs = await sendDbRequest<BalanceLog[]>(table, 'read', { categoryId, page });
-		return balanceLogs;
-	} catch (error) {
-		console.error(error);
-	}
+	const balanceLogs = await sendDbRequest<BalanceLog[]>(table, 'read', { categoryId, page });
+	return balanceLogs;
 }
 
 export async function getCountOfBalanceLogs(categoryId: number): Promise<number> {
-	try {
-		const count = await sendDbRequest<number>(table, 'readCount', { categoryId });
-		return count;
-	} catch (error) {
-		console.error(error);
-	}
+	const count = await sendDbRequest<number>(table, 'readCount', { categoryId });
+	return count;
 }

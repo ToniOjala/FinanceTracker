@@ -6,36 +6,20 @@ const table = 'recurringExpenses';
 export async function saveRecurringExpense(
 	expense: NewRecurringExpense
 ): Promise<RecurringExpense> {
-	try {
-		const savedExpense = await sendDbRequest<RecurringExpense>(table, 'create', expense);
-		return savedExpense;
-	} catch (error) {
-		console.error(error);
-	}
+	const savedExpense = await sendDbRequest<RecurringExpense>(table, 'create', expense);
+	return savedExpense;
 }
 
 export async function getRecurringExpenses(): Promise<RecurringExpense[]> {
-	try {
-		const expenses = await sendDbRequest<RecurringExpense[]>(table, 'read');
-		return expenses;
-	} catch (error) {
-		console.error(error);
-	}
+	const expenses = await sendDbRequest<RecurringExpense[]>(table, 'read');
+	return expenses;
 }
 
 export async function updateRecurringExpense(expense: RecurringExpense): Promise<RecurringExpense> {
-	try {
-		const updatedExpense = await sendDbRequest<RecurringExpense>(table, 'update', expense);
-		return updatedExpense;
-	} catch (error) {
-		console.error(error);
-	}
+	const updatedExpense = await sendDbRequest<RecurringExpense>(table, 'update', expense);
+	return updatedExpense;
 }
 
 export async function deleteRecurringExpense(expense: RecurringExpense): Promise<void> {
-	try {
-		await sendDbRequest<RecurringExpense>(table, 'delete', expense);
-	} catch (error) {
-		console.error(error);
-	}
+	await sendDbRequest<RecurringExpense>(table, 'delete', expense);
 }

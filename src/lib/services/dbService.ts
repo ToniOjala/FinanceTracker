@@ -12,5 +12,6 @@ export async function sendDbRequest<T>(
 		return JSON.parse(response);
 	} catch (error) {
 		console.error(`Error when sending DB request to ${table}/${route}: `, error);
+		return Promise.reject();
 	}
 }
