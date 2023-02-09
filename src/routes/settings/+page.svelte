@@ -14,6 +14,7 @@
 		updateCategory
 	} from '$lib/services/categoryService';
 	import { onMount } from 'svelte';
+	import UserPreferences from './UserPreferences.svelte';
 
 	let showDialog = false;
 	let selectedCategory: Category;
@@ -65,6 +66,10 @@
 		categories.set(cats);
 	});
 </script>
+
+<Card title="User preferences" width="800px" margin="0 0 2rem 0" padding="2rem">
+	<UserPreferences slot="content" />
+</Card>
 
 <Card title="Categories" width="800px">
 	<CategoryTable
