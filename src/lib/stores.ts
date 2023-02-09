@@ -5,10 +5,14 @@ import type {
 	BalanceLog,
 	BudgetsByCategory,
 	YearlyData,
-	RecurringExpense
+	RecurringExpense,
+	UserPreferences
 } from './types';
 import { writable } from 'svelte/store';
 
+export const userPreferences = writable<UserPreferences>({
+	dbPath: 'C:/Users/Toni/Repos/Personal/finance-tracker-tauri/db/testdb.db'
+});
 export const selectedDate = writable(new Date());
 export const balanceLogs = writable<BalanceLog[]>([]);
 export const budgets = writable<BudgetsByCategory>({});

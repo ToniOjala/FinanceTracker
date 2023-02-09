@@ -3,13 +3,13 @@
   windows_subsystem = "windows"
 )]
 
-use handler::{DbRequest};
-mod handler;
 mod data_access;
+mod handler;
+use handler::DbRequest;
 
 #[tauri::command]
-fn send_db_request(request: DbRequest) -> Result<String, String> {
-  match handler::handle_request(request) {
+fn send_db_request(request: DbRequest, db_path: String) -> Result<String, String> {
+  match handler::handle_request(request, db_path) {
     Ok(serialized_data) => Ok(serialized_data),
     Err(error) => Err(error.to_string()),
   }

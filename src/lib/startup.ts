@@ -7,7 +7,7 @@ import type {
 	RecurringExpense
 } from '$lib/types';
 import { formatDate, removeDays } from './utils/dates';
-import { getLastOpenedDate, updateLastOpenedDate } from './services/applicationService';
+import { getAppData, updateLastOpenedDate } from './services/applicationService';
 import {
 	deleteNotification,
 	getNotifications,
@@ -15,10 +15,15 @@ import {
 } from './services/notificationService';
 import { getRecurringExpenses } from './services/recurringExpenseService';
 import { saveTransaction } from './services/transactionService';
-import { notifications } from './stores';
+import { categories, notifications } from './stores';
+import { readUserPreferences } from './services/preferencesService';
+import { getCategories } from './services/categoryService';
 
-export async function handleStartup(categories: Category[]): Promise<void> {
-	const lastOpened = new Date(await getLastOpenedDate());
+export async function handleStartup(): Promise<void> {
+	await readUserPreferences();
+
+	const appData = await getAppData();
+	const lastOpened = new Date(appData.lastOpened);
 	const today = new Date();
 
 	if (
@@ -28,7 +33,9 @@ export async function handleStartup(categories: Category[]): Promise<void> {
 	)
 		return;
 
-	await processRecurringExpenses(categories, lastOpened);
+	const cats = await getCategories(new Date().getFullYear());
+	categories.set(cats);
+	await processRecurringExpenses(cats, lastOpened);
 	await processNotifications();
 	await updateLastOpenedDate(formatDate(new Date()));
 }

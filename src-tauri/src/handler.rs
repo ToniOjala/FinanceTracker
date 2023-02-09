@@ -1,6 +1,6 @@
-use std::error::Error;
 use rusqlite::Connection;
 use serde::{Deserialize, Serialize};
+use std::error::Error;
 
 use application::handle_application_request;
 use balance_log::handle_balancelog_request;
@@ -24,11 +24,11 @@ mod transaction;
 pub struct DbRequest {
   table: String,
   route: String,
-  data: Option<String>
+  data: Option<String>,
 }
 
-pub fn handle_request(request: DbRequest) -> Result<String, Box<dyn Error>> {
-  let db = Connection::open("../db/testdb.db").expect("Not able to open database");
+pub fn handle_request(request: DbRequest, db_path: String) -> Result<String, Box<dyn Error>> {
+  let db = Connection::open(db_path).expect("Not able to open database");
   let result = match request.table.as_str() {
     "application" => handle_application_request(&db, request),
     "balanceLogs" => handle_balancelog_request(&db, request),
@@ -41,6 +41,7 @@ pub fn handle_request(request: DbRequest) -> Result<String, Box<dyn Error>> {
     _ => panic!("Error: table '{}' does not exist.", request.table),
   };
 
-  db.close().expect("Error while trying to close database connection");
+  db.close()
+    .expect("Error while trying to close database connection");
   result
 }

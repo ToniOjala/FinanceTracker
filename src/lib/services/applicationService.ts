@@ -3,9 +3,9 @@ import { sendDbRequest } from './dbService';
 
 const table = 'application';
 
-export async function getLastOpenedDate(): Promise<string> {
+export async function getAppData(): Promise<ApplicationData> {
 	const appData = await sendDbRequest<ApplicationData>(table, 'read');
-	return appData.lastOpened;
+	return appData;
 }
 
 export async function updateLastOpenedDate(date: string): Promise<void> {
