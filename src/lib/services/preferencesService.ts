@@ -1,5 +1,4 @@
-import { appDataDir, join } from '@tauri-apps/api/path';
-import { createDir, exists, readTextFile, writeTextFile } from '@tauri-apps/api/fs';
+import { BaseDirectory, createDir, exists, readTextFile, writeTextFile } from '@tauri-apps/api/fs';
 import { userPreferences } from '$lib/stores';
 import type { UserPreferences } from '$lib/types';
 
@@ -8,25 +7,22 @@ const defaults: UserPreferences = {
 };
 
 export async function readUserPreferences(): Promise<void> {
-	if (typeof window === 'undefined') return;
-	const path = await join(await appDataDir(), 'preferences.json');
-	const pathExists = await exists(path);
-	if (!pathExists) writeDefaultPreferences(path);
+	const pathExists = await exists('preferences.json', { dir: BaseDirectory.AppData });
+	if (!pathExists) await writeDefaultPreferences();
 
-	const preferencesData = await readTextFile(path);
+	const preferencesData = await readTextFile('preferences.json', { dir: BaseDirectory.AppData });
 	userPreferences.set(JSON.parse(preferencesData));
 }
 
 export async function updateUserPreferences(preferences: UserPreferences): Promise<void> {
-	if (typeof window === 'undefined') return;
-	const path = await join(await appDataDir(), 'preferences.json');
-	await writeTextFile(path, JSON.stringify(preferences));
+	await writeTextFile('preferences.json', JSON.stringify(preferences), {
+		dir: BaseDirectory.AppData
+	});
 	userPreferences.set(preferences);
 }
 
-async function writeDefaultPreferences(path: string): Promise<void> {
-	if (typeof window === 'undefined') return;
-	await createDir(await appDataDir());
-	await writeTextFile(path, JSON.stringify(defaults));
+async function writeDefaultPreferences(): Promise<void> {
+	await createDir('', { dir: BaseDirectory.AppData, recursive: true });
+	await writeTextFile('preferences.json', JSON.stringify(defaults), { dir: BaseDirectory.AppData });
 	userPreferences.set(defaults);
 }
