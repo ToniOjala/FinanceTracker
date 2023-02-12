@@ -1,23 +1,27 @@
 <script lang="ts">
 	import Header from '$lib/components/header/index.svelte';
 	import SideNav from '$lib/components/SideNav.svelte';
+	import PageTransition from '$lib/components/PageTransition.svelte';
 	import '../app.css';
+	import type { LayoutData } from './$types';
+
+	export let data: LayoutData;
 </script>
 
 <Header />
 <SideNav />
 
-<main>
-	<slot />
-</main>
+<PageTransition path={data.path}>
+	<main>
+		<slot />
+	</main>
+</PageTransition>
 
 <style>
-	main {
+	:global(body) {
 		background: linear-gradient(133deg, rgba(36, 42, 67, 1) 0%, rgba(27, 32, 52, 1) 100%);
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+	}
+	main {
 		padding: 1rem 2rem;
 		width: calc(100% - 80px);
 		height: calc(100vh - 48px);
